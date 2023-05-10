@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>MySpace</title>
+    <link rel="stylesheet" href="style_site.css">
+</head>
+
+
+
+
+<body id="background">
+
+
+
+    <div id="galaxy" onclick="hideOption()">
+
+
+    </div>
+
+
+    <div class="create hidden" id="starMenu">
+        <label for="starName">Entrer le nom de l'étoile:</label>
+        <input type="text" name="starName" id="starName">
+        <label for="starDesc">Description</label>
+        <textarea type="text" name="starDesc" id="starDesc" rows="4" cols="50"></textarea>
+        <button onclick="addStar()">Créer!</button>
+    </div>
+
+    <div id="menu">
+        <button class="options" id="circle" onclick="showOption()" > o </button>
+        <div class= "dropUp">
+            <button class="options hidden"> ajouter </button>
+            <div class="dropUp-content">
+                <button class="options" onclick="openStarGui()"> etoile </button>
+                <button class="options"> galaxie </button>
+            </div>
+
+        </div>
+        <button class= "options hidden" onclick=""> chat </button>
+        <button class= "options hidden" onclick=""> param</button>
+    </div>
+
+    <script src="/back/test.js"></script>
+</body>
+</html>

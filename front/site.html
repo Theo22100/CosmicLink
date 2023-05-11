@@ -11,34 +11,38 @@
 
 <body id="background">
 
-
+    <div id="star-option" class="hidden">
+        <div class="option" id="edit" onclick="showEdit()"> Edit</div>
+        <div class="option" id="move" onclick="moveStar()"> Move</div>
+        <div class="option" id="link"> Link</div>
+    </div>
 
     <div id="galaxy" onclick="hideOption()">
-
-
     </div>
 
 
+
     <div class="create hidden" id="starMenu">
-        <label for="starName">Entrer le nom de l'étoile:</label>
+        <label for="starName">Star Name:</label>
         <input type="text" name="starName" id="starName">
         <label for="starDesc">Description</label>
-        <textarea type="text" name="starDesc" id="starDesc" rows="4" cols="50"></textarea>
-        <button onclick="addStar()">Créer!</button>
+        <textarea name="starDesc" id="starDesc" rows="4" cols="50"></textarea>
+        <button onclick="star()">Done</button>
     </div>
 
     <div id="menu">
         <button class="options" id="circle" onclick="showOption()" > o </button>
         <div class= "dropUp">
-            <button class="options hidden"> ajouter </button>
+            <button class="options hidden"> Add </button>
             <div class="dropUp-content">
-                <button class="options" onclick="openStarGui()"> etoile </button>
-                <button class="options"> galaxie </button>
+                <button class="options" onclick="openStarGui()"> Star </button>
+                <button class="options"> Galaxy </button>
             </div>
 
         </div>
-        <button class= "options hidden" onclick=""> chat </button>
-        <button class= "options hidden" onclick=""> param</button>
+        <button class= "options hidden" onclick=""> Chat </button>
+        <button class= "options hidden" onclick=""> Param </button>
+        <button class= "options hidden" id="done" onclick="confirm()"> Done </button>
     </div>
 
     <script src="/back/test.js"></script>

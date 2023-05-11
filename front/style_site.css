@@ -13,6 +13,7 @@
     position: absolute;
     width: 100%;
     height: 100%;
+    overflow: hidden;
 }
 
 #menu{
@@ -49,6 +50,7 @@
     min-width: 160px;
     box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
     z-index: 1;
+
 }
 
 .dropUp-content button {
@@ -65,17 +67,18 @@
     color: aliceblue;
     font-size: 1em;
     cursor: pointer;
-    font-family: Georgia;
 }
 
 .starDiv:hover > .starInfo{
     display: flex;
+    flex-direction: column;
+    padding: 5px 5px;
 }
 
 .starInfo{
     display: none;
     position:absolute;
-    bottom: 50px;
+    bottom: 30px;
     border-radius: 5px;
     background-color: grey;
     z-index: 1;
@@ -83,8 +86,19 @@
 .starInfo > p{
     color: black;
     display: block;
-    padding: 12px 16px;
+    /*padding: 5px 6px;*/
     text-decoration: none;
+    margin-bottom: 5px;
+    margin-top:5px;
+
+}
+
+.starName{
+    text-align: center;
+    font-weight: bold;
+}
+
+.starDesc{
 
 }
 
@@ -106,7 +120,25 @@
 }
 
 
+#star-option{
+    position:fixed;
+    z-index: 1000;
+    width:150px;
+    background: #1b1a1a;
+    border-radius: 5px;
+}
 
+#star-option .option {
+    padding: 8px 10px;
+    font-size: 15px;
+    color: #eeeeee;
+    cursor: pointer;
+    border-radius: inherit;
+}
+
+#star-option .option:hover{
+    background: #343434;
+}
 
 
 

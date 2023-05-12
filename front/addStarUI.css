@@ -1,0 +1,103 @@
+*{
+    font-family: "Abyssinica SIL",serif;
+}
+
+body{
+    background-color: black;
+}
+
+svg.icon:hover{
+    z-index: 1002;
+    transform: scale(1.1);
+}
+
+svg.icon {
+    z-index: 1002;
+    width: 24px;
+    height: 24px;
+    pointer-events: auto;
+    position: relative;
+    left: -15px;
+    top: -8px;
+}
+svg.icon > rect {
+    color: white;
+}
+.ui{
+    position: absolute;
+    left:50%;
+    top:50%;
+    transform: translate(-50%, -50%);
+    display: flex;
+    flex-direction: row-reverse;
+}
+
+.create{
+    background-color: #424048;
+    opacity: 70%;
+    box-shadow: 0 0 20px 0px  #e4e1ea;
+    border-radius: 10px;
+    padding:10px;
+    display: flex;
+    flex-direction: column;
+    z-index: 1000;
+}
+
+.create  p {
+    color: mintcream;
+    font-weight: bold;
+    font-size: 1.5em;
+}
+
+.create > div {
+    background-color:  #342f41;
+    margin: -10px -10px 10px -10px;
+    border-radius: 10px 10px 0px 0px;
+    text-align: center;
+}
+
+
+.create > label {
+    color: white;
+    position: relative;
+    left: 25px;
+    margin-bottom: 5px;
+}
+
+.create >input:focus{
+    border: transparent;
+    outline: cadetblue solid 2px;
+}
+.create > input{
+    margin-bottom: 10px;
+    border-radius: 5px;
+    border:transparent;
+    outline:none;
+    padding: 5px;
+    width: 75%;
+    align-self: center;
+}
+
+.create > textarea{
+    resize:none;
+    margin-bottom: 15px;
+    border-radius: 5px;
+    border:transparent;
+}
+
+.create > textarea:focus{
+    border: transparent;
+    outline: cadetblue solid 2px;
+}
+
+.create > button{
+    width: 30%;
+    align-self: center;
+    border-radius: 50px;
+    border: 0px;
+    font-weight: bold;
+}
+
+.hidden{
+    display: none;
+}

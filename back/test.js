@@ -31,13 +31,15 @@ function hideOption(){
     closeStarOptionsList();
     hideEdit();
 }
-const gui = document.getElementById("starMenu");
+const gui = document.getElementById("ui");
 
 function openStarGui(){
     edit = false;
     gui.classList.remove("hidden");
 }
 function closeStarGui(){
+    document.getElementById("starName").value = "";
+    document.getElementById("starDesc").value = "";
     gui.classList.add("hidden");
 }
 
@@ -53,12 +55,7 @@ function addStar(){
 
     const newStar = document.createElement("img");
     newStar.classList.add("star");
-    switch (getRandomInt(3)){
-        case 0: newStar.src = "/rsc/etoile1.png"; break;
-        case 1: newStar.src = "/rsc/etoile2.png"; break;
-        case 2: newStar.src = "/rsc/etoile3.png"; break;
-        default: newStar.src = "/rsc/etoile1.png";
-    }
+    newStar.src = "/rsc/etoile.png";
 
     switch (getRandomInt(3)){
         case 0: newStar.classList.add("red"); break;
@@ -67,7 +64,7 @@ function addStar(){
         default: newStar.classList.add("white");
     }
 
-    newStar.style.width = (10 + getRandomInt(10) ).toString() + "px";
+    newStar.style.width = (20 + getRandomInt(30) ).toString() + "px";
     newStar.style.height = "auto";
 
 
@@ -81,9 +78,6 @@ function addStar(){
 
     const starName = document.getElementById("starName").value;
     const starDesc = document.getElementById("starDesc").value;
-
-    document.getElementById("starName").value = "";
-    document.getElementById("starDesc").value = "";
 
     name.textContent = starName;
     name.classList.add("starName");
@@ -277,6 +271,8 @@ const ZOOM_SPEED = 0.1;
 document.getElementById("galaxy").addEventListener("wheel", (event)=>{
     event.preventDefault();
     let zoomIn = false;
+    if (zoom >= 5 && event.deltaY < 0) return;
+    if(zoom <= 0 && event.deltaY >=0) return;
     if(event.deltaY < 0){ //si molette vers l'avant dézoom
         zoom += ZOOM_SPEED;
         zoomIn = true
@@ -285,6 +281,8 @@ document.getElementById("galaxy").addEventListener("wheel", (event)=>{
         zoom -= ZOOM_SPEED;
     }
 
+    console.log("zoom value: " + zoom)
+
     const mouseX = event.clientX;
     const mouseY = event.clientY;
     zoomInOut(mouseX, mouseY, zoomIn)
@@ -292,9 +290,6 @@ document.getElementById("galaxy").addEventListener("wheel", (event)=>{
 
 function zoomInOut(originx, originy, zoomIn){
     const starList = document.getElementById("galaxy").getElementsByClassName("starDiv");
-    // galaxy.style.transform = "scale("+ strength.toString() + ")";
-    // galaxy.style.width = "100%";
-    // galaxy.style.height = "100%";
 
     for(let i = 0; i < starList.length; i++){ //itére dans tout les enfants
         const child = starList.item(i);

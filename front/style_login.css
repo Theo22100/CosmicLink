@@ -1,0 +1,23 @@
+body {
+    background-image: url("../rsc/galaxy-bg.jpg");
+    background-size: cover;
+}
+
+.main {
+    position: absolute;
+    left: 50%;
+    top : 50%;
+    transform: translate(-50%,-50%);
+    background-color: rgba(0,0,0,0.5);
+    border-radius: 15px;
+    width: 40%;
+    padding: 2%;
+}
+
+.main * {
+    color: white;
+}
+
+.main input {
+    color: black;
+}

@@ -55,7 +55,7 @@ function addStar(){
 
     const newStar = document.createElement("img");
     newStar.classList.add("star");
-    newStar.src = "/rsc/etoile.png";
+    newStar.src = "../rsc/etoile.png";
 
     switch (getRandomInt(3)){
         case 0: newStar.classList.add("red"); break;

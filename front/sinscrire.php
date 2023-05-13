@@ -1,10 +1,12 @@
 
 
-
+<!DOCTYPE html>
 <html>
 	<head>
 		<title>Inscription MySpace</title>
 		<meta charset=”utf-8″>
+		<link rel="stylesheet" href="style_login.css">
+
 	</head>
 	<body>
 		<div class="main">
@@ -29,6 +31,7 @@
 
 
 				<form method="POST" action="sinscrire2.php">
+					<h1> Registration </h1>
 					<div class="register-top-grid">
 						<h3>Vos informations</h3>
 
@@ -53,19 +56,21 @@
 							<input type = "date" name = "datenaissance" id = "datenaissance" required="required"> 
 						</div>
 
-						<div>
-							<span>Email<label>*</label></span>
-							<input type = "text" name = "mail" id = "mail" required="required"> 
-						</div>
-
+						
 						
 
 						<div class="clear"> </div>
 						
 						</div>
+					
 
 						<div class="register-bottom-grid">
 							<h3>Pour vous authentifier</h3>
+							<div>
+								<span>Email<label>*</label></span>
+								<input type = "text" name = "mail" id = "mail" required="required"> 
+							</div>
+
 							<div>
 								<span>Mot de Passe<label>*</label></span>
 								<input type="password" name="password" id="password" placeholder="eR8!z6$" required="required">
@@ -87,6 +92,7 @@
 				</form>
 
 				<div class="clear"> </div>
+				<p>You already have an account ? <a class="acount-btn" href="login.php">Login here !</a></p>
 
 			</div>
 

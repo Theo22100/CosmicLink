@@ -1,42 +1,44 @@
-<html>
+<!DOCTYPE html>
+<html lang="en">
 	<head>
 		<meta charset=”utf-8″>
+		<link rel="stylesheet" href="style_login.css">
 	</head>
 	<body>
 		<!-- debut de la partie contenu -->
 		<div class="main">
-
-				<div class="register">
-					<div class="col_1_of_list span_1_of_list login-left">
-						<h3>Nouveau membre</h3>
-						<p>En créant un compte, vous pourrez créer des annonces</p>
-						<a class="acount-btn" href="sinscrire.php">Créer un compte</a>
-					
+					<div class="welcome">
+						<h1> Welcome to Starlink ! </h1>
+						<p> Blabla you're a whole universe and you can meet others like you ! </p>
 					</div>
-					<div class="col_1_of_list span_1_of_list login-right">
-						<h3>Déja membre ?</h3>
-						<p>Si vous avez déja un compte, merci de vous connecter</p>
+					<div class="login">
+						<h3>Already have your universe ?</h3>
 						<?php
 							if ($_GET["message"]=="echoue"){
 									echo '<h2 style="color:red;">Votre mail ou mot de passe n\'est pas reconnu !</h2>';
 								}
 						?>
-						<form method="POST" action="login1.php">
+						<form method="POST" action="site.html">
 							<div>
-								<span>Adresse email<label>*</label></span>
+								<span>E-mail address<label>*</label></span>
 								<input type="text" name = "mail" id = "mail" required="required"> 
 							</div>
 							<div>
-								<span>Mot de passe<label>*</label></span>
+								<span>Password<label>*</label></span>
 								<input type="password" name="password" id="password" required="required"> 
 							</div>
-							<a class="forgot" href="#">Mot de passe oublié</a>
 							<input type="submit" value="Login">
+							<a class="forgot" href="#">Forgot your password?</a>
+							
 						</form>
 					</div>	
+					<div class="register">
+						<h3>Ready to add to the mutliverse ?</h3>
+						<p><a class="acount-btn" href="sinscrire.php">Register here</a> to create your own universe now !</p>
+					
+					</div>
+					
 					<div class="clearfix"> </div>
-				
-			</div>
 		<div class="clear"></div>
 		</div><!-- fin de la partie contenu -->
 	</body>

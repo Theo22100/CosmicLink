@@ -1,4 +1,4 @@
-# SuperProjetFinDannée
+# CosmicLink
 
 ##But du projet
 

@@ -12,6 +12,7 @@ Si l'utilisateur le souhaite, il peut se connecter à d'autres personnes qui par
 ## Fonctionnalités futures :
 - ajouter une galaxie
 - lier les étoiles à une galaxie
+- créer des constellations (liens) entre étoiles
 - création d'un compte, connexion, accès à son unviers personnel
 - sauvegarde de l'univers pour chaque utilisateur
 - possibilité de mettre une partie ou tout l'univers en privé ou public
@@ -35,6 +36,8 @@ Si l'utilisateur le souhaite, il peut se connecter à d'autres personnes qui par
 
 ## Contexte du projet : 
 (étude de l'existant, de l’état de l’art, de la concurrence, etc.)
+Actuellement, réseaux sociaux ne permettent réellement de trouver des personnes similaires, seulement des personnes ayant UN intérêt commun. De nombreux réseaux se servent également d'algorithmes basés sur l'activité et autres informations (pas donnés directement par l'utilisateur) pour "forcer" certains contenus plus que d'autres. 
+Sur notre site, les liens entre utilisateurs seront créés seulement à partir des données entrées par l'utilisateurs et définies comme publiques, lui donnant donc un contrôle complet. 
 
 
 ## Screencast : 

@@ -3,7 +3,7 @@
 }
 #background {
     /*background-color: black;*/
-    background-image: url("../rsc/galaxy-bg-flou.jpg");
+    background-image: url("../img/galaxy-bg-flou.jpg");
     background-size: cover;
     height: 100%;
     width: 100%;
@@ -161,6 +161,10 @@
 #circle:hover{
     transform: scale(1.2);
     border-color: cornflowerblue;
+}
+
+#origin{
+    position: fixed;
 }
 
 .hidden{

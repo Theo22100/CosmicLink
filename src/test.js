@@ -2,8 +2,6 @@ window.oncontextmenu = (e) => {
     e.preventDefault();
 }
 
-
-
 function getRandomInt(max) {
     return Math.floor(Math.random() * max);
 }
@@ -55,7 +53,7 @@ function addStar(){
 
     const newStar = document.createElement("img");
     newStar.classList.add("star");
-    newStar.src = "../rsc/etoile.png";
+    newStar.src = "../img/etoile.png";
 
     switch (getRandomInt(3)){
         case 0: newStar.classList.add("red"); break;
@@ -169,8 +167,6 @@ function editStar(){
  * DRAGGABLE PART
  */
 
-
-
 function dragElement(element) {
     let pos1 = 0, pos2 = 0, pos3 = 0, pos4 = 0;
 
@@ -216,10 +212,15 @@ function dragElement(element) {
 }
 
 
+//DEPLACEMENT DANS L'ESPACE !
+
+const GALAXY = document.getElementById("galaxy")
+const origin = document.getElementById("origin");
+
 /**
  * Movable in space
  */
-moveSpace(document.getElementById("galaxy"));
+moveSpace(GALAXY);
 
 function moveSpace(element) {
     let pos1 = 0, pos2 = 0, pos3 = 0, pos4 = 0;
@@ -268,41 +269,52 @@ function moveSpace(element) {
 let zoom = 1;
 const ZOOM_SPEED = 0.1;
 
-document.getElementById("galaxy").addEventListener("wheel", (event)=>{
+GALAXY.addEventListener("wheel", (event)=>{
     event.preventDefault();
-    let zoomIn = false;
-    if (zoom >= 5 && event.deltaY < 0) return;
-    if(zoom <= 0 && event.deltaY >=0) return;
-    if(event.deltaY < 0){ //si molette vers l'avant dézoom
-        zoom += ZOOM_SPEED;
-        zoomIn = true
+    // let zoomIn = false;
+    // if (zoom >= 5 && event.deltaY < 0) return;
+    // if(zoom <= 0 && event.deltaY >=0) return;
+    if(event.deltaY < 0){ //si molette vers l'avant zoom
+        zoom *= 1.1;
+        // zoomIn = true
     }
     else {
-        zoom -= ZOOM_SPEED;
+        zoom /= 1.1;
     }
 
     console.log("zoom value: " + zoom)
 
     const mouseX = event.clientX;
     const mouseY = event.clientY;
-    zoomInOut(mouseX, mouseY, zoomIn)
+
+
+
+    const translateX = (mouseX - GALAXY.offsetLeft) * (1 - zoom);
+    const translateY = (mouseY - GALAXY.offsetTop) * (1 - zoom);
+
+
+    zoomInOut(translateX, mouseY)
 })
 
-function zoomInOut(originX, originY, zoomIn){
-    const starList = document.getElementById("galaxy").getElementsByClassName("starDiv");
+function zoomInOut(translateX, translateY){
+    const starList = GALAXY.getElementsByClassName("starDiv");
 
-    let zoomPower = ZOOM_SPEED;
-    if (!zoomIn){
-        zoomPower = -ZOOM_SPEED;
-    }
+    // let zoomPower = ZOOM_SPEED;
+    // if (!zoomIn){
+    //     zoomPower = -ZOOM_SPEED;
+    // }
+    origin.style.transform = `translate(${translateX}px, ${translateY}px)`;
 
+    // zoomCoordinates(zoomPower, origin, translateX, translateY);
     for(let i = 0; i < starList.length; i++){ //itére dans tout les enfants
         const child = starList.item(i);
 
         //augmente / diminue la taille de l'étoile
-        child.getElementsByClassName("star")[0].style.transform = "scale("+ zoom.toString() + ")";
+        child.style.transform = `translate(${translateX}px, ${translateY}px)`;
 
-        zoomCoordinates(zoomPower, child, originX, originY);
+        child.getElementsByClassName("star")[0].style.transform = `scale(${zoom})`;
+
+        // zoomCoordinates(zoomPower, child, originX, originY);
     }
 }
 
@@ -324,8 +336,23 @@ function zoomCoordinates(zoom, element, originX, originY){
 }
 
 
+
+
+
+
+
+
 function distance2Point(p1, p2){
     return Math.sqrt( (p2-p1)*(p2-p1))
+}
+
+function debugdist(){
+    const starList = document.getElementById("galaxy").getElementsByClassName("starDiv");
+    const star1 = starList.item(0);
+
+    console.log("distance x: " + distance2Point(origin.offsetLeft, star1.offsetLeft));
+    console.log("distance y: " + distance2Point(origin.offsetTop, star1.offsetTop));
+
 }
 
 function debug(nb){

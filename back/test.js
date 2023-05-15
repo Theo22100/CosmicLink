@@ -288,39 +288,39 @@ document.getElementById("galaxy").addEventListener("wheel", (event)=>{
     zoomInOut(mouseX, mouseY, zoomIn)
 })
 
-function zoomInOut(originx, originy, zoomIn){
+function zoomInOut(originX, originY, zoomIn){
     const starList = document.getElementById("galaxy").getElementsByClassName("starDiv");
+
+    let zoomPower = ZOOM_SPEED;
+    if (!zoomIn){
+        zoomPower = -ZOOM_SPEED;
+    }
 
     for(let i = 0; i < starList.length; i++){ //itére dans tout les enfants
         const child = starList.item(i);
 
-
         //augmente / diminue la taille de l'étoile
         child.getElementsByClassName("star")[0].style.transform = "scale("+ zoom.toString() + ")";
 
-
-        //calcule de la distance a changer
-
-        let zoomPower = ZOOM_SPEED;
-        if (!zoomIn){
-            zoomPower = -ZOOM_SPEED;
-        }
-
-        let pos2 = distance2Point(originx, child.offsetLeft) * zoomPower;
-        let pos3 = distance2Point(originy, child.offsetTop) * zoomPower ;
-        if (originx < child.offsetLeft) { //MARCHE PAS JE SAIS PAS CE QUE CA FAIT!!!
-            pos2 = - pos2;
-        }
-        if (originy < child.offsetTop ) {
-            pos3 = - pos3;
-        }
-
-
-        //reactualise la taille de l'étoile
-        child.style.top = (child.offsetTop - pos3) + "px";
-        child.style.left = (child.offsetLeft - pos2) + "px";
-
+        zoomCoordinates(zoomPower, child, originX, originY);
     }
+}
+
+
+function zoomCoordinates(zoom, element, originX, originY){
+    //calcule de la distance a changer
+    let pos2 = distance2Point(originX, element.offsetLeft) * zoom;
+    let pos3 = distance2Point(originY, element.offsetTop) * zoom ;
+    if (originX < element.offsetLeft) { //MARCHE PAS JE SAIS PAS CE QUE CA FAIT!!!
+        pos2 = - pos2;
+    }
+    if (originY < element.offsetTop ) {
+        pos3 = - pos3;
+    }
+
+    //reactualise la taille de l'étoile
+    element.style.top = (element.offsetTop - pos3) + "px";
+    element.style.left = (element.offsetLeft - pos2) + "px";
 }
 
 

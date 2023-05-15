@@ -21,11 +21,11 @@
 						<form method="POST" action="site.html">
 							<div>
 								<span>E-mail address<label>*</label></span>
-								<input type="text" name = "mail" id = "mail" required="required"> 
+								<input type="text" name = "mail" id = "mail" required="required"  maxlength="60"> 
 							</div>
 							<div>
 								<span>Password<label>*</label></span>
-								<input type="password" name="password" id="password" required="required"> 
+								<input type="password" name="password" id="password" required="required"  maxlength="50"> 
 							</div>
 							<input type="submit" value="Login">
 							<a class="forgot" href="#">Forgot your password?</a>

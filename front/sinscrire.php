@@ -37,18 +37,18 @@
 
 						<div>
 							<span>Pseudonyme<label>*</label></span>
-							<input type = "text" name = "pseudo" id = "pseudo" required="required"> 
+							<input type = "text" name = "pseudo" id = "pseudo" required="required" maxlength="30"> 
 						</div>
 
 						<div>
 							<span>Prénom<label>*</label></span>
-							<input type = "text" name = "prenom" id = "prenom" required="required">
+							<input type = "text" name = "prenom" id = "prenom" required="required" maxlength="30">
 						</div>
 
 
 						<div>
 							<span>Nom<label>*</label></span>
-							<input type = "text" name = "nom" id = "nom" required="required"> 
+							<input type = "text" name = "nom" id = "nom" required="required" maxlength="30"> 
 						</div>
 
 						<div>
@@ -68,17 +68,17 @@
 							<h3>Pour vous authentifier</h3>
 							<div>
 								<span>Email<label>*</label></span>
-								<input type = "text" name = "mail" id = "mail" required="required"> 
+								<input type = "text" name = "mail" id = "mail" required="required" maxlength="60"> 
 							</div>
 
 							<div>
 								<span>Mot de Passe<label>*</label></span>
-								<input type="password" name="password" id="password" placeholder="eR8!z6$" required="required">
+								<input type="password" name="password" id="password" placeholder="eR8!z6$" required="required" maxlength="50">
 							</div>
 
 							<div>
 								<span>Retapez votre Mot de Passe<label>*</label></span>
-								<input type="password" name="confirm_password" id="confirm_password" placeholder="eR8!z6$" required="required">
+								<input type="password" name="confirm_password" id="confirm_password" placeholder="eR8!z6$" required="required" maxlength="50">
 							</div>
 
 							<div class="register-but">

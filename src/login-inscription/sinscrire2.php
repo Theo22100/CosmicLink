@@ -1,7 +1,7 @@
 <?php
 
 $compteMail = $comptePseudo = "";
-$id = $pseudo = $prenom = $datenaissance = $dateinscription = $nom = $mail = $password = $rang = "";
+$id = $pseudo = $prenom = $datenaissance = $dateinscription = $nom = $mail = $password = "";
 
 $servername = "localhost";
 $username = "root";
@@ -85,8 +85,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             }
             else{
                 try {
-                    $requete2 = $connexion->prepare("INSERT INTO membre (id,pseudo,prenom,nom,datenaissance,dateinscription,mail,password,rang) VALUES (:id, :pseudo, :prenom, :nom, :datenaissance, :dateinscription, :mail, :password, :rang)");
-                   
+                    $requete2 = $connexion->prepare("INSERT INTO membre (id,pseudo,prenom,nom,datenaissance,dateinscription,mail,password,login) VALUES (:id, :pseudo, :prenom, :nom, :datenaissance, :dateinscription, :mail ,:password, :login)");
+
 
                     $id = $connexion-> lastInsertId() ;
                     $pseudo = clean($_POST["pseudo"]);
@@ -95,9 +95,10 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                     $datenaissance = $_POST["datenaissance"];
                     $dateinscription = date('Y-m-d');
                     $mail = $_POST["mail"];
+                    $login = "0";
                     
                     $password = password_hash($_POST["password"], PASSWORD_DEFAULT);
-                    $login = true;
+
 
                     $requete2->bindParam(':id', $id);
                     $requete2->bindParam(':pseudo', $pseudo);
@@ -108,6 +109,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                     $requete2->bindParam(':mail', $mail);
                     $requete2->bindParam(':password', $password);
                     $requete2->bindParam(':login', $login);
+
 
                     $requete2->execute();
 

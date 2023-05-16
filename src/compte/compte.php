@@ -1,6 +1,6 @@
 <?php
 session_start();
-if ($_SESSION['rang'] != "0") {
+if (!isset($_SESSION['login'])) {
 	header('Location: ../login.php');
 }
 ?>
@@ -37,9 +37,17 @@ if ($_SESSION['rang'] != "0") {
 				echo '<h2 style="color:red;">Erreur avec le nom saisi !</h2>';
 			} else if ($_GET["message"] == "nomreussi") {
 				echo '<h2 style="color:green;">Nom changé !</h2>';
+			}  else if ($_GET["message"] == "deletemdp") {
+				echo '<h2 style="color:red;">Suppression Compte : Mot de passe incorrect</h2>';
 			} 
+
+			if ($_SESSION['role'] == "A") {
+				echo '<a href="../admin/index.php">Panel admin</a>';
+			}
 			?>
 
+			
+			
 			<!-- Modifier nom -->
 
 			<div class="clear"> </div>
@@ -125,20 +133,21 @@ if ($_SESSION['rang'] != "0") {
 
 				</div>
 			</form>
+			<!-- Modifier mdp -->
+			<form method="POST" action="deleteaccount.php" onsubmit="return confirm('Êtes-vous sûr de vouloir supprimer votre compte ? Cette action est irréversible.')">
+				<div class="register-bottom-grid">
+					<h3>Supprimer votre compte</h3>
+					<div>
+						<span>Mot de Passe actuel</span>
+						<input type="password" name="password" id="password" required="required" maxlength="50">
+					</div>
+					<div class="register-but">
+						<input type="submit" name="envoyermdp" value="Supprimer votre Compte">
+					</div>
+
+				</div>
+			</form>
 		</div>
 		<br>
-		<?php
-			if ($_SESSION['rang']!="0") {
-				echo ("<li><a href='sinscrire.php'>S'enregistrer</a></li>");
-				echo ("<li><a href='login.php'>Se connecter</a></li>");
-			} else {
-				echo ('<li><a href="deconnexion.php">Se déconnecter</a></li>');
-				echo ('<li><a href="compte.php">Mon compte</a></li>');
-			}
-		?>
-
-
-
-
 
 </body>

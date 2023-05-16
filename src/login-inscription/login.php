@@ -18,7 +18,7 @@
 									echo '<h2 style="color:red;">Votre mail ou mot de passe n\'est pas reconnu !</h2>';
 								}
 						?>
-						<form method="POST" action="site.html">
+						<form method="POST" action="login1.php">
 							<div>
 								<span>E-mail address<label>*</label></span>
 								<input type="text" name = "mail" id = "mail" required="required"  maxlength="60"> 

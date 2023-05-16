@@ -2,12 +2,17 @@
 
 <?php
 session_start();
-if (!isset($_SESSION['login'])) {
+if (!isset($_SESSION['login']) && $_SESSION['role'] != "A") {
     header('Location: ../login-inscription/login.php');
 }
 
+
+
+
 $prenom = $_POST["prenom"];
-$_SESSION['prenom']=$prenom;
+$id_modif=$_GET["num"];
+
+
 
 $servername = "localhost";
 $username = "root";
@@ -23,9 +28,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             $stmt = $conn -> prepare("
                                     UPDATE membre 
                                     SET prenom = '$prenom' 
-                                    WHERE id = '$_SESSION[id]';'");
+                                    WHERE id = '$id_modif';'");
             
-
 
 
 
@@ -35,11 +39,13 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
         }
         catch (PDOException $e){
-            echo 'Echec Ajout: ' .$e->getMessage();
-            header("Location: compte.php?message=prenomechoue");
+            echo 'Modification Echec: ' .$e->getMessage();
+            $url="user_modifier.php?message=modifechec&id=$id_modif";
+            header("Location: $url");
         }
-        header("Location: compte.php?message=prenomreussi");
-}
+        $url= "user_modifier.php?message=modifreussie&id=$id_modif";
+        header("Location: $url");
+    }
 
 
 $conn = null;

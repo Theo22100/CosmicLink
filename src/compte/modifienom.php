@@ -2,8 +2,8 @@
 
 <?php
 session_start();
-if ($_SESSION['rang']!="0"){
-    header('Location: ../login.php'); //changer location
+if (!isset($_SESSION['login'])) {
+    header('Location: ../login-inscription/login.php');
 }
 
 $nom = $_POST["nom"];

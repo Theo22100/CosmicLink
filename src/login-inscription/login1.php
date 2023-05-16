@@ -14,7 +14,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 
         // Utilisez la requête préparée pour éviter les attaques par injection SQL
-        $sql = $conn->prepare("SELECT id, pseudo, prenom, nom, datenaissance, dateinscription, mail, password, rang FROM membre WHERE mail = :mail");
+        $sql = $conn->prepare("SELECT id, pseudo, prenom, nom, datenaissance, dateinscription, mail, role, password, login FROM membre WHERE mail = :mail");
         $sql->execute(array(':mail' => $mail));
 
         $result = $sql->fetch(PDO::FETCH_ASSOC);
@@ -28,7 +28,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             $donneesdateinscription = $result['dateinscription'];
             $donneesdatenaissance = $result['datenaissance'];
             $donneesmail = $result['mail'];
-            $donneesrang = $result['rang'];
+            $donneesrole = $result['role'];
+            $donneeslogin = $result['login'];
 
             session_start();
             $_SESSION['id'] = $donnees;
@@ -38,8 +39,9 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             $_SESSION['datenaissance'] = $donneesdatenaissance;
             $_SESSION['dateinscription'] = $donneesdateinscription;
             $_SESSION['mail'] = $donneesmail;
-            $_SESSION['rang'] = $donneesrang;
-            header("Location: home.php");
+            $_SESSION['role'] = $donneesrole;
+            $_SESSION['login'] = $donneeslogin;
+            header("Location: ../home.php");
         } else {
             // La requête est vide ou le mot de passe est incorrect
             header("Location: login.php?message=echoue");

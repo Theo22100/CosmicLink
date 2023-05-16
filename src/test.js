@@ -86,7 +86,7 @@ function addStar(){
     starInfo.appendChild(desc);
 
     starDiv.appendChild(starInfo);
-    document.getElementById('galaxy').appendChild(starDiv);
+    UNIVERS.appendChild(starDiv);
 
     starDiv.addEventListener('contextmenu', (event)=> {
         event.preventDefault();
@@ -120,6 +120,91 @@ function star(){
     else {
         addStar();
     }
+}
+
+function galaxy(){
+    if (edit){
+        editGalaxy();
+    }
+    else {
+        addGalaxy();
+    }
+}
+
+function addGalaxy(){
+    const galaxyDiv = document.createElement("div");
+    galaxyDiv.classList.add("galaxyDiv");
+    galaxyDiv.style.position = "fixed";
+    galaxyDiv.style.left = (getRandomInt(100)).toString() + "%" ;
+    galaxyDiv.style.top = (getRandomInt(90)).toString() + "%";
+
+    const newGalaxy = document.createElement("img");
+    newGalaxy.classList.add("galaxy");
+    newGalaxy.src = "../img/galaxy.png";
+
+    switch (getRandomInt(3)){
+        case 0: newGalaxy.classList.add("red"); break;
+        case 1: newGalaxy.classList.add("blue"); break;
+        case 2: newGalaxy.classList.add("yellow"); break;
+        default: newGalaxy.classList.add("white");
+    }
+
+    newGalaxy.style.width = (20 + getRandomInt(30) ).toString() + "px";
+    newGalaxy.style.height = "auto";
+
+
+    galaxyDiv.appendChild(addGalaxy);
+
+    const galaxyInfo = document.createElement("div");
+    galaxyInfo.classList.add("galaxyInfo");
+
+    const name = document.createElement("p");
+    const desc = document.createElement("p");
+
+    const galaxyName = document.getElementById("galaxyName").value;
+    const galaxyDesc = document.getElementById("galaxyDesc").value;
+
+    name.textContent = galaxyName;
+    name.classList.add("galaxyName");
+    desc.textContent = galaxyDesc;
+    name.classList.add("galaxyDesc");
+
+    galaxyInfo.appendChild(name);
+    galaxyInfo.appendChild(desc);
+
+    galaxyDiv.appendChild(galaxyInfo);
+    document.getElementById('universe').appendChild(galaxyDiv);
+
+    galaxyDiv.addEventListener('contextmenu', (event)=> {
+        event.preventDefault();
+        currentStar = galaxyDiv;
+        starOptionsList(event.clientX, event.clientY);
+    });
+    dragElement(galaxyDiv);
+    closeGalaxyGui();
+}
+
+function editGalaxy(){
+
+    const galaxyName = document.getElementById("galaxyName").value;
+    const galaxyDesc = document.getElementById("galaxyDesc").value;
+
+    const ptag = currentStar.getElementsByTagName("p");
+    ptag[0].textContent = galaxyName;
+    ptag[1].textContent = galaxyDesc;
+
+    hideEdit();
+}
+
+function openGalaxyGui(){
+    edit = false;
+    gui.classList.remove("hidden");
+}
+
+function closeGalaxyGui(){
+    document.getElementById("galaxyName").value = "";
+    document.getElementById("galaxyDesc").value = "";
+    gui.classList.add("hidden");
 }
 
 
@@ -219,13 +304,13 @@ function dragElement(element) {
 
 //DEPLACEMENT DANS L'ESPACE !
 
-const GALAXY = document.getElementById("galaxy")
+const UNIVERS = document.getElementById("univers")
 const origin = document.getElementById("origin");
 
 /**
  * Movable in space
  */
-moveSpace(GALAXY);
+moveSpace(UNIVERS);
 
 function moveSpace(element) {
     let pos1 = 0, pos2 = 0, pos3 = 0, pos4 = 0;
@@ -284,7 +369,7 @@ function moveSpace(element) {
 let zoom = 1;
 const ZOOM_SPEED = 0.1;
 
-GALAXY.addEventListener("wheel", (event)=>{
+UNIVERS.addEventListener("wheel", (event)=>{
     event.preventDefault();
     let zoomIn = false;
     let oldZoom = zoom;
@@ -316,7 +401,7 @@ GALAXY.addEventListener("wheel", (event)=>{
 })
 
 function zoomInOut(translateX, translateY, zoomIn, oldZoom){
-    const starList = GALAXY.getElementsByClassName("starDiv");
+    const starList = UNIVERS.getElementsByClassName("starDiv");
 
     // let zoomPower = ZOOM_SPEED;
     // if (!zoomIn){
@@ -357,16 +442,15 @@ function zoomCoordinates(zoom, oldZoom, zoomIn, element, originX, originY){
 
     //calcule de la distance a changer
     // zoom = distance2Point(oldZoom, zoom);
-    if (!zoomIn) zoom = 1.1;
-    else zoom = -1.1;
-    let translateX = - distance2Point(originX, elementX) * zoom;
-    let translateY = - distance2Point(originY, elementY) * zoom ;
-    if (originX < elementX) { //MARCHE PAS JE SAIS PAS CE QUE CA FAIT!!!
-        translateX = - translateX;
-    }
-    if (originY < elementY ) {
-        translateY = - translateY;
-    }
+    zoom = zoom - oldZoom;
+    let translateX = (elementX - originX ) * zoom;
+    let translateY = (elementY - originY) * zoom ;
+    // if (originX < elementX) { //MARCHE PAS JE SAIS PAS CE QUE CA FAIT!!!
+    //     translateX = - translateX;
+    // }
+    // if (originY < elementY ) {
+    //     translateY = - translateY;
+    // }
 
 
     //reactualise la taille de l'étoile
@@ -387,7 +471,7 @@ function distance2Point(p1, p2){
 }
 
 function debugdist(){
-    const starList = document.getElementById("galaxy").getElementsByClassName("starDiv");
+    const starList = UNIVERS.getElementsByClassName("starDiv");
     const star1 = starList.item(0);
 
     console.log("distance x: " + distance2Point(origin.offsetLeft, star1.offsetLeft));

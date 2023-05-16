@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Hôte : localhost
--- Généré le : lun. 15 mai 2023 à 16:45
+-- Généré le : mar. 16 mai 2023 à 11:28
 -- Version du serveur : 5.7.24
 -- Version de PHP : 7.4.1
 
@@ -76,19 +76,17 @@ CREATE TABLE `membre` (
   `dateinscription` date DEFAULT NULL,
   `password` varchar(100) NOT NULL,
   `mail` varchar(60) NOT NULL,
-  `rang` int(1) NOT NULL
+  `role` varchar(1) NOT NULL DEFAULT 'U',
+  `login` tinyint(1) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
 -- Déchargement des données de la table `membre`
 --
 
-INSERT INTO `membre` (`id`, `pseudo`, `prenom`, `nom`, `datenaissance`, `dateinscription`, `password`, `mail`, `rang`) VALUES
-(66, 'aaaa', 'aaa', 'aa', NULL, NULL, 'aaa', 'a@aaaa', 0),
-(67, 'a', 'a', 'a', NULL, NULL, 'a', 'a@a', 0),
-(68, 'aaabba', 'a', 'a', '2023-05-03', NULL, 'a', '123@hotmail.frrrr', 0),
-(69, 'bb', 'b', 'b', '2023-05-03', '2023-05-12', 'b', 'b@b', 0),
-(71, 'uwu', 'uwu', 'uwu', '2001-02-06', '2023-05-14', '$2y$10$LKNUarTmpfpa.weutn0nXuw2xmgMmDy.l3k/N2thUD3bi2BZrnrsm', 'uwu@uwu', 0);
+INSERT INTO `membre` (`id`, `pseudo`, `prenom`, `nom`, `datenaissance`, `dateinscription`, `password`, `mail`, `role`, `login`) VALUES
+(74, 'admin', 'admin', 'admin', '2006-06-06', '2023-05-15', '$2y$10$97Al5ULlPLtgxiJZR4cqX.O7NKe/DaB5ltzusowu6AovrspIbFiwq', 'admin@admin', 'A', 0),
+(76, 'a', 'a', 'a', '2006-06-06', '2023-05-16', '$2y$10$ZR7eeo41zrh9J4Sp97clk.MmhJSZAA4wP95a0CwJqQP5fnhLkpcy.', 'a@a', 'U', 0);
 
 -- --------------------------------------------------------
 
@@ -160,7 +158,7 @@ ALTER TABLE `galaxie`
 -- AUTO_INCREMENT pour la table `membre`
 --
 ALTER TABLE `membre`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=72;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=77;
 
 --
 -- AUTO_INCREMENT pour la table `univers`

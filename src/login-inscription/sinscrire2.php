@@ -97,7 +97,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                     $mail = $_POST["mail"];
                     
                     $password = password_hash($_POST["password"], PASSWORD_DEFAULT);
-                    $rang = "0";
+                    $login = true;
 
                     $requete2->bindParam(':id', $id);
                     $requete2->bindParam(':pseudo', $pseudo);
@@ -107,7 +107,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                     $requete2->bindParam(':dateinscription', $dateinscription);
                     $requete2->bindParam(':mail', $mail);
                     $requete2->bindParam(':password', $password);
-                    $requete2->bindParam(':rang', $rang);
+                    $requete2->bindParam(':login', $login);
 
                     $requete2->execute();
 

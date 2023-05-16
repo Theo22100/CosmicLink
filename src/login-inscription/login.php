@@ -2,7 +2,7 @@
 <html lang="en">
 	<head>
 		<meta charset=”utf-8″>
-		<link rel="stylesheet" href="style_login.css">
+		<link rel="stylesheet" href="../style_login.css">
 	</head>
 	<body>
 		<!-- debut de la partie contenu -->

@@ -5,6 +5,7 @@
 	<head>
 		<title>Inscription MySpace</title>
 		<meta charset=”utf-8″>
+		<link rel="stylesheet" href="../style_login.css">
 	</head>
 	<body>
 		<div class="main">

@@ -30,6 +30,8 @@
                             echo '<p style="color:green;">La Modification a été effectué !</p>';
                         }else if($_GET["message"]=="modifechoue"){
                             echo '<p style="color:red;">La Modification n\'a pas été effectué !</p>';
+                        }else if($_GET["message"]=="modifmailexist"){
+                            echo '<p style="color:red;">Erreur : Mail déjà existant dans la Database !</p>';
                         }
                         $serveur = "localhost";
                         $login = "root";

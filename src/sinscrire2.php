@@ -86,7 +86,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             else{
                 try {
                     $requete2 = $connexion->prepare("INSERT INTO membre (id,pseudo,prenom,nom,datenaissance,dateinscription,mail,password,rang) VALUES (:id, :pseudo, :prenom, :nom, :datenaissance, :dateinscription, :mail, :password, :rang)");
-
+                   
 
                     $id = $connexion-> lastInsertId() ;
                     $pseudo = clean($_POST["pseudo"]);
@@ -99,7 +99,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                     $password = password_hash($_POST["password"], PASSWORD_DEFAULT);
                     $rang = "0";
 
-
                     $requete2->bindParam(':id', $id);
                     $requete2->bindParam(':pseudo', $pseudo);
                     $requete2->bindParam(':prenom', $prenom);
@@ -110,11 +109,12 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                     $requete2->bindParam(':password', $password);
                     $requete2->bindParam(':rang', $rang);
 
-
-                    
                     $requete2->execute();
 
-                    
+                    $requete3 = $connexion->prepare("INSERT INTO univers (id_membre) VALUES (:id)");
+                    $requete3->bindParam(':id', $id);
+                    $requete3->execute();
+
 
                 }
                 catch (PDOException $e){

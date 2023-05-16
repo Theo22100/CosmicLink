@@ -39,7 +39,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             $_SESSION['dateinscription'] = $donneesdateinscription;
             $_SESSION['mail'] = $donneesmail;
             $_SESSION['rang'] = $donneesrang;
-            header("Location: site.php");
+            header("Location: home.php");
         } else {
             // La requête est vide ou le mot de passe est incorrect
             header("Location: login.php?message=echoue");

@@ -94,6 +94,11 @@ function addStar(){
         starOptionsList(event.clientX, event.clientY);
     });
     dragElement(starDiv);
+
+    var xmlhttp = new XMLHttpRequest();
+    xmlhttp.open("GET","getuser.php?q=hey",true);
+    xmlhttp.send();
+
     closeStarGui();
 }
 

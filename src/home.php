@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>MySpace</title>
+    <title>CosmicLink</title>
     <link rel="stylesheet" href="style_site.css">
     <link rel="stylesheet" href="addStarUI.css">
 </head>
@@ -11,6 +11,40 @@
 
 
 <body id="background">
+
+
+
+    <?php
+
+        try {
+        $servername = "localhost";
+        $dbname = "myspace";
+        $sqlusername = "root";
+        $sqlpassword = "root";
+        
+        $handler = new PDO("mysql:host=$servername;dbname=$dbname",$sqlusername,$sqlpassword);
+        $handler->setAttribute(PDO::ATTR_ERRMODE,PDO::ERRMODE_EXCEPTION);
+
+        if ($_GET["q"]=="hey"){
+            echo '<h2 style="color:red;"> TEST!</h2>';
+            $sql = "INSERT INTO univers (id_membre) VALUES (69)";
+            $handler->query($sql);
+        }
+
+        //TODO si inscription (comment récupérer cette info ?): créer un nouvel univers
+       /* $sql = "INSERT INTO univers (id_membre) VALUES (69)";
+        $handler->query($sql);
+
+        $sql = "INSERT INTO galaxie (cox ,coy ,id_univers) VALUES (100 , 100 , 2)";
+        $handler->query($sql); 
+        */
+        }
+        catch (PDOException $e){
+            echo 'Echec Connexion : ' .$e->getMessage();
+        }
+
+
+    ?>
 
     <div id="star-option" class="hidden">
         <div class="option" id="edit" onclick="showEdit()"> Edit</div>

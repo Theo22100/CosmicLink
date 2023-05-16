@@ -86,7 +86,7 @@ function addStar(){
     starInfo.appendChild(desc);
 
     starDiv.appendChild(starInfo);
-    document.getElementById('galaxy').appendChild(starDiv);
+    UNIVERS.appendChild(starDiv);
 
     starDiv.addEventListener('contextmenu', (event)=> {
         event.preventDefault();
@@ -214,13 +214,13 @@ function dragElement(element) {
 
 //DEPLACEMENT DANS L'ESPACE !
 
-const GALAXY = document.getElementById("galaxy")
+const UNIVERS = document.getElementById("univers")
 const origin = document.getElementById("origin");
 
 /**
  * Movable in space
  */
-moveSpace(GALAXY);
+moveSpace(UNIVERS);
 
 function moveSpace(element) {
     let pos1 = 0, pos2 = 0, pos3 = 0, pos4 = 0;
@@ -279,7 +279,7 @@ function moveSpace(element) {
 let zoom = 1;
 const ZOOM_SPEED = 0.1;
 
-GALAXY.addEventListener("wheel", (event)=>{
+UNIVERS.addEventListener("wheel", (event)=>{
     event.preventDefault();
     let zoomIn = false;
     let oldZoom = zoom;
@@ -311,7 +311,7 @@ GALAXY.addEventListener("wheel", (event)=>{
 })
 
 function zoomInOut(translateX, translateY, zoomIn, oldZoom){
-    const starList = GALAXY.getElementsByClassName("starDiv");
+    const starList = UNIVERS.getElementsByClassName("starDiv");
 
     // let zoomPower = ZOOM_SPEED;
     // if (!zoomIn){
@@ -352,16 +352,15 @@ function zoomCoordinates(zoom, oldZoom, zoomIn, element, originX, originY){
 
     //calcule de la distance a changer
     // zoom = distance2Point(oldZoom, zoom);
-    if (!zoomIn) zoom = 1.1;
-    else zoom = -1.1;
-    let translateX = - distance2Point(originX, elementX) * zoom;
-    let translateY = - distance2Point(originY, elementY) * zoom ;
-    if (originX < elementX) { //MARCHE PAS JE SAIS PAS CE QUE CA FAIT!!!
-        translateX = - translateX;
-    }
-    if (originY < elementY ) {
-        translateY = - translateY;
-    }
+    zoom = zoom - oldZoom;
+    let translateX = (elementX - originX ) * zoom;
+    let translateY = (elementY - originY) * zoom ;
+    // if (originX < elementX) { //MARCHE PAS JE SAIS PAS CE QUE CA FAIT!!!
+    //     translateX = - translateX;
+    // }
+    // if (originY < elementY ) {
+    //     translateY = - translateY;
+    // }
 
 
     //reactualise la taille de l'étoile
@@ -382,7 +381,7 @@ function distance2Point(p1, p2){
 }
 
 function debugdist(){
-    const starList = document.getElementById("galaxy").getElementsByClassName("starDiv");
+    const starList = UNIVERS.getElementsByClassName("starDiv");
     const star1 = starList.item(0);
 
     console.log("distance x: " + distance2Point(origin.offsetLeft, star1.offsetLeft));

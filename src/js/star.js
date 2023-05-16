@@ -17,6 +17,7 @@ function closeStarGui(){
 
 let movable = false;
 function moveStar(){
+    console.log("test");
     closeStarOptionsList();
     hideOption();
     movable = true;
@@ -68,15 +69,15 @@ function closeStarOptionsList(){
     starOptions.classList.add("hidden");
 }
 
-
-//
-
+//FONCTION NON GRAPHIQUE
 function addStar(){
     const starDiv = document.createElement("div");
     starDiv.classList.add("starDiv");
     starDiv.style.position = "fixed";
-    starDiv.style.left = (getRandomInt(100)).toString() + "%" ;
-    starDiv.style.top = (getRandomInt(90)).toString() + "%";
+    //set coordonnées pour la nouvelle étoile
+    starDiv.style.left = (getRandomInt( window.innerWidth )).toString() + "px" ;
+    starDiv.style.top = (getRandomInt( window.innerHeight )).toString() + "px";
+
 
     const newStar = document.createElement("img");
     newStar.classList.add("star");
@@ -120,13 +121,12 @@ function addStar(){
         currentStar = starDiv;
         starOptionsList(event.clientX, event.clientY);
     });
-    moveStar(starDiv);
+    moveStarElement(starDiv);
     closeStarGui();
 }
 
 let currentStar;
 function editStar(){
-
     const starName = document.getElementById("starName").value;
     const starDesc = document.getElementById("starDesc").value;
 
@@ -147,7 +147,7 @@ function removeStar(){
  * DRAGGABLE PART
  */
 
-function moveStar(element) {
+function moveStarElement(element) {
     let pos1 = 0, pos2 = 0, pos3 = 0, pos4 = 0;
 
     if (document.getElementsByClassName("stars").length ===1) {

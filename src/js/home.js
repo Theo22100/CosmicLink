@@ -103,8 +103,6 @@ UNIVERS.addEventListener("wheel", (event)=>{
     event.preventDefault();
     let zoomIn = false;
     let oldZoom = zoom;
-    // if (zoom >= 5 && event.deltaY < 0) return;
-    // if(zoom <= 0 && event.deltaY >=0) return;
     if(event.deltaY < 0){ //si molette vers l'avant zoom
         zoom *= 1.1;
         zoomIn = true
@@ -117,8 +115,6 @@ UNIVERS.addEventListener("wheel", (event)=>{
     // const containerRect = GALAXY.getBoundingClientRect();
     const mouseX = event.clientX;
     const mouseY = event.clientY;
-
-
 
     // const translateX = (mouseX - GALAXY.offsetLeft) * (1 - zoom);
     // const translateY = (mouseY - GALAXY.offsetTop) * (1 - zoom);
@@ -133,14 +129,7 @@ UNIVERS.addEventListener("wheel", (event)=>{
 function zoomInOut(translateX, translateY, zoomIn, oldZoom){
     const starList = UNIVERS.getElementsByClassName("starDiv");
 
-    // let zoomPower = ZOOM_SPEED;
-    // if (!zoomIn){
-    //     zoomPower = -ZOOM_SPEED;
-    // }
-    // origin.style.transform = `translate(${translateX}px, ${translateY}px)`;
-
-    // zoomCoordinates(zoom, origin, translateX, translateY);
-    for(let i = 0; i < starList.length; i++){ //itére dans tout les enfants
+    for(let i = 0; i < starList.length; i++){ //itère dans tout les enfants
         const child = starList.item(i);
 
         //augmente / diminue la taille de l'étoile
@@ -153,38 +142,38 @@ function zoomInOut(translateX, translateY, zoomIn, oldZoom){
 
 function zoomCoordinates(zoom, oldZoom, zoomIn, element, originX, originY){
 
-
     // Extract the translateX and translateY values from the transform property
     const match = element.style.transform.match(/translate\(([-\d.]+)px, ([-\d.]+)px\)/);
-    let translateX1 = match ? parseFloat(match[1]) : 0;
-    let translateY1 = match ? parseFloat(match[2]) : 0;
+    let translateXOld = match ? parseFloat(match[1]) : 0;
+    let translateYOld = match ? parseFloat(match[2]) : 0;
 
-    let elementX = translateX1 + element.offsetLeft;
-    let elementY = translateY1 + element.offsetTop;
-
-    // console.log("elementX: " + elementX);
-    // console.log("elementY: " + elementY);
-
-    // console.log("originX: " + originX);
-    // console.log("originY: " + originY);
+    let elementX = translateXOld + element.offsetLeft;
+    let elementY = translateYOld + element.offsetTop;
 
     //calcule de la distance a changer
-    // zoom = distance2Point(oldZoom, zoom);
-    zoom = zoom - oldZoom;
-    let translateX = (elementX - originX ) * zoom;
-    let translateY = (elementY - originY) * zoom ;
-    // if (originX < elementX) { //MARCHE PAS JE SAIS PAS CE QUE CA FAIT!!!
-    //     translateX = - translateX;
-    // }
-    // if (originY < elementY ) {
-    //     translateY = - translateY;
-    // }
+    zoom = 0.1; 
+    if (zoomIn) zoom = -zoom; 
+    else zoom = zoom;
 
+    let translateX = distance2Point(originX, elementX) ;
+    translateX *= zoom;
+
+    let translateY = distance2Point(originY, elementY) ;
+    translateY *= zoom;
+
+    if (originX < elementX) { //MARCHE PAS JE SAIS PAS CE QUE CA FAIT!!!
+        translateX = - translateX;
+    }
+    if (originY < elementY ) {
+        translateY = - translateY;
+    }
+
+    //remet les anciennes position de translation de l'étoile (pour conserver le déplacement)
+    translateX += translateXOld;
+    translateY += translateYOld;
 
     //reactualise la taille de l'étoile
     element.style.transform = `translate(${translateX}px, ${translateY}px)`;
-    // element.style.top = (element.offsetTop - translateY) + "px";
-    // element.style.left = (element.offsetLeft - translateX) + "px";
 }
 
 

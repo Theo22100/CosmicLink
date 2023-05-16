@@ -122,7 +122,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                     echo '<br>';
                     header("Location: sinscrire.php?message=echoue");
                 }
-                header("Location: sinscrire.php?message=reussie");
+                header("Location: login.php?message=insreussie");
                 /*
                 echo $compteMail;
                 echo "<br>";

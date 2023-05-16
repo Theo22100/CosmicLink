@@ -5,6 +5,7 @@
 	<head>
 		<title>Inscription MySpace</title>
 		<meta charset=”utf-8″>
+		<link rel="stylesheet" href="style_login.css">
 	</head>
 	<body>
 		<div class="main">
@@ -12,9 +13,7 @@
 
 
 			<?php
-				if ($_GET["message"]=="reussie"){
-						echo '<h2 style="color:green;">Inscription réussie</h2>';
-					}else if ($_GET["message"]=="echoue"){
+				if ($_GET["message"]=="echoue"){
 						echo '<h2 style="color:red;">Inscription non valide</h2>';
 					}else if ($_GET["message"]=="mdp"){
 						echo '<h2 style="color:red;">Le mot de passe n\'est pas le même !</h2>';

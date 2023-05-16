@@ -10,8 +10,8 @@ if (!isset($_SESSION['login'])) {
 <head>
     <meta charset="UTF-8">
     <title>MySpace</title>
-    <link rel="stylesheet" href="style_site.css">
     <link rel="stylesheet" href="addStarUI.css">
+    <link rel="stylesheet" href="style_site.css">
 
 </head>
 

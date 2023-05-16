@@ -16,6 +16,8 @@
 						<?php
 							if ($_GET["message"]=="echoue"){
 									echo '<h2 style="color:red;">Votre mail ou mot de passe n\'est pas reconnu !</h2>';
+								}else if ($_GET["message"]=="insreussie"){
+									echo '<h2 style="color:green;">Inscription réussie</h2>';
 								}
 						?>
 						<form method="POST" action="login1.php">

@@ -134,13 +134,12 @@ function zoomInOut(translateX, translateY, zoomIn, oldZoom){
 
         //augmente / diminue la taille de l'étoile
         child.getElementsByClassName("star")[0].style.transform = `scale(${zoom})`;
-
-        zoomCoordinates(zoom, oldZoom, zoomIn, child, translateX, translateY);
+        zoomCoordinates(zoomIn, child, translateX, translateY);
     }
 }
 
 
-function zoomCoordinates(zoom, oldZoom, zoomIn, element, originX, originY){
+function zoomCoordinates(zoomIn, element, originX, originY){
 
     // Extract the translateX and translateY values from the transform property
     const match = element.style.transform.match(/translate\(([-\d.]+)px, ([-\d.]+)px\)/);
@@ -151,9 +150,8 @@ function zoomCoordinates(zoom, oldZoom, zoomIn, element, originX, originY){
     let elementY = translateYOld + element.offsetTop;
 
     //calcule de la distance a changer
-    zoom = 0.1; 
-    if (zoomIn) zoom = -zoom; 
-    else zoom = zoom;
+    const zoom = 0.1; 
+    if (zoomIn) zoom = -zoom;
 
     let translateX = distance2Point(originX, elementX) ;
     translateX *= zoom;
@@ -161,7 +159,7 @@ function zoomCoordinates(zoom, oldZoom, zoomIn, element, originX, originY){
     let translateY = distance2Point(originY, elementY) ;
     translateY *= zoom;
 
-    if (originX < elementX) { //MARCHE PAS JE SAIS PAS CE QUE CA FAIT!!!
+    if (originX < elementX) {
         translateX = - translateX;
     }
     if (originY < elementY ) {

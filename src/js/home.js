@@ -6,25 +6,45 @@ function getRandomInt(max) {
     return Math.floor(Math.random() * max);
 }
 
+let GLOBAL_HIDABLE = true;
+
+const menu = document.getElementById("menu");
 function showOption(){
+    if (!GLOBAL_HIDABLE) return;
+    menu.style.width = "30%";
+    menu.style.borderRadius = "50px";
+    menu.style.paddingLeft = "50px";
+    menu.style.paddingRight = "50px";
+    menu.style.backgroundColor = "rgba(146, 180, 184,0.8)";
+    menu.style.transition= ".3s";
+
+
     const opts = document.getElementsByClassName("options");
 
     for (let i = 0; i <opts.length - 1; i++) {
         opts.item(i).classList.remove("hidden");
     }
-    document.getElementById("circle").classList.add("hidden");
 }
 
 
 function hideOption(){
     if (movable) return;
+    GLOBAL_HIDABLE = true;
     const opts = document.getElementsByClassName("options");
 
     for (let i = 0; i <opts.length; i++) {
         opts.item(i).classList.add("hidden");
     }
 
-    document.getElementById("circle").classList.remove("hidden");
+    
+    menu.style.width = "45px";
+    menu.style.borderRadius = "50%";
+    menu.style.paddingLeft = "0px";
+    menu.style.paddingRight = "0px";
+    menu.style.backgroundColor = "none";
+    menu.style.backgroundColor = "rgba(146, 180, 184,0)";
+    menu.style.transition= ".3s";
+
     closeStarGui();
     closeStarOptionsList();
     hideEdit();

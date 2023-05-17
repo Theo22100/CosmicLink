@@ -5,8 +5,11 @@ let editingStar;
 
 
 function openStarGui(){ //ouvre la fenetre d'edit/ajout d'étoile
+    hideOption();
+    GLOBAL_HIDABLE = false;
     editingStar = false;
     gui.classList.remove("hidden");
+
 }
 function closeStarGui(){
     document.getElementById("starName").value = "";
@@ -21,7 +24,6 @@ function moveStar(){
     closeStarOptionsList();
     hideOption();
     movable = true;
-    document.getElementById("circle").classList.add("hidden");
     document.getElementById("done").classList.remove("hidden");
 }
 

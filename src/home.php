@@ -17,7 +17,7 @@ if (isset($_GET['x'])&& isset($_GET['y'])){
     <title>CosmicLink</title>
     <link rel="stylesheet" href="style_site.css">
     <link rel="stylesheet" href="addStarUI.css">
-
+    <link rel="stylesheet" href="menu.css">
 </head>
 
 
@@ -74,34 +74,44 @@ if (isset($_GET['x'])&& isset($_GET['y'])){
                 <p> ADD STAR</p>
             </div>
             <label for="starName">Star Name:</label>
-            <input type="text" name="starName" id="starName">
+            <input type="text" name="starName" id="starName" placeholder="Name of your star">
             <label for="starDesc">Description</label>
-            <textarea name="starDesc" id="starDesc" rows="4" cols="50"></textarea>
+            <textarea name="starDesc" id="starDesc" rows="4" cols="50" placeholder="Description of your star"></textarea>
             <button onclick="star()">Done</button>
         </div>
     </div>
 
-    <div id="menu">
-        <button class="options" id="circle" onclick="showOption()" > </button>
+    <div id="menu" onclick="showOption()">
+        <!-- <button class="options" id="circle" onclick="showOption()" > </button> -->
         <div class= "dropUp">
-            <button class="options hidden">Add</button>
+            <img id="editStarGalaxy" src="../img/crayon.png" class="options hidden">
+            <!-- <button class="options hidden" > test</button> -->
             <div class="dropUp-content">
-                <button class="options" onclick="openStarGui()">Star</button>
-                <button class="options" onclick="openGalaxyGui()">Galaxy</button>
+                <button class="dropUp-Option" onclick="openStarGui()">Star</button>
+                <button class="dropUp-Option" onclick="openGalaxyGui()">Galaxy</button>
             </div>
         </div>
         <button class= "options hidden" onclick="">Chat</button>
         <div class= "dropUp">
             <button class="options hidden">Mon Compte</button>
             <div class="dropUp-content">
-                <button class="options" onclick="">Modifier</button>
-                <button class="options" onclick="">Deconnexion</button>
+                <button class="dropUp-Option" onclick="">Modifier</button>
+                <button class="dropUp-Option" onclick="">Deconnexion</button>
             </div>
         </div>
         <button class= "options hidden" id="done" onclick="confirm()">Done</button>
     </div>
 
-    <script src="./js/test.js"></script>
+
+
+
+
+
+
+
+
+
+    <script src="./js/home.js"></script>
     <script src="./js/star.js"></script>
     <script src="./js/galaxy.js"></script>
 </body>

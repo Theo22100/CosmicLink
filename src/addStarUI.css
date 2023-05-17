@@ -64,38 +64,38 @@ svg.icon > rect {
     margin-bottom: 5px;
 }
 
-.create >input:focus{
-    border: transparent;
-    outline: cadetblue solid 2px;
+.create >input:active, .create > textarea:active{
+    transform: scale(0.98);
+}
+
+.create >input:focus, .create > textarea:focus{
+    border: solid 2px cadetblue;
 }
 .create > input{
     margin-bottom: 10px;
     border-radius: 5px;
-    border:transparent;
     outline:none;
-    padding: 5px;
+    padding: 10px;
     width: 75%;
     align-self: center;
+    transition: all 0.3s cubic-bezier(0.19, 1, 0.22, 1);
 }
 
 .create > textarea{
     resize:none;
     margin-bottom: 15px;
     border-radius: 5px;
-    border:transparent;
-}
-
-.create > textarea:focus{
-    border: transparent;
-    outline: cadetblue solid 2px;
+    padding: 10px;
+    outline:none;
+    transition: all 0.3s cubic-bezier(0.19, 1, 0.22, 1);
 }
 
 .create > button{
     width: 30%;
     align-self: center;
     border-radius: 50px;
-    border: 0px;
     font-weight: bold;
+    border:transparent;
 }
 
 .hidden{

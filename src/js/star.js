@@ -75,8 +75,12 @@ function addStar(){
     const starDiv = document.createElement("div");
     starDiv.classList.add("starDiv");
     starDiv.style.position = "fixed";
-    starDiv.style.left = (getRandomInt(100)).toString() + "%" ;
-    starDiv.style.top = (getRandomInt(90)).toString() + "%";
+    let x = getRandomInt(100);
+    let y = getRandomInt(90);
+    starDiv.style.left = x.toString() + "%" ; //x
+    starDiv.style.top = y.toString() + "%"; //y
+
+    sendAjax(x,y); 
 
     const newStar = document.createElement("img");
     newStar.classList.add("star");
@@ -122,6 +126,46 @@ function addStar(){
     });
     moveStar(starDiv);
     closeStarGui();
+}
+
+function sendAjax(x, y){
+    var req = null; 
+
+    if (window.XMLHttpRequest)
+    {
+         req = new XMLHttpRequest();
+
+    } 
+    else if (window.ActiveXObject) 
+    {
+        try {
+            req = new ActiveXObject("Msxml2.XMLHTTP");
+        } catch (e)
+        {
+            try {
+                req = new ActiveXObject("Microsoft.XMLHTTP");
+            } catch (e) {}
+        }
+        }
+
+    req.onreadystatechange = function()
+    { 
+        
+        if(req.readyState == 4)
+        {
+            if(req.status == 200)
+            {
+                
+            }	
+            else	
+            {
+                
+            }	
+        } 
+    }
+
+    req.open("GET", "test.php?x="+3+"&y="+7, true); 
+    req.send(); 
 }
 
 let currentStar;

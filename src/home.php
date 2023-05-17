@@ -3,6 +3,11 @@ session_start();
 if (!isset($_SESSION['login'])) {
 	header('Location: login-inscription/login.php');
 }
+
+if (isset($_GET['x'])&& isset($_GET['y'])){
+    $x = intval($_GET['x']);
+    $y = intval($_GET['y']);
+}
 ?>
 
 <!DOCTYPE html>
@@ -20,13 +25,14 @@ if (!isset($_SESSION['login'])) {
 
 <body id="background">
 
-
-
     <?php
+        echo "soup";
+        echo $x;
+        echo $y;
 
         try {
         $servername = "localhost";
-        $dbname = "myspace";
+        $dbname = "projet";
         $sqlusername = "root";
         $sqlpassword = "root";
         

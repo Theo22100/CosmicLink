@@ -156,6 +156,15 @@ function zoomInOut(translateX, translateY, zoomIn, oldZoom){
         child.getElementsByClassName("star")[0].style.transform = `scale(${zoom})`;
         zoomCoordinates(zoomIn, child, translateX, translateY);
     }
+
+    const galaxyList = UNIVERS.getElementsByClassName("galaxyDiv");
+    for(let i = 0; i < galaxyList.length; i++){
+        const child = starList.item(i);
+
+        //augmente / diminue la taille de la galaxy
+        child.getElementsByClassName("galaxy")[0].style.transform = `scale(${zoom})`;
+        zoomCoordinates(zoomIn, child, translateX, translateY);
+    }
 }
 
 
@@ -170,7 +179,7 @@ function zoomCoordinates(zoomIn, element, originX, originY){
     let elementY = translateYOld + element.offsetTop;
 
     //calcule de la distance a changer
-    const zoom = 0.1; 
+    let zoom = 0.1; 
     if (zoomIn) zoom = -zoom;
 
     let translateX = distance2Point(originX, elementX) ;

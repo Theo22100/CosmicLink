@@ -20,7 +20,6 @@ function closeStarGui(){
 
 let movable = false;
 function moveStar(){
-    console.log("test");
     closeStarOptionsList();
     hideOption();
     movable = true;

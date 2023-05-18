@@ -8,6 +8,7 @@ $nom = $_POST["nom"];
 $mail = $_POST["mail"];
 $role = $_POST["role"];
 $id_modif = $_GET["num"];
+$error_message="";
 
 
 $servername = "localhost";
@@ -108,22 +109,32 @@ if (!empty($mail)) {
 //                               ROLE                       ////////
 ////////////////////////////////////////////////////////////////////
 if (!empty($role)) {
-    try {
-        $requeterole = $conn3->prepare("
-                                    UPDATE membre 
-                                    SET role = '$role' 
-                                    WHERE id = '$id_modif';'");
-        $requeterole->execute();
-    } catch (PDOException $e) {
-        echo 'Modification Echec: ' . $e->getMessage();
-        $url = "user_modifier.php?message=modifechec&id=$id_modif";
-        header("Location: $url");
+    if($_SESSION['id']!=$_GET["num"]){ //Recherche s'il veut éditer son propre role
+        try {
+            $requeterole = $conn3->prepare("
+                                        UPDATE membre 
+                                        SET role = '$role' 
+                                        WHERE id = '$id_modif';'");
+            $requeterole->execute();
+        } catch (PDOException $e) {
+            echo 'Modification Echec: ' . $e->getMessage();
+            $url = "user_modifier.php?message=modifechec&id=$id_modif";
+            header("Location: $url");
+        }
+    }else{
+        $error_message="erreur";
     }
 }
 
 //Modif réussie
-$url = "user_modifier.php?message=modifreussie&id=$id_modif";
-header("Location: $url");
+if (!empty($error_message)) {
+    $url = "user_modifier.php?message=modifadmin&id=$id_modif";
+    header("Location: $url");
+} else {
+    $url = "user_modifier.php?message=modifreussie&id=$id_modif";
+    header("Location: $url");
+}
+
 
 $conn = $conn1 = $conn2 = $conn3 = null;
 

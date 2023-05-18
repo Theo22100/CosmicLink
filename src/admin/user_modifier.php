@@ -32,7 +32,11 @@
                             echo '<p style="color:red;">La Modification n\'a pas été effectué !</p>';
                         }else if($_GET["message"]=="modifmailexist"){
                             echo '<p style="color:red;">Erreur : Mail déjà existant dans la Database !</p>';
+                        }else if($_GET["message"]=="modifadmin"){
+                            echo '<p style="color:red;">Erreur : Vous ne pouvez pas éditer votre propre rôle Admin !</p>';
                         }
+
+                        //modifadmin
                         $serveur = "localhost";
                         $login = "root";
                         $pass = "root";
@@ -96,8 +100,9 @@
         </td>
         <td> 
             <select id='role' name='role'>
+                <option value='' selected>Choisir</option>
                 <option value='A'>Admin</option>
-                <option value='U' selected>Utilisateur</option>
+                <option value='U'>Utilisateur</option>
             </select>
         </td>
         <td> 

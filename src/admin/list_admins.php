@@ -26,6 +26,8 @@
                             echo '<p style="color:red;">La suppression n\'a pas pu être effectué !</p>';
                         }else if($_GET["message"]=="supreussie"){
                             echo '<p style="color:green;">La supression a été effectué !</p>';
+                        }else if($_GET["message"]=="supadmin"){
+                            echo '<p style="color:red;">Erreur : Vous ne pouvez pas vous supprimer !</p>';
                         }
 
                         $serveur = "localhost";

@@ -9,24 +9,30 @@ $servername = "localhost";
 $login = "root";
 $password_db = "root";
 $dbname = "projet";
-try {
-    $conn = new PDO("mysql:host=$servername;dbname=$dbname", $login, $password_db);
-    $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+if($_SESSION['id']!=$_GET["num"]){
+    try {
+        
+        $conn = new PDO("mysql:host=$servername;dbname=$dbname", $login, $password_db);
+        $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 
 
-    $stmt = $conn->prepare("
-                                UPDATE membre 
-                                SET role = 'U' 
-                                WHERE id = '$id_modif';'
-                            ");
+        $stmt = $conn->prepare("
+                                    UPDATE membre 
+                                    SET role = 'U' 
+                                    WHERE id = '$id_modif';'
+                                ");
 
-    $stmt->execute();
+        $stmt->execute();
 
 
-} catch (PDOException $e) {
-    echo 'Echec Effacer: ' . $e->getMessage();
-    header("Location: list_admins.php?message=supechoue");
+    } catch (PDOException $e) {
+        echo 'Echec Effacer: ' . $e->getMessage();
+        header("Location: list_admins.php?message=supechoue");
+    }
+    header("Location: list_admins.php?message=supreussie");
+}else{
+    header("Location: list_admins.php?message=supadmin");
 }
-header("Location: list_admins.php?message=supreussie");
 
+$conn=null;
 ?>

@@ -43,7 +43,7 @@
                         try{
                             $conn = new PDO("mysql:host=$serveur;dbname=$dbname", $login, $pass);
                             $conn -> setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-                            $stmt= "SELECT prenom,nom,password,mail,role FROM membre WHERE id= $idmodif";
+                            $stmt= "SELECT prenom,nom,mail,role FROM membre WHERE id= $idmodif";
 
 
                             echo "<table id='datatablesSimple'>";
@@ -54,9 +54,6 @@
                                                 </td>
                                                 <td>
                                                     <b>Nom</b>
-                                                </td>
-                                                <td>
-                                                    <b>Password</b>
                                                 </td>
                                                 <td>
                                                     <b>Mail</b>
@@ -71,7 +68,6 @@
                                     foreach($conn->query($stmt) as $row){
                                         echo "<td>" . $row['prenom'] . "</td>";
                                         echo "<td>" . $row['nom'] . "</td>";
-                                        echo "<td>" . $row['password'] . "</td>";
                                         echo "<td>" . $row['mail'] . "</td>";
                                         echo "<td>";
                                         if ($row['role'] == 'U') {
@@ -87,43 +83,28 @@
 
 
 
-                                        echo "<tr><td> 
-                                                <form method='POST' action='user_modifierprenom1.php?num=$idmodif'>
-                                                    <input type = 'text' name = 'prenom' id = 'prenom' required='required'><br>
-                                                    <input type='submit' name='changernom' value='Changer Prénom'> 
-                                                </form>
-                                            </td>";
-                                            echo "<td> 
-                                            <form method='POST' action='user_modifiernom1.php?num=$idmodif'>
-                                                <input type = 'text' name = 'nom' id = 'nom' required='required'><br>
-                                                <input type='submit' name='changernom' value='Changer Nom'> 
-                                            </form>
-                                        </td>";
-                                        echo "<td> 
-                                                <form method='POST' action='user_modifierpassword1.php?num=$idmodif'>
-                                                    <input type = 'text' name = 'password' id = 'password' required='required'><br>
-                                                    <input type='submit' name='changerpassword' value='Changer Password'> 
-                                                </form>
-                                            </td>";
-                                            echo "<td> 
-                                            <form method='POST' action='user_modifiermail1.php?num=$idmodif'>
-                                                <input type = 'mail' name = 'mail' id = 'mail' required='required'><br>
-                                                <input type='submit' name='changermail' value='Changer Mail'> 
-                                            </form>
-                                        </td>";
-                                            echo "<td> 
-                                            <form method='POST' action='user_modifierrole1.php?num=$idmodif'>
-                                                <select id='role' name='role'>
-                                                    <option value='A'>Admin</option>
-                                                    <option value='U' selected>Utilisateur</option>
-                                                </select>
-                                                
-                                                
-                                                
-                                                <br>
-                                                <input type='submit' name='changerrole' value='Changer Rôle'> 
-                                            </form>
-                                        </td></tr>";
+                                        echo "<tr>
+        <td> 
+            <form method='POST' action='user_modifiertotal.php?num=$idmodif'>
+                <input type='text' name='prenom' id='prenom'><br>
+        </td>
+        <td> 
+            <input type='text' name='nom' id='nom'><br>
+        </td>
+        <td> 
+            <input type='email' name='mail' id='mail'><br>
+        </td>
+        <td> 
+            <select id='role' name='role'>
+                <option value='A'>Admin</option>
+                <option value='U' selected>Utilisateur</option>
+            </select>
+        </td>
+        <td> 
+            <input type='submit' name='changer' value='Changer'> 
+            </form>
+        </td>
+    </tr>";
                                     }
                                 echo "</tbody>";
                             echo "</table>";

@@ -2,15 +2,27 @@ window.oncontextmenu = (e) => {
     e.preventDefault();
 }
 
+
+
 function getRandomInt(max) {
     return Math.floor(Math.random() * max);
 }
 
-let GLOBAL_HIDABLE = true;
+
+
+const INVISIBLE = document.getElementById("invisible");
+
+function onclickoutside(func){
+    INVISIBLE.classList.remove("hidden");
+    INVISIBLE.onclick = function() {
+        func();
+        INVISIBLE.classList.add("hidden");
+    }
+}
+
 
 const menu = document.getElementById("menu");
-function showOption(){
-    if (!GLOBAL_HIDABLE) return;
+function openOption(event){
     menu.style.width = "30%";
     menu.style.borderRadius = "50px";
     menu.style.paddingLeft = "50px";
@@ -19,24 +31,25 @@ function showOption(){
     menu.style.transition= ".3s";
 
 
-    const opts = document.getElementsByClassName("options");
+    menu.style.zIndex = 999;
+    const opts = menu.getElementsByClassName("options");
 
     for (let i = 0; i <opts.length - 1; i++) {
         opts.item(i).classList.remove("hidden");
     }
+
+    onclickoutside(closeOption);
 }
 
+menu.onclick = function(event){ openOption(event)};
 
-function hideOption(){
-    if (movable) return;
-    GLOBAL_HIDABLE = true;
-    const opts = document.getElementsByClassName("options");
-
+function closeOption(){
+    const opts = menu.getElementsByClassName("options");
+    
     for (let i = 0; i <opts.length; i++) {
         opts.item(i).classList.add("hidden");
-    }
+    };
 
-    
     menu.style.width = "45px";
     menu.style.borderRadius = "50%";
     menu.style.paddingLeft = "0px";
@@ -45,9 +58,8 @@ function hideOption(){
     menu.style.backgroundColor = "rgba(146, 180, 184,0)";
     menu.style.transition= ".3s";
 
-    closeStarGui();
-    closeStarOptionsList();
-    hideEdit();
+    menu.style.zIndex = 0;
+
 }
 
 
@@ -55,7 +67,8 @@ function hideOption(){
 //DEPLACEMENT DANS L'ESPACE !
 
 const UNIVERS = document.getElementById("univers")
-const origin = document.getElementById("origin");
+let offsetX = 0; //0 = originX
+let offsetY = 0; //0 = originY
 
 /**
  * Movable in space
@@ -68,7 +81,6 @@ function moveSpace(element) {
     element.onmousedown = dragMouseDown;
 
     function dragMouseDown(e) {
-        if (movable) return;
         e = e || window.event;
         e.preventDefault();
         // get the mouse cursor position at startup:
@@ -87,20 +99,20 @@ function moveSpace(element) {
         pos2 = pos4 - e.clientY;
         pos3 = e.clientX;
         pos4 = e.clientY;
+        
+        offsetX -= pos1;
+        offsetY -= pos2;
+
+
         // set the element's new position:
         for (const child of element.children){
 
             // Extract the translateX and translateY values from the transform property
-            const match = child.style.transform.match(/translate\(([-\d.]+)px, ([-\d.]+)px\)/);
-            let translateX = match ? parseFloat(match[1]) : 0;
-            let translateY = match ? parseFloat(match[2]) : 0;
-            translateX -= pos1;
-            translateY -= pos2;
+            let translate = getTranslateXY(child);
 
+            let translateX = translate.translateX - pos1;
+            let translateY = translate.translateY - pos2;
             child.style.transform = `translate(${translateX}px, ${translateY}px)`;
-
-            // child.style.top = (child.offsetTop - pos2) + "px";
-            // child.style.left = (child.offsetLeft - pos1) + "px";
         }
     }
 
@@ -111,7 +123,14 @@ function moveSpace(element) {
     }
 }
 
-
+function getTranslateXY(element) {
+    const style = window.getComputedStyle(element)
+    const matrix = new DOMMatrixReadOnly(style.transform)
+    return {
+        translateX: matrix.m41,
+        translateY: matrix.m42
+    }
+}
 /**
  * ZOOM IN SPACE
  */
@@ -131,23 +150,16 @@ UNIVERS.addEventListener("wheel", (event)=>{
         zoom /= 1.1;
     }
 
-    console.log("zoom value: " + zoom)
-    // const containerRect = GALAXY.getBoundingClientRect();
     const mouseX = event.clientX;
     const mouseY = event.clientY;
 
-    // const translateX = (mouseX - GALAXY.offsetLeft) * (1 - zoom);
-    // const translateY = (mouseY - GALAXY.offsetTop) * (1 - zoom);
-    //
-    //
-    // const offsetX = mouseX / GALAXY.offsetWidth;
-    // const offsetY = mouseY / GALAXY.offsetHeight;
-
     zoomInOut(mouseX, mouseY, zoomIn, oldZoom)
-})
+});
 
 function zoomInOut(translateX, translateY, zoomIn, oldZoom){
     const starList = UNIVERS.getElementsByClassName("starDiv");
+
+    zoomCoordinatesOffSet(zoomIn, translateX, translateY);
 
     for(let i = 0; i < starList.length; i++){ //itère dans tout les enfants
         const child = starList.item(i);
@@ -159,7 +171,7 @@ function zoomInOut(translateX, translateY, zoomIn, oldZoom){
 
     const galaxyList = UNIVERS.getElementsByClassName("galaxyDiv");
     for(let i = 0; i < galaxyList.length; i++){
-        const child = starList.item(i);
+        const child = galaxyList.item(i);
 
         //augmente / diminue la taille de la galaxy
         child.getElementsByClassName("galaxy")[0].style.transform = `scale(${zoom})`;
@@ -167,16 +179,35 @@ function zoomInOut(translateX, translateY, zoomIn, oldZoom){
     }
 }
 
+function zoomCoordinatesOffSet(zoomIn, originX, originY){
+    //calcule de la distance a changer
+    let zoom = 0.1; 
+    if (zoomIn) zoom = -zoom;
+
+    let translateX = distance2Point(originX, offsetX) ;
+    translateX *= zoom;
+
+    let translateY = distance2Point(originY, offsetY) ;
+    translateY *= zoom;
+
+    if (originX < offsetX) {
+        translateX = - translateX;
+    }
+    if (originY < offsetY ) {
+        translateY = - translateY;
+    }
+
+    offsetX += translateX;
+    offsetY += translateY;
+}
 
 function zoomCoordinates(zoomIn, element, originX, originY){
 
     // Extract the translateX and translateY values from the transform property
-    const match = element.style.transform.match(/translate\(([-\d.]+)px, ([-\d.]+)px\)/);
-    let translateXOld = match ? parseFloat(match[1]) : 0;
-    let translateYOld = match ? parseFloat(match[2]) : 0;
+    let translate = getTranslateXY(element);
 
-    let elementX = translateXOld + element.offsetLeft;
-    let elementY = translateYOld + element.offsetTop;
+    let elementX = translate.translateX + element.offsetLeft;
+    let elementY = translate.translateY + element.offsetTop;
 
     //calcule de la distance a changer
     let zoom = 0.1; 
@@ -196,8 +227,8 @@ function zoomCoordinates(zoomIn, element, originX, originY){
     }
 
     //remet les anciennes position de translation de l'étoile (pour conserver le déplacement)
-    translateX += translateXOld;
-    translateY += translateYOld;
+    translateX += translate.translateX;
+    translateY += translate.translateY;
 
     //reactualise la taille de l'étoile
     element.style.transform = `translate(${translateX}px, ${translateY}px)`;
@@ -207,15 +238,6 @@ function zoomCoordinates(zoomIn, element, originX, originY){
 
 function distance2Point(p1, p2){
     return Math.sqrt( (p2-p1)*(p2-p1))
-}
-
-function debugdist(){
-    const starList = UNIVERS.getElementsByClassName("starDiv");
-    const star1 = starList.item(0);
-
-    console.log("distance x: " + distance2Point(origin.offsetLeft, star1.offsetLeft));
-    console.log("distance y: " + distance2Point(origin.offsetTop, star1.offsetTop));
-
 }
 
 function debug(nb){

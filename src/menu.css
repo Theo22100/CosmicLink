@@ -85,8 +85,6 @@ body{
     border-top-left-radius: 5px;
     border-top-right-radius: 5px;
 
-    z-index: 1;
-
 }
 
 .dropUp-content .dropUp-Option {
@@ -110,11 +108,10 @@ body{
     display: block;
 }
 
+.dropUp:hover {
+    z-index: 999;
+}
 
-
-
-
-
-.hidden{
-    display: none;
+#menu:has(.dropUp:hover) {
+    z-index: 0;
 }

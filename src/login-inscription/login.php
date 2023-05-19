@@ -1,8 +1,15 @@
+<?php
+session_start();
+if (isset($_SESSION['login'])) {
+	header('Location: ../home.php');
+}
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 	<head>
 		<meta charset=”utf-8″>
-		<link rel="stylesheet" href="../style_login.css">
+		<link rel="stylesheet" href="./style_login.css">
 	</head>
 	<body>
 		<!-- debut de la partie contenu -->

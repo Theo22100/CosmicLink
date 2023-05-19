@@ -121,8 +121,8 @@ if (isset($_GET['x'])&& isset($_GET['y'])){
         <div class= "dropUp">
             <button class="options hidden">Mon Compte</button>
             <div class="dropUp-content">
-                <button class="dropUp-Option" onclick="">Modifier</button>
-                <button class="dropUp-Option" onclick="">Deconnexion</button>
+                <button class="dropUp-Option" onclick="location.href='./compte/compte.php'">Modifier</button>
+                <button class="dropUp-Option" onclick="location.href='./compte/deconnexion.php'">Deconnexion</button>
             </div>
         </div>
         <button class= "options hidden" id="done" onclick="confirm()">Done</button>

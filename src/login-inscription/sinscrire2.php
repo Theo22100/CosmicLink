@@ -111,10 +111,12 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                     $requete2->bindParam(':login', $login);
 
 
-                    
                     $requete2->execute();
 
-                    
+                    $requete3 = $connexion->prepare("INSERT INTO univers (id_membre) VALUES (:id)");
+                    $requete3->bindParam(':id', $id);
+                    $requete3->execute();
+
 
                 }
                 catch (PDOException $e){

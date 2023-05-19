@@ -1,10 +1,15 @@
-
-
+<?php
+session_start();
+if (isset($_SESSION['login'])) {
+	header('Location:./home.php');
+}
+?>
 
 <html>
 	<head>
 		<title>Inscription MySpace</title>
 		<meta charset=”utf-8″>
+		<link rel="stylesheet" href="./style_login.css">
 	</head>
 	<body>
 		<div class="main">
@@ -14,8 +19,11 @@
 			<?php
 				if ($_GET["message"]=="reussie"){
 						echo '<h2 style="color:green;">Inscription réussie</h2>';
+						echo '<p> You\'ll be redirected to the login page in 5 seconds. Or <a href="./login.php">click here </a> to be redirected immediately. </h2>';
+						header('Refresh: 5; ./login.php');
 					}else if ($_GET["message"]=="echoue"){
 						echo '<h2 style="color:red;">Inscription non valide</h2>';
+						
 					}else if ($_GET["message"]=="mdp"){
 						echo '<h2 style="color:red;">Le mot de passe n\'est pas le même !</h2>';
 					}else if ($_GET["message"]=="champ"){
@@ -87,6 +95,11 @@
 				</form>
 
 				<div class="clear"> </div>
+				<div class="register">
+						<h3>Alreadyhave your universe ?</h3>
+						<p><a class="acount-btn" href="./login.php">Connect here</a> to get back to your universe !</p>
+					
+					</div>
 
 			</div>
 

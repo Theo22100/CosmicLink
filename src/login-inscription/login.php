@@ -1,8 +1,15 @@
+<?php
+session_start();
+if (isset($_SESSION['login'])) {
+	header('Location: ../home.php');
+}
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 	<head>
 		<meta charset=”utf-8″>
-		<link rel="stylesheet" href="style_login.css">
+		<link rel="stylesheet" href="./style_login.css">
 	</head>
 	<body>
 		<!-- debut de la partie contenu -->
@@ -34,7 +41,7 @@
 					</div>	
 					<div class="register">
 						<h3>Ready to add to the mutliverse ?</h3>
-						<p><a class="acount-btn" href="sinscrire.php">Register here</a> to create your own universe now !</p>
+						<p><a class="acount-btn" href="./sinscrire.php">Register here</a> to create your own universe now !</p>
 					
 					</div>
 					

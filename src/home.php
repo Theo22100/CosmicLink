@@ -3,13 +3,19 @@ session_start();
 if (!isset($_SESSION['login'])) {
 	header('Location: login-inscription/login.php');
 }
+
+if (isset($_GET['x'])&& isset($_GET['y'])){
+    $x = intval($_GET['x']);
+    $y = intval($_GET['y']);
+}
 ?>
 
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>MySpace</title>
+    <title>CosmicLink</title>
+    <link rel="stylesheet" href="style_site.css">
     <link rel="stylesheet" href="addStarUI.css">
     <link rel="stylesheet" href="menu.css">
     <link rel="stylesheet" href="style_site.css">
@@ -20,9 +26,33 @@ if (!isset($_SESSION['login'])) {
 
 <body id="background">
 
-    <div id="contextMenu" class="hidden">
-        <div class="option" id="edit"> Edit</div>
-        <div class="option" id="move"> Move</div>
+    <?php
+        echo "soup";
+        echo $x;
+        echo $y;
+
+        try {
+        $servername = "localhost";
+        $dbname = "projet";
+        $sqlusername = "root";
+        $sqlpassword = "root";
+        
+        $handler = new PDO("mysql:host=$servername;dbname=$dbname",$sqlusername,$sqlpassword);
+        $handler->setAttribute(PDO::ATTR_ERRMODE,PDO::ERRMODE_EXCEPTION);
+
+        
+        //TODO si inscription (comment récupérer cette info ?): créer un nouvel univers
+        }
+        catch (PDOException $e){
+            echo 'Echec Connexion : ' .$e->getMessage();
+        }
+
+
+    ?>
+
+    <div id="star-option" class="hidden">
+        <div class="option" id="edit" onclick="showEdit()"> Edit</div>
+        <div class="option" id="move" onclick="moveStar()"> Move</div>
         <div class="option" id="link"> Link</div>
         <div class="option" id="remove"> remove</div>
     </div>
@@ -89,8 +119,8 @@ if (!isset($_SESSION['login'])) {
         <div class= "dropUp options">
             <button class="options hidden">Mon Compte</button>
             <div class="dropUp-content">
-                <button class="dropUp-Option" onclick="">Modifier</button>
-                <button class="dropUp-Option" onclick="">Deconnexion</button>
+                <button class="dropUp-Option" onclick="location.href='./compte/compte.php'">Settings</button>
+                <button class="dropUp-Option" onclick="location.href='./compte/deconnexion.php'">Logout</button>
             </div>
         </div>
         <button class= "options hidden" id="done">Done</button>

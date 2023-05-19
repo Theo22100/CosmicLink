@@ -122,6 +122,8 @@ function addStarWithInfo(Sname, Sdesc, Ssize, x, y){
     const starDiv = document.createElement("div");
     starDiv.classList.add("starDiv");
     starDiv.style.position = "fixed";
+    let x = (getRandomInt( window.innerWidth ));
+    let y = (getRandomInt( window.innerHeight ));
     //set coordonnées pour la nouvelle étoile
     starDiv.style.left = `${x}px`;
     starDiv.style.top = `${y}px`;
@@ -202,6 +204,46 @@ function numberFromSize(size){
         default: constNumber = 1;
     }
     return constNumber;
+}
+
+function sendAjax(x, y){
+    var req = null; 
+
+    if (window.XMLHttpRequest)
+    {
+         req = new XMLHttpRequest();
+
+    } 
+    else if (window.ActiveXObject) 
+    {
+        try {
+            req = new ActiveXObject("Msxml2.XMLHTTP");
+        } catch (e)
+        {
+            try {
+                req = new ActiveXObject("Microsoft.XMLHTTP");
+            } catch (e) {}
+        }
+        }
+
+    req.onreadystatechange = function()
+    { 
+        
+        if(req.readyState == 4)
+        {
+            if(req.status == 200)
+            {
+                
+            }	
+            else	
+            {
+                
+            }	
+        } 
+    }
+
+    req.open("GET", "test.php?x="+3+"&y="+7, true); 
+    req.send(); 
 }
 
 let currentStar;

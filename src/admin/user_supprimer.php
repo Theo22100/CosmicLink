@@ -10,32 +10,38 @@ $serveur = "localhost";
 $login = "root";
 $pass = "root";
 $dbname = "projet";
+if($_SESSION['id']!=$_GET["id"]){ //Ne pas s'effacer 
+    
+    try {
+        $connexion = new PDO("mysql:host=$serveur;dbname=$dbname", $login, $pass);
+        $connexion->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 
-try {
-    $connexion = new PDO("mysql:host=$serveur;dbname=$dbname", $login, $pass);
-    $connexion->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-
-    $requetedel = "DELETE FROM `membre` WHERE id= :id";
-
-
-
-    //Prepare la déclaration DELETE
-    $tempo = $connexion->prepare($requetedel);
-
-    $id = $_GET['id'];
-
-    //Lie la variable $id avec :id
-    $tempo->bindValue(':id', $id);
+        $requetedel = "DELETE FROM `membre` WHERE id= :id";
 
 
-    $resultat = $tempo->execute();
+
+        //Prepare la déclaration DELETE
+        $tempo = $connexion->prepare($requetedel);
+
+        $id = $_GET['id'];
+
+        //Lie la variable $id avec :id
+        $tempo->bindValue(':id', $id);
 
 
-} catch (PDOException $e) {
-    echo 'Echec Effacer: ' . $e->getMessage();
-    header("Location: list_user.php?message=supechoue");
+        $resultat = $tempo->execute();
+
+
+    } catch (PDOException $e) {
+        echo 'Echec Effacer: ' . $e->getMessage();
+        header("Location: list_user.php?message=supechoue");
+    }
+    
+    
+}else{
+    header("Location: list_user.php?message=supadmin");
 }
 
-header("Location: list_user.php?message=supreussie");
+$connexion = null;
 
 ?>

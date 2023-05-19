@@ -122,8 +122,6 @@ function addStarWithInfo(Sname, Sdesc, Ssize, x, y){
     const starDiv = document.createElement("div");
     starDiv.classList.add("starDiv");
     starDiv.style.position = "fixed";
-    let x = (getRandomInt( window.innerWidth ));
-    let y = (getRandomInt( window.innerHeight ));
     //set coordonnées pour la nouvelle étoile
     starDiv.style.left = `${x}px`;
     starDiv.style.top = `${y}px`;

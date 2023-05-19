@@ -15,7 +15,6 @@ if (isset($_GET['x'])&& isset($_GET['y'])){
 <head>
     <meta charset="UTF-8">
     <title>CosmicLink</title>
-    <link rel="stylesheet" href="style_site.css">
     <link rel="stylesheet" href="addStarUI.css">
     <link rel="stylesheet" href="menu.css">
     <link rel="stylesheet" href="style_site.css">
@@ -50,9 +49,9 @@ if (isset($_GET['x'])&& isset($_GET['y'])){
 
     ?>
 
-    <div id="star-option" class="hidden">
-        <div class="option" id="edit" onclick="showEdit()"> Edit</div>
-        <div class="option" id="move" onclick="moveStar()"> Move</div>
+    <div id="contextMenu" class="hidden">
+        <div class="option" id="edit"> Edit</div>
+        <div class="option" id="move"> Move</div>
         <div class="option" id="link"> Link</div>
         <div class="option" id="remove"> remove</div>
     </div>

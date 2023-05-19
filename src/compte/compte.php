@@ -8,7 +8,8 @@ if (!isset($_SESSION['login'])) {
 
 <head>
 	<title>Mon Compte MySpace</title>
-	<meta charset=”utf-8″>
+	<meta charset=”utf-8″>	
+    <link rel="stylesheet" href="style_params.css">
 </head>
 
 <body>
@@ -149,5 +150,8 @@ if (!isset($_SESSION['login'])) {
 			</form>
 		</div>
 		<br>
-
+		<div>
+			<button class="home-button" onclick="location.href='../home.php'">Back</button>
+		</div>
+	</div>
 </body>

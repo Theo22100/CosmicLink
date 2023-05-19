@@ -2,9 +2,6 @@
     font-family: Georgia,serif;
 }
 #background {
-
-    
-    /* background-color: black; */
     background-image: url("../img/galaxy-bg-flou.jpg");
     background-size: cover;
     height: 100%;
@@ -19,13 +16,13 @@
     overflow: hidden;
 }
 
-.starDiv:hover > .starInfo{
+.starDiv:hover > .starInfo , .galaxyDiv:hover > .galaxyInfo{
     display: flex;
     flex-direction: column;
     padding: 5px 5px;
 }
 
-.starInfo{
+.starInfo, .galaxyInfo{
     display: none;
     position:absolute;
     bottom: 30px;
@@ -33,7 +30,7 @@
     background-color: grey;
     z-index: 1;
 }
-.starInfo > p{
+.starInfo > p:not(.hidden), .galaxyInfo > p:not(.hidden){
     color: black;
     display: block;
     /*padding: 5px 6px;*/
@@ -43,12 +40,12 @@
 
 }
 
-.starName{
+.starName, .galaxyName{
     text-align: center;
     font-weight: bold;
 }
 
-.starDesc{
+.starDesc, .galaxyDesc{
 
 }
 
@@ -69,8 +66,8 @@
     filter: invert(48%) sepia(13%) saturate(3207%) hue-rotate(150deg) brightness(95%) contrast(80%);
 }
 
-
-#star-option{
+/* menu contextuelle (cliquedroit)*/
+#contextMenu{
     position:fixed;
     z-index: 1000;
     width:150px;
@@ -78,7 +75,7 @@
     border-radius: 5px;
 }
 
-#star-option .option {
+#contextMenu .option {
     padding: 8px 10px;
     font-size: 15px;
     color: #eeeeee;
@@ -86,24 +83,17 @@
     border-radius: inherit;
 }
 
-#star-option .option:hover{
+#contextMenu .option:hover{
     background: #343434;
 }
 
 
-/* #circle{
-    border-radius: 50%;
-    border: 5px solid white;
-    padding: 12px
-}
-
-#circle:hover{
-    transform: scale(1.2);
-    border-color: cornflowerblue;
-} */
-
-#origin{
-    position: fixed;
+#invisible{
+    position:absolute;
+    width:100%;
+    height:100%;
+    margin: 0 !important;
+    z-index: 998;
 }
 
 .hidden{

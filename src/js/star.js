@@ -176,7 +176,7 @@ function addStarWithInfo(Sname, Sdesc, Ssize, x, y){
         openStarOptionsList(event.clientX, event.clientY);
     })   
     moveStarElement(starDiv); //fait en sorte que l'etoile puisse être déplacé
-    sendAjax(x,y);
+    sendAjax(Sname, Sdesc, Ssize,x,y);
 }
 
 function numberToSize(number){
@@ -204,11 +204,14 @@ function numberFromSize(size){
     }
     return constNumber;
 }
-function sendAjax(x,y){
+function sendAjax(Sname, Sdesc, Ssize,x,y){
     $.ajax({
         url: "addStar.php",
         type: "POST",
         data: {
+          name : Sname,
+          descr : Sdesc,
+          size : Ssize,
           x: x,
           y: y
         },

@@ -14,6 +14,7 @@ if (isset($_SESSION['login'])) {
 	<body>
 		<!-- debut de la partie contenu -->
 		<div class="main">
+			<div class = "box">
 					<div class="welcome">
 						<h1> Welcome to Starlink ! </h1>
 						<p> Blabla you're a whole universe and you can meet others like you ! </p>
@@ -44,9 +45,10 @@ if (isset($_SESSION['login'])) {
 						<p><a class="acount-btn" href="./sinscrire.php">Register here</a> to create your own universe now !</p>
 					
 					</div>
-					
+							
 					<div class="clearfix"> </div>
-		<div class="clear"></div>
+			<div class="clear"></div>
+			</div>
 		</div><!-- fin de la partie contenu -->
 	</body>
 

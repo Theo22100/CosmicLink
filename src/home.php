@@ -41,9 +41,9 @@ if (!isset($_SESSION['login'])) {
 
     ?>
 
-    <div id="star-option" class="hidden">
-        <div class="option" id="edit" onclick="showEdit()"> Edit</div>
-        <div class="option" id="move" onclick="moveStar()"> Move</div>
+    <div id="contextMenu" class="hidden">
+        <div class="option" id="edit"> Edit</div>
+        <div class="option" id="move"> Move</div>
         <div class="option" id="link"> Link</div>
         <div class="option" id="remove"> remove</div>
     </div>

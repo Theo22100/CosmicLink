@@ -77,6 +77,7 @@ function addStar(){
     starDiv.style.position = "fixed";
     let x = (getRandomInt( window.innerWidth ));
     let y = (getRandomInt( window.innerHeight ));
+
     //set coordonnées pour la nouvelle étoile
     starDiv.style.left =x.toString() + "px" ;
     starDiv.style.top = y.toString() + "px";
@@ -126,46 +127,26 @@ function addStar(){
     });
     moveStarElement(starDiv);
     closeStarGui();
+    
+    sendAjax(x,y);
 }
-
-function sendAjax(x, y){
-    var req = null; 
-
-    if (window.XMLHttpRequest)
-    {
-         req = new XMLHttpRequest();
-
-    } 
-    else if (window.ActiveXObject) 
-    {
-        try {
-            req = new ActiveXObject("Msxml2.XMLHTTP");
-        } catch (e)
-        {
-            try {
-                req = new ActiveXObject("Microsoft.XMLHTTP");
-            } catch (e) {}
+function sendAjax(x,y){
+    $.ajax({
+        url: "addStar.php",
+        type: "POST",
+        data: {
+          x: x,
+          y: y
+        },
+        success: function(response) {
+          // Handle the successful response from the server
+          console.log(response);
+        },
+        error: function(xhr, status, error) {
+          // Handle errors
+          console.error(error);
         }
-        }
-
-    req.onreadystatechange = function()
-    { 
-        
-        if(req.readyState == 4)
-        {
-            if(req.status == 200)
-            {
-                
-            }	
-            else	
-            {
-                
-            }	
-        } 
-    }
-
-    req.open("GET", "test.php?x="+3+"&y="+7, true); 
-    req.send(); 
+      });
 }
 
 let currentStar;

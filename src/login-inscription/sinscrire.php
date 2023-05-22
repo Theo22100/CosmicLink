@@ -9,11 +9,12 @@ if (isset($_SESSION['login'])) {
 	<head>
 		<title>Inscription MySpace</title>
 		<meta charset=”utf-8″>
-		<link rel="stylesheet" href="./style_inscription.css">
+		<link rel="stylesheet" href="./style_login.css">
 	</head>
 	<body>
 		<div class="main">
-			<div class="register">
+			<div class = "box">
+				<div class="register">
 
 
 			<?php
@@ -104,8 +105,9 @@ if (isset($_SESSION['login'])) {
 			</div>
 
 			<div class="clear"></div>
+				</div>
 		</div>
 		<!-- fin de la partie contenu -->
-
+		<div class= "back"></div>
 	</body>
 </html>

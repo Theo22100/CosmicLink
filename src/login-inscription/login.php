@@ -14,7 +14,7 @@ if (isset($_SESSION['login'])) {
 	<body>
 		<!-- debut de la partie contenu -->
 		<div class="main">
-			<div class = "box">
+				<div class = "box">
 					<div class="welcome">
 						<h1> Welcome to Starlink ! </h1>
 						<p> Blabla you're a whole universe and you can meet others like you ! </p>
@@ -47,9 +47,10 @@ if (isset($_SESSION['login'])) {
 					</div>
 							
 					<div class="clearfix"> </div>
-			<div class="clear"></div>
-			</div>
+					<div class="clear"></div>
+				</div>
 		</div><!-- fin de la partie contenu -->
+		<div class= "back"></div>
 	</body>
 
 <?php

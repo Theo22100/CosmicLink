@@ -2,11 +2,13 @@
     font-family: Georgia,serif;
 }
 #background {
-    background-image: url("../img/galaxy-bg-flou.jpg");
+    /* background-image: url("../img/galaxy-bg-flou.jpg");
     background-size: cover;
     height: 100%;
     width: 100%;
-    margin: 0 !important;
+    margin: 0 !important; */
+    background-image: linear-gradient(to bottom right, #100322e5,#886395,#5d1d99, #284468);
+    height: 1000px;
 }
 
 #univers{
@@ -24,7 +26,7 @@
 
 .starInfo, .galaxyInfo{
     display: none;
-    position:absolute;
+    position:relative;
     bottom: 30px;
     border-radius: 5px;
     background-color: grey;

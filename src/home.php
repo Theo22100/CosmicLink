@@ -26,7 +26,6 @@ if (isset($_GET['x'])&& isset($_GET['y'])){
 <body id="background">
 
     <?php
-        echo "soup";
         echo $x;
         echo $y;
 

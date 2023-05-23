@@ -102,8 +102,7 @@ if (!isset($_SESSION['login'])) {
 						<span>Mail<label></label></span>
 						<div>
 							<input type="mail" name="mail" id="mail" required="required" maxlength="60">
-						</div>
-						<div>
+						
 							<input type="submit" name="modifiermail" value="Modifier">
 						</div>
 					</div>
@@ -143,7 +142,7 @@ if (!isset($_SESSION['login'])) {
 						<input type="password" name="password" id="password" required="required" maxlength="50">
 					</div>
 					<div class="register-but">
-						<input type="submit" name="envoyermdp" value="Supprimer votre Compte">
+						<input type="sub" name="envoyermdp" value="Supprimer votre Compte">
 					</div>
 
 				</div>

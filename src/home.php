@@ -47,7 +47,7 @@ if (isset($_GET['x'])&& isset($_GET['y'])){
 
 
     ?>
-
+    
     <div id="contextMenu" class="hidden">
         <div class="option" id="edit"> Edit</div>
         <div class="option" id="move"> Move</div>

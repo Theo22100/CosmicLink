@@ -9,7 +9,7 @@ if (isset($_SESSION['login'])) {
 	<head>
 		<title>Inscription MySpace</title>
 		<meta charset=”utf-8″>
-		<link rel="stylesheet" href="./style_login.css">
+		<link rel="stylesheet" href="./style_inscription.css">
 	</head>
 	<body>
 		<div class="main">

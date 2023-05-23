@@ -7,14 +7,9 @@ if (isset($_POST['x']) && isset($_POST['y']) && isset($_POST['name']) && isset($
     $x = intval($_POST['x']);
 }
 
-$servername = "localhost";
-$dbname = "projet";
-$sqlusername = "root";
-$sqlpassword = "root";
+require 'connect.php';
 
 try {
-    $handler = new PDO("mysql:host=$servername;dbname=$dbname", $sqlusername, $sqlpassword);
-    $handler->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
     $id_galaxie = 2;
 
     //TODO Prepare statement 
@@ -25,5 +20,5 @@ try {
 
 } catch (PDOException $e) {
     
-   echo 'Echec Connexion : ' . $e->getMessage();
+   echo 'Echec Requête : ' . $e->getMessage();
 }

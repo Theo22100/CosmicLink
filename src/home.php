@@ -24,21 +24,8 @@ if (!isset($_SESSION['login'])) {
 <body id="background">
 
     <?php
-   
-    try {
-        $servername = "localhost";
-        $dbname = "projet";
-        $sqlusername = "root";
-        $sqlpassword = "root";
-
-        $handler = new PDO("mysql:host=$servername;dbname=$dbname", $sqlusername, $sqlpassword);
-        $handler->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-
-    } catch (PDOException $e) {
-        echo 'Echec Connexion : ' . $e->getMessage();
-    }
-
-
+    require 'connect.php';
+    
     ?>
 
     <div id="contextMenu" class="hidden">
@@ -124,6 +111,14 @@ if (!isset($_SESSION['login'])) {
     <script src="./js/home.js"></script>
     <script src="./js/star.js"></script>
     <script src="./js/galaxy.js"></script>
+
+    <?php
+    require 'connect.php';
+    require './classes/universe.php';
+
+    $u1 = new Universe(83,1);
+       
+    ?>
 </body>
 
 </html>

@@ -17,7 +17,6 @@ function onclickoutside(func){
     INVISIBLE.addEventListener('contextmenu',  (event) =>{
         INVISIBLE.classList.add("hidden");
         func();
-        INVISIBLE.removeEventListener('contextmenu');
     });
 }
 

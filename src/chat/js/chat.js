@@ -12,7 +12,10 @@ function closeChat() {
     clearAllContactMessages();
 }
 
-
+const CONNECTBUTTON = document.getElementById("connect-section");
+CONNECTBUTTON.addEventListener("click",(event)=>{
+    openConnect(event)
+});
 
 function addAllContactMessage(){
     console.log();

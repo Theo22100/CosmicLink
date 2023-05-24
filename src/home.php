@@ -20,6 +20,7 @@ if (isset($_GET['x']) && isset($_GET['y'])) {
 
     <link rel="stylesheet" href="./chat/css/chat.css">
     <link rel="stylesheet" href="./chat/css/message.css">
+    <link rel="stylesheet" href="./chat/css/connect.css">
 
     <link rel="stylesheet" href="addStarUI.css">
     <link rel="stylesheet" href="menu.css">
@@ -90,6 +91,7 @@ if (isset($_GET['x']) && isset($_GET['y'])) {
 
     include("./chat/chat.php");
     include("./chat/message.php");
+    include("./chat/connect.php")
 
     ?>
 

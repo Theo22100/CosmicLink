@@ -14,6 +14,11 @@ function onclickoutside(func){
         INVISIBLE.classList.add("hidden");
         func();
     }
+    INVISIBLE.addEventListener('contextmenu',  (event) =>{
+        INVISIBLE.classList.add("hidden");
+        func();
+        INVISIBLE.removeEventListener('contextmenu');
+    });
 }
 
 
@@ -160,7 +165,7 @@ function zoomInOut(translateX, translateY, zoomIn, oldZoom){
         const child = starList.item(i);
 
         //augmente / diminue la taille de l'étoile
-        child.getElementsByClassName("star")[0].style.transform = `scale(${zoom})`;
+        child.getElementsByClassName("stars")[0].style.transform = `scale(${zoom})`;
         zoomCoordinates(zoomIn, child, translateX, translateY);
     }
 

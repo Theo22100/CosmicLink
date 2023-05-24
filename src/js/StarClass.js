@@ -27,17 +27,10 @@ class Star {
         starDiv.style.top = `${this.#y}px`;
 
         const newStar = document.createElement("img");
-        newStar.classList.add("star");
+        newStar.classList.add("stars");
         newStar.classList.add(Star.numberToSize(this.#size));
         newStar.src = "../img/etoile.png";
         newStar.style.transform = `scale(${zoom})`;
-
-        switch (getRandomInt(3)) {
-            case 0: newStar.classList.add("red"); break;
-            case 1: newStar.classList.add("blue"); break;
-            case 2: newStar.classList.add("yellow"); break;
-            default: newStar.classList.add("white");
-        }
         starDiv.appendChild(newStar);
 
 
@@ -46,24 +39,22 @@ class Star {
 
         const name = document.createElement("p");
         const desc = document.createElement("p");
-        // const linkedGalaxy = document.createElement("p");
 
         name.textContent = this.#name;
         name.classList.add("starName");
         desc.textContent = this.#description;
         desc.classList.add("starDesc");
 
-        // linkedGalaxy.textContent = this.#galaxyLinked;
-
         starInfo.appendChild(name);
         starInfo.appendChild(desc);
-        // starInfo.appendChild(linkedGalaxy);
 
         starDiv.appendChild(starInfo);
 
-        moveStarElement(starDiv);
-
         return starDiv;
+    }
+
+    addElementAnimation(){
+        this.#element.getElementsByClassName("stars")[0].style.animationName = "popUpStar";
     }
 
     addElement() {
@@ -77,7 +68,7 @@ class Star {
         });
 
 
-        moveStarElement(this.#element); //fait en sorte que l'etoile puisse être déplacé
+        moveStarElement(this, this.#element); //fait en sorte que l'etoile puisse être déplacé
     }
 
     getSize() {
@@ -104,17 +95,22 @@ class Star {
         return this.#galaxyLinked;
     }
 
-    getGalaxyLinkedName() {
+    getGalaxyLinkedNumber() {
         const select = document.getElementById("select-galaxy");
-        return select.options[this.#galaxyLinked].text;
+        const options = document.getElementsByTagName("option");
+
+        for (let i = 0; i < options.length; i++){
+            if(options.textContent  == this.#galaxyLinked){
+                return i;
+            }
+        }
+        return 0;
     }
 
 
     setSize(newSize) {
         const img = this.#element.getElementsByTagName("img")[0];
         Star.changeSize(img, parseInt(newSize));
-
-        console.log(newSize);
 
         this.#size = parseInt(newSize);
     }

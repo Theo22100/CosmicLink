@@ -17,14 +17,14 @@ if (!isset($_SESSION['login'])) {
     <link rel="icon" type="image/x-icon" href="../img/favicon.ico">
     <link rel="stylesheet" href="style_site.css">
 
-    
-    <link rel="stylesheet" href="chat.css">
-    <link rel="stylesheet" href="message.css">
+
+    <link rel="stylesheet" href="./chat/css/chat.css">
+    <link rel="stylesheet" href="./chat/css/message.css">
 
     <link rel="stylesheet" href="addStarUI.css">
     <link rel="stylesheet" href="menu.css">
     <link rel="stylesheet" href="style_site.css">
-    
+
 </head>
 
 <body id="background">
@@ -41,7 +41,7 @@ if (!isset($_SESSION['login'])) {
         <div class="option" id="remove"> remove</div>
     </div>
 
-    <div id="univers" >
+    <div id="univers">
         <div id="origin"></div>
     </div>
 
@@ -55,36 +55,38 @@ if (!isset($_SESSION['login'])) {
                 <button class="dropUp-Option" onclick="openCreateGalaxy(event)">Galaxy</button>
             </div>
         </div>
-        <button class= "options hidden" onclick="openChat(event)">Chat</button>
-        <div class= "dropUp options">
+        <button class="options hidden" onclick="openChat(event)">Chat</button>
+        <div class="dropUp options">
             <button class="options hidden">Mon Compte</button>
             <div class="dropUp-content">
                 <button class="dropUp-Option" onclick="location.href='./compte/compte.php'">Settings</button>
                 <button class="dropUp-Option" onclick="location.href='./compte/deconnexion.php'">Logout</button>
             </div>
         </div>
-        <button class= "options hidden" id="done">Done</button>
+        <button class="options hidden" id="done">Done</button>
     </div>
 
 
     <?php
-    
+
     include("addStar.php");
     include("addGalaxy.php");
 
-    include("chat.php");
-    include("message.php");
-    
+    include("./chat/chat.php");
+    include("./chat/message.php");
+
     ?>
-    
+
     <div id="invisible" class="hidden"> </div>
 
     <script src="./js/home.js"></script>
     <script src="./js/star.js"></script>
     <script src="./js/StarClass.js"></script>
-    
+
     <script src="./js/galaxy.js"></script>
-    <script src="./js/chat.js"></script>
+    <script src="./chat/js/chat.js"></script>
+    <script src="./chat/js/message.js"></script>
+    <script src="./chat/js/connect.js"></script>
 
     <?php
     require 'connect.php';

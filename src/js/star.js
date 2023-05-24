@@ -82,7 +82,7 @@ let movable = false;
 function moveStar(event) {
     INVISIBLE.classList.add("hidden");
     closeStarOptionsList(); // ferme le menu contextuelle
-    document.getElementById("done").classList.remove("hidden");
+    doneMenuButton.classList.remove("hidden");
 
     menu.style.width = "auto";
     menu.style.borderRadius = "50px";
@@ -92,15 +92,13 @@ function moveStar(event) {
     menu.style.transition = ".3s";
 
     movable = true;
-    doneMenuButton.onclick = function (event) {
-        event.stopImmediatePropagation();
-        confirmStarPosition(event)
-    };
+    menu.onclick = function(event){confirmStarPosition(event)};
 }
 
 function confirmStarPosition(event) {
     movable = false;
-    closeOption(); // cache le done et affiche et remet le cercle de base
+    closeOption();
+    menu.onclick = function(event){ openOption(event)};
 }
 
 
@@ -139,9 +137,13 @@ function addStar(event) {
     const starName = document.getElementById("starName").value;
     const starDesc = document.getElementById("starDesc").value;
     const starSize = parseInt(document.getElementById("starSize").value);
-    const galaxy = document.getElementById("select-galaxy").value;
+
+    //recupère le nom de la galaxy liée a l'étoile
+    const select = document.getElementById("select-galaxy");
+    const galaxy = select.options[select.value].text;
 
     const s = new Star(starName, starDesc, galaxy, starSize, x, y);
+    s.addElementAnimation();
     s.addElement();
 
     closeCreateGui();
@@ -209,7 +211,7 @@ function removeStar(event) {
  * DRAGGABLE PART
  */
 
-function moveStarElement(element) {
+function moveStarElement(starObject, element) {
     let pos1 = 0, pos2 = 0, pos3 = 0, pos4 = 0;
 
     element.onmousedown = dragMouseDown;
@@ -245,5 +247,9 @@ function moveStarElement(element) {
         // stop moving when mouse button is released:
         document.onmouseup = null;
         document.onmousemove = null;
+
+
+        // console.log(starObject.getGalaxyLinked());
+        //c'est comme ça que tu récupère la galaxy liée 
     }
 }

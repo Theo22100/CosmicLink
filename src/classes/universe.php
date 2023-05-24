@@ -32,10 +32,7 @@
             $i = 0;
             while ($row = $sql->fetch(PDO::FETCH_ASSOC)) {
                 $g = new Galaxy($row['id_galaxie'],$row['galaxie_nom']);
-                
-                $g->fetchStars();
-                
-
+                     
                 $this->galaxies[$i] = $g;
 
                 $i = $i + 1;

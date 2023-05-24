@@ -89,7 +89,7 @@ if (!isset($_SESSION['login'])) {
     <?php
     require 'connect.php';
     require './classes/universe.php';
-
+    //TODO CODAGE EN DUR: récupérer id (session) et universe id (requête SQL)
     $u1 = new Universe(83,1);
        
     ?>

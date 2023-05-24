@@ -146,35 +146,16 @@ function addStar(event) {
 
     closeCreateGui();
     INVISIBLE.classList.add("hidden");
+    ajaxAdd(starName, starDesc, starSize, x, y);
 }
 
 function addStarWithInfo(starName, galaxy, starDesc, starSize, x, y) {
-    const s = new Star(starName, starDesc, galaxy, starSize, x, y);
+    const s = new Star(starName, starDesc, galaxy, starSize, x, y);    
     s.addElement();
 }
 
 
-function sendAjax(Sname, Sdesc, Ssize,x,y){
-    $.ajax({
-        url: "addStar.php",
-        type: "POST",
-        data: {
-          name : Sname,
-          descr : Sdesc,
-          size : Ssize,
-          x: x,
-          y: y
-        },
-        success: function(response) {
-          // Handle the successful response from the server
-          console.log(response);
-        },
-        error: function(xhr, status, error) {
-          // Handle errors
-          console.error(error);
-        }
-      });
-}
+
 
 let currentStar;
 function editStar(event) {
@@ -225,13 +206,73 @@ function moveStarElement(element) {
         pos3 = e.clientX;
         pos4 = e.clientY;
         // set the element's new position:
-        element.style.top = (element.offsetTop - pos2) + "px";
-        element.style.left = (element.offsetLeft - pos1) + "px";
+        let x = element.offsetLeft - pos1;
+        let y = element.offsetTop - pos2
+      
+        element.style.top = y + "px";
+        element.style.left = x + "px";
+
+        
+        
     }
 
     function closeDragElement() {
         // stop moving when mouse button is released:
         document.onmouseup = null;
         document.onmousemove = null;
+
+        let x = element.offsetLeft;
+        let y = element.offsetTop;
+        const star_name = element.getElementsByClassName("starName")[0].textContent;
+
+        ajaxMove(star_name, x, y);
     }
+}
+
+function ajaxAdd(Sname, Sdesc, Ssize,x,y){
+    
+    $.ajax({
+        url: "starDB.php",
+        type: "POST",
+        data: {
+          action : 'add',
+          name : Sname,
+          descr : Sdesc,
+          size : Ssize,
+          x: x,
+          y: y
+        },
+        success: function(response) {
+          // Handle the successful response from the server
+          console.log(response);
+        },
+        error: function(xhr, status, error) {
+          // Handle errors
+          console.error(error);
+        }
+      });
+}
+
+function ajaxMove(Sname, x, y){
+
+
+    $.ajax({
+        url: "starDB.php",
+        type: "POST",
+        data: {
+          action : "move",
+          name : Sname,
+          x: x,
+          y: y
+        },
+        success: function(response) {
+          // Handle the successful response from the server
+          console.log(response);
+        },
+        error: function(xhr, status, error) {
+          // Handle errors
+          console.error(error);
+        }
+      });
+    
 }

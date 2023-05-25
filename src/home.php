@@ -29,11 +29,6 @@ if (!isset($_SESSION['login'])) {
 
 <body id="background">
 
-    <?php
-    require 'connect.php';
-    
-    ?>
-
     <div id="contextMenu" class="hidden">
         <div class="option" id="edit"> Edit</div>
         <div class="option" id="move"> Move</div>
@@ -91,8 +86,36 @@ if (!isset($_SESSION['login'])) {
     <?php
     require 'connect.php';
     require './classes/universe.php';
-    //TODO CODAGE EN DUR: récupérer id (session) et universe id (requête SQL)
-    $u1 = new Universe(83,1);
+    $user_id = $_SESSION['id'];
+    echo $user_id;
+    $universe_id;
+    try {
+        //Recherche s'il existe un univers pour ce membre
+        $sql = $handler->prepare("SELECT id_univers FROM univers WHERE id_membre=:id_membre");
+        $sql->bindParam(':id_membre',$user_id);
+        $sql->execute();
+
+        //Si non, on en crée
+        if ($sql->rowCount() == 0){
+            $sql2 = $handler->prepare("INSERT INTO univers(id_membre) VALUES (:id_membre) ");
+            $sql2->bindParam(':id_membre',$user_id);
+            $sql2->execute();
+
+            $universe_id = $handler->lastInsertId();
+
+            //TODO On crée une galaxie "UNDEFINED" qui correspond
+        }
+
+        else {
+            $row = $sql->fetch(PDO::FETCH_ASSOC);
+            $universe_id = $row['id_univers'];
+        }        
+
+    }
+    catch (PDOException $e){
+        echo 'Echec : ' . $e->getMessage();
+    }
+   $u1 = new Universe($user_id,$universe_id);
        
     ?>
 </body>

@@ -18,7 +18,7 @@
     overflow-x: hidden;
 }
 
-.starDiv{
+.starDiv, .galaxyDiv{
     position:fixed;
 }
 
@@ -55,7 +55,7 @@
 
 }
 
-.stars{
+.stars, .galaxy{
     border-radius: 50%;
     animation-duration: 5s;
 }

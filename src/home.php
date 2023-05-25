@@ -20,6 +20,7 @@ if (!isset($_SESSION['login'])) {
 
     <link rel="stylesheet" href="./chat/css/chat.css">
     <link rel="stylesheet" href="./chat/css/message.css">
+    <link rel="stylesheet" href="./chat/css/connect.css">
 
     <link rel="stylesheet" href="addStarUI.css">
     <link rel="stylesheet" href="menu.css">
@@ -69,6 +70,7 @@ if (!isset($_SESSION['login'])) {
 
     include("./chat/chat.php");
     include("./chat/message.php");
+    include("./chat/connect.php")
 
     ?>
 
@@ -77,6 +79,7 @@ if (!isset($_SESSION['login'])) {
     <script src="./js/home.js"></script>
     <script src="./js/star.js"></script>
     <script src="./js/StarClass.js"></script>
+    <script src="./js/GalaxyClass.js"></script>
 
     <script src="./js/galaxy.js"></script>
     <script src="./chat/js/chat.js"></script>

@@ -172,7 +172,6 @@ function galaxyNameToId($handler, $galaxy_name, $user_id)
 
 
         $row = $gQuery->fetch(PDO::FETCH_ASSOC);
-        print_r($row);
         $galaxy_id = $row['id_galaxie'];
     } catch (PDOException $e) {
         echo 'Erreur requête :' . $e->getMessage();

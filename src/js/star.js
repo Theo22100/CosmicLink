@@ -5,7 +5,8 @@ const doneButton = starGui.getElementsByTagName("button")[0]; //quand edit/add
 const doneMenuButton = document.getElementById("done");
 
 function openCreateStar(event) { //ouvre la fenetre d'edit/ajout d'étoile
-    addGalaxyOptions();
+    //addGalaxyOptions();
+    ajaxGetGalaxies();
     event.stopPropagation();
     closeOption();
     starGui.classList.remove("hidden");
@@ -29,7 +30,8 @@ function closeCreateGui() {
 
 
 function openEditStar(event) {
-    addGalaxyOptions();
+    ajaxGetGalaxies();
+    //addGalaxyOptions();
     closeOption(); //dans le cas ou done est visible on veut le rendre invisible
     closeStarOptionsList();
     starGui.classList.remove("hidden");
@@ -92,13 +94,13 @@ function moveStar(event) {
     menu.style.transition = ".3s";
 
     movable = true;
-    menu.onclick = function(event){confirmStarPosition(event)};
+    menu.onclick = function (event) { confirmStarPosition(event) };
 }
 
 function confirmStarPosition(event) {
     movable = false;
     closeOption();
-    menu.onclick = function(event){ openOption(event)};
+    menu.onclick = function (event) { openOption(event) };
 }
 
 
@@ -110,8 +112,8 @@ function changePreview() {
 }
 
 const SELECTGALAXY = document.getElementById("select-galaxy");
-function addGalaxyOptions() {
-    const arrayTmp = ["1", "2", "3", "4", "5"];
+function addGalaxyOptions(galaxies) {
+    const arrayTmp = galaxies;
 
     for (let i = 0; i < arrayTmp.length; i++) {
         const option = document.createElement("option");
@@ -140,7 +142,7 @@ function addStar(event) {
 
     //recupère le nom de la galaxy liée a l'étoile
     const select = document.getElementById("select-galaxy");
-    const galaxy = select.options[select.value].text;
+    const galaxy =  select.value;
 
     const s = new Star(starName, starDesc, galaxy, starSize, x, y);
     s.addElementAnimation();
@@ -148,6 +150,8 @@ function addStar(event) {
 
     closeCreateGui();
     INVISIBLE.classList.add("hidden");
+
+    ajaxAdd(starName, galaxy, starDesc, starSize, x, y);
 }
 
 function addStarWithInfo(starName, galaxy, starDesc, starSize, x, y) {
@@ -156,38 +160,6 @@ function addStarWithInfo(starName, galaxy, starDesc, starSize, x, y) {
 }
 
 
-function sendAjax(x, y) {
-    var req = null;
-
-    if (window.XMLHttpRequest) {
-        req = new XMLHttpRequest();
-
-    }
-    else if (window.ActiveXObject) {
-        try {
-            req = new ActiveXObject("Msxml2.XMLHTTP");
-        } catch (e) {
-            try {
-                req = new ActiveXObject("Microsoft.XMLHTTP");
-            } catch (e) { }
-        }
-    }
-
-    req.onreadystatechange = function () {
-
-        if (req.readyState == 4) {
-            if (req.status == 200) {
-
-            }
-            else {
-
-            }
-        }
-    }
-
-    req.open("GET", "test.php?x=" + 3 + "&y=" + 7, true);
-    req.send();
-}
 
 
 let currentStar;
@@ -205,6 +177,10 @@ function removeStar(event) {
     currentStar.removeElement();
     closeStarOptionsList();
     INVISIBLE.classList.add("hidden");
+
+    const galaxy = currentStar.getGalaxyLinked();
+    const star_name = currentStar.getName();
+    ajaxRemove(galaxy, star_name);
 }
 
 /**
@@ -239,8 +215,14 @@ function moveStarElement(starObject, element) {
         pos3 = e.clientX;
         pos4 = e.clientY;
         // set the element's new position:
-        element.style.top = (element.offsetTop - pos2) + "px";
-        element.style.left = (element.offsetLeft - pos1) + "px";
+        let x = element.offsetLeft - pos1;
+        let y = element.offsetTop - pos2
+
+        element.style.top = y + "px";
+        element.style.left = x + "px";
+
+
+
     }
 
     function closeDragElement() {
@@ -248,8 +230,102 @@ function moveStarElement(starObject, element) {
         document.onmouseup = null;
         document.onmousemove = null;
 
+        const x = element.offsetLeft;
+        const y = element.offsetTop;
+        const star_name = element.getElementsByClassName("starName")[0].textContent;
 
-        // console.log(starObject.getGalaxyLinked());
-        //c'est comme ça que tu récupère la galaxy liée 
+        const galaxy_name = starObject.getGalaxyLinked();
+        ajaxMove(star_name, galaxy_name, x, y);
+
     }
+}
+
+function ajaxAdd(Sname, Gname, Sdesc, Ssize, x, y) {
+
+    $.ajax({
+        url: "starDB.php",
+        type: "POST",
+        data: {
+            action: 'add',
+            name: Sname,
+            galaxy_name: Gname,
+            descr: Sdesc,
+            size: Ssize,
+            x: x,
+            y: y
+        },
+        success: function (response) {
+            console.log(response);
+        },
+        error: function (xhr, status, error) {
+            console.error(error);
+        }
+    });
+}
+
+function ajaxMove(Sname, Gname, x, y) {
+
+
+    $.ajax({
+        url: "starDB.php",
+        type: "POST",
+        data: {
+            action: "move",
+            name: Sname,
+            galaxy_name: Gname,
+            x: x,
+            y: y
+        },
+        success: function (response) {
+            // Handle the successful response from the server
+            console.log(response);
+        },
+        error: function (xhr, status, error) {
+            // Handle errors
+            console.error(error);
+        }
+    });
+
+}
+
+function ajaxRemove(galaxy_name, star_name) {
+    $.ajax({
+        url: "starDB.php",
+        type: "POST",
+        data: {
+            action: "delete",
+            name: star_name,
+            galaxy_name: galaxy_name
+        },
+        success: function (response) {
+            // Handle the successful response from the server
+            console.log(response);
+        },
+        error: function (xhr, status, error) {
+            // Handle errors
+            console.error(error);
+        }
+    });
+}
+
+function ajaxGetGalaxies() {
+    $.ajax({
+        url: "starDB.php",
+        type: "GET",
+        //TODO Trouver moyen de cache
+        data: {
+            action: "getGalaxies"
+        },
+        cache: true,
+        success: function (response) {
+            console.log(response);
+            addGalaxyOptions(JSON.parse(response));
+        },
+        error: function (xhr, status, error) {
+            // Handle errors
+            console.error(error);
+        }
+    });
+
+
 }

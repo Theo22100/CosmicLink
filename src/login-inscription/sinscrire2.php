@@ -126,7 +126,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
 
                     // Insérer l'ID de univers dans une autre table "univers" avec la clé étrangère du membre
-                    $requete3 = $connexion2->prepare("INSERT INTO univers (id) VALUES (:id)");
+                    $requete3 = $connexion2->prepare("INSERT INTO univers (id_membre) VALUES (:id)");
                     //Bind
                     //$requete3->bindParam(':id_univers', $univers);
                     $requete3->bindParam(':id', $membre);
@@ -139,11 +139,11 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                     
 
                     $cox = $coy =0;
-                    $nomgalaxie = "Undefined";
+                    $nomgalaxie = "undefined";
                     $univers = $connexion2-> lastInsertId() ;
 
                      // Insérer l'ID de galaxie dans une table "galaxie" avec la clé étrangère de univers
-                     $requete4 = $connexion3->prepare("INSERT INTO galaxie (nom, cox, coy, id_univers) VALUES (:nom, :cox, :coy, :id_univers)");
+                     $requete4 = $connexion3->prepare("INSERT INTO galaxie (galaxie_nom, cox, coy, id_univers) VALUES (:nom, :cox, :coy, :id_univers)");
                      //Bind
                      //$requete4->bindParam(':id_galaxie', $galaxie);
                      $requete4->bindParam(':nom', $nomgalaxie);

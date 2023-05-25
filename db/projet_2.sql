@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost:3306
--- Generation Time: May 22, 2023 at 09:40 AM
+-- Generation Time: May 25, 2023 at 02:43 PM
 -- Server version: 5.7.24
 -- PHP Version: 8.0.1
 
@@ -53,9 +53,39 @@ CREATE TABLE `etoile` (
 --
 
 INSERT INTO `etoile` (`id_etoile`, `nom`, `descr`, `cox`, `coy`, `taille`, `id_galaxie`) VALUES
-(5, 'test', 'test', 1239, 78, 1, 1),
-(10, 'test2', 'test', 294, 262, 1, 2),
-(13, 'test3', 'test', 1001, 211, 1, 2);
+(10, 'test2', 'test', 399, 146, 1, 2),
+(13, 'test3', 'test', 403, 239, 1, 2),
+(23, 'friends', '', 247, 180, 3, 2),
+(26, 'yo', '', 331, 187, 1, 2),
+(27, '', '', 921, 649, 3, 2),
+(28, 'frends', '', 711, 82, 3, 2),
+(33, 'test', 'test', 657, 223, 1, 2),
+(54, 'fxfbgfdg', '', 1226, 162, 3, 2),
+(77, 'yoooooooooo', '', 607, 67, 3, 2),
+(102, 'yolo', '', 490, 119, 3, 2),
+(200, 'qfsvsdfsd', '', 756, 562, 3, 2),
+(397, 'bjr', '', 315, 620, 3, 2),
+(414, 'trolololololololo', '', 378, 96, 3, 2),
+(416, 'testbind', 'testbind', 702, 160, 3, 2),
+(417, 'fbgfgfg', 'fbgfgfg', 906, 169, 3, 2),
+(418, 'hghfhf', 'hghfhf', -174, 333, 3, 2),
+(419, 'eferfre', 'eferfre', 389, 106, 3, 2),
+(420, 'gdsgdrg', 'gdsgdrg', 870, 109, 3, 2),
+(421, 'fzefzf', '', -35, 402, 3, 2),
+(422, 'trolo', '', 1157, 227, 3, 1),
+(426, '', '', 914, 122, 3, 1),
+(427, 'fsefezfer', '', 150, 245, 3, 1),
+(428, 'tfhgjy', '', 1400, 170, 3, 1),
+(429, 'recherchegalax', '', 1135, 363, 3, 1),
+(430, 't', '', 119, 370, 3, 55),
+(432, 'qsfsedfes', '', 812, 376, 3, 1),
+(437, 'Hey', 'fef', 744, 164, 3, 55),
+(438, 'sgdr', '', 696, 323, 3, 55),
+(439, 'blo', '', 24, 360, 3, 55),
+(440, 'blegh', '', 261, 326, 3, 55),
+(441, '', '', 673, 398, 3, 55),
+(449, '', '', 616, 129, 3, 57),
+(450, '', '', 748, 37, 3, 56);
 
 -- --------------------------------------------------------
 
@@ -76,8 +106,11 @@ CREATE TABLE `galaxie` (
 --
 
 INSERT INTO `galaxie` (`id_galaxie`, `galaxie_nom`, `cox`, `coy`, `id_univers`) VALUES
-(1, 'TestGalaxie', 100, 100, 1),
-(2, 'test2', 100, 200, 1);
+(1, 'testgalaxie', 100, 100, 1),
+(2, 'test2', 100, 200, 1),
+(55, 'undefined', 0, 0, 1),
+(56, 'undefined', 0, 0, 4),
+(57, 'test', 4, 4, 4);
 
 -- --------------------------------------------------------
 
@@ -104,8 +137,6 @@ CREATE TABLE `membre` (
 
 INSERT INTO `membre` (`id`, `pseudo`, `prenom`, `nom`, `datenaissance`, `dateinscription`, `password`, `mail`, `role`, `login`) VALUES
 (74, 'admin', 'admin', 'admin', '2006-06-06', '2023-05-15', '$2y$10$97Al5ULlPLtgxiJZR4cqX.O7NKe/DaB5ltzusowu6AovrspIbFiwq', 'admin@admin', 'A', 0),
-(76, 'a', 'a', 'a', '2006-06-06', '2023-05-16', '$2y$10$ZR7eeo41zrh9J4Sp97clk.MmhJSZAA4wP95a0CwJqQP5fnhLkpcy.', 'a@a', 'U', 0),
-(80, 'test2', 'test2', 'test2', '2001-01-01', '2023-05-19', '$2y$10$rNha0.nwizhv7Gm5P9bHxewBFbgxruWgw/Ewo3/qNSDwLrJX5a4n2', 'test2@', 'U', 0),
 (83, 'test', 'test', 'test', '2001-01-01', '2023-05-19', '$2y$10$oKZFJhIB4AfLTWpf6EukYuzrtB5BzsqV8G7Pm8f/KzsxQaMN4fwYu', 'test@test', 'U', 0);
 
 -- --------------------------------------------------------
@@ -124,6 +155,7 @@ CREATE TABLE `univers` (
 --
 
 INSERT INTO `univers` (`id_univers`, `id_membre`) VALUES
+(4, 74),
 (1, 83);
 
 --
@@ -151,7 +183,7 @@ ALTER TABLE `etoile`
 --
 ALTER TABLE `galaxie`
   ADD PRIMARY KEY (`id_galaxie`),
-  ADD UNIQUE KEY `id_galaxie` (`id_galaxie`,`galaxie_nom`),
+  ADD UNIQUE KEY `galaxie_nom` (`galaxie_nom`,`id_univers`),
   ADD KEY `univers_galaxie` (`id_univers`);
 
 --
@@ -175,25 +207,25 @@ ALTER TABLE `univers`
 -- AUTO_INCREMENT for table `etoile`
 --
 ALTER TABLE `etoile`
-  MODIFY `id_etoile` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=15;
+  MODIFY `id_etoile` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=451;
 
 --
 -- AUTO_INCREMENT for table `galaxie`
 --
 ALTER TABLE `galaxie`
-  MODIFY `id_galaxie` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id_galaxie` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=58;
 
 --
 -- AUTO_INCREMENT for table `membre`
 --
 ALTER TABLE `membre`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=84;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=85;
 
 --
 -- AUTO_INCREMENT for table `univers`
 --
 ALTER TABLE `univers`
-  MODIFY `id_univers` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id_univers` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
 -- Constraints for dumped tables

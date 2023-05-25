@@ -19,6 +19,9 @@ $dbname = "projet";
 try {
     $connexion = new PDO("mysql:host=$servername;dbname=$dbname", $username, $password_db);
     $connexion->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+    $connexion2 = new PDO("mysql:host=$servername;dbname=$dbname", $username, $password_db);
+    $connexion2->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+
 
     $requete0 = "SELECT COUNT(mail) FROM membre WHERE mail =:mail GROUP BY mail";
 
@@ -85,10 +88,12 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             }
             else{
                 try {
+
                     $requete2 = $connexion->prepare("INSERT INTO membre (id,pseudo,prenom,nom,datenaissance,dateinscription,mail,password,login) VALUES (:id, :pseudo, :prenom, :nom, :datenaissance, :dateinscription, :mail ,:password, :login)");
 
+                    $id = $connexion-> lastInsertId();
+                    
 
-                    $id = $connexion-> lastInsertId() ;
                     $pseudo = clean($_POST["pseudo"]);
                     $prenom = clean($_POST["prenom"]);
                     $nom = clean($_POST["nom"]);
@@ -110,13 +115,23 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                     $requete2->bindParam(':password', $password);
                     $requete2->bindParam(':login', $login);
 
-
+                    
                     $requete2->execute();
 
-                    $requete3 = $connexion->prepare("INSERT INTO univers (id_membre) VALUES (:id)");
+
+                    //ID pour la réutiliser
+                    $id = $connexion-> lastInsertId() ;
+
+
+                    // Insérer l'ID de univers dans une autre table "univers" avec la clé étrangère du membre
+                    $requete3 = $connexion2->prepare("INSERT INTO univers (id_univers, id) VALUES (:id_univers, :id)");
+                    $univers = $connexion2-> lastInsertId() ;
+                    $requete3->bindParam(':id_univers', $univers);
                     $requete3->bindParam(':id', $id);
                     $requete3->execute();
+                    
 
+                    
 
                 }
                 catch (PDOException $e){
@@ -125,14 +140,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                     header("Location: sinscrire.php?message=echoue");
                 }
                 header("Location: sinscrire.php?message=reussie");
-                /*
-                echo $compteMail;
-                echo "<br>";
-                echo $comptePseudo;
-                echo "<br>";
-                echo $password;
-                echo "<br>";
-                */
             }
         }
     }else{
@@ -147,8 +154,7 @@ function clean($userInput) {
     $userInput = htmlspecialchars($userInput);
     return $userInput;
 }
-
-$connexion = null;
+$connexion = $connexion2 = null;
 
 
 ?>

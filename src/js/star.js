@@ -30,7 +30,8 @@ function closeCreateGui() {
 
 
 function openEditStar(event) {
-    addGalaxyOptions();
+    ajaxGetGalaxies();
+    //addGalaxyOptions();
     closeOption(); //dans le cas ou done est visible on veut le rendre invisible
     closeStarOptionsList();
     starGui.classList.remove("hidden");

@@ -100,6 +100,7 @@ if (isset($_GET['x']) && isset($_GET['y'])) {
     <script src="./js/home.js"></script>
     <script src="./js/star.js"></script>
     <script src="./js/StarClass.js"></script>
+    <script src="./js/GalaxyClass.js"></script>
 
     <script src="./js/galaxy.js"></script>
     <script src="./chat/js/chat.js"></script>

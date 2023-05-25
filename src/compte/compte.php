@@ -63,7 +63,7 @@ if (!isset($_SESSION['login'])) {
 
 					<div>
 						<span>Prénom<label></label></span>
-						<input type="text" name="prenom" id="prenom" required="required" maxlength="30">
+						<input type="text" name="prenom" id="prenom" required="required" maxlength="30" placeholder="New First Name">
 						<input type="submit" name="modifierprenom" value="Modifier">
 					</div>
 					<div class="clear"> </div>
@@ -82,7 +82,7 @@ if (!isset($_SESSION['login'])) {
 						)</h3>
 					<div>
 						<span>Nom<label></label></span>
-						<input type="text" name="nom" id="nom" required="required" maxlength="30">
+						<input type="text" name="nom" id="nom" required="required" maxlength="30" placeholder="New Name">
 						<input type="submit" name="modifiernom" value="Modifier">
 					</div>
 				</div>
@@ -99,9 +99,10 @@ if (!isset($_SESSION['login'])) {
 						?>
 						)</h3>
 					<div>
-						<span>Mail<label></label></span>
+						
 						<div>
-							<input type="mail" name="mail" id="mail" required="required" maxlength="60">
+						<span>Mail<label></label></span>
+							<input type="mail" name="mail" id="mail" required="required" maxlength="60" placeholder="New Mail">
 						
 							<input type="submit" name="modifiermail" value="Modifier">
 						</div>
@@ -117,12 +118,12 @@ if (!isset($_SESSION['login'])) {
 					<h3>Changez votre Password</h3>
 					<div>
 						<span>Password</span>
-						<input type="password" name="password" id="password" required="required" maxlength="50">
+						<input type="password" name="password" id="password" required="required" maxlength="50" placeholder="New Password">
 					</div>
 
 					<div>
 						<span>Retapez votre Password</span>
-						<input type="password" name="confirm_password" id="confirm_password" required="required" maxlength="50">
+						<input type="password" name="confirm_password" id="confirm_password" required="required" maxlength="50" placeholder="New Password">
 					</div>
 
 					<div class="register-but">

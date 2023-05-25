@@ -51,6 +51,10 @@ body {
     color: black;
 }
 
+input {
+    border-radius: 15px;
+}
+
 @keyframes zoom {
     0% {
         transform: scale(1);

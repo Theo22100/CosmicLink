@@ -95,9 +95,9 @@ if (isset($_GET['x'])&& isset($_GET['y'])){
              <p> ADD GALAXY</p>
             </div>
             <label for="galaxyName">Galaxy Name:</label>
-            <input type="text" name="galaxyName" id="galaxyName">
+            <input type="text" name="galaxyName" id="galaxyName" placeholder="Name of your galaxy">
             <label for="galaxyDesc">Description</label>
-            <textarea name="galaxyDesc" id="galaxyDesc" rows="4" cols="50"></textarea>
+            <textarea name="galaxyDesc" id="galaxyDesc" rows="4" cols="50" placeholder="Description of your galaxy"></textarea>
             <button>Done</button>
         </div>
     </div>

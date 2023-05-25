@@ -18,36 +18,50 @@ body {
     padding: 2%;
 }
 
-.main * {
+/* .main * {
     color: white;
-}
+} */
 
 .main input {
-    color: black;
+    color: rgb(0, 0, 0);
 }
 
+
+h3 {
+    text-decoration: underline;
+    color : #ffffff;
+}
+
+span{
+    color: white;
+}
 .home-button {
-    color: black;
+    color:#000000;
+    border-radius: 15px;
 }
 
-input[type=text],input[type=mail] {
+input[type=text],input[type=mail], input[type=password] {
     width: 200px;
-    padding: 12px 10px;
+    /* padding: 12px 10px; */
     margin : 5px; 
     box-sizing:  border-box;
+    border-radius: 15px;
  }
 
   input[type=submit] {
-    background-color: rgb(82, 146, 146);
-    width: 100px;
+    border-radius: 15px;
+    background-color: #4685ff;
+    width: 15%;
     padding: 5x 10px;
-box-sizing: border-box; 
-border : none;
+    box-sizing: border-box; 
+    border : none;
   }
 
   input[type=sub] {
-    background-color: rgb(82, 146, 146);
-    width: 160px;
+    border-radius: 15px;
+    text-align: center;
+    background-color: #4685ff;
+    width: 30%;
     padding: 5x 10px;
     box-sizing: border-box;
     border : none;

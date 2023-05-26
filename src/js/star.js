@@ -5,7 +5,7 @@ const doneButton = starGui.getElementsByTagName("button")[0]; //quand edit/add
 const doneMenuButton = document.getElementById("done");
 
 function openCreateStar(event) { //ouvre la fenetre d'edit/ajout d'étoile
-    ajaxGetGalaxies();
+    ajaxGetGalaxies(false);
     event.stopPropagation();
     closeOption();
     starGui.classList.remove("hidden");
@@ -29,7 +29,7 @@ function closeCreateGui() {
 
 
 function openEditStar(event) {
-    ajaxGetGalaxies();
+    ajaxGetGalaxies(true);
     closeOption(); //dans le cas ou done est visible on veut le rendre invisible
     closeStarOptionsList();
     starGui.classList.remove("hidden");
@@ -336,7 +336,7 @@ function ajaxEdit(oldName, newName, oldGalaxy, newGalaxy, starDesc, starSize){
     });
 }
 
-function ajaxGetGalaxies() {
+function ajaxGetGalaxies(starDefined) {
     $.ajax({
         url: "starDB.php",
         type: "GET",
@@ -347,7 +347,7 @@ function ajaxGetGalaxies() {
         cache: true,
         success: function (response) {
             addGalaxyOptions(JSON.parse(response));
-            document.getElementById("select-galaxy").selectedIndex = currentStar.getGalaxyLinkedNumber();
+            if (starDefined) document.getElementById("select-galaxy").selectedIndex = currentStar.getGalaxyLinkedNumber();
         },
         error: function (xhr, status, error) {
             // Handle errors

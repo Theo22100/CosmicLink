@@ -15,10 +15,10 @@ if (isset($_POST['action'])) {
             editGalaxy($handler, $user_id);
             break;
         case 'move':
-            //moveGalaxy($handler, $user_id);
+            moveGalaxy($handler, $user_id);
             break;
         case 'delete':
-            //deleteGalaxy($handler, $user_id);
+            deleteGalaxy($handler, $user_id);
             break;
 
         default:
@@ -85,7 +85,24 @@ function editGalaxy($handler, $user_id)
 
 function moveGalaxy($handler, $user_id)
 {
-    
+    if (isset($_POST['x']) && isset($_POST['y']) && isset($_POST['name']) ) {
+        $name = treatGalaxyName($handler,($_POST['name']));
+        $universe_id = userToUniversId($handler, $user_id);
+        $y = intval($_POST['y']);
+        $x = intval($_POST['x']);
+
+        try {
+
+            $query = $handler->prepare("UPDATE galaxie SET cox=:x,coy=:y WHERE galaxie_nom=:nom AND id_univers=:universe_id");
+            $query->bindParam(':x', $x);
+            $query->bindParam(':y', $y);
+            $query->bindParam(':nom', $name);
+            $query->bindParam(':universe_id', $universe_id);
+            $query->execute();
+        } catch (PDOException $e) {
+            echo 'Echec Requête : ' . $e->getMessage();
+        }
+    }
 }
 function deleteGalaxy($handler, $user_id)
 {

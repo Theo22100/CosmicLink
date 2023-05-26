@@ -180,7 +180,10 @@ function moveGalaxyElement(galaxyObject, element) {
         document.onmouseup = null;
         document.onmousemove = null;
 
-        
+        const x = element.offsetLeft;
+        const y = element.offsetTop;
+        const galaxy_name = galaxyObject.getName();
+        ajaxGMove(galaxy_name, x, y);
         // console.log(galaxyObject.getGalaxyLinked());
         //c'est comme ça que tu récupère la galaxy liée 
     }

@@ -119,11 +119,16 @@ function addGalaxyWithInfo(gName, gDesc, x, y){
 
 let currentGalaxy;
 function editGalaxy(event){
-    currentGalaxy.setName(document.getElementById("galaxyName").value);
-    currentGalaxy.setDescription(document.getElementById("galaxyDesc").value);
+    let oldName = currentGalaxy.getName();
+    let newName = document.getElementById("galaxyName").value;
+    let descr = document.getElementById("galaxyDesc").value;
+    currentGalaxy.setName(newName);
+    currentGalaxy.setDescription(descr);
 
     closeEditGalaxy();
     INVISIBLE.classList.add("hidden"); 
+
+    ajaxGEdit(oldName,newName,descr);
 }
 
 

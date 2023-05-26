@@ -9,12 +9,10 @@ require 'connect.php';
 if (isset($_POST['action'])) {
     switch ($_POST['action']) {
         case 'add':
-            //TO LOWER CASE WHEN ADDING
             addGalaxy($handler, $user_id);
             break;
         case 'edit':
-            //TO LOWER CASE WHEN EDITING
-            //editGalaxy($handler, $user_id);
+            editGalaxy($handler, $user_id);
             break;
         case 'move':
             //moveGalaxy($handler, $user_id);
@@ -37,7 +35,7 @@ function addGalaxy($handler, $user_id)
     if (isset($_POST['x']) && isset($_POST['y']) && isset($_POST['name']) && isset($_POST['descr'])) {
         $name = strtolower($_POST['name']);
         if ($name == '') $name = NULL;
-        
+
         $descr = ($_POST['descr']);
         $y = intval($_POST['y']);
         $x = intval($_POST['x']);
@@ -62,6 +60,27 @@ function addGalaxy($handler, $user_id)
 
 function editGalaxy($handler, $user_id)
 {
+    echo "in here";
+    if (isset($_POST['old_name']) && isset($_POST['new_name']) && isset($_POST['descr']) ) {
+        $old_name = treatGalaxyName($handler,$_POST['old_name']);
+        $new_name = treatGalaxyName($handler,$_POST['new_name']);
+        $descr = ($_POST['descr']);
+       
+        $universe_id = userToUniversId($handler,$user_id);
+        try {
+           
+            $query = $handler->prepare("UPDATE galaxie SET galaxie_nom=:new_name, descr=:descr WHERE galaxie_nom=:old_name AND id_univers=:id_univers");
+            $query->bindParam(':new_name', $new_name);
+            $query->bindParam(':old_name', $old_name);
+            $query->bindParam(':descr', $descr);
+            $query->bindParam(':id_univers', $universe_id);
+            $query->execute();
+
+        } catch (PDOException $e) {
+
+            echo 'Echec Requête Insertion : ' . $e->getMessage();
+        }
+    }
 }
 
 function moveGalaxy($handler, $user_id)
@@ -101,11 +120,13 @@ function userToUniversId($handler, $user_id)
     return $universe_id;
 }
 
-function  treatGalaxyName($handler, $galaxy_name, $user_id)
+
+
+function  treatGalaxyName($handler, $galaxy_name)
 {
     if ($galaxy_name == "") {
         $galaxy_name = "undefined"; //Aucune galaxie sélectionnée, elle ira dans undefined
     }
     $galaxy_name = strtolower($galaxy_name);
-    return galaxyNameToId($handler, $galaxy_name, $user_id);
+    return $galaxy_name;
 }

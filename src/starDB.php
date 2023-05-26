@@ -125,8 +125,7 @@ function moveStar($handler, $user_id)
 }
 function deleteStar($handler, $user_id)
 {
-    echo "deleting soon";
-
+   
     if (isset($_POST['name']) && isset($_POST['galaxy_name'])) {
         $name = ($_POST['name']);
         $galaxy_name = ($_POST['galaxy_name']);

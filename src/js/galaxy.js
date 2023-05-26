@@ -136,6 +136,7 @@ function removeGalaxy(){
     currentGalaxy.removeElement();
     closeGalaxyOptionsList();
     INVISIBLE.classList.add("hidden"); 
+    ajaxGRemove(currentGalaxy.getName());
 }
 
 /**

@@ -106,6 +106,8 @@ function addGalaxy(event){
 
     closeGalaxyGui();
     INVISIBLE.classList.add("hidden"); 
+
+    ajaxGAdd(galaxyName,galaxyDesc,x,y);
 }
 
 
@@ -177,4 +179,86 @@ function moveGalaxyElement(galaxyObject, element) {
         // console.log(galaxyObject.getGalaxyLinked());
         //c'est comme ça que tu récupère la galaxy liée 
     }
+}
+
+function ajaxGAdd(Gname, Gdesc, x, y) {
+
+    $.ajax({
+        url: "galaxyDB.php",
+        type: "POST",
+        data: {
+            action: 'add',
+            name: Gname,
+            descr: Gdesc,
+            x: x,
+            y: y
+        },
+        success: function (response) {
+            console.log(response);
+        },
+        error: function (xhr, status, error) {
+            console.error(error);
+        }
+    });
+}
+
+function ajaxGMove(Gname, x, y) {
+
+    $.ajax({
+        url: "galaxyDB.php",
+        type: "POST",
+        data: {
+            action: "move",
+            name: Gname,
+            x: x,
+            y: y
+        },
+        success: function (response) {
+            // Handle the successful response from the server
+            console.log(response);
+        },
+        error: function (xhr, status, error) {
+            // Handle errors
+            console.error(error);
+        }
+    });
+
+}
+
+function ajaxGRemove(galaxy_name) {
+    $.ajax({
+        url: "galaxyDB.php",
+        type: "POST",
+        data: {
+            action: "delete",
+            name: galaxy_name
+        },
+        success: function (response) {
+            // Handle the successful response from the server
+            console.log(response);
+        },
+        error: function (xhr, status, error) {
+            // Handle errors
+            console.error(error);
+        }
+    });
+}
+
+function ajaxGEdit(oldName, newName, galaxyDesc){
+    $.ajax({
+        url: "galaxyDB.php",
+        type: "POST",
+        data: {
+            action: 'edit',
+            old_name: oldName,
+            new_name: newName,
+            descr: galaxyDesc
+        },
+        success: function (response) {
+            console.log(response);
+        },
+        error: function (xhr, status, error) {
+            console.error(error);
+        }
+    });
 }

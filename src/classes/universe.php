@@ -20,7 +20,7 @@
         {
             require 'connect.php';
             try {
-                $sql = $handler->prepare("SELECT id_galaxie,galaxie_nom FROM galaxie WHERE id_univers = :id_univers");
+                $sql = $handler->prepare("SELECT * FROM galaxie WHERE id_univers = :id_univers");
                 $sql->bindParam(':id_univers', $this->universe_id);
                 $sql->execute();
 
@@ -31,10 +31,10 @@
             
             $i = 0;
             while ($row = $sql->fetch(PDO::FETCH_ASSOC)) {
-                $g = new Galaxy($row['id_galaxie'],$row['galaxie_nom']);
+                $g = new Galaxy($row['id_galaxie'],$row['galaxie_nom'],$row['descr'],$row['cox'],$row['coy']);
                      
                 $this->galaxies[$i] = $g;
-
+                $g->displayGalaxy();
                 $i = $i + 1;
             }
         }

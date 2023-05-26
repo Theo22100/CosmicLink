@@ -7,9 +7,8 @@ if (!isset($_SESSION['login'])) {
 <html>
 
 <head>
-	<title>Mon Compte MySpace</title>
-	<meta charset=”utf-8″>	
-    <link rel="stylesheet" href="style_params.css">
+	<title>Mon Compte CosmicLink</title>
+	<meta charset=”utf-8″>
 </head>
 
 <body>
@@ -30,7 +29,7 @@ if (!isset($_SESSION['login'])) {
 				echo '<h2 style="color:red;">Erreur mail !</h2>';
 			} else if ($_GET["message"] == "mail") {
 				echo '<h2 style="color:red;">Mail déjà existant !</h2>';
-			}else if ($_GET["message"] == "prenomechoue") {
+			} else if ($_GET["message"] == "prenomechoue") {
 				echo '<h2 style="color:red;">Erreur avec le prénom saisi !</h2>';
 			} else if ($_GET["message"] == "prenomreussi") {
 				echo '<h2 style="color:green;">Prénom changé !</h2>';
@@ -38,17 +37,17 @@ if (!isset($_SESSION['login'])) {
 				echo '<h2 style="color:red;">Erreur avec le nom saisi !</h2>';
 			} else if ($_GET["message"] == "nomreussi") {
 				echo '<h2 style="color:green;">Nom changé !</h2>';
-			}  else if ($_GET["message"] == "deletemdp") {
+			} else if ($_GET["message"] == "deletemdp") {
 				echo '<h2 style="color:red;">Suppression Compte : Mot de passe incorrect</h2>';
-			} 
+			}
 
 			if ($_SESSION['role'] == "A") {
 				echo '<a href="../admin/index.php">Panel admin</a>';
 			}
 			?>
 
-			
-			
+
+
 			<!-- Modifier nom -->
 
 			<div class="clear"> </div>
@@ -59,7 +58,8 @@ if (!isset($_SESSION['login'])) {
 						echo $_SESSION['prenom'];
 
 						?>
-						)</h3>
+						)
+					</h3>
 
 					<div>
 						<span>Prénom<label></label></span>
@@ -79,7 +79,8 @@ if (!isset($_SESSION['login'])) {
 						echo $_SESSION['nom'];
 
 						?>
-						)</h3>
+						)
+					</h3>
 					<div>
 						<span>Nom<label></label></span>
 						<input type="text" name="nom" id="nom" required="required" maxlength="30">
@@ -97,7 +98,8 @@ if (!isset($_SESSION['login'])) {
 						echo $_SESSION['mail'];
 
 						?>
-						)</h3>
+						)
+					</h3>
 					<div>
 						<span>Mail<label></label></span>
 						<div>
@@ -123,7 +125,8 @@ if (!isset($_SESSION['login'])) {
 
 					<div>
 						<span>Retapez votre Password</span>
-						<input type="password" name="confirm_password" id="confirm_password" required="required" maxlength="50">
+						<input type="password" name="confirm_password" id="confirm_password" required="required"
+							maxlength="50">
 					</div>
 
 					<div class="register-but">
@@ -134,8 +137,9 @@ if (!isset($_SESSION['login'])) {
 
 				</div>
 			</form>
-			<!-- Modifier mdp -->
-			<form method="POST" action="deleteaccount.php" onsubmit="return confirm('Êtes-vous sûr de vouloir supprimer votre compte ? Cette action est irréversible.')">
+			<!-- Supprime compte -->
+			<form method="POST" action="deleteaccount.php"
+				onsubmit="return confirm('Êtes-vous sûr de vouloir supprimer votre compte ? Cette action est irréversible.')">
 				<div class="register-bottom-grid">
 					<h3>Supprimer votre compte</h3>
 					<div>
@@ -148,10 +152,40 @@ if (!isset($_SESSION['login'])) {
 
 				</div>
 			</form>
+			<!-- Ajouter ami -->
+			<?php
+			if ($_GET["message"] == "idintroubable") {
+				echo '<h3 style="color:red;">Pseudo Introuvable</h2>';
+			} else if ($_GET["message"] == "erreurami") {
+				echo '<h3 style="color:red;">Erreur : Impossible de l\'ajouter en ami, veuillez réessayer !</h2>';
+			} else if ($_GET["message"] == "ajoutami") {
+				echo '<h3 style="color:green;">Demande envoyé avec succès</h2>';
+			} else if ($_GET["message"] == "bdd") {
+				echo '<h3 style="color:red;">Erreur : Impossibilité de se connecter à la BDD</h2>';
+			} else if ($_GET["message"] == "idutil") {
+				echo '<h3 style="color:red;">Erreur : Soucis utilisateur</h2>';
+			} else if ($_GET["message"] == "ami") {
+				echo '<h3 style="color:red;">Erreur : Vous ne pouvez pas vous ajouter en ami.</h2>';
+			} else if ($_GET["message"] == "amideja") {
+				echo '<h3 style="color:red;">Vous êtes déjà ami avec cette personne.</h2>';
+			} else if ($_GET["message"] == "amiattente") {
+				echo '<h3 style="color:red;">Vous avez déjà envoyé une demande à cette personne, veuillez attendre que la personnne accepte.</h2>';
+			}
+			?>
+			<div class="register-bottom-grid">
+				<form method="POST" action="ajouterami.php">
+					<h3>Ajouter Ami</h3>
+					<div>
+						<span>Saississez le pseudo :</span>
+						<div>
+							<input type="text" name="ami" id="ami" required="required" maxlength="60">
+						</div>
+						<div>
+							<input type="submit" name="ajouterami" value="Ajouter">
+						</div>
+					</div>
+				</form>
+			</div>
 		</div>
-		<br>
-		<div>
-			<button class="home-button" onclick="location.href='../home.php'">Back</button>
-		</div>
-	</div>
+
 </body>

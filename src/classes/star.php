@@ -22,14 +22,18 @@ class Star
 
     function displayStar()
     {
+        $displayed_galaxy_name = $this->galaxy_name;
+        if($this->galaxy_name == 'undefined'){
+            $displayed_galaxy_name = '';
+        }
+        
+       
 ?>
         <script>
-         
-
-            addStarWithInfo(
-                "<?php echo $this->star_name; ?>",
-                "<?php echo $this->galaxy_name; ?>",
-                "<?php echo $this->star_desc; ?>",
+           addStarWithInfo(
+                <?php echo json_encode($this->star_name); ?>,
+                <?php echo json_encode($displayed_galaxy_name); ?>,
+                <?php echo json_encode($this->star_desc); ?>,
                 <?php echo $this->star_size; ?>,
                 <?php echo $this->star_x; ?>,
                 <?php echo $this->star_y; ?>

@@ -11,6 +11,10 @@ if (isset($_POST['action'])) {
         case 'add':
             addStar($handler, $user_id);
             break;
+        case 'edit':
+            echo 'about to edit';
+            editStar($handler, $user_id);
+            break;
         case 'move':
             moveStar($handler, $user_id);
             break;
@@ -58,6 +62,36 @@ function addStar($handler, $user_id)
             $query->bindParam(':size', $size);
             $query->bindParam(':galaxie_id', $galaxy_id);
             $query->execute();
+        } catch (PDOException $e) {
+
+            echo 'Echec Requête Insertion : ' . $e->getMessage();
+        }
+    }
+}
+
+function editStar($handler, $user_id){
+    if (isset($_POST['old_name']) && isset($_POST['new_name']) && isset($_POST['size']) && isset($_POST['descr']) && isset($_POST['old_galaxy'])&& isset($_POST['new_galaxy'])) {
+        $old_name = ($_POST['old_name']);
+        $new_name = ($_POST['new_name']);
+        $descr = ($_POST['descr']);
+        $old_galaxy = ($_POST['old_galaxy']);
+        $new_galaxy = ($_POST['new_galaxy']);
+        $size = intval($_POST['size']);
+
+        $old_galaxy_id = treatGalaxyName($handler, $old_galaxy, $user_id);
+        $new_galaxy_id = treatGalaxyName($handler, $new_galaxy, $user_id);
+
+        try {
+           
+            $query = $handler->prepare("UPDATE etoile SET nom=:new_name, descr=:descr, taille=:size, id_galaxie=:new_galaxy_id WHERE nom=:old_name AND id_galaxie=:old_galaxy_id");
+            $query->bindParam(':new_name', $new_name);
+            $query->bindParam(':old_name', $old_name);
+            $query->bindParam(':descr', $descr);
+            $query->bindParam(':size', $size);
+            $query->bindParam(':old_galaxy_id', $old_galaxy_id);
+            $query->bindParam(':new_galaxy_id', $new_galaxy_id);
+            $query->execute();
+
         } catch (PDOException $e) {
 
             echo 'Echec Requête Insertion : ' . $e->getMessage();
@@ -138,7 +172,7 @@ function getGalaxies($handler, $user_id)
             if ($row['galaxie_nom'] == 'undefined') {
                 $galaxies[] = '';
             } else {
-                $galaxies[] = ucfirst($row['galaxie_nom']);
+                $galaxies[] =$row['galaxie_nom'];
             }
         }
         $galaxieJSON = json_encode($galaxies);

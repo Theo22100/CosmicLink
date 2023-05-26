@@ -5,7 +5,6 @@ const doneButton = starGui.getElementsByTagName("button")[0]; //quand edit/add
 const doneMenuButton = document.getElementById("done");
 
 function openCreateStar(event) { //ouvre la fenetre d'edit/ajout d'étoile
-    //addGalaxyOptions();
     ajaxGetGalaxies();
     event.stopPropagation();
     closeOption();
@@ -31,7 +30,6 @@ function closeCreateGui() {
 
 function openEditStar(event) {
     ajaxGetGalaxies();
-    //addGalaxyOptions();
     closeOption(); //dans le cas ou done est visible on veut le rendre invisible
     closeStarOptionsList();
     starGui.classList.remove("hidden");
@@ -39,8 +37,7 @@ function openEditStar(event) {
     document.getElementById("starName").value = currentStar.getName();
     document.getElementById("starDesc").value = currentStar.getDescription();
     document.getElementById("starSize").value = currentStar.getSize();
-    document.getElementById("select-galaxy").value = currentStar.getGalaxyLinked();
-
+   
     doneButton.onclick = function (event) {
         editStar(event)
     };
@@ -164,13 +161,22 @@ function addStarWithInfo(starName, galaxy, starDesc, starSize, x, y) {
 
 let currentStar;
 function editStar(event) {
-    currentStar.setName(document.getElementById("starName").value);
-    currentStar.setDescription(document.getElementById("starDesc").value);
-    currentStar.setSize(document.getElementById("starSize").value);
-    currentStar.setGalaxyLinked(document.getElementById("select-galaxy").value);
+    const oldName = currentStar.getName();
+    const newName = document.getElementById("starName").value;
+    const newGalaxy = document.getElementById("select-galaxy").value;
+    const starDesc = document.getElementById("starDesc").value;
+    const starSize = document.getElementById("starSize").value;
+    const oldGalaxy = currentStar.getGalaxyLinked();
+
+    currentStar.setName(newName);
+    currentStar.setDescription(starDesc);
+    currentStar.setSize(starSize);
+    currentStar.setGalaxyLinked(newGalaxy);
 
     closeEditStar();
     INVISIBLE.classList.add("hidden");
+
+    ajaxEdit(oldName, newName, oldGalaxy, newGalaxy, starDesc, starSize);
 }
 
 function removeStar(event) {
@@ -308,6 +314,28 @@ function ajaxRemove(galaxy_name, star_name) {
     });
 }
 
+function ajaxEdit(oldName, newName, oldGalaxy, newGalaxy, starDesc, starSize){
+    $.ajax({
+        url: "starDB.php",
+        type: "POST",
+        data: {
+            action: 'edit',
+            old_name: oldName,
+            new_name: newName,
+            old_galaxy: oldGalaxy,
+            new_galaxy: newGalaxy,
+            descr: starDesc,
+            size: starSize
+        },
+        success: function (response) {
+            console.log(response);
+        },
+        error: function (xhr, status, error) {
+            console.error(error);
+        }
+    });
+}
+
 function ajaxGetGalaxies() {
     $.ajax({
         url: "starDB.php",
@@ -318,8 +346,8 @@ function ajaxGetGalaxies() {
         },
         cache: true,
         success: function (response) {
-            console.log(response);
             addGalaxyOptions(JSON.parse(response));
+            document.getElementById("select-galaxy").selectedIndex = currentStar.getGalaxyLinkedNumber();
         },
         error: function (xhr, status, error) {
             // Handle errors

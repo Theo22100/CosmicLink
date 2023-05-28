@@ -40,8 +40,8 @@ try {
 
 
 
-    
-    
+
+
 } catch (PDOException $e) {
     echo 'Echec Compte Mail : ' . $e->getMessage();
     echo '<br>';
@@ -59,11 +59,11 @@ try {
     $requete1 = $connexion->prepare("SELECT COUNT(*) FROM membre WHERE pseudo = :pseudo GROUP BY pseudo");
     $requete1->bindParam(':pseudo', $_POST['pseudo']);
     $requete1->execute();
-    $comptePseudo = $requete1->fetchColumn();    
+    $comptePseudo = $requete1->fetchColumn();
 
 
-    
-    
+
+
 } catch (PDOException $e) {
     echo 'Echec Compte pseudo: ' . $e->getMessage();
     echo '<br>';
@@ -79,22 +79,20 @@ try {
 ////////////////////////////////////////////////////////////////////
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
-    if ($_POST["password"]==$_POST["confirm_password"]){
-        
-        if($compteMail != 0){#mail présent
+    if ($_POST["password"] == $_POST["confirm_password"]) {
+
+        if ($compteMail != 0) { #mail présent
             header("Location: sinscrire.php?message=mail");
             //echo "compteMail = ".$compteMail."<br>"; 
-        }
-        else{
-            if($comptePseudo!=0){ //Déjà pseudo présent
+        } else {
+            if ($comptePseudo != 0) { //Déjà pseudo présent
                 header("Location: sinscrire.php?message=pseudo");
                 //echo "comptePseudo = ".$compteMail."<br>"; 
-            }
-            else{
+            } else {
                 try {
 
                     $requete2 = $connexion->prepare("INSERT INTO membre (pseudo,prenom,nom,datenaissance,dateinscription,mail,password,login) VALUES (:pseudo, :prenom, :nom, :datenaissance, :dateinscription, :mail ,:password, :login)");
-                    
+
 
                     $pseudo = clean($_POST["pseudo"]);
                     $prenom = clean($_POST["prenom"]);
@@ -103,7 +101,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                     $dateinscription = date('Y-m-d');
                     $mail = $_POST["mail"];
                     $login = "0";
-                    
+
                     $password = password_hash($_POST["password"], PASSWORD_DEFAULT);
 
                     //Bind
@@ -117,61 +115,79 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                     $requete2->bindParam(':password', $password);
                     $requete2->bindParam(':login', $login);
 
-                    
+
                     $requete2->execute();
 
 
                     //ID pour la réutiliser
-                    $membre = $connexion-> lastInsertId() ;
+                    $membre = $connexion->lastInsertId();
 
 
                     // Insérer l'ID de univers dans une autre table "univers" avec la clé étrangère du membre
-                    $requete3 = $connexion2->prepare("INSERT INTO univers (id_membre) VALUES (:id)");
+                    $requete3 = $connexion2->prepare("INSERT INTO univers (id) VALUES (:id)");
                     //Bind
-                    //$requete3->bindParam(':id_univers', $univers);
                     $requete3->bindParam(':id', $membre);
+
+
+                    //Recupère l'id membre et créer aussi le répertoire pour les photos 
+
+                     // Créer un répertoire pour l'utilisateur
+                     $directoryPath = '../../img/profil/' . $membre; // Spécifiez le chemin complet où vous souhaitez créer le répertoire
+ 
+                     if (!file_exists($directoryPath)) {
+                         // Vérifier si le répertoire n'existe pas déjà
+                         mkdir($directoryPath, 0777, true);
+                     }
+
+
+
+
+
+                     //fait la requete id_univers
                     $requete3->execute();
 
 
 
 
                     //ID pour la réutiliser
-                    
 
-                    $cox = $coy =0;
+
+                    $cox = $coy = 0;
                     $nomgalaxie = "undefined";
-                    $univers = $connexion2-> lastInsertId() ;
+                    $univers = $connexion2->lastInsertId();
 
-                     // Insérer l'ID de galaxie dans une table "galaxie" avec la clé étrangère de univers
-                     $requete4 = $connexion3->prepare("INSERT INTO galaxie (galaxie_nom, cox, coy, id_univers) VALUES (:nom, :cox, :coy, :id_univers)");
-                     //Bind
-                     //$requete4->bindParam(':id_galaxie', $galaxie);
-                     $requete4->bindParam(':nom', $nomgalaxie);
-                     $requete4->bindParam(':cox', $cox);
-                     $requete4->bindParam(':coy', $coy);
-                     $requete4->bindParam(':id_univers', $univers);
-                     $requete4->execute();
-                    
+                    // Insérer l'ID de galaxie dans une table "galaxie" avec la clé étrangère de univers
+                    $requete4 = $connexion3->prepare("INSERT INTO galaxie (galaxie_nom, cox, coy, id_univers) VALUES (:nom, :cox, :coy, :id_univers)");
+                    //Bind
+                    //$requete4->bindParam(':id_galaxie', $galaxie);
+                    $requete4->bindParam(':nom', $nomgalaxie);
+                    $requete4->bindParam(':cox', $cox);
+                    $requete4->bindParam(':coy', $coy);
+                    $requete4->bindParam(':id_univers', $univers);
+                    $requete4->execute();
 
-                    
 
-                }
-                catch (PDOException $e){
-                    echo 'Echec Ajout: ' .$e->getMessage();
+                   
+
+
+
+                } catch (PDOException $e) {
+                    echo 'Echec Ajout: ' . $e->getMessage();
                     echo '<br>';
                     header("Location: sinscrire.php?message=echoue");
                 }
                 header("Location: sinscrire.php?message=reussie");
             }
         }
-    }else{
+    } else {
         header("Location: sinscrire.php?message=mdp");
     }
 }
 
 
-function clean($userInput) {
-    $userInput = trim($userInput);//Enleve les espace
+function clean($userInput)
+{
+    $userInput = trim($userInput); //Enleve les espace
     $userInput = stripslashes($userInput);
     $userInput = htmlspecialchars($userInput);
     return $userInput;
@@ -180,5 +196,3 @@ $connexion = $connexion2 = $connexion3 = null;
 
 
 ?>
-
-

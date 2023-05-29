@@ -106,6 +106,8 @@ function addGalaxy(event){
 
     closeGalaxyGui();
     INVISIBLE.classList.add("hidden"); 
+
+    ajaxGAdd(galaxyName,galaxyDesc,x,y);
 }
 
 
@@ -117,11 +119,16 @@ function addGalaxyWithInfo(gName, gDesc, x, y){
 
 let currentGalaxy;
 function editGalaxy(event){
-    currentGalaxy.setName(document.getElementById("galaxyName").value);
-    currentGalaxy.setDescription(document.getElementById("galaxyDesc").value);
+    let oldName = currentGalaxy.getName();
+    let newName = document.getElementById("galaxyName").value;
+    let descr = document.getElementById("galaxyDesc").value;
+    currentGalaxy.setName(newName);
+    currentGalaxy.setDescription(descr);
 
     closeEditGalaxy();
     INVISIBLE.classList.add("hidden"); 
+
+    ajaxGEdit(oldName,newName,descr);
 }
 
 
@@ -129,6 +136,7 @@ function removeGalaxy(){
     currentGalaxy.removeElement();
     closeGalaxyOptionsList();
     INVISIBLE.classList.add("hidden"); 
+    ajaxGRemove(currentGalaxy.getName());
 }
 
 /**
@@ -173,7 +181,10 @@ function moveGalaxyElement(galaxyObject, element) {
         document.onmouseup = null;
         document.onmousemove = null;
 
-        
+        const x = element.offsetLeft;
+        const y = element.offsetTop;
+        const galaxy_name = galaxyObject.getName();
+        ajaxGMove(galaxy_name, x, y);
         // console.log(galaxyObject.getGalaxyLinked());
         //c'est comme ça que tu récupère la galaxy liée 
     }
@@ -200,3 +211,87 @@ function deleteStarLinkedToGalaxy(starNameArray){
 function getElementsByText(str, tag) {
     return Array.prototype.slice.call(document.getElementsByClassName(tag)).filter(el => el.textContent.trim() === str.trim());
   }
+
+function ajaxGAdd(Gname, Gdesc, x, y) {
+
+    $.ajax({
+        url: "galaxyDB.php",
+        type: "POST",
+        data: {
+            action: 'add',
+            name: Gname,
+            descr: Gdesc,
+            x: x,
+            y: y
+        },
+        success: function (response) {
+            console.log(response);
+        },
+        error: function (xhr, status, error) {
+            console.error(error);
+        }
+    });
+}
+
+function ajaxGMove(Gname, x, y) {
+
+    $.ajax({
+        url: "galaxyDB.php",
+        type: "POST",
+        data: {
+            action: "move",
+            name: Gname,
+            x: x,
+            y: y
+        },
+        success: function (response) {
+            // Handle the successful response from the server
+            console.log(response);
+        },
+        error: function (xhr, status, error) {
+            // Handle errors
+            console.error(error);
+        }
+    });
+
+}
+
+function ajaxGRemove(galaxy_name) {
+    $.ajax({
+        url: "galaxyDB.php",
+        type: "POST",
+        data: {
+            action: "delete",
+            name: galaxy_name
+        },
+        success: function (response) {
+            // Handle the successful response from the server
+            const deletedStars = JSON.parse(response);
+            deleteStarLinkedToGalaxy(deletedStars);
+            
+        },
+        error: function (xhr, status, error) {
+            // Handle errors
+            console.error(error);
+        }
+    });
+}
+
+function ajaxGEdit(oldName, newName, galaxyDesc){
+    $.ajax({
+        url: "galaxyDB.php",
+        type: "POST",
+        data: {
+            action: 'edit',
+            old_name: oldName,
+            new_name: newName,
+            descr: galaxyDesc
+        },
+        success: function (response) {
+            console.log(response);
+        },
+        error: function (xhr, status, error) {
+            console.error(error);
+        }
+    });
+}

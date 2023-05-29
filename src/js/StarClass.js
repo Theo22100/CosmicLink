@@ -53,7 +53,7 @@ class Star {
         return starDiv;
     }
 
-    addElementAnimation(){
+    addElementAnimation() {
         this.#element.getElementsByClassName("stars")[0].style.animationName = "popUpStar";
     }
 
@@ -99,8 +99,8 @@ class Star {
         const select = document.getElementById("select-galaxy");
         const options = document.getElementsByTagName("option");
 
-        for (let i = 0; i < options.length; i++){
-            if(options.textContent  == this.#galaxyLinked){
+        for (let i = 0; i < options.length; i++) {
+            if (options.item(i).textContent.toUpperCase().localeCompare(this.#galaxyLinked.toUpperCase()) == 0) {
                 return i;
             }
         }

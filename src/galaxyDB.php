@@ -111,11 +111,25 @@ function deleteGalaxy($handler, $user_id)
     }
 
     try {
+        
+        $q0 = $handler->prepare(
+            "SELECT nom FROM etoile WHERE id_galaxie = :galaxy_id"
+        );
+        $q0->bindParam(':galaxy_id', $galaxy_id);
+        $q0->execute();
+
+        $deletedStars = Array();
+        while ($row = $q0->fetch(PDO::FETCH_ASSOC)) {
+            $deletedStars[] = $row['nom'];
+        }
+        echo json_encode($deletedStars); //envoi des étoiles supprimées
+
         $q = $handler->prepare(
             "DELETE FROM etoile WHERE id_galaxie = :galaxy_id"
         );
         $q->bindParam(':galaxy_id', $galaxy_id);
         $q->execute();
+        
 
         $q2 =  $handler->prepare(
             "DELETE FROM galaxie WHERE id_galaxie = :galaxy_id"

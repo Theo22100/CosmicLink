@@ -49,7 +49,7 @@ function addStar($handler, $user_id)
         $x = intval($_POST['x']);
 
         $galaxy_id = treatGalaxyName($handler, $galaxy_name, $user_id);
-        echo $galaxy_id;
+
 
 
         try {

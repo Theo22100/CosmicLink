@@ -267,8 +267,7 @@ function ajaxGRemove(galaxy_name) {
         success: function (response) {
             // Handle the successful response from the server
             const deletedStars = JSON.parse(response);
-            console.log(deletedStars);
-            //TODO : à utiliser pour enlever l'affichage des étoiles juste après la suppression
+            deleteStarLinkedToGalaxy(deletedStars);
             
         },
         error: function (xhr, status, error) {

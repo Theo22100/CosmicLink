@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Hôte : localhost
--- Généré le : dim. 28 mai 2023 à 22:01
+-- Généré le : lun. 29 mai 2023 à 12:19
 -- Version du serveur : 5.7.24
 -- Version de PHP : 7.4.1
 
@@ -50,6 +50,45 @@ CREATE TABLE `etoile` (
   `id_galaxie` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
+--
+-- Déchargement des données de la table `etoile`
+--
+
+INSERT INTO `etoile` (`id_etoile`, `nom`, `descr`, `cox`, `coy`, `taille`, `id_galaxie`) VALUES
+(10, 'test2', 'test', 399, 146, 1, 2),
+(13, 'test3', 'test', 403, 239, 1, 2),
+(23, 'friends', '', 247, 180, 3, 2),
+(26, 'yo', '', 331, 187, 1, 2),
+(27, '', '', 921, 649, 3, 2),
+(28, 'frends', '', 711, 82, 3, 2),
+(33, 'test', 'test', 657, 223, 1, 2),
+(54, 'fxfbgfdg', '', 1226, 162, 3, 2),
+(77, 'yoooooooooo', '', 607, 67, 3, 2),
+(102, 'yolo', '', 490, 119, 3, 2),
+(200, 'qfsvsdfsd', '', 756, 562, 3, 2),
+(397, 'bjr', '', 315, 620, 3, 2),
+(414, 'trolololololololo', '', 378, 96, 3, 2),
+(416, 'testbind', 'testbind', 702, 160, 3, 2),
+(417, 'fbgfgfg', 'fbgfgfg', 906, 169, 3, 2),
+(418, 'hghfhf', 'hghfhf', -174, 333, 3, 2),
+(419, 'eferfre', 'eferfre', 389, 106, 3, 2),
+(420, 'gdsgdrg', 'gdsgdrg', 870, 109, 3, 2),
+(421, 'fzefzf', '', -35, 402, 3, 2),
+(422, 'trolo', '', 1157, 227, 3, 1),
+(426, '', '', 914, 122, 3, 1),
+(427, 'fsefezfer', '', 150, 245, 3, 1),
+(428, 'tfhgjy', '', 1400, 170, 3, 1),
+(429, 'recherchegalax', '', 1135, 363, 3, 1),
+(430, 't', '', 119, 370, 3, 55),
+(432, 'qsfsedfes', '', 812, 376, 3, 1),
+(437, 'Hey', 'fef', 744, 164, 3, 55),
+(438, 'sgdr', '', 696, 323, 3, 55),
+(439, 'blo', '', 24, 360, 3, 55),
+(440, 'blegh', '', 261, 326, 3, 55),
+(441, '', '', 673, 398, 3, 55),
+(449, '', '', 616, 129, 3, 57),
+(450, '', '', 748, 37, 3, 56);
+
 -- --------------------------------------------------------
 
 --
@@ -58,7 +97,7 @@ CREATE TABLE `etoile` (
 
 CREATE TABLE `galaxie` (
   `id_galaxie` int(11) NOT NULL,
-  `galaxie_nom` varchar(30) NOT NULL,
+  `galaxie_nom` varchar(50) NOT NULL,
   `cox` int(11) NOT NULL,
   `coy` int(11) NOT NULL,
   `id_univers` int(11) NOT NULL
@@ -69,10 +108,11 @@ CREATE TABLE `galaxie` (
 --
 
 INSERT INTO `galaxie` (`id_galaxie`, `galaxie_nom`, `cox`, `coy`, `id_univers`) VALUES
-(3, 'Undefined', 0, 0, 93),
-(4, 'Undefined', 0, 0, 94),
-(5, 'Undefined', 0, 0, 95),
-(7, 'undefined', 0, 0, 97);
+(1, 'testgalaxie', 100, 100, 1),
+(2, 'test2', 100, 200, 1),
+(55, 'undefined', 0, 0, 1),
+(56, 'undefined', 0, 0, 4),
+(57, 'test', 4, 4, 4);
 
 -- --------------------------------------------------------
 
@@ -99,13 +139,8 @@ CREATE TABLE `membre` (
 --
 
 INSERT INTO `membre` (`id`, `pseudo`, `prenom`, `nom`, `datenaissance`, `dateinscription`, `password`, `mail`, `image`, `role`, `login`) VALUES
-(76, 'a', 'b', 'b', '2006-06-06', '2023-05-16', '$2y$10$ZR7eeo41zrh9J4Sp97clk.MmhJSZAA4wP95a0CwJqQP5fnhLkpcy.', 'b@b', NULL, 'A', 0),
-(77, 'admin', 'admin', 'admin', '2023-05-04', '2023-05-18', '$2y$10$yYpYmvllKakYi2sELIMZQeNoeO5/DPyS2bB8alLuP5rZju1pe5dV.', 'admin@admin', NULL, 'A', 0),
-(93, 'z', 'z', 'z', '2008-08-08', '2023-05-25', '$2y$10$XgFcLoz2CGx68KLNyCuTMuMclHmBZ57Qd9PP3mgwBfRT/Xmd0WgWy', 'z@z', NULL, 'U', 0),
-(94, 'h', 'h', 'h', '2008-08-08', '2023-05-25', '$2y$10$M0oaWGfSWBKpI9Ti0V411Ojk0.E1VnqzQxuzJ28A5.4NOOvs3a8A6', 'h@h', NULL, 'U', 0),
-(95, 'u', 'u', 'u@u', '2023-05-03', '2023-05-25', 'u', 'u@u', NULL, 'U', 0),
-(96, 'v', 'v', 'v', '2008-08-08', '2023-05-25', '$2y$10$vMwa7uFEHetc425oDsP.HOA87mblea/WcT7gAo7p.Zc9eS4B8ltJa', 'v@v', NULL, 'U', 0),
-(101, 'oui', 'oui', 'oui', '2023-05-03', '2023-05-28', '$2y$10$pVEQJxpbSX/hJqQX.kLz/eUI8wQNpNTZAonRkNsTGZP0fGn6QoOuq', 'oui@oui', 'Hiro.gif', 'U', 0);
+(74, 'admin', 'admin', 'admin', '2006-06-06', '2023-05-15', '$2y$10$97Al5ULlPLtgxiJZR4cqX.O7NKe/DaB5ltzusowu6AovrspIbFiwq', 'admin@admin', NULL, 'A', 0),
+(83, 'test', 'test', 'test', '2001-01-01', '2023-05-19', '$2y$10$oKZFJhIB4AfLTWpf6EukYuzrtB5BzsqV8G7Pm8f/KzsxQaMN4fwYu', 'test@test', NULL, 'U', 0);
 
 -- --------------------------------------------------------
 
@@ -115,19 +150,16 @@ INSERT INTO `membre` (`id`, `pseudo`, `prenom`, `nom`, `datenaissance`, `dateins
 
 CREATE TABLE `univers` (
   `id_univers` int(11) NOT NULL,
-  `id` int(11) NOT NULL
+  `id_membre` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
 -- Déchargement des données de la table `univers`
 --
 
-INSERT INTO `univers` (`id_univers`, `id`) VALUES
-(6, 76),
-(93, 93),
-(94, 94),
-(95, 96),
-(97, 101);
+INSERT INTO `univers` (`id_univers`, `id_membre`) VALUES
+(4, 74),
+(1, 83);
 
 --
 -- Index pour les tables déchargées
@@ -146,13 +178,15 @@ ALTER TABLE `ami`
 --
 ALTER TABLE `etoile`
   ADD PRIMARY KEY (`id_etoile`),
-  ADD UNIQUE KEY `galaxie_etoile` (`id_galaxie`);
+  ADD UNIQUE KEY `nom_galaxie` (`nom`,`id_galaxie`),
+  ADD KEY `galaxie_etoile` (`id_galaxie`) USING BTREE;
 
 --
 -- Index pour la table `galaxie`
 --
 ALTER TABLE `galaxie`
   ADD PRIMARY KEY (`id_galaxie`),
+  ADD UNIQUE KEY `galaxie_nom` (`galaxie_nom`,`id_univers`),
   ADD KEY `univers_galaxie` (`id_univers`);
 
 --
@@ -166,7 +200,7 @@ ALTER TABLE `membre`
 --
 ALTER TABLE `univers`
   ADD PRIMARY KEY (`id_univers`),
-  ADD UNIQUE KEY `univers_membre` (`id`) USING BTREE;
+  ADD UNIQUE KEY `univers_membre` (`id_membre`);
 
 --
 -- AUTO_INCREMENT pour les tables déchargées
@@ -182,25 +216,25 @@ ALTER TABLE `ami`
 -- AUTO_INCREMENT pour la table `etoile`
 --
 ALTER TABLE `etoile`
-  MODIFY `id_etoile` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id_etoile` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=451;
 
 --
 -- AUTO_INCREMENT pour la table `galaxie`
 --
 ALTER TABLE `galaxie`
-  MODIFY `id_galaxie` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
+  MODIFY `id_galaxie` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=58;
 
 --
 -- AUTO_INCREMENT pour la table `membre`
 --
 ALTER TABLE `membre`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=102;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=85;
 
 --
 -- AUTO_INCREMENT pour la table `univers`
 --
 ALTER TABLE `univers`
-  MODIFY `id_univers` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=98;
+  MODIFY `id_univers` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
 -- Contraintes pour les tables déchargées
@@ -229,7 +263,7 @@ ALTER TABLE `galaxie`
 -- Contraintes pour la table `univers`
 --
 ALTER TABLE `univers`
-  ADD CONSTRAINT `univers_ibfk_1` FOREIGN KEY (`id`) REFERENCES `membre` (`id`);
+  ADD CONSTRAINT `univers_ibfk_1` FOREIGN KEY (`id_membre`) REFERENCES `membre` (`id`);
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

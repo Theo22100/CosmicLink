@@ -190,6 +190,28 @@ function moveGalaxyElement(galaxyObject, element) {
     }
 }
 
+
+function deleteStarLinkedToGalaxy(starNameArray){
+    for(let i = 0; i < starNameArray.length; i++){
+
+        const starNameElement =getElementsByText(starNameArray[i], "starName");
+
+        //nom de l'étoile introuvable
+        if (starNameElement.length == 0) continue;
+        
+        
+        for(let j = 0; j < starNameElement.length; j++){
+            const starDiv = starNameElement[j].parentNode.parentNode;
+            starDiv.remove();
+        }
+        
+    }
+}
+
+function getElementsByText(str, tag) {
+    return Array.prototype.slice.call(document.getElementsByClassName(tag)).filter(el => el.textContent.trim() === str.trim());
+  }
+
 function ajaxGAdd(Gname, Gdesc, x, y) {
 
     $.ajax({

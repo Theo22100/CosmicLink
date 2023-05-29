@@ -17,11 +17,48 @@ if (!isset($_SESSION['login']) && $_SESSION['role'] != "A") {
             <table border='1'>
                 <tr>
                     <td>Nombre d'utilisateurs au total :&nbsp;</td>
-                    <td> Non fait </td>
+                    <?php
+                    try { //Connexion BDD
+                        $servername = "localhost";
+                        $username = "root";
+                        $password_db = "root";
+                        $dbname = "projet";
+                        
+                        $connexion = new PDO("mysql:host=$servername;dbname=$dbname", $username, $password_db);
+                        $connexion->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+                    } catch (PDOException $e) {
+                        echo 'Echec Connexion : ' . $e->getMessage();
+                    }
+
+                    try { //Calcul utilisateur
+                        $requete_util = $connexion->prepare("SELECT count(*) FROM membre");
+
+                        $requete_util->execute();
+
+                        $nbutil = $requete_util->fetchColumn();
+                        echo "<td> " . $nbutil . "</td>";
+                    } catch (PDOException $e) {
+                        echo 'Echec Calcul Utilisateur : ' . $e->getMessage();
+                    }
+
+                    ?>
+
+
                 </tr>
                 <tr>
                     <td>Nombre de galaxies au total :&nbsp;</td>
-                    <td> Non fait </td>
+                    <?php
+                    try { //Calcul galaxie
+                        $requete_util = $connexion->prepare("SELECT count(*) FROM galaxie");
+
+                        $requete_util->execute();
+
+                        $nbgal = $requete_util->fetchColumn();
+                        echo "<td> " . $nbgal . "</td>";
+                    } catch (PDOException $e) {
+                        echo 'Echec Calcul Galaxie : ' . $e->getMessage();
+                    }
+                    ?>
                 <tr>
                 <tr>
                     <td>Nombre d'étoiles au total :&nbsp;</td>

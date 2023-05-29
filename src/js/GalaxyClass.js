@@ -40,9 +40,9 @@ class Galaxy {
         const desc = document.createElement("p");
 
         name.textContent = this.#name;
-        name.classList.add("starName");
+        name.classList.add("galaxyName");
         desc.textContent = this.#description;
-        desc.classList.add("starDesc");
+        desc.classList.add("galaxyDesc");
 
         galaxyInfo.appendChild(name);
         galaxyInfo.appendChild(desc);

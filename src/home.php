@@ -94,8 +94,8 @@ if (!isset($_SESSION['login'])) {
 
     try {
         //Recherche de l'univers pour ce membre
-        $sql = $handler->prepare("SELECT id_univers FROM univers WHERE id_membre=:id_membre");
-        $sql->bindParam(':id_membre',$user_id);
+        $sql = $handler->prepare("SELECT id_univers FROM univers WHERE id=:id");
+        $sql->bindParam(':id',$user_id);
         $sql->execute();
          
         $row = $sql->fetch(PDO::FETCH_ASSOC);

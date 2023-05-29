@@ -1,11 +1,11 @@
 -- phpMyAdmin SQL Dump
--- version 5.2.0
+-- version 5.1.2
 -- https://www.phpmyadmin.net/
 --
--- Hôte : localhost
--- Généré le : lun. 29 mai 2023 à 12:19
--- Version du serveur : 5.7.24
--- Version de PHP : 7.4.1
+-- Host: localhost:3306
+-- Generation Time: May 29, 2023 at 02:35 PM
+-- Server version: 5.7.24
+-- PHP Version: 8.0.1
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -18,13 +18,13 @@ SET time_zone = "+00:00";
 /*!40101 SET NAMES utf8mb4 */;
 
 --
--- Base de données : `projet`
+-- Database: `projet`
 --
 
 -- --------------------------------------------------------
 
 --
--- Structure de la table `ami`
+-- Table structure for table `ami`
 --
 
 CREATE TABLE `ami` (
@@ -37,7 +37,7 @@ CREATE TABLE `ami` (
 -- --------------------------------------------------------
 
 --
--- Structure de la table `etoile`
+-- Table structure for table `etoile`
 --
 
 CREATE TABLE `etoile` (
@@ -51,7 +51,7 @@ CREATE TABLE `etoile` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
--- Déchargement des données de la table `etoile`
+-- Dumping data for table `etoile`
 --
 
 INSERT INTO `etoile` (`id_etoile`, `nom`, `descr`, `cox`, `coy`, `taille`, `id_galaxie`) VALUES
@@ -87,37 +87,41 @@ INSERT INTO `etoile` (`id_etoile`, `nom`, `descr`, `cox`, `coy`, `taille`, `id_g
 (440, 'blegh', '', 261, 326, 3, 55),
 (441, '', '', 673, 398, 3, 55),
 (449, '', '', 616, 129, 3, 57),
-(450, '', '', 748, 37, 3, 56);
+(450, '', '', 748, 37, 3, 56),
+(451, '', '', 165, 78, 3, 58);
 
 -- --------------------------------------------------------
 
 --
--- Structure de la table `galaxie`
+-- Table structure for table `galaxie`
 --
 
 CREATE TABLE `galaxie` (
   `id_galaxie` int(11) NOT NULL,
   `galaxie_nom` varchar(50) NOT NULL,
+  `descr` text NOT NULL,
   `cox` int(11) NOT NULL,
   `coy` int(11) NOT NULL,
   `id_univers` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
--- Déchargement des données de la table `galaxie`
+-- Dumping data for table `galaxie`
 --
 
-INSERT INTO `galaxie` (`id_galaxie`, `galaxie_nom`, `cox`, `coy`, `id_univers`) VALUES
-(1, 'testgalaxie', 100, 100, 1),
-(2, 'test2', 100, 200, 1),
-(55, 'undefined', 0, 0, 1),
-(56, 'undefined', 0, 0, 4),
-(57, 'test', 4, 4, 4);
+INSERT INTO `galaxie` (`id_galaxie`, `galaxie_nom`, `descr`, `cox`, `coy`, `id_univers`) VALUES
+(1, 'testgalaxie', '', 100, 100, 1),
+(2, 'test2', '', 100, 200, 1),
+(55, 'undefined', '', 0, 0, 1),
+(56, 'undefined', '', 0, 0, 4),
+(57, 'test', '', 4, 4, 4),
+(58, 'undefined', '', 0, 0, 6),
+(59, 'b', '', 808, 120, 6);
 
 -- --------------------------------------------------------
 
 --
--- Structure de la table `membre`
+-- Table structure for table `membre`
 --
 
 CREATE TABLE `membre` (
@@ -135,17 +139,18 @@ CREATE TABLE `membre` (
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
--- Déchargement des données de la table `membre`
+-- Dumping data for table `membre`
 --
 
 INSERT INTO `membre` (`id`, `pseudo`, `prenom`, `nom`, `datenaissance`, `dateinscription`, `password`, `mail`, `image`, `role`, `login`) VALUES
 (74, 'admin', 'admin', 'admin', '2006-06-06', '2023-05-15', '$2y$10$97Al5ULlPLtgxiJZR4cqX.O7NKe/DaB5ltzusowu6AovrspIbFiwq', 'admin@admin', NULL, 'A', 0),
-(83, 'test', 'test', 'test', '2001-01-01', '2023-05-19', '$2y$10$oKZFJhIB4AfLTWpf6EukYuzrtB5BzsqV8G7Pm8f/KzsxQaMN4fwYu', 'test@test', NULL, 'U', 0);
+(83, 'test', 'test', 'test', '2001-01-01', '2023-05-19', '$2y$10$oKZFJhIB4AfLTWpf6EukYuzrtB5BzsqV8G7Pm8f/KzsxQaMN4fwYu', 'test@test', NULL, 'U', 0),
+(88, 'b', 'b', 'b', '0001-01-01', '2023-05-29', '$2y$10$Kn4SW0lfCZCK3fNwkZ1jAeoiMZMa6bLE8YaqaR9Zv/R48URkBd1xO', 'b', NULL, 'U', 0);
 
 -- --------------------------------------------------------
 
 --
--- Structure de la table `univers`
+-- Table structure for table `univers`
 --
 
 CREATE TABLE `univers` (
@@ -154,19 +159,20 @@ CREATE TABLE `univers` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
--- Déchargement des données de la table `univers`
+-- Dumping data for table `univers`
 --
 
 INSERT INTO `univers` (`id_univers`, `id_membre`) VALUES
 (4, 74),
-(1, 83);
+(1, 83),
+(6, 88);
 
 --
--- Index pour les tables déchargées
+-- Indexes for dumped tables
 --
 
 --
--- Index pour la table `ami`
+-- Indexes for table `ami`
 --
 ALTER TABLE `ami`
   ADD PRIMARY KEY (`id_amitie`),
@@ -174,7 +180,7 @@ ALTER TABLE `ami`
   ADD KEY `id_membre2` (`id_membre2`);
 
 --
--- Index pour la table `etoile`
+-- Indexes for table `etoile`
 --
 ALTER TABLE `etoile`
   ADD PRIMARY KEY (`id_etoile`),
@@ -182,7 +188,7 @@ ALTER TABLE `etoile`
   ADD KEY `galaxie_etoile` (`id_galaxie`) USING BTREE;
 
 --
--- Index pour la table `galaxie`
+-- Indexes for table `galaxie`
 --
 ALTER TABLE `galaxie`
   ADD PRIMARY KEY (`id_galaxie`),
@@ -190,77 +196,77 @@ ALTER TABLE `galaxie`
   ADD KEY `univers_galaxie` (`id_univers`);
 
 --
--- Index pour la table `membre`
+-- Indexes for table `membre`
 --
 ALTER TABLE `membre`
   ADD PRIMARY KEY (`id`);
 
 --
--- Index pour la table `univers`
+-- Indexes for table `univers`
 --
 ALTER TABLE `univers`
   ADD PRIMARY KEY (`id_univers`),
   ADD UNIQUE KEY `univers_membre` (`id_membre`);
 
 --
--- AUTO_INCREMENT pour les tables déchargées
+-- AUTO_INCREMENT for dumped tables
 --
 
 --
--- AUTO_INCREMENT pour la table `ami`
+-- AUTO_INCREMENT for table `ami`
 --
 ALTER TABLE `ami`
   MODIFY `id_amitie` int(11) NOT NULL AUTO_INCREMENT;
 
 --
--- AUTO_INCREMENT pour la table `etoile`
+-- AUTO_INCREMENT for table `etoile`
 --
 ALTER TABLE `etoile`
-  MODIFY `id_etoile` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=451;
+  MODIFY `id_etoile` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=452;
 
 --
--- AUTO_INCREMENT pour la table `galaxie`
+-- AUTO_INCREMENT for table `galaxie`
 --
 ALTER TABLE `galaxie`
-  MODIFY `id_galaxie` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=58;
+  MODIFY `id_galaxie` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=60;
 
 --
--- AUTO_INCREMENT pour la table `membre`
+-- AUTO_INCREMENT for table `membre`
 --
 ALTER TABLE `membre`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=85;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=89;
 
 --
--- AUTO_INCREMENT pour la table `univers`
+-- AUTO_INCREMENT for table `univers`
 --
 ALTER TABLE `univers`
-  MODIFY `id_univers` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `id_univers` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 
 --
--- Contraintes pour les tables déchargées
+-- Constraints for dumped tables
 --
 
 --
--- Contraintes pour la table `ami`
+-- Constraints for table `ami`
 --
 ALTER TABLE `ami`
   ADD CONSTRAINT `ami_ibfk_1` FOREIGN KEY (`id_membre1`) REFERENCES `membre` (`id`),
   ADD CONSTRAINT `ami_ibfk_2` FOREIGN KEY (`id_membre2`) REFERENCES `membre` (`id`);
 
 --
--- Contraintes pour la table `etoile`
+-- Constraints for table `etoile`
 --
 ALTER TABLE `etoile`
   ADD CONSTRAINT `etoile_ibfk_1` FOREIGN KEY (`id_galaxie`) REFERENCES `galaxie` (`id_galaxie`);
 
 --
--- Contraintes pour la table `galaxie`
+-- Constraints for table `galaxie`
 --
 ALTER TABLE `galaxie`
   ADD CONSTRAINT `galaxie_ibfk_1` FOREIGN KEY (`id_univers`) REFERENCES `univers` (`id_univers`);
 
 --
--- Contraintes pour la table `univers`
+-- Constraints for table `univers`
 --
 ALTER TABLE `univers`
   ADD CONSTRAINT `univers_ibfk_1` FOREIGN KEY (`id_membre`) REFERENCES `membre` (`id`);

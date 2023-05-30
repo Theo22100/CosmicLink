@@ -30,11 +30,8 @@ function openEditGalaxy(event){
     closeGalaxyOptionsList();
     galaxyGui.classList.remove("hidden");
 
-    const ptag = currentGalaxy.getElementsByTagName("p");
-    const name = ptag[0].textContent;
-    const desc = ptag[1].textContent;
-    document.getElementById("galaxyName").value = name;
-    document.getElementById("galaxyDesc").value = desc;
+    document.getElementById("galaxyName").value = currentGalaxy.getName();
+    document.getElementById("galaxyDesc").value = currentGalaxy.getDescription();
 
     doneGalaxyButton.onclick = function(event) {
         editGalaxy(event)
@@ -60,8 +57,6 @@ function openGalaxyOptionsList(x, y){
     document.getElementById("move").onclick = function(event){
         moveGalaxy(event)};
     document.getElementById("link").classList.add("hidden");
-    // document.getElementById("link").onclick = function(event){
-        // editGalaxy(event)}; TODO
     document.getElementById("remove").onclick = function(event){
         removeGalaxy(event)};
 
@@ -75,7 +70,7 @@ let movableG = false;
 function moveGalaxy(event){
     INVISIBLE.classList.add("hidden"); 
     closeGalaxyOptionsList();
-    document.getElementById("done").classList.remove("hidden");
+    doneMenuButton.classList.remove("hidden");
 
     menu.style.width = "auto";
     menu.style.borderRadius = "50px";
@@ -85,14 +80,14 @@ function moveGalaxy(event){
     menu.style.transition= ".3s";
 
     movableG = true;
-    doneMenuButton.onclick = function(event) {
-        event.stopImmediatePropagation();
-        confirmGalaxyPosition(event)};
+    menu.onclick = function(event){confirmGalaxyPosition(event)};
+
 }
 
 function confirmGalaxyPosition(event){
     movableG = false;
     closeOption();
+    menu.onclick = function(event){ openOption(event)};
 }
 
 //
@@ -105,82 +100,50 @@ function addGalaxy(event){
     const galaxyName = document.getElementById("galaxyName").value;
     const galaxyDesc = document.getElementById("galaxyDesc").value;
 
-    addGalaxyWithInfo(galaxyName, galaxyDesc, x, y);
+    const s = new Galaxy(galaxyName, galaxyDesc, x, y);
+    s.addElementAnimation();
+    s.addElement();
+
     closeGalaxyGui();
     INVISIBLE.classList.add("hidden"); 
+
+    ajaxGAdd(galaxyName,galaxyDesc,x,y);
 }
 
 
 function addGalaxyWithInfo(gName, gDesc, x, y){
-    const galaxyDiv = document.createElement("div");
-    galaxyDiv.classList.add("galaxyDiv");
-    galaxyDiv.style.position = "fixed";
-    galaxyDiv.style.left = `${x}px`;
-    galaxyDiv.style.top = `${y}px`;
-
-    const newGalaxy = document.createElement("img");
-    newGalaxy.classList.add("galaxy");
-    newGalaxy.src = "../img/galaxy.png";
-    newGalaxy.style.transform = `scale(${zoom})`;
-
-    newGalaxy.style.width = (200 + getRandomInt(30) ).toString() + "px";
-    newGalaxy.style.height = "auto";
-
-
-    galaxyDiv.appendChild(newGalaxy);
-
-    const galaxyInfo = document.createElement("div");
-    galaxyInfo.classList.add("galaxyInfo");
-
-    const name = document.createElement("p");
-    const desc = document.createElement("p");
-
-    name.textContent = gName;
-    name.classList.add("galaxyName");
-    desc.textContent = gDesc;
-    desc.classList.add("galaxyDesc");
-
-    galaxyInfo.appendChild(name);
-    galaxyInfo.appendChild(desc);
-
-    galaxyDiv.appendChild(galaxyInfo);
-    UNIVERS.appendChild(galaxyDiv);
-
-    galaxyDiv.addEventListener('contextmenu', (event)=> {
-        event.preventDefault();
-        currentGalaxy = galaxyDiv;
-        openGalaxyOptionsList(event.clientX, event.clientY);
-    });
-
-    moveGalaxyElement(galaxyDiv);
+    const s = new Galaxy(gName, gDesc, x, y);
+    s.addElement();
 }
 
 
 let currentGalaxy;
 function editGalaxy(event){
-    const galaxyName = document.getElementById("galaxyName").value;
-    const galaxyDesc = document.getElementById("galaxyDesc").value;
-
-    const ptag = currentGalaxy.getElementsByTagName("p");
-    ptag[0].textContent = galaxyName;
-    ptag[1].textContent = galaxyDesc;
+    let oldName = currentGalaxy.getName();
+    let newName = document.getElementById("galaxyName").value;
+    let descr = document.getElementById("galaxyDesc").value;
+    currentGalaxy.setName(newName);
+    currentGalaxy.setDescription(descr);
 
     closeEditGalaxy();
     INVISIBLE.classList.add("hidden"); 
+
+    ajaxGEdit(oldName,newName,descr);
 }
 
 
 function removeGalaxy(){
-    currentGalaxy.remove();
+    currentGalaxy.removeElement();
     closeGalaxyOptionsList();
     INVISIBLE.classList.add("hidden"); 
+    ajaxGRemove(currentGalaxy.getName());
 }
 
 /**
  * DRAGGABLE PART
  */
 
-function moveGalaxyElement(element) {
+function moveGalaxyElement(galaxyObject, element) {
     let pos1 = 0, pos2 = 0, pos3 = 0, pos4 = 0;
 
     element.onmousedown = dragMouseDown;
@@ -208,6 +171,7 @@ function moveGalaxyElement(element) {
         pos3 = e.clientX;
         pos4 = e.clientY;
         // set the element's new position:
+
         element.style.top = (element.offsetTop - pos2) + "px";
         element.style.left = (element.offsetLeft - pos1) + "px";
     }
@@ -216,5 +180,118 @@ function moveGalaxyElement(element) {
         // stop moving when mouse button is released:
         document.onmouseup = null;
         document.onmousemove = null;
+
+        const x = element.offsetLeft;
+        const y = element.offsetTop;
+        const galaxy_name = galaxyObject.getName();
+        ajaxGMove(galaxy_name, x, y);
+        // console.log(galaxyObject.getGalaxyLinked());
+        //c'est comme ça que tu récupère la galaxy liée 
     }
+}
+
+
+function deleteStarLinkedToGalaxy(starNameArray){
+    for(let i = 0; i < starNameArray.length; i++){
+
+        const starNameElement =getElementsByText(starNameArray[i], "starName");
+
+        //nom de l'étoile introuvable
+        if (starNameElement.length == 0) continue;
+        
+        
+        for(let j = 0; j < starNameElement.length; j++){
+            const starDiv = starNameElement[j].parentNode.parentNode;
+            starDiv.remove();
+        }
+        
+    }
+}
+
+function getElementsByText(str, tag) {
+    return Array.prototype.slice.call(document.getElementsByClassName(tag)).filter(el => el.textContent.trim() === str.trim());
+  }
+
+function ajaxGAdd(Gname, Gdesc, x, y) {
+
+    $.ajax({
+        url: "galaxyDB.php",
+        type: "POST",
+        data: {
+            action: 'add',
+            name: Gname,
+            descr: Gdesc,
+            x: x,
+            y: y
+        },
+        success: function (response) {
+            console.log(response);
+        },
+        error: function (xhr, status, error) {
+            console.error(error);
+        }
+    });
+}
+
+function ajaxGMove(Gname, x, y) {
+
+    $.ajax({
+        url: "galaxyDB.php",
+        type: "POST",
+        data: {
+            action: "move",
+            name: Gname,
+            x: x,
+            y: y
+        },
+        success: function (response) {
+            // Handle the successful response from the server
+            console.log(response);
+        },
+        error: function (xhr, status, error) {
+            // Handle errors
+            console.error(error);
+        }
+    });
+
+}
+
+function ajaxGRemove(galaxy_name) {
+    $.ajax({
+        url: "galaxyDB.php",
+        type: "POST",
+        data: {
+            action: "delete",
+            name: galaxy_name
+        },
+        success: function (response) {
+            // Handle the successful response from the server
+            const deletedStars = JSON.parse(response);
+            deleteStarLinkedToGalaxy(deletedStars);
+            
+        },
+        error: function (xhr, status, error) {
+            // Handle errors
+            console.error(error);
+        }
+    });
+}
+
+function ajaxGEdit(oldName, newName, galaxyDesc){
+    $.ajax({
+        url: "galaxyDB.php",
+        type: "POST",
+        data: {
+            action: 'edit',
+            old_name: oldName,
+            new_name: newName,
+            descr: galaxyDesc
+        },
+        success: function (response) {
+            console.log(response);
+        },
+        error: function (xhr, status, error) {
+            console.error(error);
+        }
+    });
 }

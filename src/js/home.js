@@ -2,22 +2,22 @@ window.oncontextmenu = (e) => {
     e.preventDefault();
 }
 
-
-
 function getRandomInt(max) {
     return Math.floor(Math.random() * max);
 }
-
-
 
 const INVISIBLE = document.getElementById("invisible");
 
 function onclickoutside(func){
     INVISIBLE.classList.remove("hidden");
     INVISIBLE.onclick = function() {
-        func();
         INVISIBLE.classList.add("hidden");
+        func();
     }
+    INVISIBLE.addEventListener('contextmenu',  (event) =>{
+        INVISIBLE.classList.add("hidden");
+        func();
+    });
 }
 
 
@@ -61,7 +61,6 @@ function closeOption(){
     menu.style.zIndex = 0;
 
 }
-
 
 
 //DEPLACEMENT DANS L'ESPACE !
@@ -165,7 +164,7 @@ function zoomInOut(translateX, translateY, zoomIn, oldZoom){
         const child = starList.item(i);
 
         //augmente / diminue la taille de l'étoile
-        child.getElementsByClassName("star")[0].style.transform = `scale(${zoom})`;
+        child.getElementsByClassName("stars")[0].style.transform = `scale(${zoom})`;
         zoomCoordinates(zoomIn, child, translateX, translateY);
     }
 
@@ -233,8 +232,6 @@ function zoomCoordinates(zoomIn, element, originX, originY){
     //reactualise la taille de l'étoile
     element.style.transform = `translate(${translateX}px, ${translateY}px)`;
 }
-
-
 
 function distance2Point(p1, p2){
     return Math.sqrt( (p2-p1)*(p2-p1))

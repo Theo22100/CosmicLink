@@ -112,7 +112,6 @@ if (!isset($_SESSION['login'])) {
 			<div class="clear"> </div>
 		</div>
 		</form>
-
 		<!-- Modifier nom -->
 
 		<div class="clear"> </div>
@@ -130,6 +129,7 @@ if (!isset($_SESSION['login'])) {
 					<span>Prénom<label></label></span>
 					<input type="text" name="prenom" id="prenom" required="required" maxlength="30">
 					<input type="submit" name="modifierprenom" value="Modifier">
+
 				</div>
 				<div class="clear"> </div>
 			</div>
@@ -171,7 +171,9 @@ if (!isset($_SESSION['login'])) {
 						<input type="mail" name="mail" id="mail" required="required" maxlength="60">
 					</div>
 					<div>
+
 						<input type="submit" name="modifiermail" value="Modifier">
+
 					</div>
 				</div>
 				<div class="clear"> </div>
@@ -245,16 +247,23 @@ if (!isset($_SESSION['login'])) {
 					<div>
 						<input type="text" name="ami" id="ami" required="required" maxlength="60">
 					</div>
+
 					<div>
 						<input type="submit" name="ajouterami" value="Ajouter">
+
 					</div>
 				</div>
 			</form>
 		</div>
 	</div>
 
+	<div class = "back"></div>
+		</body>
+
+
 	<?php
 	$connexion = null;
 	?>
 
 </body>
+

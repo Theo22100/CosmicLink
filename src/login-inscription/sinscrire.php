@@ -9,11 +9,12 @@ if (isset($_SESSION['login'])) {
 	<head>
 		<title>Inscription MySpace</title>
 		<meta charset=”utf-8″>
-		<link rel="stylesheet" href="./style_inscription.css">
+		<link rel="stylesheet" href="./style_login.css">
 	</head>
 	<body>
 		<div class="main">
-			<div class="register">
+			<div class = "box">
+				<div class="register">
 
 
 			<?php
@@ -42,18 +43,18 @@ if (isset($_SESSION['login'])) {
 
 						<div>
 							<span>Pseudonyme<label>*</label></span>
-							<input type = "text" name = "pseudo" id = "pseudo" required="required" maxlength="30"> 
+							<input type = "text" name = "pseudo" id = "pseudo" required="required" maxlength="30"  placeholder="Pseudo"> 
 						</div>
 
 						<div>
 							<span>Prénom<label>*</label></span>
-							<input type = "text" name = "prenom" id = "prenom" required="required" maxlength="30">
+							<input type = "text" name = "prenom" id = "prenom" required="required" maxlength="30" placeholder="First Name">
 						</div>
 
 
 						<div>
 							<span>Nom<label>*</label></span>
-							<input type = "text" name = "nom" id = "nom" required="required" maxlength="30"> 
+							<input type = "text" name = "nom" id = "nom" required="required" maxlength="30" placeholder="Name"> 
 						</div>
 
 						<div>
@@ -63,7 +64,7 @@ if (isset($_SESSION['login'])) {
 
 						<div>
 							<span>Email<label>*</label></span>
-							<input type = "mail" name = "mail" id = "mail" required="required" maxlength="60"> 
+							<input type = "mail" name = "mail" id = "mail" required="required" maxlength="60" placeholder="Mail"> 
 						</div>
 
 						
@@ -96,7 +97,7 @@ if (isset($_SESSION['login'])) {
 
 				<div class="clear"> </div>
 				<div class="register">
-						<h3>Alreadyhave your universe ?</h3>
+						<h3>Already have your universe ?</h3>
 						<p><a class="acount-btn" href="./login.php">Connect here</a> to get back to your universe !</p>
 					
 					</div>
@@ -104,8 +105,9 @@ if (isset($_SESSION['login'])) {
 			</div>
 
 			<div class="clear"></div>
+				</div>
 		</div>
 		<!-- fin de la partie contenu -->
-
+		<div class= "back"></div>
 	</body>
 </html>

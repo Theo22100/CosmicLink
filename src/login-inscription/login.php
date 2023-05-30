@@ -14,7 +14,7 @@ if (isset($_SESSION['login'])) {
 	<body>
 		<!-- debut de la partie contenu -->
 		<div class="main">
-			<div class = "box">
+				<div class = "box">
 					<div class="welcome">
 						<h1> Welcome to Starlink ! </h1>
 						<p> Blabla you're a whole universe and you can meet others like you ! </p>
@@ -29,11 +29,11 @@ if (isset($_SESSION['login'])) {
 						<form method="POST" action="login1.php">
 							<div>
 								<span>E-mail address<label>*</label></span>
-								<input type="text" name = "mail" id = "mail" required="required"  maxlength="60"> 
+								<input type="text" name = "mail" id = "mail" required="required"  maxlength="60" placeholder="Mail"> 
 							</div>
 							<div>
 								<span>Password<label>*</label></span>
-								<input type="password" name="password" id="password" required="required"  maxlength="50"> 
+								<input type="password" name="password" id="password" required="required"  maxlength="50" placeholder="Password"> 
 							</div>
 							<input type="submit" value="Login">
 							<a class="forgot" href="#">Forgot your password?</a>
@@ -47,9 +47,10 @@ if (isset($_SESSION['login'])) {
 					</div>
 							
 					<div class="clearfix"> </div>
-			<div class="clear"></div>
-			</div>
+					<div class="clear"></div>
+				</div>
 		</div><!-- fin de la partie contenu -->
+		<div class= "back"></div>
 	</body>
 
 <?php

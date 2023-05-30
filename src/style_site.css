@@ -2,12 +2,15 @@
     font-family: Georgia,serif;
 }
 #background {
-    background-image: url("../img/galaxy-bg-flou.jpg");
+    /* background-image: url("../img/galaxy-bg-flou.jpg");
     background-size: cover;
     height: 100%;
     width: 100%;
-    margin: 0 !important;
-    overflow-x: hidden;
+    margin: 0 !important; */
+    /*background-image: linear-gradient(to bottom right, #072c73e5,#5d1d99,#5d1d99, #072c73e5);*/
+    height: 1000px; 
+    background-image: radial-gradient(circle at center,#2e3085, #191b7c, #070e74e5,#1d376ee5);
+    /* background-color: #e8eff7; */
 }
 
 #univers{
@@ -30,17 +33,17 @@
 
 .starInfo, .galaxyInfo{
     display: none;
-    position:absolute;
+    position:relative;
     bottom: 30px;
     border-radius: 5px;
     background-color: grey;
     z-index: 1;
 }
 .starInfo > p:not(.hidden), .galaxyInfo > p:not(.hidden){
-    color: black;
+    /* color: black; */
     display: block;
-    /*padding: 5px 6px;*/
-    text-decoration: none;
+    padding: 5px 6px;
+    /* text-decoration: none; */
     margin-bottom: 5px;
     margin-top:5px;
 
@@ -49,10 +52,13 @@
 .starName, .galaxyName{
     text-align: center;
     font-weight: bold;
+    text-decoration: underline rgb(68,68,68);
 }
 
 .starDesc, .galaxyDesc{
-
+    text-align: center;
+    color: rgb(4, 4, 151);
+    
 }
 
 .stars, .galaxy{

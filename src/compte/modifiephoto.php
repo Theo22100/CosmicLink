@@ -14,7 +14,7 @@ $dbname = "projet";
 
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
-    if ($_FILES['image']['size'] > 2 * 1024 * 1024) { 
+    if ($_FILES['image']['size'] > 2 * 1024 * 1024) {
         // Le fichier dépasse la taille maximale autorisée (2 Mo)
         // Gérer l'erreur ou afficher un message à l'utilisateur
         header("Location: compte.php?message=phototaille");
@@ -29,7 +29,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             echo 'Echec Compte Connexion BDD : ' . $e->getMessage();
             echo '<br>';
         }
-        
+
         try {
             $image = $_POST["image"];
             $_SESSION['image'] = $image; //NE PAS OUBLIER POUR LE LOGIN DE RAJOUTER SESSION IMAGE
@@ -49,6 +49,24 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             echo '<br>';
             header("Location: compte.php?message=photoechoue");
         }
+        //Supprime l'ancienne photo
+
+
+        $repertoire = '../../img/profil/' . $_SESSION['id'];
+
+        // Récupérer la liste des fichiers dans le répertoire
+        $fichiers = glob($repertoire . '/*');
+
+        // Parcourir la liste des fichiers et les supprimer un par un (nettoie toutes les photos)
+        foreach ($fichiers as $fichier) {
+            if (is_file($fichier)) {
+                unlink($fichier);
+            }
+        }
+
+
+
+        //Ajoute la photo
         $tmpName = $_FILES['image']['tmp_name'];
         $name = $_FILES['image']['name'];
         move_uploaded_file($tmpName, '../../img/profil/' . $_SESSION['id'] . '/' . $name);

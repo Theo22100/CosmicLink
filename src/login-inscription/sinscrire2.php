@@ -1,7 +1,7 @@
 <?php
 
 $compteMail = $comptePseudo = "";
-$id = $pseudo = $prenom = $datenaissance = $dateinscription = $nom = $mail = $password = "";
+$membre = $galaxie = $univers = $pseudo = $prenom = $datenaissance = $dateinscription = $nom = $mail = $password = "";
 
 $servername = "localhost";
 $username = "root";
@@ -19,6 +19,13 @@ $dbname = "projet";
 try {
     $connexion = new PDO("mysql:host=$servername;dbname=$dbname", $username, $password_db);
     $connexion->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+    //Univers
+    $connexion2 = new PDO("mysql:host=$servername;dbname=$dbname", $username, $password_db);
+    $connexion2->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+    //Galaxie
+    $connexion3 = new PDO("mysql:host=$servername;dbname=$dbname", $username, $password_db);
+    $connexion3->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+
 
     $requete0 = "SELECT COUNT(mail) FROM membre WHERE mail =:mail GROUP BY mail";
 
@@ -33,8 +40,8 @@ try {
 
 
 
-    
-    
+
+
 } catch (PDOException $e) {
     echo 'Echec Compte Mail : ' . $e->getMessage();
     echo '<br>';
@@ -52,11 +59,11 @@ try {
     $requete1 = $connexion->prepare("SELECT COUNT(*) FROM membre WHERE pseudo = :pseudo GROUP BY pseudo");
     $requete1->bindParam(':pseudo', $_POST['pseudo']);
     $requete1->execute();
-    $comptePseudo = $requete1->fetchColumn();    
+    $comptePseudo = $requete1->fetchColumn();
 
 
-    
-    
+
+
 } catch (PDOException $e) {
     echo 'Echec Compte pseudo: ' . $e->getMessage();
     echo '<br>';
@@ -72,23 +79,21 @@ try {
 ////////////////////////////////////////////////////////////////////
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
-    if ($_POST["password"]==$_POST["confirm_password"]){
-        
-        if($compteMail != 0){#mail présent
+    if ($_POST["password"] == $_POST["confirm_password"]) {
+
+        if ($compteMail != 0) { #mail présent
             header("Location: sinscrire.php?message=mail");
             //echo "compteMail = ".$compteMail."<br>"; 
-        }
-        else{
-            if($comptePseudo!=0){ //Déjà pseudo présent
+        } else {
+            if ($comptePseudo != 0) { //Déjà pseudo présent
                 header("Location: sinscrire.php?message=pseudo");
                 //echo "comptePseudo = ".$compteMail."<br>"; 
-            }
-            else{
+            } else {
                 try {
-                    $requete2 = $connexion->prepare("INSERT INTO membre (id,pseudo,prenom,nom,datenaissance,dateinscription,mail,password,login) VALUES (:id, :pseudo, :prenom, :nom, :datenaissance, :dateinscription, :mail ,:password, :login)");
+
+                    $requete2 = $connexion->prepare("INSERT INTO membre (pseudo,prenom,nom,datenaissance,dateinscription,mail,password,login) VALUES (:pseudo, :prenom, :nom, :datenaissance, :dateinscription, :mail ,:password, :login)");
 
 
-                    $id = $connexion-> lastInsertId() ;
                     $pseudo = clean($_POST["pseudo"]);
                     $prenom = clean($_POST["prenom"]);
                     $nom = clean($_POST["nom"]);
@@ -96,11 +101,11 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                     $dateinscription = date('Y-m-d');
                     $mail = $_POST["mail"];
                     $login = "0";
-                    
+
                     $password = password_hash($_POST["password"], PASSWORD_DEFAULT);
 
-
-                    $requete2->bindParam(':id', $id);
+                    //Bind
+                    //$requete2->bindParam(':id', $membre);
                     $requete2->bindParam(':pseudo', $pseudo);
                     $requete2->bindParam(':prenom', $prenom);
                     $requete2->bindParam(':nom', $nom);
@@ -113,44 +118,83 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
                     $requete2->execute();
 
-                    $requete3 = $connexion->prepare("INSERT INTO univers (id_membre) VALUES (:id)");
-                    $requete3->bindParam(':id', $id);
+
+                    //ID pour la réutiliser
+                    $membre = $connexion->lastInsertId();
+
+
+                    // Insérer l'ID de univers dans une autre table "univers" avec la clé étrangère du membre
+                    $requete3 = $connexion2->prepare("INSERT INTO univers (id_membre) VALUES (:id)");
+                    //Bind
+                    $requete3->bindParam(':id', $membre);
+
+
+                    //Recupère l'id membre et créer aussi le répertoire pour les photos 
+
+                     // Créer un répertoire pour l'utilisateur
+                     $directoryPath = '../../img/profil/' . $membre; // Spécifiez le chemin complet où vous souhaitez créer le répertoire
+ 
+                     if (!file_exists($directoryPath)) {
+                         // Vérifier si le répertoire n'existe pas déjà
+                         mkdir($directoryPath, 0777, true);
+                     }
+
+
+
+
+
+                     //fait la requete id_univers
                     $requete3->execute();
 
 
-                }
-                catch (PDOException $e){
-                    echo 'Echec Ajout: ' .$e->getMessage();
+
+
+                    //ID pour la réutiliser
+
+
+                    $cox = $coy = 0;
+                    $nomgalaxie = "undefined";
+                    $descr = "";
+                    $univers = $connexion2->lastInsertId();
+
+                    // Insérer l'ID de galaxie dans une table "galaxie" avec la clé étrangère de univers
+                    $requete4 = $connexion3->prepare("INSERT INTO galaxie (galaxie_nom, descr, cox, coy, id_univers) VALUES (:nom, :descr, :cox, :coy, :id_univers)");
+                    //Bind
+                    //$requete4->bindParam(':id_galaxie', $galaxie);
+                    $requete4->bindParam(':nom', $nomgalaxie);
+                    $requete4->bindParam(':descr', $descr);
+                    $requete4->bindParam(':cox', $cox);
+                    $requete4->bindParam(':coy', $coy);
+                    $requete4->bindParam(':id_univers', $univers);
+                    $requete4->execute();
+
+
+                   
+
+
+
+                } catch (PDOException $e) {
+                    echo 'Echec Ajout: ' . $e->getMessage();
                     echo '<br>';
                     header("Location: sinscrire.php?message=echoue");
                 }
                 header("Location: sinscrire.php?message=reussie");
-                /*
-                echo $compteMail;
-                echo "<br>";
-                echo $comptePseudo;
-                echo "<br>";
-                echo $password;
-                echo "<br>";
-                */
             }
         }
-    }else{
+    } else {
         header("Location: sinscrire.php?message=mdp");
     }
 }
 
 
-function clean($userInput) {
-    $userInput = trim($userInput);//Enleve les espace
+function clean($userInput)
+{
+    $userInput = trim($userInput); //Enleve les espace
     $userInput = stripslashes($userInput);
     $userInput = htmlspecialchars($userInput);
     return $userInput;
 }
-
-$connexion = null;
+$connexion = $connexion2 = $connexion3 = null;
 
 
 ?>
-
-

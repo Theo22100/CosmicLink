@@ -154,4 +154,5 @@ if (!isset($_SESSION['login'])) {
 			<button class="home-button" onclick="location.href='../home.php'">Back</button>
 		</div>
 	</div>
-</body>
+	<div class = "back"></div>
+		</body>

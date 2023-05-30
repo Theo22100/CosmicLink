@@ -62,7 +62,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
         //SUPPRIME LE REPERTOIRE PHOTO DE PROFIL
 
-        $repertoire = '../img/profil/' . $id;
+        $repertoire = '../../img/profil/' . $id;
 
         // Récupérer la liste des fichiers dans le répertoire
         $fichiers = glob($repertoire . '/*');

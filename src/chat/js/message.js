@@ -73,3 +73,28 @@ function addMessageSendee(name, content, time){
     
     CHATHISTORY.appendChild(li);
 }
+
+
+const sendButton = document.getElementById("sendMessage");
+const messageInput = document.getElementById("textMessage");
+sendButton.addEventListener("click",(event)=>{
+    sendMessage();
+})
+
+messageInput.addEventListener("keydown", (event)=>{
+    if (event.key === 'Enter' || event.keyCode === 13) {
+        sendMessage();
+    }
+})
+
+
+function sendMessage(){
+    if(messageInput.value != ""){
+        const date = new Date();
+
+        let day = date.getDate();
+        let month = date.getMonth() + 1;
+        addMessageSender("me", messageInput.value, day +"/"+ month);
+        messageInput.value = "";
+    }
+}

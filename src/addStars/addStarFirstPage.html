@@ -1,0 +1,72 @@
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <title>CosmicLink</title>
+
+
+    <link rel="stylesheet" href="./css/addStar.css">
+    <link rel="stylesheet" href="../global.css">
+
+</head>
+
+</html>
+
+<body>
+    <div class="ui hidden" id="starui">
+        <header>
+            <p>Add Star</p>
+            <p>main information</p>
+
+            <input type="checkbox" id="publicStar">
+            <label class="switch" for="publicStar"></label>
+
+            <button type="button" class="btn-close">close
+            </button>
+        </header>
+        <div class="ui_body">
+
+            <p class="inputText">Star Name</p>
+            <input type="text" name="starName" id="starName" placeholder="name">
+
+            <p class="inputText">Galaxy Linked to the Star</p>
+            <select id="select-galaxy">
+                <option>1</option>
+                <option>1</option>
+                <option>1</option>
+                <option>1</option>
+                <option>1</option>
+                <option>1</option>
+                <option>1</option>
+                <option>1</option>
+                <option>1</option>
+                <option>1</option>
+                <option>1</option>
+                <option>1</option>
+            </select>
+
+            <p class="inputText">Star Size</p>
+            <form oninput="" class="sizeForm">
+                <input type="range" name="size" min="1" max="5" value="3" class="slider" id="starSize">
+            </form>
+
+            <div class="previewContainer">
+                <img src="../../img/etoile.png" class="size-5" id="preview">
+            </div>
+
+
+            <footer class="ui-footer">
+                <div class="selectorPages">
+                    <button class="selectPage active" id="1"></button>
+                    <button class="selectPage" id="2"></button>
+                    <button class="selectPage" id="3"></button>
+                </div>
+
+                <button class="next">Next</button>
+            </footer>
+
+        </div>
+
+
+    </div>
+</body>

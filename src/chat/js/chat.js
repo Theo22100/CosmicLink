@@ -56,6 +56,6 @@ function addContactMessage(name, previousMessage){
 
     PREVIOUSCHATS.appendChild(li);
 
-    li.addEventListener("click", openChatWith);
+    li.addEventListener("click", openChatWith(name));
 
 }

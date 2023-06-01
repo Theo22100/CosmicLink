@@ -7,7 +7,7 @@
             </a>
             <img src="../img/profile-pic.png">
             <div>
-                <p class="nom">Josh Phil</p>
+                <p class="nom" id="messageProfileName">Josh Phil</p>
                 <p class="status orange">Online</p>
             </div>
         </header>

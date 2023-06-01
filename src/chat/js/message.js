@@ -1,9 +1,10 @@
 const MESSAGES = document.getElementById("messages");
 
-function openChatWith() {
+function openChatWith(name) {
     onclickoutside(closeChatWith);
     addPreviousMessages();
     MESSAGES.style.transform = "translateX(0%)";
+    document.getElementById("messageProfileName").textContent=name;
 }
 
 function closeChatWith() {

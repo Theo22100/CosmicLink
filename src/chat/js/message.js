@@ -2,7 +2,7 @@ const MESSAGES = document.getElementById("messages");
 
 function openChatWith(name) {
     onclickoutside(closeChatWith);
-    ajaxGetMessages();
+    ajaxGetMessages(name);
     MESSAGES.style.transform = "translateX(0%)";
     document.getElementById("messageProfileName").textContent=name;
 }
@@ -18,9 +18,19 @@ document.getElementById("back").addEventListener("click", closeChatWith);
 
 
 function addPreviousMessages(msgs){
-    addMessageSendee("Josh","Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor.", "Jan 18 5:20");
-    addMessageSendee("Josh","Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor.", "Jan 18 5:20");
-    addMessageSender("Me","Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor.", "Jan 18 5:20");
+    console.log("adding" + msgs);
+    for (let i = 0; i <msgs.length; i++) {
+        
+        if(msgs[i]['sender'] == 'me') {
+            
+            addMessageSender("Me",msgs[i]['content'], msgs[i]['timestamp']);
+        }
+        else {
+            addMessageSendee(msgs[i]['sender'],msgs[i]['content'], msgs[i]['timestamp']);
+        }
+    } 
+    
+    
 }
 
 
@@ -107,13 +117,12 @@ function ajaxGetMessages(username){
         //TODO Trouver moyen de cache
         data: {
             action: 'getMsg',
-            contactUsername : 'admin'
+            contactUsername : username
         },
         cache: true,
         success: function (response) {
-            console.log(response);
-            //TODO
-            const msgs = '';
+            const msgs = JSON.parse(response);
+            console.log(msgs);
             addPreviousMessages(msgs);
             
         },

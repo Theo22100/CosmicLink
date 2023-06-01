@@ -66,14 +66,13 @@ function getMsg($handler, $user_id, $other_id)
         $q->bindParam('user_id', $user_id);
         $q->bindParam('other_id', $other_id);
         $q->execute();        
-    //return $q->rowCount();
     } catch (PDOException $e) {
         'Echec : ' . $e->getMessage();
     }
     $allMsg = array();
     while ($row = $q->fetch(PDO::FETCH_ASSOC)) {
         $sender = '';
-        if ($sender == $user_id) {
+        if ($row['sender'] == $user_id) {
             $sender = 'me';
         }
         else {

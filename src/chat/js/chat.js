@@ -55,7 +55,7 @@ function addContactMessage(name, previousMessage){
 
     PREVIOUSCHATS.appendChild(li);
 
-    li.addEventListener("click", openChatWith(name));
+    li.addEventListener("click", (event) => openChatWith(name));
 
 }
 
@@ -68,9 +68,7 @@ function ajaxGetContacts() {
             action: "getContacts"
         },
         success: function (response) {
-            console.log(response);
             const contacts = JSON.parse(response);
-            console.log(contacts);
             addAllContactMessage(contacts);
             
         },

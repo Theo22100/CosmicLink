@@ -2,7 +2,7 @@ const MESSAGES = document.getElementById("messages");
 
 function openChatWith() {
     onclickoutside(closeChatWith);
-    addPreviousMessages();
+    ajaxGetMessages();
     MESSAGES.style.transform = "translateX(0%)";
 }
 
@@ -97,4 +97,28 @@ function sendMessage(){
         addMessageSender("me", messageInput.value, day +"/"+ month);
         messageInput.value = "";
     }
+}
+
+function ajaxGetMessages(username){
+    $.ajax({
+        url: "chat/chatDB.php",
+        type: "POST",
+        //TODO Trouver moyen de cache
+        data: {
+            action: "getMsg",
+            contactUsername : username
+        },
+        cache: true,
+        success: function (response) {
+            console.log(response);
+            //TODO
+            const msgs = '';
+            addPreviousMessages(msgs);
+            
+        },
+        error: function (xhr, status, error) {
+            // Handle errors
+            console.error(error);
+        }
+    });
 }

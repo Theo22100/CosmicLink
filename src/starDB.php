@@ -21,7 +21,7 @@ if (isset($_POST['action'])) {
         case 'delete':
             deleteStar($handler, $user_id);
             break;
-
+        
         default:
             echo "default";
             break;

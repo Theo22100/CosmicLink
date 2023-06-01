@@ -2,30 +2,30 @@
 session_start();
 if (isset($_SESSION['id'])) {
     $user_id = $_SESSION['id'];
-}
+    require 'connect.php';
 
-require 'connect.php';
+    if (isset($_POST['action'])) {
+        switch ($_POST['action']) {
+            case 'add':
+                addGalaxy($handler, $user_id);
+                break;
+            case 'edit':
+                editGalaxy($handler, $user_id);
+                break;
+            case 'move':
+                moveGalaxy($handler, $user_id);
+                break;
+            case 'delete':
+                deleteGalaxy($handler, $user_id);
+                break;
 
-if (isset($_POST['action'])) {
-    switch ($_POST['action']) {
-        case 'add':
-            addGalaxy($handler, $user_id);
-            break;
-        case 'edit':
-            editGalaxy($handler, $user_id);
-            break;
-        case 'move':
-            moveGalaxy($handler, $user_id);
-            break;
-        case 'delete':
-            deleteGalaxy($handler, $user_id);
-            break;
-
-        default:
-            echo "default";
-            break;
+            default:
+                echo "default";
+                break;
+        }
     }
 }
+
 
 /**
  * Adds a star to database, according to informations captured in Javascript
@@ -34,7 +34,7 @@ function addGalaxy($handler, $user_id)
 {
     if (isset($_POST['x']) && isset($_POST['y']) && isset($_POST['name']) && isset($_POST['descr'])) {
         $name = strtolower($_POST['name']);
-        if ($name == '') $name = NULL;
+        if ($name == '') $name = NULL; //TODO faire une erreur 
 
         $descr = ($_POST['descr']);
         $y = intval($_POST['y']);
@@ -107,18 +107,17 @@ function deleteGalaxy($handler, $user_id)
     if (isset($_POST['name'])) {
         $galaxy_name = treatGalaxyName($handler, $_POST['name']);
         $galaxy_id = galaxyNameToId($handler, $galaxy_name, $user_id);
-       
     }
 
     try {
-        
+
         $q0 = $handler->prepare(
             "SELECT nom FROM etoile WHERE id_galaxie = :galaxy_id"
         );
         $q0->bindParam(':galaxy_id', $galaxy_id);
         $q0->execute();
 
-        $deletedStars = Array();
+        $deletedStars = array();
         while ($row = $q0->fetch(PDO::FETCH_ASSOC)) {
             $deletedStars[] = $row['nom'];
         }
@@ -129,7 +128,7 @@ function deleteGalaxy($handler, $user_id)
         );
         $q->bindParam(':galaxy_id', $galaxy_id);
         $q->execute();
-        
+
 
         $q2 =  $handler->prepare(
             "DELETE FROM galaxie WHERE id_galaxie = :galaxy_id"

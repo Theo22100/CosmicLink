@@ -222,7 +222,8 @@ function ajaxGAdd(Gname, Gdesc, x, y) {
             name: Gname,
             descr: Gdesc,
             x: x,
-            y: y
+            y: y,
+            public : 0 //TODO
         },
         success: function (response) {
             console.log(response);
@@ -285,7 +286,8 @@ function ajaxGEdit(oldName, newName, galaxyDesc){
             action: 'edit',
             old_name: oldName,
             new_name: newName,
-            descr: galaxyDesc
+            descr: galaxyDesc,
+            public: 0 //TODO
         },
         success: function (response) {
             console.log(response);

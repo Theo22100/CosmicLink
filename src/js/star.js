@@ -258,7 +258,8 @@ function ajaxAdd(Sname, Gname, Sdesc, Ssize, x, y) {
             descr: Sdesc,
             size: Ssize,
             x: x,
-            y: y
+            y: y,
+            public: 0 //TODO
         },
         success: function (response) {
             console.log(response);
@@ -325,7 +326,9 @@ function ajaxEdit(oldName, newName, oldGalaxy, newGalaxy, starDesc, starSize){
             old_galaxy: oldGalaxy,
             new_galaxy: newGalaxy,
             descr: starDesc,
-            size: starSize
+            size: starSize,
+            public : 0 //TODO
+            //TODO pour tous enfants : les rendre public
         },
         success: function (response) {
             console.log(response);

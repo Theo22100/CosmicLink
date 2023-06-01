@@ -93,6 +93,7 @@ class thirdPageAddStar extends Interface {
         const SECONDBUTTON = document.getElementById("2");
         SECONDBUTTON.addEventListener("click", (event) => this.goToSecondPage());
         
+        this.interfaceElement.getElementsByClassName("btn-close")[0].addEventListener("click", (event)=> this.closeInterface());
     }
 
     clear(){

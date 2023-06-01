@@ -78,6 +78,13 @@ if (!isset($_SESSION['login'])) {
 
     <div id="invisible" class="hidden"> </div>
 
+    
+    <script src="./addStars/InterfaceClass.js"></script>
+    <script src="./addStars/AddStarPageOneInterface.js"></script>
+    <script src="./addStars/AddStarPageSecondInterface.js"></script>
+    <script src="./addStars/AddStarPageThirdInterface.js"></script>
+
+    
     <script src="./js/home.js"></script>
     <script src="./js/star.js"></script>
     <script src="./js/StarClass.js"></script>
@@ -89,10 +96,6 @@ if (!isset($_SESSION['login'])) {
     <script src="./chat/js/connect.js"></script>
 
 
-    <script src="./addStars/InterfaceClass.js"></script>
-    <script src="./addStars/AddStarPageOneInterface.js"></script>
-    <script src="./addStars/AddStarPageSecondInterface.js"></script>
-    <script src="./addStars/AddStarPageThirdInterface.js"></script>
 
     <?php
     require 'connect.php';

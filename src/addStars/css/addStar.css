@@ -8,11 +8,16 @@
     top: 50%;
     transform: translate(-50%, -50%);
     width: 35%;
+    height: 85%;
+    max-height: 85%;
     background-color: var(--grey100);
+    display: flex;
+    flex-flow: column;
     border-radius: 20px;
 }
 
 .ui header {
+    flex: 0 1 auto;
     background: var(--violet600);
     padding: 20px;
     border-radius: 20px 20px 0px 0px;
@@ -120,6 +125,8 @@
 
 .ui_body {
     padding: 20px;
+    padding-bottom: 0px;
+    flex: 1 1 auto;
 }
 
 .inputText {
@@ -129,6 +136,10 @@
     font-family: 'inter';
     margin: 0px;
     margin-bottom: 5px;
+}
+
+.inputText span{
+    font-weight: 100;
 }
 
 .ui_body input {
@@ -263,17 +274,27 @@
 /* end select */
 
 .ui-footer {
-    text-align: center;
+    flex: 0 1 auto;
+    align-self: center;
+    /* bottom: 20px; */
+    /* left:50%; */
+    /* transform: translateX(-50%); */
+    width:80%;
+    padding-bottom: 15px;
 }
 
 .ui-footer .selectorPages {
     margin-bottom: 15px;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-content: space-evenly;
 }
 
 .selectPage {
     background-color: var(--grey300);
     border: none;
-    width: 10%;
+    width: 50px;
     height: 8px;
     border-radius: 10px;
     margin-right: 10px;
@@ -286,24 +307,32 @@
 
 }
 
-
 .selectPage.active {
     background-color: var(--violet600);
-    border: none;
+}
+
+.nextPrevious{
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-content: space-evenly;
 
 }
 
-.ui-footer .next {
+
+.ui-footer .next, .ui-footer .previous {
     background-color: var(--violet600);
-    width: 40%;
+    width: 50%;
     height: 25px;
     border: none;
     border-radius: 10px;
     color: white;
     box-shadow: 0px 2px 2px rgba(0, 0, 0, 0.25);
+    margin-left:10px;
+    margin-right: 10px;
 }
 
-.ui-footer .next:hover {
+.ui-footer .next:hover, .ui-footer .previous:hover {
     background-color: var(--violet700);
 }
 
@@ -339,3 +368,19 @@
 }
 
 .btn-close::after { transform: rotate(-45deg); }
+
+/* description */
+
+#starDesc{
+    width: 100%;
+    height: 80%;
+    resize: none;
+    background-color: transparent;
+    border: 2px solid var(--grey300);
+    border-radius: 20px;
+    padding:10px;
+}
+
+#starDesc:focus{
+    outline:none;
+}

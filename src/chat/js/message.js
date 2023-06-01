@@ -18,7 +18,6 @@ document.getElementById("back").addEventListener("click", closeChatWith);
 
 
 function addPreviousMessages(msgs){
-    console.log("adding" + msgs);
     for (let i = 0; i <msgs.length; i++) {
         
         if(msgs[i]['sender'] == 'me') {
@@ -105,6 +104,9 @@ function sendMessage(){
 
         let day = date.getDate();
         let month = date.getMonth() + 1;
+
+        const name = document.getElementById("messageProfileName").textContent;
+        ajaxSendMsg(name,messageInput.value);
         addMessageSender("me", messageInput.value, day +"/"+ month);
         messageInput.value = "";
     }
@@ -124,6 +126,27 @@ function ajaxGetMessages(username){
             const msgs = JSON.parse(response);
             console.log(msgs);
             addPreviousMessages(msgs);
+            
+        },
+        error: function (xhr, status, error) {
+            // Handle errors
+            console.error(error);
+        }
+    });
+}
+
+function ajaxSendMsg(name,msgTxt){
+    $.ajax({
+        url: "chat/chatDB.php",
+        type: "POST",
+        data: {
+            action: 'sendMsg',
+            contactUsername : name,
+            msgTxt : msgTxt
+        },
+        cache: true,
+        success: function (response) {
+            console.log(response);
             
         },
         error: function (xhr, status, error) {

@@ -21,9 +21,6 @@ if (isset($_SESSION['id'])) {
                 }
                 
                 break;
-            case 'deleteMsg':
-                deleteMsg($handler, $user_id);
-                break;
             default:
                 echo "default";
                 break;
@@ -45,6 +42,25 @@ function getContacts($handler, $user_id)
 
 function sendMsg($handler, $user_id)
 {
+    
+    if (isset($_POST['contactUsername']) && isset($_POST['msgTxt'])){
+        try {
+            $other_id = userToId($handler,$_POST['contactUsername']);
+            $msgTxt = $_POST['msgTxt'];
+
+            $q = $handler->prepare("INSERT INTO chat(sender,receiver,content) VALUES (:sender,:receiver,:content)");
+            $q->bindParam(':sender',$user_id);
+            $q->bindParam(':receiver',$other_id);
+            $q->bindParam(':content',$msgTxt);
+            $q->execute();
+
+        }
+        catch (PDOException $e ){
+            $e->getMessage();
+        }
+        
+        echo 'soup';
+    }
 }
 function getLastMsg($handler, $user_id, $other_id)
 {
@@ -83,9 +99,6 @@ function getMsg($handler, $user_id, $other_id)
     return $allMsg;
 }
 
-function deleteMsg($handler, $user)
-{
-}
 
 function idToUsername($handler,$user_id){
     try {

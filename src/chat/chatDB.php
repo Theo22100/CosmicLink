@@ -15,8 +15,11 @@ if (isset($_SESSION['id'])) {
                 sendMsg($handler, $user_id);
                 break;
             case 'getMsg':
-                $array = getMsg($handler, $user_id, $other_id);
-                //echo json_encode($array);
+                if (isset($_POST['contactUsername'])) {
+                    $array = getMsg($handler, $user_id, userToId($handler,$_POST['contactUsername']));
+                    echo json_encode($array);
+                }
+                
                 break;
             case 'deleteMsg':
                 deleteMsg($handler, $user_id);
@@ -96,4 +99,17 @@ function idToUsername($handler,$user_id){
             'Echec :  ' . $e->getMessage();
     }
     return $username;
+}
+
+function userToId($handler,$username){
+    try {
+        $q = $handler->prepare("SELECT id FROM membre WHERE pseudo=:username");
+        $q->bindParam(':username',$username);
+        $q->execute();
+        $user_id = $q->fetch(PDO::FETCH_ASSOC)['id'];
+    }
+    catch (PDOException $e){
+            'Echec :  ' . $e->getMessage();
+    }
+    return $user_id;
 }

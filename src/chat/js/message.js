@@ -16,7 +16,7 @@ document.getElementById("back").addEventListener("click", closeChatWith);
 
 
 
-function addPreviousMessages(){
+function addPreviousMessages(msgs){
     addMessageSendee("Josh","Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor.", "Jan 18 5:20");
     addMessageSendee("Josh","Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor.", "Jan 18 5:20");
     addMessageSender("Me","Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor.", "Jan 18 5:20");
@@ -105,8 +105,8 @@ function ajaxGetMessages(username){
         type: "POST",
         //TODO Trouver moyen de cache
         data: {
-            action: "getMsg",
-            contactUsername : username
+            action: 'getMsg',
+            contactUsername : 'admin'
         },
         cache: true,
         success: function (response) {

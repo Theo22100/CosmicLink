@@ -9,15 +9,16 @@ if (isset($_SESSION['id'])) {
     if (isset($_POST['action'])) {
         switch ($_POST['action']) {
             case 'getContacts':
-                getContacts($handler, $user_id);
+                $result = getContacts($handler, $user_id);
+                echo json_encode($result);
                 break;
             case 'sendMsg':
                 sendMsg($handler, $user_id);
                 break;
             case 'getMsg':
                 if (isset($_POST['contactUsername'])) {
-                    $array = getMsg($handler, $user_id, userToId($handler,$_POST['contactUsername']));
-                    echo json_encode($array);
+                    $result = getMsg($handler, $user_id, userToId($handler,$_POST['contactUsername']),true);
+                    echo json_encode($result[0]);
                 }
                 
                 break;
@@ -35,9 +36,12 @@ function getContacts($handler, $user_id)
     $q->execute();
     $contacts = array();
     while ($row = $q->fetch(PDO::FETCH_ASSOC)) {
-        $contacts[] = array($row['pseudo'], getLastMsg($handler, $user_id, $row['id']));
+        $result =  getLastMsg($handler, $user_id, $row['id']);
+        $lastMsg = $result[0];
+        $nbUnread = $result[1];
+        $contacts[] = array($row['pseudo'], $lastMsg, $nbUnread);
     }
-    echo json_encode($contacts);
+    return $contacts;
 }
 
 function sendMsg($handler, $user_id)
@@ -59,18 +63,19 @@ function sendMsg($handler, $user_id)
             $e->getMessage();
         }
         
-        echo 'soup';
     }
 }
 function getLastMsg($handler, $user_id, $other_id)
-{
-    $allMsg = getMsg($handler, $user_id, $other_id);
+{   
+    $result = getMsg($handler, $user_id, $other_id,false);
+    $allMsg = $result[0];
+    $unread = $result[1];
     $lastMsgArray = end($allMsg);
     $lastMsg = $lastMsgArray['content'];
-    return $lastMsg;
+    return array($lastMsg,$unread);
 }
 
-function getMsg($handler, $user_id, $other_id)
+function getMsg($handler, $user_id, $other_id, $opened)
 {
     try {
         $q = $handler->prepare(
@@ -85,8 +90,13 @@ function getMsg($handler, $user_id, $other_id)
     } catch (PDOException $e) {
         'Echec : ' . $e->getMessage();
     }
+
+    $unread = 0;
     $allMsg = array();
     while ($row = $q->fetch(PDO::FETCH_ASSOC)) {
+        if ($row['sender'] != $user_id && $row['status'] == 0) {
+            $unread++;
+        }
         $sender = '';
         if ($row['sender'] == $user_id) {
             $sender = 'me';
@@ -96,7 +106,23 @@ function getMsg($handler, $user_id, $other_id)
         }
         $allMsg[] = array('sender'=>$sender,'content'=>$row['content'],'timestamp'=>$row['timesent'],'status'=>$row['status']);
     }
-    return $allMsg;
+
+    if ($opened){ //Mettre les messages non-lus en lus
+        try {
+            $q = $handler->prepare(
+                "UPDATE chat SET status='1'  
+            WHERE (sender=:other_id AND receiver=:user_id)"
+            );
+            $q->bindParam('user_id', $user_id);
+            $q->bindParam('other_id', $other_id);
+            $q->execute();    
+
+        }
+        catch (PDOException $e){
+            $e->getMessage();
+        }
+    }
+    return array($allMsg,$unread);
 }
 
 

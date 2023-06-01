@@ -11,6 +11,8 @@ function closeChatWith() {
     MESSAGES.style.transform = "translateX(100%)";
     onclickoutside(closeChat);
     clearPreviousMessages();
+    clearAllContactMessages();
+    ajaxGetContacts();
 }
 
 document.getElementById("back").addEventListener("click", closeChatWith);

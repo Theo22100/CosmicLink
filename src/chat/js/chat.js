@@ -20,7 +20,10 @@ CONNECTBUTTON.addEventListener("click",(event)=>{
 function addAllContactMessage(contacts){
   
     for (let i = 0; i <contacts.length; i++) {
-        addContactMessage(contacts[i][0], contacts[i][1]);
+        const contactName = contacts[i][0];
+        const lastMsg = contacts[i][1];
+        const numberUnread = contacts[i][2];
+        addContactMessage(contactName,lastMsg);
     } 
 
 }
@@ -68,6 +71,7 @@ function ajaxGetContacts() {
             action: "getContacts"
         },
         success: function (response) {
+            console.log(response);
             const contacts = JSON.parse(response);
             addAllContactMessage(contacts);
             

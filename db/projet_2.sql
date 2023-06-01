@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost:3306
--- Generation Time: Jun 01, 2023 at 08:05 AM
+-- Generation Time: Jun 01, 2023 at 05:59 PM
 -- Server version: 5.7.24
 -- PHP Version: 8.0.1
 
@@ -33,6 +33,35 @@ CREATE TABLE `ami` (
   `id_membre2` int(11) NOT NULL,
   `statut` varchar(1) NOT NULL DEFAULT 'E'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `chat`
+--
+
+CREATE TABLE `chat` (
+  `id_chat` int(11) NOT NULL,
+  `sender` int(11) NOT NULL,
+  `receiver` int(11) NOT NULL,
+  `content` text NOT NULL,
+  `status` int(11) NOT NULL DEFAULT '0',
+  `timesent` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+--
+-- Dumping data for table `chat`
+--
+
+INSERT INTO `chat` (`id_chat`, `sender`, `receiver`, `content`, `status`, `timesent`) VALUES
+(1, 89, 74, 'Hey admin ! Got a problem!', 1, '2023-06-01 13:36:47'),
+(2, 74, 83, 'Hey test account ! How are you ?', 0, '2023-06-01 13:37:29'),
+(3, 74, 89, 'Hey b ! What\'s your problem ?', 0, '2023-06-01 13:38:08'),
+(4, 74, 83, '1', 0, '2023-06-01 15:56:14'),
+(5, 74, 83, '1', 0, '2023-06-01 15:56:29'),
+(6, 74, 83, 'how are  you', 0, '2023-06-01 15:57:08'),
+(7, 74, 89, 'Yo', 0, '2023-06-01 17:50:02'),
+(8, 74, 83, 'You don\'t wanna talk ?', 0, '2023-06-01 17:54:03');
 
 -- --------------------------------------------------------
 
@@ -187,6 +216,14 @@ ALTER TABLE `ami`
   ADD KEY `id_membre2` (`id_membre2`);
 
 --
+-- Indexes for table `chat`
+--
+ALTER TABLE `chat`
+  ADD PRIMARY KEY (`id_chat`),
+  ADD KEY `sender` (`sender`),
+  ADD KEY `receiver` (`receiver`);
+
+--
 -- Indexes for table `etoile`
 --
 ALTER TABLE `etoile`
@@ -226,6 +263,12 @@ ALTER TABLE `ami`
   MODIFY `id_amitie` int(11) NOT NULL AUTO_INCREMENT;
 
 --
+-- AUTO_INCREMENT for table `chat`
+--
+ALTER TABLE `chat`
+  MODIFY `id_chat` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
+
+--
 -- AUTO_INCREMENT for table `etoile`
 --
 ALTER TABLE `etoile`
@@ -259,6 +302,13 @@ ALTER TABLE `univers`
 ALTER TABLE `ami`
   ADD CONSTRAINT `ami_ibfk_1` FOREIGN KEY (`id_membre1`) REFERENCES `membre` (`id`),
   ADD CONSTRAINT `ami_ibfk_2` FOREIGN KEY (`id_membre2`) REFERENCES `membre` (`id`);
+
+--
+-- Constraints for table `chat`
+--
+ALTER TABLE `chat`
+  ADD CONSTRAINT `receiver_id` FOREIGN KEY (`receiver`) REFERENCES `membre` (`id`),
+  ADD CONSTRAINT `sender_id` FOREIGN KEY (`sender`) REFERENCES `membre` (`id`);
 
 --
 -- Constraints for table `etoile`

@@ -1,51 +1,45 @@
 // GUI
-
-const starGui = document.getElementById("ui");
-const doneButton = starGui.getElementsByTagName("button")[0]; //quand edit/add
 const doneMenuButton = document.getElementById("done");
 
+const firstPageInterface =  new firstPageAddStar();
+const secondPageInterface =  new secondPageAddStar();
+const thirdPageInterface =  new thirdPageAddStar();
+
+let newStar;
+function openCreateStarInterface() { //ouvre la fenetre d'edit/ajout d'étoile
+    const x = getRandomInt(window.innerWidth) - offsetX;
+    const y = getRandomInt(window.innerHeight) - offsetY;
+    newStar = new Star("", "", "", 3, false, x, y);
+
+
+    firstPageInterface.openInterface(false);
+    firstPageInterface.clear();
+    thirdPageInterface.setEditing(false);
+}
+
+function openEditStarInterface(){
+    newStar = new Star(currentStar.getName(), currentStar.getDescription(), currentStar.getGalaxyLinked(), currentStar.getSize(), currentStar.getPublicStar(), currentStar.getX(), currentStar.getY());
+    
+    firstPageInterface.openInterface(true);
+    firstPageInterface.loadChanges(newStar);
+    thirdPageInterface.setEditing(true);
+}
+
+
+
 function openCreateStar(event) { //ouvre la fenetre d'edit/ajout d'étoile
-    ajaxGetGalaxies(false);
     event.stopPropagation();
     closeOption();
-    starGui.classList.remove("hidden");
-
-    doneButton.onclick = function (event) {
-        INVISIBLE.classList.add("hidden");
-        addStar(event)
-    };
-
-    onclickoutside(closeCreateGui);
-}
-
-function closeCreateGui() {
+    openCreateStarInterface();
     INVISIBLE.classList.add("hidden");
-    document.getElementById("starName").value = "";
-    document.getElementById("starDesc").value = "";
-    document.getElementById("starSize").value = 3;
-    starGui.classList.add("hidden");
-    removeGalaxyOptions();
 }
-
 
 function openEditStar(event) {
-    ajaxGetGalaxies(true);
     closeOption(); //dans le cas ou done est visible on veut le rendre invisible
     closeStarOptionsList();
-    starGui.classList.remove("hidden");
+    openEditStarInterface();
+    INVISIBLE.classList.add("hidden");
 
-    document.getElementById("starName").value = currentStar.getName();
-    document.getElementById("starDesc").value = currentStar.getDescription();
-    document.getElementById("starSize").value = currentStar.getSize();
-   
-    doneButton.onclick = function (event) {
-        editStar(event)
-    };
-    onclickoutside(closeEditStar);
-}
-
-function closeEditStar() {
-    closeCreateGui();
 }
 
 
@@ -73,6 +67,7 @@ function openStarOptionsList(x, y) {
 }
 function closeStarOptionsList() {
     contextMenu.classList.add("hidden");
+    INVISIBLE.classList.add("hidden");
 }
 
 
@@ -101,84 +96,13 @@ function confirmStarPosition(event) {
 }
 
 
-const PREVIEW = document.getElementById("preview");
-
-function changePreview() {
-    const value = parseInt(document.getElementById("starSize").value);
-    Star.changeSize(PREVIEW, value);
-}
-
-const SELECTGALAXY = document.getElementById("select-galaxy");
-function addGalaxyOptions(galaxies) {
-    const arrayTmp = galaxies;
-
-    for (let i = 0; i < arrayTmp.length; i++) {
-        const option = document.createElement("option");
-        option.textContent = arrayTmp[i];
-
-        SELECTGALAXY.appendChild(option);
-    }
-}
-
-function removeGalaxyOptions() {
-    while (SELECTGALAXY.firstChild) {
-        SELECTGALAXY.removeChild(SELECTGALAXY.firstChild);
-    }
-}
-
-
-//FONCTION NON GRAPHIQUE
-function addStar(event) {
-    //set coordonnées pour la nouvelle étoile
-    const x = getRandomInt(window.innerWidth) - offsetX;
-    const y = getRandomInt(window.innerHeight) - offsetY;
-
-    const starName = document.getElementById("starName").value;
-    const starDesc = document.getElementById("starDesc").value;
-    const starSize = parseInt(document.getElementById("starSize").value);
-
-    //recupère le nom de la galaxy liée a l'étoile
-    const select = document.getElementById("select-galaxy");
-    const galaxy =  select.value;
-
-    const s = new Star(starName, starDesc, galaxy, starSize, x, y);
-    s.addElementAnimation();
-    s.addElement();
-
-    closeCreateGui();
-    INVISIBLE.classList.add("hidden");
-
-    ajaxAdd(starName, galaxy, starDesc, starSize, x, y);
-}
-
 function addStarWithInfo(starName, galaxy, starDesc, starSize, x, y) {
-    const s = new Star(starName, starDesc, galaxy, starSize, x, y);
+    const s = new Star(starName, starDesc, galaxy, starSize, false, x, y);
     s.addElement();
 }
-
-
 
 
 let currentStar;
-function editStar(event) {
-    const oldName = currentStar.getName();
-    const newName = document.getElementById("starName").value;
-    const newGalaxy = document.getElementById("select-galaxy").value;
-    const starDesc = document.getElementById("starDesc").value;
-    const starSize = document.getElementById("starSize").value;
-    const oldGalaxy = currentStar.getGalaxyLinked();
-
-    currentStar.setName(newName);
-    currentStar.setDescription(starDesc);
-    currentStar.setSize(starSize);
-    currentStar.setGalaxyLinked(newGalaxy);
-
-    closeEditStar();
-    INVISIBLE.classList.add("hidden");
-
-    ajaxEdit(oldName, newName, oldGalaxy, newGalaxy, starDesc, starSize);
-}
-
 function removeStar(event) {
     currentStar.removeElement();
     closeStarOptionsList();
@@ -246,28 +170,6 @@ function moveStarElement(starObject, element) {
     }
 }
 
-function ajaxAdd(Sname, Gname, Sdesc, Ssize, x, y) {
-
-    $.ajax({
-        url: "starDB.php",
-        type: "POST",
-        data: {
-            action: 'add',
-            name: Sname,
-            galaxy_name: Gname,
-            descr: Sdesc,
-            size: Ssize,
-            x: x,
-            y: y
-        },
-        success: function (response) {
-            console.log(response);
-        },
-        error: function (xhr, status, error) {
-            console.error(error);
-        }
-    });
-}
 
 function ajaxMove(Sname, Gname, x, y) {
 
@@ -312,48 +214,4 @@ function ajaxRemove(galaxy_name, star_name) {
             console.error(error);
         }
     });
-}
-
-function ajaxEdit(oldName, newName, oldGalaxy, newGalaxy, starDesc, starSize){
-    $.ajax({
-        url: "starDB.php",
-        type: "POST",
-        data: {
-            action: 'edit',
-            old_name: oldName,
-            new_name: newName,
-            old_galaxy: oldGalaxy,
-            new_galaxy: newGalaxy,
-            descr: starDesc,
-            size: starSize
-        },
-        success: function (response) {
-            console.log(response);
-        },
-        error: function (xhr, status, error) {
-            console.error(error);
-        }
-    });
-}
-
-function ajaxGetGalaxies(starDefined) {
-    $.ajax({
-        url: "starDB.php",
-        type: "GET",
-        //TODO Trouver moyen de cache
-        data: {
-            action: "getGalaxies"
-        },
-        cache: true,
-        success: function (response) {
-            addGalaxyOptions(JSON.parse(response));
-            if (starDefined) document.getElementById("select-galaxy").selectedIndex = currentStar.getGalaxyLinkedNumber();
-        },
-        error: function (xhr, status, error) {
-            // Handle errors
-            console.error(error);
-        }
-    });
-
-
 }

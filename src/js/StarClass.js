@@ -6,17 +6,18 @@ class Star {
     #size;
     #x;
     #y;
+    #publicStar;
 
     #element;
 
-    constructor(name, description, galaxyLinked, size, x, y) {
+    constructor(name, description, galaxyLinked, size, publicStar, x, y) {
         this.#name = name;
         this.#description = description;
         this.#galaxyLinked = galaxyLinked;
         this.#size = size;
         this.#x = x;
         this.#y = y;
-
+        this.#publicStar = publicStar;
         this.#element = this.toElement();
     }
 
@@ -107,6 +108,10 @@ class Star {
         return 0;
     }
 
+    getPublicStar(){
+        return this.#publicStar;
+    }
+
 
     setSize(newSize) {
         const img = this.#element.getElementsByTagName("img")[0];
@@ -139,6 +144,9 @@ class Star {
         this.#description = newDescription;
     }
 
+    setPublicStar(newpublicStar){
+        this.#publicStar = newpublicStar;
+    }
 
     removeElement() {
         this.#element.remove();

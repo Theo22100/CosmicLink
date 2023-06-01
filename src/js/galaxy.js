@@ -1,18 +1,18 @@
 // GUI
 
-const galaxyGui = document.getElementById("galaxyUi");
-const doneGalaxyButton = galaxyGui.getElementsByTagName("button")[0]; //quand edit/add
+// const galaxyGui = document.getElementById("galaxyUi");
+// const doneGalaxyButton = galaxyGui.getElementsByTagName("button")[0]; //quand edit/add
 
 
 function openCreateGalaxy(event){ //ouvre la fenetre d'edit/ajout d'étoile
     event.stopPropagation();
     closeOption();
-    galaxyGui.classList.remove("hidden");
+    // galaxyGui.classList.remove("hidden");
 
-    doneGalaxyButton.onclick = function(event) {
-        INVISIBLE.classList.add("hidden");    
-        addGalaxy(event)
-    };
+    // doneGalaxyButton.onclick = function(event) {
+    //     INVISIBLE.classList.add("hidden");    
+    //     addGalaxy(event)
+    // };
 
     onclickoutside(closeGalaxyGui);
 }
@@ -21,21 +21,21 @@ function closeGalaxyGui(){
     INVISIBLE.classList.add("hidden");
     document.getElementById("galaxyName").value = "";
     document.getElementById("galaxyDesc").value = "";
-    galaxyGui.classList.add("hidden");
+    // galaxyGui.classList.add("hidden");
 }
 
 
 function openEditGalaxy(event){
     closeOption(); //dans le cas ou done est visible on veut le rendre invisible
     closeGalaxyOptionsList();
-    galaxyGui.classList.remove("hidden");
+    // galaxyGui.classList.remove("hidden");
 
     document.getElementById("galaxyName").value = currentGalaxy.getName();
     document.getElementById("galaxyDesc").value = currentGalaxy.getDescription();
 
-    doneGalaxyButton.onclick = function(event) {
-        editGalaxy(event)
-    };
+    // doneGalaxyButton.onclick = function(event) {
+    //     editGalaxy(event)
+    // };
 
     onclickoutside(closeEditGalaxy);
 }

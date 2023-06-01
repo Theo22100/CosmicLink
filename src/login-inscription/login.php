@@ -16,8 +16,8 @@ if (isset($_SESSION['login'])) {
 		<div class="main">
 				<div class = "box">
 					<div class="welcome">
-						<h1> Welcome to Starlink ! </h1>
-						<p> Blabla you're a whole universe and you can meet others like you ! </p>
+						<h1> Welcome to CosmicLink ! </h1>
+						<p> Where you can create a whole universe and you can meet others like you ! </p>
 					</div>
 					<div class="login">
 						<h3>Already have your universe ?</h3>

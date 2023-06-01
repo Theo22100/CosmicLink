@@ -153,18 +153,20 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
 
                     $cox = $coy = 0;
+                    $public = 1; 
                     $nomgalaxie = "undefined";
                     $descr = "";
                     $univers = $connexion2->lastInsertId();
 
                     // Insérer l'ID de galaxie dans une table "galaxie" avec la clé étrangère de univers
-                    $requete4 = $connexion3->prepare("INSERT INTO galaxie (galaxie_nom, descr, cox, coy, id_univers) VALUES (:nom, :descr, :cox, :coy, :id_univers)");
+                    $requete4 = $connexion3->prepare("INSERT INTO galaxie (galaxie_nom, descr, cox, coy, public, id_univers) VALUES (:nom, :descr, :cox, :coy, :public, :id_univers)");
                     //Bind
                     //$requete4->bindParam(':id_galaxie', $galaxie);
                     $requete4->bindParam(':nom', $nomgalaxie);
                     $requete4->bindParam(':descr', $descr);
                     $requete4->bindParam(':cox', $cox);
                     $requete4->bindParam(':coy', $coy);
+                    $requete4->bindParam(':public', $public);                    
                     $requete4->bindParam(':id_univers', $univers);
                     $requete4->execute();
 

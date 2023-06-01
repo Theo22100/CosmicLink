@@ -215,7 +215,7 @@ function galaxyNameToId($handler, $galaxy_name, $user_id)
 
 function  treatGalaxyName($handler, $galaxy_name, $user_id)
 {
-    if ($galaxy_name == "") {
+     if ($galaxy_name == '') {
         $galaxy_name = "undefined"; //Aucune galaxie sélectionnée, elle ira dans undefined
     }
     $galaxy_name = strtolower($galaxy_name);

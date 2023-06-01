@@ -34,7 +34,7 @@ function addGalaxy($handler, $user_id)
 {
     if (isset($_POST['x']) && isset($_POST['y']) && isset($_POST['name']) && isset($_POST['descr'])) {
         $name = strtolower($_POST['name']);
-        if ($name == '') $name = NULL;
+        if ($name == '') $name = NULL; //TODO faire une erreur 
 
         $descr = ($_POST['descr']);
         $y = intval($_POST['y']);

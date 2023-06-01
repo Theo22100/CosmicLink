@@ -26,9 +26,12 @@ if (!isset($_SESSION['login'])) {
     <link rel="stylesheet" href="menu.css">
     <link rel="stylesheet" href="style_site.css">
 
+
 </head>
 
+
 <body id="background">
+
 
     <div id="contextMenu" class="hidden">
         <div class="option" id="edit"> Edit</div>
@@ -40,7 +43,6 @@ if (!isset($_SESSION['login'])) {
     <div id="univers">
         <div id="origin"></div>
     </div>
-
 
 
     <div id="menu" >

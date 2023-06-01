@@ -18,8 +18,8 @@
         </ul>
 
         <footer class="sendMessages">
-            <input type="text" placeholder="Enter your message...">
-            <input type="submit" value="Send">
+            <input type="text" placeholder="Enter your message..." id="textMessage">
+            <input type="submit" value="Send" id="sendMessage">
         </footer>
     </div>
 

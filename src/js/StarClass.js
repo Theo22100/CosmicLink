@@ -34,25 +34,53 @@ class Star {
         newStar.style.transform = `scale(${zoom})`;
         starDiv.appendChild(newStar);
 
+        newStar.animate(
+            this.blinkingAnimation(),
+            this.blinkingOption((getRandomInt(2000) + 3000))
+        );
+
+
 
         const starInfo = document.createElement("div");
         starInfo.classList.add("starInfo");
 
         const name = document.createElement("p");
-        const desc = document.createElement("p");
-
         name.textContent = this.#name;
         name.classList.add("starName");
-        desc.textContent = this.#description;
-        desc.classList.add("starDesc");
 
         starInfo.appendChild(name);
-        starInfo.appendChild(desc);
 
         starDiv.appendChild(starInfo);
 
         return starDiv;
     }
+
+    blinkingAnimation() {
+        let minOpacity;
+        switch (getRandomInt(5)){
+            case 1: minOpacity= 0.2; break; 
+            case 2: minOpacity= 0.4; break; 
+            case 3: minOpacity= 0.5; break; 
+            case 3: minOpacity= 0.6; break; 
+            case 4: minOpacity= 0.8; break; 
+            default: minOpacity= 0.5; 
+        };
+
+        return [
+            { opacity: "1" },
+            { opacity: "0.3" },
+            { opacity: "1" }
+        ];
+    }
+
+    blinkingOption(setduration) {
+        return {
+            duration: setduration,
+            iterations: Infinity,
+        };
+    }
+
+
 
     addElementAnimation() {
         this.#element.getElementsByClassName("stars")[0].style.animationName = "popUpStar";
@@ -108,7 +136,7 @@ class Star {
         return 0;
     }
 
-    getPublicStar(){
+    getPublicStar() {
         return this.#publicStar;
     }
 
@@ -144,7 +172,7 @@ class Star {
         this.#description = newDescription;
     }
 
-    setPublicStar(newpublicStar){
+    setPublicStar(newpublicStar) {
         this.#publicStar = newpublicStar;
     }
 

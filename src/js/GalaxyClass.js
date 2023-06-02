@@ -30,25 +30,20 @@ class Galaxy {
         newGalaxy.src = "../img/galaxy.png";
         newGalaxy.style.transform = `scale(${zoom})`;
 
-        newGalaxy.style.width = (200 + getRandomInt(30) ).toString() + "px";
+        newGalaxy.style.width = 200+ "px";
         newGalaxy.style.height = "auto";
 
         galaxyDiv.appendChild(newGalaxy);
-
 
         const galaxyInfo = document.createElement("div");
         galaxyInfo.classList.add("galaxyInfo");
 
         const name = document.createElement("p");
-        const desc = document.createElement("p");
 
         name.textContent = this.#name;
         name.classList.add("galaxyName");
-        desc.textContent = this.#description;
-        desc.classList.add("galaxyDesc");
 
         galaxyInfo.appendChild(name);
-        galaxyInfo.appendChild(desc);
 
         galaxyDiv.appendChild(galaxyInfo);
         return galaxyDiv;

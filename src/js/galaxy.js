@@ -1,47 +1,29 @@
 // GUI
 
-// const galaxyGui = document.getElementById("galaxyUi");
-// const doneGalaxyButton = galaxyGui.getElementsByTagName("button")[0]; //quand edit/add
+const galaxyPageInterface =  new pageAddGalaxy();
 
-
+let newGalaxy;
 function openCreateGalaxy(event){ //ouvre la fenetre d'edit/ajout d'étoile
     event.stopPropagation();
     closeOption();
-    // galaxyGui.classList.remove("hidden");
 
-    // doneGalaxyButton.onclick = function(event) {
-    //     INVISIBLE.classList.add("hidden");    
-    //     addGalaxy(event)
-    // };
+    const x = getRandomInt(window.innerWidth) - offsetX;
+    const y = getRandomInt(window.innerHeight) - offsetY;
+    newGalaxy = new Galaxy("", "", false, x, y);
 
-    onclickoutside(closeGalaxyGui);
-}
-
-function closeGalaxyGui(){
+    galaxyPageInterface.openInterface(false);
     INVISIBLE.classList.add("hidden");
-    document.getElementById("galaxyName").value = "";
-    document.getElementById("galaxyDesc").value = "";
-    // galaxyGui.classList.add("hidden");
 }
-
 
 function openEditGalaxy(event){
     closeOption(); //dans le cas ou done est visible on veut le rendre invisible
     closeGalaxyOptionsList();
-    // galaxyGui.classList.remove("hidden");
 
-    document.getElementById("galaxyName").value = currentGalaxy.getName();
-    document.getElementById("galaxyDesc").value = currentGalaxy.getDescription();
+    newGalaxy = new Galaxy(currentGalaxy.getName(), currentGalaxy.getDescription(), currentGalaxy.getPublicGalaxy(), currentGalaxy.getX(), currentGalaxy.getY());
 
-    // doneGalaxyButton.onclick = function(event) {
-    //     editGalaxy(event)
-    // };
-
-    onclickoutside(closeEditGalaxy);
-}
-
-function closeEditGalaxy(){
-    closeGalaxyGui();
+    galaxyPageInterface.openInterface(true);
+    galaxyPageInterface.loadChanges(newGalaxy);
+    INVISIBLE.classList.add("hidden");
 }
 
 const galaxyOptions = document.getElementById("contextMenu");
@@ -90,47 +72,14 @@ function confirmGalaxyPosition(event){
     menu.onclick = function(event){ openOption(event)};
 }
 
-//
 
-function addGalaxy(event){
-    //set coordonnées pour la nouvelle galaxy
-    const x = getRandomInt( window.innerWidth ) - offsetX;
-    const y = getRandomInt( window.innerHeight ) - offsetY;
-
-    const galaxyName = document.getElementById("galaxyName").value;
-    const galaxyDesc = document.getElementById("galaxyDesc").value;
-
-    const s = new Galaxy(galaxyName, galaxyDesc, x, y);
-    s.addElementAnimation();
-    s.addElement();
-
-    closeGalaxyGui();
-    INVISIBLE.classList.add("hidden"); 
-
-    ajaxGAdd(galaxyName,galaxyDesc,x,y);
-}
-
-
-function addGalaxyWithInfo(gName, gDesc, x, y){
-    const s = new Galaxy(gName, gDesc, x, y);
+function addGalaxyWithInfo(gName, gDesc, publicGalaxy, x, y){
+    const s = new Galaxy(gName, gDesc, publicGalaxy, x, y);
     s.addElement();
 }
 
 
 let currentGalaxy;
-function editGalaxy(event){
-    let oldName = currentGalaxy.getName();
-    let newName = document.getElementById("galaxyName").value;
-    let descr = document.getElementById("galaxyDesc").value;
-    currentGalaxy.setName(newName);
-    currentGalaxy.setDescription(descr);
-
-    closeEditGalaxy();
-    INVISIBLE.classList.add("hidden"); 
-
-    ajaxGEdit(oldName,newName,descr);
-}
-
 
 function removeGalaxy(){
     currentGalaxy.removeElement();
@@ -212,26 +161,7 @@ function getElementsByText(str, tag) {
     return Array.prototype.slice.call(document.getElementsByClassName(tag)).filter(el => el.textContent.trim() === str.trim());
   }
 
-function ajaxGAdd(Gname, Gdesc, x, y) {
 
-    $.ajax({
-        url: "galaxyDB.php",
-        type: "POST",
-        data: {
-            action: 'add',
-            name: Gname,
-            descr: Gdesc,
-            x: x,
-            y: y
-        },
-        success: function (response) {
-            console.log(response);
-        },
-        error: function (xhr, status, error) {
-            console.error(error);
-        }
-    });
-}
 
 function ajaxGMove(Gname, x, y) {
 
@@ -272,25 +202,6 @@ function ajaxGRemove(galaxy_name) {
         },
         error: function (xhr, status, error) {
             // Handle errors
-            console.error(error);
-        }
-    });
-}
-
-function ajaxGEdit(oldName, newName, galaxyDesc){
-    $.ajax({
-        url: "galaxyDB.php",
-        type: "POST",
-        data: {
-            action: 'edit',
-            old_name: oldName,
-            new_name: newName,
-            descr: galaxyDesc
-        },
-        success: function (response) {
-            console.log(response);
-        },
-        error: function (xhr, status, error) {
             console.error(error);
         }
     });

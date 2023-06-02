@@ -85,6 +85,9 @@ if (!isset($_SESSION['login'])) {
     <script src="./addStars/AddStarPageThirdInterface.js"></script>
 
     
+    <script src="./addGalaxys/AddGalaxyInterface.js"></script>
+
+    
     <script src="./js/home.js"></script>
     <script src="./js/star.js"></script>
     <script src="./js/StarClass.js"></script>

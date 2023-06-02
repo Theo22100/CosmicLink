@@ -36,19 +36,19 @@
 }
 
 /* SWITCH BUTTON */
-#publicStar {
+#publicStar, #publicGalaxy {
     position: absolute;
     right: 30%;
     top: 85px;
 }
 
-#publicStar[type=checkbox] {
+#publicStar[type=checkbox], #publicGalaxy[type=checkbox] {
     height: 0;
     width: 0;
     visibility: hidden;
 }
 
-#publicStar::after {
+#publicStar::after, #publicGalaxy::after {
     visibility: visible;
     content: 'test';
 }
@@ -92,21 +92,21 @@
     color: black;
 }
 
-#publicStar:checked+.switch::before {
+#publicStar:checked+.switch::before, #publicGalaxy:checked+.switch::before{
     content: 'public';
 }
 
-#publicStar:checked+.switch {
+#publicStar:checked+.switch, #publicGalaxy:checked+.switch {
     background: var(--grey100);
 }
 
-#publicStar:checked+.switch::after {
+#publicStar:checked+.switch::after, #publicGalaxy:checked+.switch::after {
     left: calc(100%);
     transform: translateX(-100%);
     background: var(--grey200);
 }
 
-#publicStar:checked+.switch:hover::after{
+#publicStar:checked+.switch:hover::after, #publicGalaxy:checked+.switch:hover::after{
     background: var(--grey300);
 }
 
@@ -124,9 +124,11 @@
 
 
 .ui_body {
-    padding: 20px;
-    padding-bottom: 0px;
+    margin: 20px;
+    margin-bottom: 0px;
     flex: 1 1 auto;
+    display: flex;
+    flex-direction: column;
 }
 
 .inputText {
@@ -143,11 +145,11 @@
 }
 
 .ui_body input {
-    width: 100%;
+    width: calc(100% - 24px);
 }
 
 .ui_body select {
-    width: 100%;
+    width: calc(100% - 24px);
 }
 
 #starName {
@@ -379,7 +381,7 @@
 /* description */
 
 #starDesc{
-    width: 100%;
+    width: calc(100% - 24px);
     height: 80%;
     resize: none;
     background-color: transparent;
@@ -388,7 +390,19 @@
     padding:10px;
 }
 
-#starDesc:focus{
+#galaxyDesc{
+    flex: 1 1 auto;
+    width: calc(100% - 24px);
+    height: 80%;
+    resize: none;
+    background-color: transparent;
+    border: 2px solid var(--grey300);
+    border-radius: 20px;
+    padding:10px;
+    margin-bottom: 10px;
+}
+
+#starDesc:focus, #galaxyDesc{
     outline:none;
 }
 

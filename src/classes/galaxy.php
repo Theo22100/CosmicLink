@@ -7,16 +7,18 @@ class Galaxy
     public $galaxy_desc;
     public $galaxy_x;
     public $galaxy_y;
+    public $galaxy_public;
 
     private $stars;
 
-    function __construct($galaxy_id, $galaxy_name, $galaxy_desc, $galaxy_x, $galaxy_y)
+    function __construct($galaxy_id, $galaxy_name, $galaxy_desc, $galaxy_x, $galaxy_y, $galaxy_public)
     {
         $this->galaxy_id = $galaxy_id;
         $this->galaxy_name = $galaxy_name;
         $this->galaxy_desc = $galaxy_desc;
         $this->galaxy_x = $galaxy_x;
         $this->galaxy_y = $galaxy_y;
+        $this->galaxy_public = $galaxy_public;
         $this->fetchStars();
     }
 
@@ -67,6 +69,7 @@ class Galaxy
                 addGalaxyWithInfo(
                     <?php echo json_encode($displayed_galaxy_name); ?>,
                     <?php echo json_encode($this->galaxy_desc); ?>,
+                    <?php echo $this->galaxy_public; ?>,
                     <?php echo $this->galaxy_x; ?>,
                     <?php echo $this->galaxy_y; ?>
                 );

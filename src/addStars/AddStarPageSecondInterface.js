@@ -11,7 +11,7 @@ class secondPageAddStar extends Interface {
         '        </header>' +
         '        <div class="ui_body">' +
         '' +
-        '            <p class="inputText">Star description <span>(optionnal)</span></p>' +
+        '            <p class="inputText">Star description <span>(optional)</span></p>' +
         '            <textarea  id="starDesc"  placeholder="Describe your star here..."></textarea>' +
         '            ' +
         '' +

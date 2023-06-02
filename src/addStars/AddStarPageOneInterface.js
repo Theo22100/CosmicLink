@@ -86,7 +86,6 @@ class firstPageAddStar extends Interface {
     }
 
     setPublic(bool) {
-        console.log("ttt");
         document.getElementById("publicStar").checked = bool;
     }
 

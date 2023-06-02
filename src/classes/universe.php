@@ -31,7 +31,7 @@
             
             $i = 0;
             while ($row = $sql->fetch(PDO::FETCH_ASSOC)) {
-                $g = new Galaxy($row['id_galaxie'],$row['galaxie_nom'],$row['descr'],$row['cox'],$row['coy']);
+                $g = new Galaxy($row['id_galaxie'],$row['galaxie_nom'],$row['descr'],$row['cox'],$row['coy'], $row['public']);
                      
                 $this->galaxies[$i] = $g;
                 $g->displayGalaxy();

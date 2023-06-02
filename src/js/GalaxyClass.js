@@ -7,11 +7,14 @@ class Galaxy {
 
     #element;
 
-    constructor(name, description, x, y) {
+    #publicGalaxy;
+
+    constructor(name, description, publicGalaxy, x, y) {
         this.#name = name;
         this.#description = description;
         this.#x = x;
         this.#y = y;
+        this.#publicGalaxy = publicGalaxy;
 
         this.#element = this.toElement();
     }
@@ -48,7 +51,6 @@ class Galaxy {
         galaxyInfo.appendChild(desc);
 
         galaxyDiv.appendChild(galaxyInfo);
-
         return galaxyDiv;
     }
 
@@ -86,6 +88,10 @@ class Galaxy {
         return this.#y;
     }
 
+    getPublicGalaxy(){
+        return this.#publicGalaxy;
+    }
+
     setX(newX) {
         this.#element.style.left = newX;
         this.#x = newX;
@@ -106,6 +112,9 @@ class Galaxy {
         this.#description = newDescription;
     }
 
+    setPublicGalaxy(publicGalaxy){
+        this.#publicGalaxy = publicGalaxy;
+    }
 
     removeElement() {
         this.#element.remove();

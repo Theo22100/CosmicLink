@@ -11,7 +11,7 @@ class thirdPageAddStar extends Interface {
     '        </header>' + 
     '        <div class="ui_body">' + 
     '' + 
-    '            <p class="inputText">Pictures <span>(optionnal)</span></p>' + 
+    '            <p class="inputText">Pictures <span>(optional)</span></p>' + 
     '            ' + 
     '            <div class="pictureDiv">' + 
     '' + 
@@ -143,6 +143,7 @@ class thirdPageAddStar extends Interface {
             currentStar.setGalaxyLinked(newStar.getGalaxyLinked());
             currentStar.setDescription(newStar.getDescription());
             currentStar.setSize(newStar.getSize());
+            currentStar.setPublicStar(newStar.getPublicStar());
 
         }   
 

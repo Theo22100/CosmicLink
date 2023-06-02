@@ -2,7 +2,7 @@ const MESSAGES = document.getElementById("messages");
 
 function openChatWith(name) {
     onclickoutside(closeChatWith);
-    addPreviousMessages();
+    ajaxGetMessages(name);
     MESSAGES.style.transform = "translateX(0%)";
     document.getElementById("messageProfileName").textContent=name;
 }
@@ -11,16 +11,27 @@ function closeChatWith() {
     MESSAGES.style.transform = "translateX(100%)";
     onclickoutside(closeChat);
     clearPreviousMessages();
+    clearAllContactMessages();
+    ajaxGetContacts();
 }
 
 document.getElementById("back").addEventListener("click", closeChatWith);
 
 
 
-function addPreviousMessages(){
-    addMessageSendee("Josh","Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor.", "Jan 18 5:20");
-    addMessageSendee("Josh","Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor.", "Jan 18 5:20");
-    addMessageSender("Me","Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor.", "Jan 18 5:20");
+function addPreviousMessages(msgs){
+    for (let i = 0; i <msgs.length; i++) {
+        
+        if(msgs[i]['sender'] == 'me') {
+            
+            addMessageSender("Me",msgs[i]['content'], msgs[i]['timestamp']);
+        }
+        else {
+            addMessageSendee(msgs[i]['sender'],msgs[i]['content'], msgs[i]['timestamp']);
+        }
+    } 
+    
+    
 }
 
 
@@ -73,4 +84,76 @@ function addMessageSendee(name, content, time){
 
     
     CHATHISTORY.appendChild(li);
+}
+
+
+const sendButton = document.getElementById("sendMessage");
+const messageInput = document.getElementById("textMessage");
+sendButton.addEventListener("click",(event)=>{
+    sendMessage();
+})
+
+messageInput.addEventListener("keydown", (event)=>{
+    if (event.key === 'Enter' || event.keyCode === 13) {
+        sendMessage();
+    }
+})
+
+
+function sendMessage(){
+    if(messageInput.value != ""){
+        const date = new Date();
+
+        let day = date.getDate();
+        let month = date.getMonth() + 1;
+
+        const name = document.getElementById("messageProfileName").textContent;
+        ajaxSendMsg(name,messageInput.value);
+        addMessageSender("me", messageInput.value, day +"/"+ month);
+        messageInput.value = "";
+    }
+}
+
+function ajaxGetMessages(username){
+    $.ajax({
+        url: "chat/chatDB.php",
+        type: "POST",
+        //TODO Trouver moyen de cache
+        data: {
+            action: 'getMsg',
+            contactUsername : username
+        },
+        cache: true,
+        success: function (response) {
+            const msgs = JSON.parse(response);
+            console.log(msgs);
+            addPreviousMessages(msgs);
+            
+        },
+        error: function (xhr, status, error) {
+            // Handle errors
+            console.error(error);
+        }
+    });
+}
+
+function ajaxSendMsg(name,msgTxt){
+    $.ajax({
+        url: "chat/chatDB.php",
+        type: "POST",
+        data: {
+            action: 'sendMsg',
+            contactUsername : name,
+            msgTxt : msgTxt
+        },
+        cache: true,
+        success: function (response) {
+            console.log(response);
+            
+        },
+        error: function (xhr, status, error) {
+            // Handle errors
+            console.error(error);
+        }
+    });
 }

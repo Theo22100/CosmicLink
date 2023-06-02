@@ -170,7 +170,6 @@ function moveStarElement(starObject, element) {
     }
 }
 
-
 function ajaxMove(Sname, Gname, x, y) {
 
 
@@ -215,3 +214,4 @@ function ajaxRemove(galaxy_name, star_name) {
         }
     });
 }
+

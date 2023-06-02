@@ -168,7 +168,6 @@ class Star {
     }
 
     setDescription(newDescription) {
-        this.#element.getElementsByTagName("p")[1].textContent = newDescription;
         this.#description = newDescription;
     }
 

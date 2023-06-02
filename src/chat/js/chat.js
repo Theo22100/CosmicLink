@@ -3,7 +3,7 @@ function openChat(event) {
     event.stopPropagation();
     closeOption();
     onclickoutside(closeChat);
-    addAllContactMessage();
+    ajaxGetContacts();
     CHAT.style.transform = "translateX(0%)";
 }
 
@@ -17,12 +17,14 @@ CONNECTBUTTON.addEventListener("click",(event)=>{
     openConnect(event)
 });
 
-function addAllContactMessage(){
-    console.log();
-    addContactMessage("Josh","oui oui baguette");
-    addContactMessage("Baptiste","oui non baguette");
-    addContactMessage("Johnny","texxte");
-    addContactMessage("Joshua","peut être");
+function addAllContactMessage(contacts){
+  
+    for (let i = 0; i <contacts.length; i++) {
+        const contactName = contacts[i][0];
+        const lastMsg = contacts[i][1];
+        const numberUnread = contacts[i][2];
+        addContactMessage(contactName,lastMsg);
+    } 
 
 }
 
@@ -56,6 +58,29 @@ function addContactMessage(name, previousMessage){
 
     PREVIOUSCHATS.appendChild(li);
 
-    li.addEventListener("click", openChatWith(name));
+    li.addEventListener("click", (event) => openChatWith(name));
+
+}
+
+function ajaxGetContacts() {
+    $.ajax({
+        url: "chat/chatDB.php",
+        type: "POST",
+        //TODO Trouver moyen de cache
+        data: {
+            action: "getContacts"
+        },
+        success: function (response) {
+            console.log(response);
+            const contacts = JSON.parse(response);
+            addAllContactMessage(contacts);
+            
+        },
+        error: function (xhr, status, error) {
+            // Handle errors
+            console.error(error);
+        }
+    });
+
 
 }

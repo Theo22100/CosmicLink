@@ -119,6 +119,7 @@ if (!isset($_SESSION['login'])) {
         echo 'Echec : ' . $e->getMessage();
     }
    $u1 = new Universe($user_id,$universe_id);
+   $u1->fetchGalaxies(false);
        
     ?>
 </body>

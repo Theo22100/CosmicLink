@@ -7,11 +7,14 @@ class Galaxy {
 
     #element;
 
-    constructor(name, description, x, y) {
+    #publicGalaxy;
+
+    constructor(name, description, publicGalaxy, x, y) {
         this.#name = name;
         this.#description = description;
         this.#x = x;
         this.#y = y;
+        this.#publicGalaxy = publicGalaxy;
 
         this.#element = this.toElement();
     }
@@ -27,28 +30,22 @@ class Galaxy {
         newGalaxy.src = "../img/galaxy.png";
         newGalaxy.style.transform = `scale(${zoom})`;
 
-        newGalaxy.style.width = (200 + getRandomInt(30) ).toString() + "px";
+        newGalaxy.style.width = 200+ "px";
         newGalaxy.style.height = "auto";
 
         galaxyDiv.appendChild(newGalaxy);
-
 
         const galaxyInfo = document.createElement("div");
         galaxyInfo.classList.add("galaxyInfo");
 
         const name = document.createElement("p");
-        const desc = document.createElement("p");
 
         name.textContent = this.#name;
         name.classList.add("galaxyName");
-        desc.textContent = this.#description;
-        desc.classList.add("galaxyDesc");
 
         galaxyInfo.appendChild(name);
-        galaxyInfo.appendChild(desc);
 
         galaxyDiv.appendChild(galaxyInfo);
-
         return galaxyDiv;
     }
 
@@ -86,6 +83,10 @@ class Galaxy {
         return this.#y;
     }
 
+    getPublicGalaxy(){
+        return this.#publicGalaxy;
+    }
+
     setX(newX) {
         this.#element.style.left = newX;
         this.#x = newX;
@@ -102,10 +103,12 @@ class Galaxy {
     }
 
     setDescription(newDescription) {
-        this.#element.getElementsByTagName("p")[1].textContent = newDescription;
         this.#description = newDescription;
     }
 
+    setPublicGalaxy(publicGalaxy){
+        this.#publicGalaxy = publicGalaxy;
+    }
 
     removeElement() {
         this.#element.remove();

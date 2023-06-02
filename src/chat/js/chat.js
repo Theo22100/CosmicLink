@@ -5,6 +5,7 @@ function openChat(event) {
     onclickoutside(closeChat);
     addAllContactMessage();
     CHAT.style.transform = "translateX(0%)";
+    //  CONNECT.classList.add("active");
 }
 
 function closeChat() {

@@ -1,10 +1,12 @@
 const MESSAGES = document.getElementById("messages");
+let timeout;
 
 function openChatWith(name) {
+    stopContactCall();
     onclickoutside(closeChatWith);
-    ajaxGetMessages(name);
+    ajaxGetMessages(name,true);
     MESSAGES.style.transform = "translateX(0%)";
-    document.getElementById("messageProfileName").textContent=name;
+    document.getElementById("messageProfileName").textContent = name;
 }
 
 function closeChatWith() {
@@ -12,38 +14,38 @@ function closeChatWith() {
     onclickoutside(closeChat);
     clearPreviousMessages();
     clearAllContactMessages();
+    stopCall();
     ajaxGetContacts();
 }
 
 document.getElementById("back").addEventListener("click", closeChatWith);
 
 
+function addPreviousMessages(msgs) {
+    for (let i = 0; i < msgs.length; i++) {
 
-function addPreviousMessages(msgs){
-    for (let i = 0; i <msgs.length; i++) {
-        
-        if(msgs[i]['sender'] == 'me') {
-            
-            addMessageSender("Me",msgs[i]['content'], msgs[i]['timestamp']);
+        if (msgs[i]['sender'] == 'me') {
+
+            addMessageSender("Me", msgs[i]['content'], msgs[i]['timestamp']);
         }
         else {
-            addMessageSendee(msgs[i]['sender'],msgs[i]['content'], msgs[i]['timestamp']);
+            addMessageSendee(msgs[i]['sender'], msgs[i]['content'], msgs[i]['timestamp']);
         }
-    } 
-    
-    
+    }
+
+
 }
 
 
-function clearPreviousMessages(){
-    while(CHATHISTORY.firstChild != null){
+function clearPreviousMessages() {
+    while (CHATHISTORY.firstChild != null) {
         CHATHISTORY.removeChild(CHATHISTORY.firstChild);
     }
 }
 
 const CHATHISTORY = document.getElementById("chat-history");
 
-function addMessageSender(name, content, time){
+function addMessageSender(name, content, time) {
 
     const li = document.createElement("li");
     const div = document.createElement("div");
@@ -64,7 +66,7 @@ function addMessageSender(name, content, time){
     CHATHISTORY.appendChild(li);
 }
 
-function addMessageSendee(name, content, time){
+function addMessageSendee(name, content, time) {
     const li = document.createElement("li");
     const div = document.createElement("div");
     div.classList.add("msg");
@@ -82,74 +84,86 @@ function addMessageSendee(name, content, time){
     spanTime.textContent = time;
     div.appendChild(spanTime);
 
-    
+
     CHATHISTORY.appendChild(li);
 }
 
 
 const sendButton = document.getElementById("sendMessage");
 const messageInput = document.getElementById("textMessage");
-sendButton.addEventListener("click",(event)=>{
+sendButton.addEventListener("click", (event) => {
     sendMessage();
 })
 
-messageInput.addEventListener("keydown", (event)=>{
+messageInput.addEventListener("keydown", (event) => {
     if (event.key === 'Enter' || event.keyCode === 13) {
         sendMessage();
     }
 })
 
 
-function sendMessage(){
-    if(messageInput.value != ""){
+function sendMessage() {
+    if (messageInput.value != "") {
         const date = new Date();
 
         let day = date.getDate();
         let month = date.getMonth() + 1;
 
         const name = document.getElementById("messageProfileName").textContent;
-        ajaxSendMsg(name,messageInput.value);
-        addMessageSender("me", messageInput.value, day +"/"+ month);
+        ajaxSendMsg(name, messageInput.value);
+        addMessageSender("me", messageInput.value, day + "/" + month);
         messageInput.value = "";
     }
 }
 
-function ajaxGetMessages(username){
+function ajaxGetMessages(username,first) {
     $.ajax({
         url: "chat/chatDB.php",
         type: "POST",
         //TODO Trouver moyen de cache
         data: {
             action: 'getMsg',
-            contactUsername : username
+            contactUsername: username
         },
         cache: true,
         success: function (response) {
             const msgs = JSON.parse(response);
-            console.log(msgs);
-            addPreviousMessages(msgs);
-            
+            //console.log(msgs);
+            if ((msgs[1] != 0) || first) {
+                if (!first) {clearPreviousMessages();}
+                addPreviousMessages(msgs[0]);
+            }
+
         },
         error: function (xhr, status, error) {
             // Handle errors
             console.error(error);
         }
     });
+    updateCall();
 }
 
-function ajaxSendMsg(name,msgTxt){
+function updateCall() {
+    timeout = setTimeout(function () { ajaxGetMessages(document.getElementById("messageProfileName").textContent, false) }, 1000);
+}
+
+function stopCall(){
+    clearTimeout(timeout);
+}
+
+function ajaxSendMsg(name, msgTxt) {
     $.ajax({
         url: "chat/chatDB.php",
         type: "POST",
         data: {
             action: 'sendMsg',
-            contactUsername : name,
-            msgTxt : msgTxt
+            contactUsername: name,
+            msgTxt: msgTxt
         },
         cache: true,
         success: function (response) {
             console.log(response);
-            
+
         },
         error: function (xhr, status, error) {
             // Handle errors

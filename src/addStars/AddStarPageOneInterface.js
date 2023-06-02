@@ -82,11 +82,11 @@ class firstPageAddStar extends Interface {
     }
 
     getPublic() {
-        return document.getElementById("publicStar").checked;
+        return document.getElementById("publicStar").checked? 1: 0;
     }
 
     setPublic(bool) {
-        document.getElementById("publicStar").checked = bool;
+        document.getElementById("publicStar").checked = (parseInt(bool)==1);
     }
 
     getName() {

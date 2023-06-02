@@ -96,8 +96,8 @@ function confirmStarPosition(event) {
 }
 
 
-function addStarWithInfo(starName, galaxy, starDesc, starSize, x, y) {
-    const s = new Star(starName, starDesc, galaxy, starSize, false, x, y);
+function addStarWithInfo(starName, galaxy, starDesc, starSize, publicStar, x, y) {
+    const s = new Star(starName, starDesc, galaxy, starSize, publicStar, x, y);
     s.addElement();
 }
 

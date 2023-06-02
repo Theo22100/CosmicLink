@@ -134,10 +134,10 @@ class thirdPageAddStar extends Interface {
         if (this.#editing == false){
             newStar.addElementAnimation();
             newStar.addElement();
-            thirdPageAddStar.ajaxAdd(newStar.getName(), newStar.getGalaxyLinked(), newStar.getDescription(), newStar.getSize(), newStar.getX(), newStar.getY());
+            thirdPageAddStar.ajaxAdd(newStar.getName(), newStar.getGalaxyLinked(), newStar.getDescription(), newStar.getSize(), newStar.getX(), newStar.getY(), newStar.getPublicStar());
         }
         else{
-            thirdPageAddStar.ajaxEdit(currentStar.getName(), newStar.getName(), currentStar.getGalaxyLinked(), newStar.getGalaxyLinked(), newStar.getDescription(), newStar.getSize());
+            thirdPageAddStar.ajaxEdit(currentStar.getName(), newStar.getName(), currentStar.getGalaxyLinked(), newStar.getGalaxyLinked(), newStar.getDescription(), newStar.getSize(), newStar.getPublicStar());
 
             currentStar.setName(newStar.getName());
             currentStar.setGalaxyLinked(newStar.getGalaxyLinked());
@@ -153,7 +153,7 @@ class thirdPageAddStar extends Interface {
 
     // AJAX
 
-    static ajaxEdit(oldName, newName, oldGalaxy, newGalaxy, starDesc, starSize) {
+    static ajaxEdit(oldName, newName, oldGalaxy, newGalaxy, starDesc, starSize, publicStar) {
         $.ajax({
             url: "./starDB.php",
             type: "POST",
@@ -164,7 +164,8 @@ class thirdPageAddStar extends Interface {
                 old_galaxy: oldGalaxy,
                 new_galaxy: newGalaxy,
                 descr: starDesc,
-                size: starSize
+                size: starSize,
+                public: publicStar
             },
             success: function (response) {
                 console.log(response);
@@ -175,7 +176,7 @@ class thirdPageAddStar extends Interface {
         });
     }
 
-    static ajaxAdd(Sname, Gname, Sdesc, Ssize, x, y) {
+    static ajaxAdd(Sname, Gname, Sdesc, Ssize, x, y, publicStar) {
 
         $.ajax({
             url: "./starDB.php",
@@ -187,7 +188,8 @@ class thirdPageAddStar extends Interface {
                 descr: Sdesc,
                 size: Ssize,
                 x: x,
-                y: y
+                y: y,
+                public: publicStar
             },
             success: function (response) {
                 console.log(response);

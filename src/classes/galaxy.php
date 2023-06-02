@@ -48,7 +48,7 @@ class Galaxy
 
         $i = 0;
         while ($row = $sql->fetch(PDO::FETCH_ASSOC)) {
-            $s = new Star($row['id_etoile'], $row['nom'], $this->galaxy_name, $row['descr'], $row['taille'], $row['cox'], $row['coy']);
+            $s = new Star($row['id_etoile'], $row['nom'], $this->galaxy_name, $row['descr'], $row['taille'], $row['cox'], $row['coy'], $row['public']);
 
             $this->stars[$i] = $s;
             $s->displayStar();

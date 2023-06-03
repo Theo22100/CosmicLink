@@ -28,7 +28,7 @@ if (!isset($_SESSION['login'])) {
 
     
     <link rel="stylesheet" href="global.css">
-    <link rel="stylesheet" href="./addStars/css/addStar.css">
+    <link rel="stylesheet" href="./css/addStar.css">
 
 </head>
 
@@ -79,13 +79,13 @@ if (!isset($_SESSION['login'])) {
     <div id="invisible" class="hidden"> </div>
 
     
-    <script src="./addStars/InterfaceClass.js"></script>
-    <script src="./addStars/AddStarPageOneInterface.js"></script>
-    <script src="./addStars/AddStarPageSecondInterface.js"></script>
-    <script src="./addStars/AddStarPageThirdInterface.js"></script>
+    <script src="./interfaces/InterfaceClass.js"></script>
+    <script src="./interfaces/AddStarPageOneInterface.js"></script>
+    <script src="./interfaces/AddStarPageSecondInterface.js"></script>
+    <script src="./interfaces/AddStarPageThirdInterface.js"></script>
 
     
-    <script src="./addGalaxys/AddGalaxyInterface.js"></script>
+    <script src="./interfaces/AddGalaxyInterface.js"></script>
 
     
     <script src="./js/home.js"></script>

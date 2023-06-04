@@ -8,6 +8,8 @@ class Star {
     #y;
     #publicStar;
 
+    #imgLinkArray = [];
+
     #element;
 
     constructor(name, description, galaxyLinked, size, publicStar, x, y) {
@@ -184,6 +186,31 @@ class Star {
     removeElement() {
         this.#element.remove();
     }
+
+    getImgLinkArray(){
+        return this.#imgLinkArray;
+    }
+
+    setImgLinkArray(newImgLinkArray){
+        this.#imgLinkArray = newImgLinkArray;
+    }
+
+    addImgLinkArray(newLink){
+        this.#imgLinkArray.push(newLink);
+    }
+
+    removeImgLinkArray(link){
+
+        for(let i = 0; i < this.#imgLinkArray.length; i++){
+
+            if(this.#imgLinkArray == link){
+                delete this.#imgLinkArray[i];
+            }
+        }
+    }
+
+
+
 
     //private functions
 

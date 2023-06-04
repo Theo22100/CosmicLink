@@ -152,7 +152,6 @@ class thirdPageAddStar extends Interface {
 
 
     // AJAX
-
     static ajaxEdit(oldName, newName, oldGalaxy, newGalaxy, starDesc, starSize, publicStar) {
         $.ajax({
             url: "./starDB.php",

@@ -26,15 +26,14 @@ if (!isset($_SESSION['login'])) {
     <link rel="stylesheet" href="style_site.css">
 
 
-    
     <link rel="stylesheet" href="global.css">
     <link rel="stylesheet" href="./css/addStar.css">
+    <link rel="stylesheet" href="./css/popUp.css">
 
 </head>
 
 
 <body id="background">
-
 
     <div id="contextMenu" class="hidden">
         <div class="option" id="edit"> Edit</div>
@@ -48,8 +47,8 @@ if (!isset($_SESSION['login'])) {
     </div>
 
 
-    <div id="menu" >
-        <div class= "dropUp options">
+    <div id="menu">
+        <div class="dropUp options">
             <img id="editStarGalaxy" src="../img/crayon.png" class="options hidden">
             <div class="dropUp-content">
                 <button class="dropUp-Option" onclick="openCreateStar(event)">Star</button>
@@ -74,20 +73,20 @@ if (!isset($_SESSION['login'])) {
     include("./chat/message.php");
     include("./chat/connect.php")
 
-    ?>
+        ?>
 
     <div id="invisible" class="hidden"> </div>
 
-    
+
     <script src="./interfaces/InterfaceClass.js"></script>
     <script src="./interfaces/AddStarPageOneInterface.js"></script>
     <script src="./interfaces/AddStarPageSecondInterface.js"></script>
     <script src="./interfaces/AddStarPageThirdInterface.js"></script>
 
-    
     <script src="./interfaces/AddGalaxyInterface.js"></script>
 
-    
+    <script src="./interfaces/popUpInfoInterface.js"></script>
+
     <script src="./js/home.js"></script>
     <script src="./js/star.js"></script>
     <script src="./js/StarClass.js"></script>
@@ -109,18 +108,17 @@ if (!isset($_SESSION['login'])) {
     try {
         //Recherche de l'univers pour ce membre
         $sql = $handler->prepare("SELECT id_univers FROM univers WHERE id_membre=:id_membre");
-        $sql->bindParam(':id_membre',$user_id);
+        $sql->bindParam(':id_membre', $user_id);
         $sql->execute();
-         
+
         $row = $sql->fetch(PDO::FETCH_ASSOC);
         $universe_id = $row['id_univers'];
-    }
-    catch (PDOException $e){
+    } catch (PDOException $e) {
         echo 'Echec : ' . $e->getMessage();
     }
-   $u1 = new Universe($user_id,$universe_id);
-   $u1->fetchGalaxies(false);
-       
+    $u1 = new Universe($user_id, $universe_id);
+    $u1->fetchGalaxies(false);
+
     ?>
 </body>
 

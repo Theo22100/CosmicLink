@@ -2,9 +2,14 @@ window.oncontextmenu = (e) => {
     e.preventDefault();
 }
 
+//GLOBAL CONSTANTS
 function getRandomInt(max) {
     return Math.floor(Math.random() * max);
 }
+
+
+const popUpPage = new popUpInfo(); 
+
 
 const INVISIBLE = document.getElementById("invisible");
 

@@ -65,6 +65,11 @@ class Galaxy {
 
 
         moveGalaxyElement(this, this.#element); //fait en sorte que l'etoile puisse être déplacé
+
+        this.#element.addEventListener("click", (event) =>{
+            popUpPage.openInterface();
+            popUpPage.loadGalaxyInfo(this);
+        });
     }
 
     getName() {

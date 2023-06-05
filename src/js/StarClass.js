@@ -8,9 +8,11 @@ class Star {
     #y;
     #publicStar;
 
+    #imgLinkArray;
+
     #element;
 
-    constructor(name, description, galaxyLinked, size, publicStar, x, y) {
+    constructor(name, description, galaxyLinked, size, publicStar, x, y, imgLinkArray) {
         this.#name = name;
         this.#description = description;
         this.#galaxyLinked = galaxyLinked;
@@ -19,6 +21,9 @@ class Star {
         this.#y = y;
         this.#publicStar = publicStar;
         this.#element = this.toElement();
+
+        console.log("imgLinkArray: " + imgLinkArray);
+        this.#imgLinkArray = imgLinkArray;
     }
 
     toElement() {
@@ -98,6 +103,12 @@ class Star {
 
 
         moveStarElement(this, this.#element); //fait en sorte que l'etoile puisse être déplacé
+
+        this.#element.addEventListener("click", (event) =>{
+            popUpPage.openInterface();
+            popUpPage.loadStarInfo(this);
+        });
+
     }
 
     getSize() {
@@ -178,6 +189,31 @@ class Star {
     removeElement() {
         this.#element.remove();
     }
+
+    getImgLinkArray(){
+        return this.#imgLinkArray;
+    }
+
+    setImgLinkArray(newImgLinkArray){
+        this.#imgLinkArray = newImgLinkArray;
+    }
+
+    addImgLinkArray(newLink, id){
+        this.#imgLinkArray.splice(parseInt(id), 0, newLink);
+    }
+
+    removeImgLinkArray(link){
+
+        for(let i = 0; i < this.#imgLinkArray.length; i++){
+
+            if(this.#imgLinkArray == link){
+                delete this.#imgLinkArray[i];
+            }
+        }
+    }
+
+
+
 
     //private functions
 

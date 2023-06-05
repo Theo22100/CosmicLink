@@ -22,13 +22,27 @@ function closeConnect() {
 CHATBUTTON.addEventListener("click", (event)=>{
     clearAllSuggestions();
     CONNECT.classList.add("hidden");
+    openChat(event);
+});
+
+CHATBUTTON1.addEventListener("click", (event)=>{
+    clearAllSuggestions();
+    CONNECT.classList.add("hidden");
+    openChat(event);
 });
 
 
 
-CONNECTBUTTON.addEventListener("click", (event)=>{
-    clearAllFSuggestions();
-    CHAT.classList.add("hidden");
+FRIENDSBUTTON.addEventListener("click", (event)=>{
+    clearAllSuggestions();
+    CONNECT.classList.add("hidden");
+    openFriends(event);
+});
+
+FRIENDSBUTTON1.addEventListener("click", (event)=>{
+    clearAllSuggestions();
+    CONNECT.classList.add("hidden");
+    openFriends(event);
 });
 
 function addAllSuggestions(){

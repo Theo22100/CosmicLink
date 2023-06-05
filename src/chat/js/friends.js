@@ -1,6 +1,5 @@
 const FRIENDS = document.getElementById("friends");
 
-
 // const CHATBUTTON = document.getElementById("chat-section");
 
 function openFriends(event) {
@@ -15,40 +14,46 @@ function openFriends(event) {
 function closeFriends() {
     clearAllSuggestions();
     clearAllContactMessages();
-    FRIENDS.style.transform = "translateX(100%)";
+    FRIENDS.style.transform = "translateX(0%)";
     CHAT.style.transform = "translateX(100%)";
+    
 }
 
 
 CHATBUTTON.addEventListener("click", (event)=>{
     clearAllSuggestions();
     FRIENDS.classList.add("hidden");
+    openChat(event);
 });
 
-FRIENDSBUTTON.addEventListener("click", (event)=>{
+CHATBUTTON1.addEventListener("click", (event)=>{
     clearAllSuggestions();
-    CHAT.classList.add("hidden");
+    FRIENDS.classList.add("hidden");
+    openChat(event);
 });
 
+CONNECTBUTTON.addEventListener("click", (event)=>{
+    clearAllSuggestions();
+    FRIENDS.classList.add("hidden");
+    openConnect(event);
+});
+
+CONNECTBUTTON1.addEventListener("click", (event)=>{
+    clearAllSuggestions();
+    FRIENDS.classList.add("hidden");
+    openConnect(event);
+});
 
 
 function addAllFSuggestions(){
     addFSuggestions("aaa");
-    addFSuggestions("ppoqds");
-    addFSuggestions("adqs");
-    addFSuggestions("qaa");
-    addFSuggestions("qaaa");
-    addFSuggestions("aaa");
-    addFSuggestions("ppoqds");
-    addFSuggestions("adqs");
-    addFSuggestions("qaa");
-    addFSuggestions("qaaa");
+  
 }
 
 
-
+const SUGGF = document.getElementById("suggestionsF");
 function clearAllFSuggestions(){
-    const SUGGF = document.getElementById("suggestionsF");
+    
     while (SUGGF.firstChild != null){
         SUGGF.removeChild(SUGGF.firstChild);
     }
@@ -68,5 +73,5 @@ function addFSuggestions(name){
     NAME.classList.add("suggestion-name");
     LIF.appendChild(NAME);
 
-    SUGG.appendChild(LIF);
+    SUGGF.appendChild(LIF);
 }

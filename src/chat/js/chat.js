@@ -15,12 +15,38 @@ function closeChat() {
     stopContactCall();
 }
 const CHATBUTTON = document.getElementById("chat-section");
+CHATBUTTON.addEventListener("click",(event)=>{
+    openChat(event)
+});
+
+const CHATBUTTON1= document.getElementById("chat-section1");
+CHATBUTTON1.addEventListener("click",(event)=>{
+    openChat(event)
+});
 
 
 const CONNECTBUTTON = document.getElementById("connect-section");
 CONNECTBUTTON.addEventListener("click",(event)=>{
     openConnect(event)
 });
+
+const CONNECTBUTTON1 = document.getElementById("connect-section1");
+CONNECTBUTTON1.addEventListener("click",(event)=>{
+    openConnect(event)
+});
+
+const FRIENDSBUTTON = document.getElementById("friends-section");
+
+FRIENDSBUTTON.addEventListener("click",(event)=>{
+    openFriends(event)
+});
+
+const FRIENDSBUTTON1 = document.getElementById("friends-section1");
+
+FRIENDSBUTTON1.addEventListener("click",(event)=>{
+    openFriends(event)
+});
+
 
 function addAllContactMessage(contacts){
   

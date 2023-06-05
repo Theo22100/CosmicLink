@@ -2,7 +2,7 @@
     <div class="chat-top">
         <a class="active">Chat</a>
         <a id="friends-section">Friends</a>
-        <a id="connect-section">Connect</a>
+        <a id="connect-section1">Connect</a>
         
     </div>
 

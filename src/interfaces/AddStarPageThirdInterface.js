@@ -129,17 +129,18 @@ class thirdPageAddStar extends Interface {
         if (this.#editing == false) {
             newStar.addElementAnimation();
             newStar.addElement();
-            thirdPageAddStar.ajaxAdd(newStar.getName(), newStar.getGalaxyLinked(), newStar.getDescription(), newStar.getSize(), newStar.getX(), newStar.getY(), newStar.getPublicStar());
+            console.log("submit new imageArray: " + newStar.getImgLinkArray());
+            thirdPageAddStar.ajaxAdd(newStar.getName(), newStar.getGalaxyLinked(), newStar.getDescription(), newStar.getSize(), newStar.getX(), newStar.getY(), newStar.getPublicStar(), newStar.getImgLinkArray());
         }
         else {
-            thirdPageAddStar.ajaxEdit(currentStar.getName(), newStar.getName(), currentStar.getGalaxyLinked(), newStar.getGalaxyLinked(), newStar.getDescription(), newStar.getSize(), newStar.getPublicStar());
+            thirdPageAddStar.ajaxEdit(currentStar.getName(), newStar.getName(), currentStar.getGalaxyLinked(), newStar.getGalaxyLinked(), newStar.getDescription(), newStar.getSize(), newStar.getPublicStar(), newStar.getImgLinkArray());
 
             currentStar.setName(newStar.getName());
             currentStar.setGalaxyLinked(newStar.getGalaxyLinked());
             currentStar.setDescription(newStar.getDescription());
             currentStar.setSize(newStar.getSize());
             currentStar.setPublicStar(newStar.getPublicStar());
-            console.log("newStar.getImgLinkArray(): " + newStar.getImgLinkArray());
+            // console.log("newStar.getImgLinkArray(): " + newStar.getImgLinkArray());
             currentStar.setImgLinkArray(newStar.getImgLinkArray());
         }
 
@@ -162,6 +163,7 @@ class thirdPageAddStar extends Interface {
 
             reader.onload = function (e) {
                 thirdPageAddStar.addImage(e.target.result, currentID);
+                // console.log("lien de l'image: " + e.target.result);
                 newStar.addImgLinkArray(e.target.result, currentID);
             }
             reader.readAsDataURL(input.files[0]);
@@ -283,7 +285,8 @@ class thirdPageAddStar extends Interface {
     }
 
     // AJAX
-    static ajaxEdit(oldName, newName, oldGalaxy, newGalaxy, starDesc, starSize, publicStar) {
+    static ajaxEdit(oldName, newName, oldGalaxy, newGalaxy, starDesc, starSize, publicStar, linkArray) {
+        const tets= JSON.stringify(linkArray);
         $.ajax({
             url: "DBInterface/starDB.php",
             type: "POST",
@@ -295,7 +298,8 @@ class thirdPageAddStar extends Interface {
                 new_galaxy: newGalaxy,
                 descr: starDesc,
                 size: starSize,
-                public: publicStar
+                public: publicStar,
+                arrayLink: tets
             },
             success: function (response) {
                 console.log(response);
@@ -306,7 +310,8 @@ class thirdPageAddStar extends Interface {
         });
     }
 
-    static ajaxAdd(Sname, Gname, Sdesc, Ssize, x, y, publicStar) {
+    static ajaxAdd(Sname, Gname, Sdesc, Ssize, x, y, publicStar, linkArray) {
+        const tets= JSON.stringify(linkArray);
 
         $.ajax({
             url: "DBInterface/starDB.php",
@@ -319,7 +324,8 @@ class thirdPageAddStar extends Interface {
                 size: Ssize,
                 x: x,
                 y: y,
-                public: publicStar
+                public: publicStar,
+                arrayLink: tets
             },
             success: function (response) {
                 console.log(response);

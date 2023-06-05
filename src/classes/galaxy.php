@@ -11,7 +11,9 @@ class Galaxy
 
     private $stars;
 
-    function __construct($galaxy_id, $galaxy_name, $galaxy_desc, $galaxy_x, $galaxy_y, $galaxy_public)
+    private $member_id;
+
+    function __construct($member_id, $galaxy_id, $galaxy_name, $galaxy_desc, $galaxy_x, $galaxy_y, $galaxy_public)
     {
         $this->galaxy_id = $galaxy_id;
         $this->galaxy_name = $galaxy_name;
@@ -19,6 +21,8 @@ class Galaxy
         $this->galaxy_x = $galaxy_x;
         $this->galaxy_y = $galaxy_y;
         $this->galaxy_public = $galaxy_public;
+        
+        $this->member_id = $member_id;
     }
 
     function getInfo()
@@ -49,7 +53,7 @@ class Galaxy
         while ($row = $sql->fetch(PDO::FETCH_ASSOC)) {
 
             if ($row['public'] || !$viewOnly) {
-                $s = new Star($row['id_etoile'], $row['nom'], $this->galaxy_name, $row['descr'], $row['taille'], $row['cox'], $row['coy'], $row['public']);
+                $s = new Star($this->member_id, $row['id_etoile'], $row['nom'], $this->galaxy_name, $row['descr'], $row['taille'], $row['cox'], $row['coy'], $row['public']);
 
                 $this->stars[$i] = $s;
                 $s->displayStar();

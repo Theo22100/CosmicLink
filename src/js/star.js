@@ -9,7 +9,7 @@ let newStar;
 function openCreateStarInterface() { //ouvre la fenetre d'edit/ajout d'étoile
     const x = getRandomInt(window.innerWidth) - offsetX;
     const y = getRandomInt(window.innerHeight) - offsetY;
-    newStar = new Star("", "", "", 3, false, x, y);
+    newStar = new Star("", "", "", 3, false, x, y, []);
 
 
     firstPageInterface.openInterface(false);
@@ -18,8 +18,7 @@ function openCreateStarInterface() { //ouvre la fenetre d'edit/ajout d'étoile
 }
 
 function openEditStarInterface(){
-    newStar = new Star(currentStar.getName(), currentStar.getDescription(), currentStar.getGalaxyLinked(), currentStar.getSize(), currentStar.getPublicStar(), currentStar.getX(), currentStar.getY());
-    newStar.setImgLinkArray(currentStar.getImgLinkArray());
+    newStar = new Star(currentStar.getName(), currentStar.getDescription(), currentStar.getGalaxyLinked(), currentStar.getSize(), currentStar.getPublicStar(), currentStar.getX(), currentStar.getY(), currentStar.getImgLinkArray());
 
     firstPageInterface.openInterface(true);
     firstPageInterface.loadChanges(newStar);
@@ -97,8 +96,8 @@ function confirmStarPosition(event) {
 }
 
 
-function addStarWithInfo(starName, galaxy, starDesc, starSize, publicStar, x, y) {
-    const s = new Star(starName, starDesc, galaxy, starSize, publicStar, x, y);
+function addStarWithInfo(starName, galaxy, starDesc, starSize, publicStar, x, y, imgArray) {
+    const s = new Star(starName, starDesc, galaxy, starSize, publicStar, x, y, imgArray);
     s.addElement();
 }
 

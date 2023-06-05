@@ -11,7 +11,11 @@ class Star
 
     private $public;
 
-    function __construct($star_id, $star_name, $galaxy_name, $star_desc, $star_size, $star_x, $star_y, $public)
+    private $arrayLink;
+
+    private $member_id;
+
+    function __construct($member_id, $star_id, $star_name, $galaxy_name, $star_desc, $star_size, $star_x, $star_y, $public)
     {
         $this->star_id = $star_id;
         $this->star_name = $star_name;
@@ -21,6 +25,22 @@ class Star
         $this->star_x = $star_x;
         $this->star_y = $star_y;
         $this->public = $public;
+
+        $this->member_id = $member_id;
+
+        $repertory = '../img/profil' . $this->member_id . '/' . $this->star_id;
+
+        $this->arrayLink = array();
+        if(file_exists($repertory)){
+            // get list of all files in the repertory
+            $files = glob($repertory . '/*');
+
+            foreach($files as $file){
+                $this->arrayLink[] = $file;
+            }
+        }
+
+        echo json_encode($this->arrayLink);
     }
 
     function displayStar()
@@ -40,7 +60,8 @@ class Star
                 <?php echo $this->star_size; ?>,
                 <?php echo $this->public; ?>,
                 <?php echo $this->star_x; ?>,
-                <?php echo $this->star_y; ?>
+                <?php echo $this->star_y; ?>,
+                <?php echo json_encode($this->arrayLink); ?>
             );
         </script>
 

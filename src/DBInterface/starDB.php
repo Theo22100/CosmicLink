@@ -48,7 +48,8 @@ else if (isset($_GET['action'])) {
  */
 function addStar($handler, $user_id)
 {
-    if (isset($_POST['x']) && isset($_POST['y']) && isset($_POST['name']) && isset($_POST['size']) && isset($_POST['descr']) && isset($_POST['galaxy_name']) && isset($_POST['public'])) {
+    if (isset($_POST['x']) && isset($_POST['y']) && isset($_POST['name']) && isset($_POST['size']) && isset($_POST['descr']) && isset($_POST['galaxy_name']) && isset($_POST['public']) && isset($_POST['arrayLink'])) {
+        
         $name = ($_POST['name']);
         $descr = ($_POST['descr']);
         $galaxy_name = ($_POST['galaxy_name']);
@@ -62,6 +63,7 @@ function addStar($handler, $user_id)
         $galaxy_id = treatGalaxyName($handler, $galaxy_name, $user_id);
 
 
+        $imageLinkArray = json_decode(stripslashes($_POST['arrayLink']));
 
         try {
 
@@ -74,6 +76,36 @@ function addStar($handler, $user_id)
             $query->bindParam(':public',$public);
             $query->bindParam(':galaxie_id', $galaxy_id);
             $query->execute();
+
+            //creating a folder for the star to input images in
+            $starID = $handler->lastInsertId();
+
+            $directoryPath = '../../img/profil' . $user_id . "/" . $starID;
+            if(!file_exists(($directoryPath))){
+                mkdir($directoryPath, 0777, true);
+            }
+
+            $i = 0;
+            foreach($imageLinkArray as $imageLink){
+                if(is_file($imageLink)){
+
+                }
+                else{ //need to recreate the image based on the data
+                    list($type, $imageLink) = explode(';', $imageLink);
+                    list(, $imageLink)      = explode(',', $imageLink);
+                    list(,$type) =explode('/', $type);
+
+                    $bindata = base64_decode($imageLink);
+
+                    $newImg = fopen($directoryPath . "/" . $i . "." . $type, "w");
+                    
+                    //writing the image data
+                    fwrite($newImg, $bindata);
+
+                    fclose($newImg);
+                }
+            }
+
         } catch (PDOException $e) {
 
             echo 'Echec Requête Insertion : ' . $e->getMessage();
@@ -82,7 +114,7 @@ function addStar($handler, $user_id)
 }
 
 function editStar($handler, $user_id){
-    if (isset($_POST['old_name']) && isset($_POST['new_name']) && isset($_POST['size']) && isset($_POST['descr']) && isset($_POST['old_galaxy'])&& isset($_POST['new_galaxy'])  && isset($_POST['public'])) {
+    if (isset($_POST['old_name']) && isset($_POST['new_name']) && isset($_POST['size']) && isset($_POST['descr']) && isset($_POST['old_galaxy'])&& isset($_POST['new_galaxy'])  && isset($_POST['public']) && isset($_POST['arrayLink'])) {
         $old_name = ($_POST['old_name']);
         $new_name = ($_POST['new_name']);
         $descr = ($_POST['descr']);
@@ -95,6 +127,10 @@ function editStar($handler, $user_id){
         $old_galaxy_id = treatGalaxyName($handler, $old_galaxy, $user_id);
         $new_galaxy_id = treatGalaxyName($handler, $new_galaxy, $user_id);
 
+        
+        $imageLinkArray = json_decode(stripslashes($_POST['arrayLink']));
+        $starID = starNameToId($handler, $old_name, $user_id);
+
         try {
            
             $query = $handler->prepare("UPDATE etoile SET nom=:new_name, descr=:descr, taille=:size, public=:public, id_galaxie=:new_galaxy_id WHERE nom=:old_name AND id_galaxie=:old_galaxy_id");
@@ -106,6 +142,40 @@ function editStar($handler, $user_id){
             $query->bindParam(':new_galaxy_id', $new_galaxy_id);
             $query->bindParam(':public',$public);
             $query->execute();
+
+            //creating a folder for the star to input images in
+
+            // $directoryPath = '../../img/profil' . $user_id . "/" . $starID;
+            // if(!file_exists(($directoryPath))){
+            //     mkdir($directoryPath, 0777, true);
+            // }
+
+            // echo $imageLinkArray;
+            // $i = 0;
+            // foreach($imageLinkArray as $imageLink){
+            //     if(is_file($imageLink)){
+            //         echo "test";
+            //     }
+            //     else{ //need to recreate the image based on the data
+            //         list($type, $imageLink) = explode(';', $imageLink);
+            //         list(, $imageLink)      = explode(',', $imageLink);
+            //         list(,$type) =explode('/', $type);
+
+            //         $bindata = base64_decode($imageLink);
+
+            //         $newImg = fopen($directoryPath . "/" . $i . "." . $type, "w");
+                    
+            //         //writing the image data
+            //         fwrite($newImg, $bindata);
+
+            //         fclose($newImg);
+            //         $i++;
+            //     }
+            // }
+
+
+
+
 
         } catch (PDOException $e) {
 
@@ -234,4 +304,40 @@ function  treatGalaxyName($handler, $galaxy_name, $user_id)
     }
     $galaxy_name = strtolower($galaxy_name);
     return galaxyNameToId($handler, $galaxy_name, $user_id);
+}
+
+
+
+/**
+ * @param handler : le gestionnaire de la database
+ * @param star_name : le nom de la galaxie à rechercher
+ * @param user_id : l'id de l'utilisateur connecté
+ * @return : id de la galaxie appartenant à l'utilisateur connecté
+ */
+function starNameToId($handler, $star_name, $user_id)
+{
+    try {
+        //Récupération galaxy_id à partir de son nom
+        $gQuery = $handler->prepare(
+            "SELECT *
+            FROM univers INNER JOIN (galaxie
+            INNER JOIN etoile)  
+            WHERE nom=:nom
+            AND univers.id_membre=:id_membre
+            AND galaxie.id_galaxie =etoile.id_galaxie
+            AND univers.id_univers = galaxie.id_univers" //membres liées aux galaxies grâce à l'univers
+        );
+
+        $gQuery->bindParam(':nom', $star_name);
+        $gQuery->bindParam(':id_membre', $user_id);
+        $gQuery->execute();
+
+
+        $row = $gQuery->fetch(PDO::FETCH_ASSOC);
+        $star_id = $row['id_etoile'];
+    } catch (PDOException $e) {
+        echo 'Erreur requête :' . $e->getMessage();
+    }
+
+    return $star_id;
 }

@@ -12,7 +12,7 @@ class Star {
 
     #element;
 
-    constructor(name, description, galaxyLinked, size, publicStar, x, y) {
+    constructor(name, description, galaxyLinked, size, publicStar, x, y, imgLinkArray) {
         this.#name = name;
         this.#description = description;
         this.#galaxyLinked = galaxyLinked;
@@ -22,7 +22,8 @@ class Star {
         this.#publicStar = publicStar;
         this.#element = this.toElement();
 
-        this.#imgLinkArray = new Array();
+        console.log("imgLinkArray: " + imgLinkArray);
+        this.#imgLinkArray = imgLinkArray;
     }
 
     toElement() {

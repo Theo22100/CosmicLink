@@ -166,7 +166,7 @@ function getElementsByText(str, tag) {
 function ajaxGMove(Gname, x, y) {
 
     $.ajax({
-        url: "galaxyDB.php",
+        url: "DBInterface/galaxyDB.php",
         type: "POST",
         data: {
             action: "move",
@@ -188,7 +188,7 @@ function ajaxGMove(Gname, x, y) {
 
 function ajaxGRemove(galaxy_name) {
     $.ajax({
-        url: "galaxyDB.php",
+        url: "DBInterface/galaxyDB.php",
         type: "POST",
         data: {
             action: "delete",

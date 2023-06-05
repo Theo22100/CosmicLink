@@ -18,7 +18,7 @@ if (isset($_SESSION['id'])) {
             case 'getMsg':
                 if (isset($_POST['contactUsername'])) {
                     $result = getMsg($handler, $user_id, userToId($handler,$_POST['contactUsername']),true);
-                    echo json_encode($result[0]);
+                    echo json_encode($result);
                 }
                 
                 break;

@@ -1,5 +1,6 @@
 <?php
 session_start();
+require './dbFunctions.php';
 if (isset($_SESSION['id'])) {
     $user_id = $_SESSION['id'];
     require '../connect.php';
@@ -17,7 +18,8 @@ if (isset($_SESSION['id'])) {
     } else if (isset($_GET['action'])) {
         switch ($_GET['action']) {
             case 'getFriends':
-                $result = getFriends($handler, $user_id);
+                //$result = getFriends($handler, $user_id);
+                $result = DBFunctions::getFriends($handler,$user_id);
                 echo json_encode($result);
                 break;
 

@@ -40,7 +40,6 @@ class Star
             }
         }
 
-        echo json_encode($this->arrayLink);
     }
 
     function displayStar()

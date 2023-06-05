@@ -84,7 +84,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
         //Supprimer dans table Ami
         try {
-            $requeteAmi = "DELETE FROM ami WHERE id_membre1 = :id OR id_membre2 = :id";
+            $requeteAmi = "DELETE FROM ami WHERE receiver = :id OR sender = :id";
             $stmtAmi = $connexion->prepare($requeteAmi);
             $stmtAmi->bindParam(':id', $id);
             $stmtAmi->execute();

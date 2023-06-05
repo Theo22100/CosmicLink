@@ -12,10 +12,17 @@ function closeChat() {
     CHAT.style.transform = "translateX(100%)";
     clearAllContactMessages();
 }
+const CHATBUTTON = document.getElementById("chat-section");
+
 
 const CONNECTBUTTON = document.getElementById("connect-section");
 CONNECTBUTTON.addEventListener("click",(event)=>{
     openConnect(event)
+});
+
+const FRIENDSBUTTON = document.getElementById("friends-section");
+FRIENDSBUTTON.addEventListener("click",(event)=>{
+    openFriends(event)
 });
 
 function addAllContactMessage(){

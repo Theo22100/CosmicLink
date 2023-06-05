@@ -1,17 +1,15 @@
-<div class="chat-div hidden" id="connect">
+<div class="chat-div hidden" id="friends">
     <div class="chat-top">
         <a id="chat-section">Chat</a>
-        <a id="friends-section">Friends</a>
-        <a class="active">Connect</a>
+        <a class="active">Friends</a>
+        <a id="connect-section">Connect</a>
     </div>
 
-
-    <div class="list-suggestion">
+    <div class="list-friends">
         <header class="search-friends">
             <input class="search-personnes" type="text" placeholder="search">
         </header>
-        <ul id="suggestions">
+        <ul id="suggestionsF">
 
         </ul>
     </div>
-</div>

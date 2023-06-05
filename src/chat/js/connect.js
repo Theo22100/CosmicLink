@@ -1,6 +1,6 @@
 const CONNECT = document.getElementById("connect");
 
-const CHATBUTTON = document.getElementById("chat-section");
+// const CHATBUTTON = document.getElementById("chat-section");
 
 function openConnect(event) {
     event.stopPropagation();
@@ -9,6 +9,7 @@ function openConnect(event) {
     addAllSuggestions();
     CONNECT.style.transform = "translateX(0%)";
     CONNECT.classList.remove("hidden");
+    
 }
 
 function closeConnect() {
@@ -21,6 +22,13 @@ function closeConnect() {
 CHATBUTTON.addEventListener("click", (event)=>{
     clearAllSuggestions();
     CONNECT.classList.add("hidden");
+});
+
+
+
+CONNECTBUTTON.addEventListener("click", (event)=>{
+    clearAllFSuggestions();
+    CHAT.classList.add("hidden");
 });
 
 function addAllSuggestions(){

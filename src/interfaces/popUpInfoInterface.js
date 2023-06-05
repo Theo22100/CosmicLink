@@ -35,8 +35,9 @@ class popUpInfo extends Interface {
 
     loadStarInfo(starObject) {
         this.setName(starObject.getName());
-        console.log("starObject.getDescription(): " + starObject.getDescription());
         this.setDescription(starObject.getDescription());
+
+        this.initCarousel(starObject.getImgLinkArray());
     }
 
     loadGalaxyInfo(galaxyObject) {
@@ -78,7 +79,7 @@ class popUpInfo extends Interface {
 
 
         for (let i = 0; i < linksArray.length; i++) {
-            addImageCarousel(linksArray[i]);
+            this.addImageCarousel(linksArray[i]);
         }
 
 
@@ -88,28 +89,28 @@ class popUpInfo extends Interface {
             const previousCarousel = document.createElement("button");
             previousCarousel.id = "navigation-previous";
             const iconPrevious = document.createElement("img");
-            iconPrevious.src = "../../img/chevron-right.png";
+            iconPrevious.src = "../img/chevron-right.png";
             previousCarousel.appendChild(iconPrevious);
             mem.appendChild(previousCarousel);
 
             const nextCarousel = document.createElement("button");
             nextCarousel.id = "navigation-next";
             const iconNext = document.createElement("img");
-            iconNext.src = "../../img/chevron-right.png";
+            iconNext.src = "../img/chevron-right.png";
             nextCarousel.appendChild(iconNext);
             mem.appendChild(nextCarousel);
 
-            nextCarousel.addEventListener("click", (event) => goNextCarousel());
-            previousCarousel.addEventListener("click", (event) => goPreviousCarousel());
+            nextCarousel.addEventListener("click", (event) => popUpInfo.goNextCarousel());
+            previousCarousel.addEventListener("click", (event) => popUpInfo.goPreviousCarousel());
         }
     }
 
-    goNextCarousel() {
+    static goNextCarousel() {
         const imgContainer = document.getElementById("image-caroussel");
         const currentImg = document.querySelector('[data-status="active"]');
         let idImg = currentImg.getAttribute('data-index');
         let nextId = parseInt(idImg) + 1;
-        console.log(imgContainer.childElementCount);
+        
         if (nextId > (imgContainer.childElementCount - 1)) nextId = 0;
 
         const nextImg = document.querySelector('[data-index="' + nextId + '"]');
@@ -118,14 +119,13 @@ class popUpInfo extends Interface {
         currentImg.setAttribute("data-status", "inactive");
     }
 
-    goPreviousCarousel() {
+    static goPreviousCarousel() {
         const imgContainer = document.getElementById("image-caroussel");
         const currentImg = document.querySelector('[data-status="active"]');
         let idImg = currentImg.getAttribute('data-index');
         let nextId = parseInt(idImg) - 1;
         if (nextId < 0) nextId = imgContainer.childElementCount - 1;
 
-        console.log("nextId: " + nextId);
         const nextImg = document.querySelector('[data-index="' + nextId + '"]');
 
         nextImg.setAttribute("data-status", "active");

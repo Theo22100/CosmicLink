@@ -8,7 +8,7 @@ class Star {
     #y;
     #publicStar;
 
-    #imgLinkArray = [];
+    #imgLinkArray;
 
     #element;
 
@@ -21,6 +21,8 @@ class Star {
         this.#y = y;
         this.#publicStar = publicStar;
         this.#element = this.toElement();
+
+        this.#imgLinkArray = new Array();
     }
 
     toElement() {
@@ -195,8 +197,8 @@ class Star {
         this.#imgLinkArray = newImgLinkArray;
     }
 
-    addImgLinkArray(newLink){
-        this.#imgLinkArray.push(newLink);
+    addImgLinkArray(newLink, id){
+        this.#imgLinkArray.splice(parseInt(id), 0, newLink);
     }
 
     removeImgLinkArray(link){

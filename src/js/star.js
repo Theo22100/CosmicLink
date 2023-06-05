@@ -19,7 +19,8 @@ function openCreateStarInterface() { //ouvre la fenetre d'edit/ajout d'étoile
 
 function openEditStarInterface(){
     newStar = new Star(currentStar.getName(), currentStar.getDescription(), currentStar.getGalaxyLinked(), currentStar.getSize(), currentStar.getPublicStar(), currentStar.getX(), currentStar.getY());
-    
+    newStar.setImgLinkArray(currentStar.getImgLinkArray());
+
     firstPageInterface.openInterface(true);
     firstPageInterface.loadChanges(newStar);
     thirdPageInterface.setEditing(true);

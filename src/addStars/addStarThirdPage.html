@@ -13,7 +13,7 @@
 </html>
 
 <body>
-    <div class="ui hidden" id="starui">
+    <div class="ui hidden" id="starui3">
         <header>
             <p>Add Star</p>
             <p>Add some photos to spice up those memories</p>
@@ -25,23 +25,24 @@
         <div class="ui_body">
 
             <p class="inputText">Pictures <span>(optionnal)</span></p>
-            
+
             <div class="pictureDiv">
 
                 <div class="carousel">
                     <div id="carousel-content"></div>
                     <button id="caroussel-prev">
                         <img src="../../img/chevron-right.png">
-                      </button>
-                      <button id="caroussel-next">
+                    </button>
+                    <button id="caroussel-next">
                         <img src="../../img/chevron-right.png">
-                      </button>
+                    </button>
                 </div>
 
 
                 <footer class="pictureOption">
                     <button id="file-remove" onclick="removeCurrent()">Remove</button>
-                    <input id="file-picture" type="file" name="file-picture[]" onchange="handleImageUpload(this)"></input>
+                    <input id="file-picture" type="file" name="file-picture[]"
+                        onchange="handleImageUpload(this)"></input>
                     <label class="upload" for="file-picture">
                         <span>Add</span>
                     </label>

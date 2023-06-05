@@ -66,14 +66,14 @@ function addContactMessage(name, previousMessage){
 
 function ajaxGetContacts(first) {
     $.ajax({
-        url: "chat/chatDB.php",
+        url: "DBInterface/chatDB.php",
         type: "POST",
         //TODO Trouver moyen de cache
         data: {
             action: "getContacts"
         },
         success: function (response) {
-            console.log(response);
+            
             const contacts = JSON.parse(response);
             if ((contacts[1] != 0) || first) {
                 if (!first) {clearAllContactMessages();}

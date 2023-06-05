@@ -118,7 +118,7 @@ function sendMessage() {
 
 function ajaxGetMessages(username,first) {
     $.ajax({
-        url: "chat/chatDB.php",
+        url: "DBInterface/chatDB.php",
         type: "POST",
         //TODO Trouver moyen de cache
         data: {
@@ -153,7 +153,7 @@ function stopCall(){
 
 function ajaxSendMsg(name, msgTxt) {
     $.ajax({
-        url: "chat/chatDB.php",
+        url: "DBInterface/chatDB.php",
         type: "POST",
         data: {
             action: 'sendMsg',
@@ -162,7 +162,6 @@ function ajaxSendMsg(name, msgTxt) {
         },
         cache: true,
         success: function (response) {
-            console.log(response);
 
         },
         error: function (xhr, status, error) {

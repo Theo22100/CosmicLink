@@ -40,6 +40,15 @@ else {
 
     <div id="invisible" class="hidden"> </div>
 
+    <script src="./interfaces/InterfaceClass.js"></script>
+    <script src="./interfaces/AddStarPageOneInterface.js"></script>
+    <script src="./interfaces/AddStarPageSecondInterface.js"></script>
+    <script src="./interfaces/AddStarPageThirdInterface.js"></script>
+
+    <script src="./interfaces/AddGalaxyInterface.js"></script>
+
+    <script src="./interfaces/popUpInfoInterface.js"></script>
+
     <script src="./js/home.js"></script>
     <script src="./js/star.js"></script>
     <script src="./js/StarClass.js"></script>

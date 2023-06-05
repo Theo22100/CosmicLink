@@ -174,7 +174,7 @@ function ajaxMove(Sname, Gname, x, y) {
 
 
     $.ajax({
-        url: "starDB.php",
+        url: "DBInterface/starDB.php",
         type: "POST",
         data: {
             action: "move",
@@ -197,7 +197,7 @@ function ajaxMove(Sname, Gname, x, y) {
 
 function ajaxRemove(galaxy_name, star_name) {
     $.ajax({
-        url: "starDB.php",
+        url: "DBInterface/starDB.php",
         type: "POST",
         data: {
             action: "delete",

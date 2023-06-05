@@ -103,7 +103,7 @@ class pageAddGalaxy extends Interface{
     static ajaxGAdd(Gname, Gdesc, x, y, GpublicGalaxy) {
 
         $.ajax({
-            url: "galaxyDB.php",
+            url: "DBInterface/galaxyDB.php",
             type: "POST",
             data: {
                 action: 'add',
@@ -124,7 +124,7 @@ class pageAddGalaxy extends Interface{
 
     static ajaxGEdit(oldName, newName, galaxyDesc, GpublicGalaxy){
         $.ajax({
-            url: "galaxyDB.php",
+            url: "DBInterface/galaxyDB.php",
             type: "POST",
             data: {
                 action: 'edit',

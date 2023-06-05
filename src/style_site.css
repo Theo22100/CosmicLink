@@ -2,9 +2,8 @@
     font-family: Georgia,serif;
 }
 #background {
-    height: 100%; 
-    width: 100%;
-    background-image: radial-gradient(circle at center,#2e3085, #191b7c, #070e74e5,#1d376ee5);
+   height: 1000px; 
+   background-image: radial-gradient(circle at center,#100a1f, #1d0f30, #11152ee5,#000818e5);
 }
 
 #univers{

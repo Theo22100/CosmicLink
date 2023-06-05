@@ -1,10 +1,16 @@
 <?php
+
 session_start();
 if (isset($_SESSION['id'])) {
     $user_id = $_SESSION['id'];
 }
+try {
+    require '../connect.php';
+}   
+catch (PDOException $e){
+    echo 'Echec : ' . $e->getMessage();
+}
 
-require 'connect.php';
 
 if (isset($_POST['action'])) {
     switch ($_POST['action']) {
@@ -12,7 +18,6 @@ if (isset($_POST['action'])) {
             addStar($handler, $user_id);
             break;
         case 'edit':
-            echo 'about to edit';
             editStar($handler, $user_id);
             break;
         case 'move':
@@ -26,11 +31,15 @@ if (isset($_POST['action'])) {
             echo "default";
             break;
     }
-} else if (isset($_GET['action'])) {
+} 
+else if (isset($_GET['action'])) {
     switch ($_GET['action']) {
-        case 'getGalaxies':
-            getGalaxies($handler, $user_id);
+        case 'getGalaxies':            
+            $result = getGalaxies($handler, $user_id);
+            $galaxieJSON = json_encode($result);
+            echo $galaxieJSON;
             break;
+
         default : break;
     }
 }
@@ -180,8 +189,7 @@ function getGalaxies($handler, $user_id)
                 $galaxies[] =$row['galaxie_nom'];
             }
         }
-        $galaxieJSON = json_encode($galaxies);
-        echo $galaxieJSON;
+        return $galaxies;
     } catch (PDOException $e) {
         echo 'Echec Requête : ' . $e->getMessage();
     }

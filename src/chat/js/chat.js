@@ -1,15 +1,17 @@
 const CHAT = document.getElementById("chat");
+let timeoutContact;
 function openChat(event) {
     event.stopPropagation();
     closeOption();
     onclickoutside(closeChat);
-    ajaxGetContacts();
+    ajaxGetContacts(true);
     CHAT.style.transform = "translateX(0%)";
 }
 
 function closeChat() {
     CHAT.style.transform = "translateX(100%)";
     clearAllContactMessages();
+    stopContactCall();
 }
 
 const CONNECTBUTTON = document.getElementById("connect-section");
@@ -62,18 +64,21 @@ function addContactMessage(name, previousMessage){
 
 }
 
-function ajaxGetContacts() {
+function ajaxGetContacts(first) {
     $.ajax({
-        url: "chat/chatDB.php",
+        url: "DBInterface/chatDB.php",
         type: "POST",
         //TODO Trouver moyen de cache
         data: {
             action: "getContacts"
         },
         success: function (response) {
-            console.log(response);
+            
             const contacts = JSON.parse(response);
-            addAllContactMessage(contacts);
+            if ((contacts[1] != 0) || first) {
+                if (!first) {clearAllContactMessages();}
+                addAllContactMessage(contacts);
+            }
             
         },
         error: function (xhr, status, error) {
@@ -82,5 +87,13 @@ function ajaxGetContacts() {
         }
     });
 
+    updateContactCall();
+}
 
+function updateContactCall() {
+    timeoutContact = setTimeout(function () { ajaxGetContacts(false) }, 3000);
+}
+
+function stopContactCall(){
+    clearTimeout(timeoutContact);
 }

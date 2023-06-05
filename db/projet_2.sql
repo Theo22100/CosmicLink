@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost:3306
--- Generation Time: Jun 01, 2023 at 05:59 PM
+-- Generation Time: Jun 05, 2023 at 01:18 PM
 -- Server version: 5.7.24
 -- PHP Version: 8.0.1
 
@@ -29,8 +29,8 @@ SET time_zone = "+00:00";
 
 CREATE TABLE `ami` (
   `id_amitie` int(11) NOT NULL,
-  `id_membre1` int(11) NOT NULL,
-  `id_membre2` int(11) NOT NULL,
+  `sender` int(11) NOT NULL,
+  `receiver` int(11) NOT NULL,
   `statut` varchar(1) NOT NULL DEFAULT 'E'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
@@ -212,8 +212,9 @@ INSERT INTO `univers` (`id_univers`, `id_membre`, `public`) VALUES
 --
 ALTER TABLE `ami`
   ADD PRIMARY KEY (`id_amitie`),
-  ADD KEY `id_membre1` (`id_membre1`),
-  ADD KEY `id_membre2` (`id_membre2`);
+  ADD UNIQUE KEY `sender_2` (`sender`,`receiver`),
+  ADD KEY `sender` (`sender`),
+  ADD KEY `receiver` (`receiver`);
 
 --
 -- Indexes for table `chat`
@@ -243,7 +244,8 @@ ALTER TABLE `galaxie`
 -- Indexes for table `membre`
 --
 ALTER TABLE `membre`
-  ADD PRIMARY KEY (`id`);
+  ADD PRIMARY KEY (`id`),
+  ADD UNIQUE KEY `pseudo` (`pseudo`);
 
 --
 -- Indexes for table `univers`
@@ -300,8 +302,8 @@ ALTER TABLE `univers`
 -- Constraints for table `ami`
 --
 ALTER TABLE `ami`
-  ADD CONSTRAINT `ami_ibfk_1` FOREIGN KEY (`id_membre1`) REFERENCES `membre` (`id`),
-  ADD CONSTRAINT `ami_ibfk_2` FOREIGN KEY (`id_membre2`) REFERENCES `membre` (`id`);
+  ADD CONSTRAINT `ami_ibfk_1` FOREIGN KEY (`sender`) REFERENCES `membre` (`id`),
+  ADD CONSTRAINT `ami_ibfk_2` FOREIGN KEY (`receiver`) REFERENCES `membre` (`id`);
 
 --
 -- Constraints for table `chat`

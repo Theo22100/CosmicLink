@@ -2,53 +2,55 @@
 session_start();
 if (isset($_SESSION['id'])) {
     $user_id = $_SESSION['id'];
-}
+    require '../connect.php';
 
-require 'connect.php';
+    if (isset($_POST['action'])) {
+        switch ($_POST['action']) {
+            case 'add':
+                addGalaxy($handler, $user_id);
+                break;
+            case 'edit':
+                editGalaxy($handler, $user_id);
+                break;
+            case 'move':
+                moveGalaxy($handler, $user_id);
+                break;
+            case 'delete':
+                deleteGalaxy($handler, $user_id);
+                break;
 
-if (isset($_POST['action'])) {
-    switch ($_POST['action']) {
-        case 'add':
-            addGalaxy($handler, $user_id);
-            break;
-        case 'edit':
-            editGalaxy($handler, $user_id);
-            break;
-        case 'move':
-            moveGalaxy($handler, $user_id);
-            break;
-        case 'delete':
-            deleteGalaxy($handler, $user_id);
-            break;
-
-        default:
-            echo "default";
-            break;
+            default:
+                echo "default";
+                break;
+        }
     }
 }
+
 
 /**
  * Adds a star to database, according to informations captured in Javascript
  */
 function addGalaxy($handler, $user_id)
 {
-    if (isset($_POST['x']) && isset($_POST['y']) && isset($_POST['name']) && isset($_POST['descr'])) {
+    if (isset($_POST['x']) && isset($_POST['y']) && isset($_POST['name']) && isset($_POST['descr']) && isset($_POST['publicGalaxy'])) {
         $name = strtolower($_POST['name']);
-        if ($name == '') $name = NULL;
+        if ($name == '') $name = NULL; //TODO faire une erreur 
 
         $descr = ($_POST['descr']);
         $y = intval($_POST['y']);
         $x = intval($_POST['x']);
         $universe_id = userToUniversId($handler, $user_id);
+        $public = intval($_POST['publicGalaxy']);
 
         try {
 
-            $query = $handler->prepare("INSERT INTO galaxie (galaxie_nom,descr,cox,coy,id_univers) VALUES (:nom,:descr,:x,:y,:univers_id)");
+            $query = $handler->prepare("INSERT INTO galaxie (galaxie_nom,descr,cox,coy,id_univers,public) VALUES (:nom,:descr,:x,:y,:univers_id,:public)");
             $query->bindParam(':nom', $name);
             $query->bindParam(':descr', $descr);
             $query->bindParam(':x', $x);
             $query->bindParam(':y', $y);
             $query->bindParam(':univers_id', $universe_id);
+            $query->bindParam(':public', $public);
             $query->execute();
         } catch (PDOException $e) {
 
@@ -60,19 +62,21 @@ function addGalaxy($handler, $user_id)
 function editGalaxy($handler, $user_id)
 {
     echo "in here";
-    if (isset($_POST['old_name']) && isset($_POST['new_name']) && isset($_POST['descr'])) {
+    if (isset($_POST['old_name']) && isset($_POST['new_name']) && isset($_POST['descr']) && isset($_POST['publicGalaxy'])) {
         $old_name = treatGalaxyName($handler, $_POST['old_name']);
         $new_name = treatGalaxyName($handler, $_POST['new_name']);
         $descr = ($_POST['descr']);
+        $public = intval($_POST['publicGalaxy']);
 
         $universe_id = userToUniversId($handler, $user_id);
         try {
 
-            $query = $handler->prepare("UPDATE galaxie SET galaxie_nom=:new_name, descr=:descr WHERE galaxie_nom=:old_name AND id_univers=:id_univers");
+            $query = $handler->prepare("UPDATE galaxie SET galaxie_nom=:new_name, descr=:descr, public=:public WHERE galaxie_nom=:old_name AND id_univers=:id_univers");
             $query->bindParam(':new_name', $new_name);
             $query->bindParam(':old_name', $old_name);
             $query->bindParam(':descr', $descr);
             $query->bindParam(':id_univers', $universe_id);
+            $query->bindParam(':public', $public);
             $query->execute();
         } catch (PDOException $e) {
 
@@ -107,18 +111,17 @@ function deleteGalaxy($handler, $user_id)
     if (isset($_POST['name'])) {
         $galaxy_name = treatGalaxyName($handler, $_POST['name']);
         $galaxy_id = galaxyNameToId($handler, $galaxy_name, $user_id);
-       
     }
 
     try {
-        
+
         $q0 = $handler->prepare(
             "SELECT nom FROM etoile WHERE id_galaxie = :galaxy_id"
         );
         $q0->bindParam(':galaxy_id', $galaxy_id);
         $q0->execute();
 
-        $deletedStars = Array();
+        $deletedStars = array();
         while ($row = $q0->fetch(PDO::FETCH_ASSOC)) {
             $deletedStars[] = $row['nom'];
         }
@@ -129,7 +132,7 @@ function deleteGalaxy($handler, $user_id)
         );
         $q->bindParam(':galaxy_id', $galaxy_id);
         $q->execute();
-        
+
 
         $q2 =  $handler->prepare(
             "DELETE FROM galaxie WHERE id_galaxie = :galaxy_id"

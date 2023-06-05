@@ -9,7 +9,9 @@ class Star
     private $star_x;
     private $star_y;
 
-    function __construct($star_id, $star_name, $galaxy_name, $star_desc, $star_size, $star_x, $star_y)
+    private $public;
+
+    function __construct($star_id, $star_name, $galaxy_name, $star_desc, $star_size, $star_x, $star_y, $public)
     {
         $this->star_id = $star_id;
         $this->star_name = $star_name;
@@ -18,6 +20,7 @@ class Star
         $this->star_size = $star_size;
         $this->star_x = $star_x;
         $this->star_y = $star_y;
+        $this->public = $public;
     }
 
     function displayStar()
@@ -35,6 +38,7 @@ class Star
                 <?php echo json_encode($displayed_galaxy_name); ?>,
                 <?php echo json_encode($this->star_desc); ?>,
                 <?php echo $this->star_size; ?>,
+                <?php echo $this->public; ?>,
                 <?php echo $this->star_x; ?>,
                 <?php echo $this->star_y; ?>
             );

@@ -1,9 +1,10 @@
 const CHAT = document.getElementById("chat");
+let timeoutContact;
 function openChat(event) {
     event.stopPropagation();
     closeOption();
     onclickoutside(closeChat);
-    addAllContactMessage();
+    ajaxGetContacts(true);
     CHAT.style.transform = "translateX(0%)";
     //  CONNECT.classList.add("active");
 }
@@ -11,6 +12,7 @@ function openChat(event) {
 function closeChat() {
     CHAT.style.transform = "translateX(100%)";
     clearAllContactMessages();
+    stopContactCall();
 }
 const CHATBUTTON = document.getElementById("chat-section");
 
@@ -20,17 +22,14 @@ CONNECTBUTTON.addEventListener("click",(event)=>{
     openConnect(event)
 });
 
-const FRIENDSBUTTON = document.getElementById("friends-section");
-FRIENDSBUTTON.addEventListener("click",(event)=>{
-    openFriends(event)
-});
-
-function addAllContactMessage(){
-    console.log();
-    addContactMessage("Josh","oui oui baguette");
-    addContactMessage("Baptiste","oui non baguette");
-    addContactMessage("Johnny","texxte");
-    addContactMessage("Joshua","peut être");
+function addAllContactMessage(contacts){
+  
+    for (let i = 0; i <contacts.length; i++) {
+        const contactName = contacts[i][0];
+        const lastMsg = contacts[i][1];
+        const numberUnread = contacts[i][2];
+        addContactMessage(contactName,lastMsg);
+    } 
 
 }
 
@@ -64,6 +63,40 @@ function addContactMessage(name, previousMessage){
 
     PREVIOUSCHATS.appendChild(li);
 
-    li.addEventListener("click", openChatWith);
+    li.addEventListener("click", (event) => openChatWith(name));
 
+}
+
+function ajaxGetContacts(first) {
+    $.ajax({
+        url: "DBInterface/chatDB.php",
+        type: "POST",
+        //TODO Trouver moyen de cache
+        data: {
+            action: "getContacts"
+        },
+        success: function (response) {
+            
+            const contacts = JSON.parse(response);
+            if ((contacts[1] != 0) || first) {
+                if (!first) {clearAllContactMessages();}
+                addAllContactMessage(contacts);
+            }
+            
+        },
+        error: function (xhr, status, error) {
+            // Handle errors
+            console.error(error);
+        }
+    });
+
+    updateContactCall();
+}
+
+function updateContactCall() {
+    timeoutContact = setTimeout(function () { ajaxGetContacts(false) }, 3000);
+}
+
+function stopContactCall(){
+    clearTimeout(timeoutContact);
 }

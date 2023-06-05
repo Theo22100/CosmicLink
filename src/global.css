@@ -63,3 +63,14 @@
     --grey800: #0C0D11;
     --grey900: #000000;
 }
+
+.firstView{
+    z-index: 999;
+}
+
+.invisible-background{
+    z-index: 998;
+    position: absolute;
+    width: 100%;
+    height: 100%;
+}

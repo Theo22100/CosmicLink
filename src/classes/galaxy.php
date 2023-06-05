@@ -7,17 +7,18 @@ class Galaxy
     public $galaxy_desc;
     public $galaxy_x;
     public $galaxy_y;
+    public $galaxy_public;
 
     private $stars;
 
-    function __construct($galaxy_id, $galaxy_name, $galaxy_desc, $galaxy_x, $galaxy_y)
+    function __construct($galaxy_id, $galaxy_name, $galaxy_desc, $galaxy_x, $galaxy_y, $galaxy_public)
     {
         $this->galaxy_id = $galaxy_id;
         $this->galaxy_name = $galaxy_name;
         $this->galaxy_desc = $galaxy_desc;
         $this->galaxy_x = $galaxy_x;
         $this->galaxy_y = $galaxy_y;
-        $this->fetchStars();
+        $this->galaxy_public = $galaxy_public;
     }
 
     function getInfo()
@@ -32,7 +33,7 @@ class Galaxy
     }
 
 
-    function fetchStars()
+    function fetchStars($viewOnly)
     {
         require 'connect.php';
 
@@ -46,11 +47,14 @@ class Galaxy
 
         $i = 0;
         while ($row = $sql->fetch(PDO::FETCH_ASSOC)) {
-            $s = new Star($row['id_etoile'], $row['nom'], $this->galaxy_name, $row['descr'], $row['taille'], $row['cox'], $row['coy']);
 
-            $this->stars[$i] = $s;
-            $s->displayStar();
-            $i = $i + 1;
+            if ($row['public'] || !$viewOnly) {
+                $s = new Star($row['id_etoile'], $row['nom'], $this->galaxy_name, $row['descr'], $row['taille'], $row['cox'], $row['coy'], $row['public']);
+
+                $this->stars[$i] = $s;
+                $s->displayStar();
+                $i = $i + 1;
+            }
         }
 
         print_r($stars);
@@ -67,6 +71,7 @@ class Galaxy
                 addGalaxyWithInfo(
                     <?php echo json_encode($displayed_galaxy_name); ?>,
                     <?php echo json_encode($this->galaxy_desc); ?>,
+                    <?php echo $this->galaxy_public; ?>,
                     <?php echo $this->galaxy_x; ?>,
                     <?php echo $this->galaxy_y; ?>
                 );

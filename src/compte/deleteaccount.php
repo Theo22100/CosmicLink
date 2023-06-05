@@ -6,15 +6,19 @@ if (!isset($_SESSION['login'])) {
 
 // Vérifier que le formulaire a été soumis
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
+
+    $id = $_SESSION['id'];
+
+
     $servername = "localhost";
     $username = "root";
     $password_db = "root";
     $dbname = "projet";
-    $id = $_SESSION['id'];
+
 
     $password = $_POST["password"];
 
-    // Connexion à la base de données
+    // Connexion à la base de données + Détection mot de passe
     try {
         $connexion = new PDO("mysql:host=$servername;dbname=$dbname", $username, $password_db);
         // Configuration des attributs de connexion
@@ -29,40 +33,81 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     }
 
     if ($result && password_verify($password, $result['password'])) {
-        // Identifiant unique de l'utilisateur
-        // Supprimer les références dans la table "galaxie"
+         // Supprimer les références dans la table "galaxie"
         try {
-            $requete1 = "DELETE FROM galaxie WHERE id_univers IN (SELECT id_univers FROM univers WHERE id = :id)";
-            $stmt1 = $connexion->prepare($requete1);
-            $stmt1->bindParam(':id', $id);
-            $stmt1->execute();
+            // Récupérer id_galaxie
+            $requeteIdGalaxie = "SELECT id_galaxie FROM galaxie WHERE id_univers IN (SELECT id_univers FROM univers WHERE id = :id)";
+            $stmtIdGalaxie = $connexion->prepare($requeteIdGalaxie);
+            $stmtIdGalaxie->bindParam(':id', $id);
+            $stmtIdGalaxie->execute();
+
+            $row = $stmtIdGalaxie->fetch(PDO::FETCH_ASSOC);
+            $id_galaxie = $row['id_galaxie'];
+        } catch (PDOException $e) {
+            echo "Recuperation Id galaxie échoué : " . $e->getMessage();
+        }
+
+
+        //Supprimer dans table Etoiles
+        try {
+            $requeteEtoile = "DELETE FROM etoile WHERE id_galaxie = :idgalaxie";
+            $stmtEtoile = $connexion->prepare($requeteEtoile);
+            $stmtEtoile->bindParam(':idgalaxie', $id_galaxie);
+            $stmtEtoile->execute();
+        } catch (PDOException $e) {
+            echo "Suppression Etoiles a échoué : " . $e->getMessage();
+        }
+
+         // Supprimer les références dans la table "galaxie"
+         try {
+            // Récupérer id_univers
+            $requeteGalaxie = "DELETE FROM galaxie WHERE id_univers IN (SELECT id_univers FROM univers WHERE id = :id)";
+            $stmtGalaxie = $connexion->prepare($requeteGalaxie);
+            $stmtGalaxie->bindParam(':id', $id);
+            $stmtGalaxie->execute();
         } catch (PDOException $e) {
             echo "La suppression Galaxie a échoué : " . $e->getMessage();
         }
 
+
+
+
         // Supprimer les lignes dans la table "univers"
         try {
-            $requete2 = "DELETE FROM univers WHERE id = :id";
-            $stmt2 = $connexion->prepare($requete2);
-            $stmt2->bindParam(':id', $id);
-            $stmt2->execute();
+            $requeteUnivers = "DELETE FROM univers WHERE id = :id";
+            $stmtUnivers = $connexion->prepare($requeteUnivers);
+            $stmtUnivers->bindParam(':id', $id);
+            $stmtUnivers->execute();
         } catch (PDOException $e) {
             echo "La suppression Univers a échoué : " . $e->getMessage();
         }
 
+        //Supprimer dans table Ami
+        try {
+            $requeteAmi = "DELETE FROM ami WHERE id_membre1 = :id OR id_membre2 = :id";
+            $stmtAmi = $connexion->prepare($requeteAmi);
+            $stmtAmi->bindParam(':id', $id);
+            $stmtAmi->execute();
+        } catch (PDOException $e) {
+            echo "La suppression Ami a échoué : " . $e->getMessage();
+        }
+
         // Supprimer la ligne dans la table "membre"
         try {
-            $requete3 = "DELETE FROM membre WHERE id = :id";
-            $stmt3 = $connexion->prepare($requete3);
-            $stmt3->bindParam(':id', $id);
-            $stmt3->execute();
+            $requeteMembre = "DELETE FROM membre WHERE id = :id";
+            $stmtMembre = $connexion->prepare($requeteMembre);
+            $stmtMembre->bindParam(':id', $id);
+            $stmtMembre->execute();
         } catch (PDOException $e) {
             echo "La suppression Membre a échoué : " . $e->getMessage();
         }
 
+
+        
+
         //SUPPRIME LE REPERTOIRE PHOTO DE PROFIL
 
-        $repertoire = '../img/profil/' . $id;
+        $repertoire = '../../img/profil/' . $id;
 
         // Récupérer la liste des fichiers dans le répertoire
         $fichiers = glob($repertoire . '/*');
@@ -80,7 +125,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         }
 
         // Envoie une pop up pour prévenir du renvoie
-
+        $connexion = null;
         echo '<script>';
         echo 'alert("Le compte utilisateur a été supprimé avec succès. Vous allez être redirigé(e) vers la page de login.");';
         echo 'setTimeout(function(){ window.location.href = "deconnexion.php"; }, 500);';

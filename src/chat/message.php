@@ -7,7 +7,7 @@
             </a>
             <img src="../img/profile-pic.png">
             <div>
-                <p class="nom">Josh Phil</p>
+                <p class="nom" id="messageProfileName">Josh Phil</p>
                 <p class="status orange">Online</p>
             </div>
         </header>
@@ -18,8 +18,8 @@
         </ul>
 
         <footer class="sendMessages">
-            <input type="text" placeholder="Enter your message...">
-            <input type="submit" value="Send">
+            <input type="text" placeholder="Enter your message..." id="textMessage">
+            <input type="submit" value="Send" id="sendMessage">
         </footer>
     </div>
 

@@ -12,39 +12,37 @@
         {
             $this->member_id = $member_id;
             $this->universe_id = $universe_id;
-            $this->fetchGalaxies();
         }
 
-        
-        private function fetchGalaxies()
+
+        public function fetchGalaxies($viewOnly)
         {
             require 'connect.php';
             try {
                 $sql = $handler->prepare("SELECT * FROM galaxie WHERE id_univers = :id_univers");
                 $sql->bindParam(':id_univers', $this->universe_id);
                 $sql->execute();
-
-                
             } catch (PDOException $e) {
                 echo 'Echec requête : ' .  $e->getMessage();
             }
-            
-            $i = 0;
+
             while ($row = $sql->fetch(PDO::FETCH_ASSOC)) {
-                $g = new Galaxy($row['id_galaxie'],$row['galaxie_nom'],$row['descr'],$row['cox'],$row['coy']);
-                     
-                $this->galaxies[$i] = $g;
-                $g->displayGalaxy();
-                $i = $i + 1;
+                if ($row['public'] || !$viewOnly) {
+                    $g = new Galaxy($row['id_galaxie'],$row['galaxie_nom'],$row['descr'],$row['cox'],$row['coy'], $row['public']);
+                    $g->fetchStars($viewOnly);
+                    
+                    $this->galaxies[$i] = $g;
+                    $g->displayGalaxy();
+                    $i = $i + 1;
+                }
             }
         }
 
 
-        function getGalaxies(){
+        function getGalaxies()
+        {
             return $this->galaxies;
         }
-
-        
     }
 
     ?>

@@ -23,10 +23,13 @@ if (!isset($_SESSION['login'])) {
     <link rel="stylesheet" href="./chat/css/connect.css">
     <link rel="stylesheet" href="./chat/css/friends.css">
 
-    <link rel="stylesheet" href="addStarUI.css">
     <link rel="stylesheet" href="menu.css">
     <link rel="stylesheet" href="style_site.css">
 
+
+    
+    <link rel="stylesheet" href="global.css">
+    <link rel="stylesheet" href="./addStars/css/addStar.css">
 
 </head>
 
@@ -68,9 +71,6 @@ if (!isset($_SESSION['login'])) {
 
     <?php
 
-    include("addStar.php");
-    include("addGalaxy.php");
-
     include("./chat/chat.php");
     include("./chat/message.php");
     include("./chat/connect.php");
@@ -80,6 +80,16 @@ if (!isset($_SESSION['login'])) {
 
     <div id="invisible" class="hidden"> </div>
 
+    
+    <script src="./addStars/InterfaceClass.js"></script>
+    <script src="./addStars/AddStarPageOneInterface.js"></script>
+    <script src="./addStars/AddStarPageSecondInterface.js"></script>
+    <script src="./addStars/AddStarPageThirdInterface.js"></script>
+
+    
+    <script src="./addGalaxys/AddGalaxyInterface.js"></script>
+
+    
     <script src="./js/home.js"></script>
     <script src="./js/star.js"></script>
     <script src="./js/StarClass.js"></script>
@@ -90,6 +100,8 @@ if (!isset($_SESSION['login'])) {
     <script src="./chat/js/friends.js"></script>
     <script src="./chat/js/message.js"></script>
     <script src="./chat/js/connect.js"></script>
+
+
 
     <?php
     require 'connect.php';
@@ -110,6 +122,7 @@ if (!isset($_SESSION['login'])) {
         echo 'Echec : ' . $e->getMessage();
     }
    $u1 = new Universe($user_id,$universe_id);
+   $u1->fetchGalaxies(false);
        
     ?>
 </body>

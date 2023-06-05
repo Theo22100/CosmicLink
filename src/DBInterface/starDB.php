@@ -1,10 +1,16 @@
 <?php
+
 session_start();
 if (isset($_SESSION['id'])) {
     $user_id = $_SESSION['id'];
 }
+try {
+    require '../connect.php';
+}   
+catch (PDOException $e){
+    echo 'Echec : ' . $e->getMessage();
+}
 
-require 'connect.php';
 
 if (isset($_POST['action'])) {
     switch ($_POST['action']) {
@@ -12,7 +18,6 @@ if (isset($_POST['action'])) {
             addStar($handler, $user_id);
             break;
         case 'edit':
-            echo 'about to edit';
             editStar($handler, $user_id);
             break;
         case 'move':
@@ -21,16 +26,20 @@ if (isset($_POST['action'])) {
         case 'delete':
             deleteStar($handler, $user_id);
             break;
-
+        
         default:
             echo "default";
             break;
     }
-} else if (isset($_GET['action'])) {
+} 
+else if (isset($_GET['action'])) {
     switch ($_GET['action']) {
-        case 'getGalaxies':
-            getGalaxies($handler, $user_id);
+        case 'getGalaxies':            
+            $result = getGalaxies($handler, $user_id);
+            $galaxieJSON = json_encode($result);
+            echo $galaxieJSON;
             break;
+
         default : break;
     }
 }
@@ -39,7 +48,7 @@ if (isset($_POST['action'])) {
  */
 function addStar($handler, $user_id)
 {
-    if (isset($_POST['x']) && isset($_POST['y']) && isset($_POST['name']) && isset($_POST['size']) && isset($_POST['descr']) && isset($_POST['galaxy_name'])) {
+    if (isset($_POST['x']) && isset($_POST['y']) && isset($_POST['name']) && isset($_POST['size']) && isset($_POST['descr']) && isset($_POST['galaxy_name']) && isset($_POST['public'])) {
         $name = ($_POST['name']);
         $descr = ($_POST['descr']);
         $galaxy_name = ($_POST['galaxy_name']);
@@ -48,18 +57,21 @@ function addStar($handler, $user_id)
         $y = intval($_POST['y']);
         $x = intval($_POST['x']);
 
+        $public = intval($_POST['public']);
+
         $galaxy_id = treatGalaxyName($handler, $galaxy_name, $user_id);
 
 
 
         try {
 
-            $query = $handler->prepare("INSERT INTO etoile (nom,descr,cox,coy,taille,id_galaxie) VALUES (:nom,:descr,:x,:y,:size,:galaxie_id)");
+            $query = $handler->prepare("INSERT INTO etoile (nom,descr,cox,coy,taille,public,id_galaxie) VALUES (:nom,:descr,:x,:y,:size,:public,:galaxie_id)");
             $query->bindParam(':nom', $name);
             $query->bindParam(':descr', $descr);
             $query->bindParam(':x', $x);
             $query->bindParam(':y', $y);
             $query->bindParam(':size', $size);
+            $query->bindParam(':public',$public);
             $query->bindParam(':galaxie_id', $galaxy_id);
             $query->execute();
         } catch (PDOException $e) {
@@ -70,26 +82,29 @@ function addStar($handler, $user_id)
 }
 
 function editStar($handler, $user_id){
-    if (isset($_POST['old_name']) && isset($_POST['new_name']) && isset($_POST['size']) && isset($_POST['descr']) && isset($_POST['old_galaxy'])&& isset($_POST['new_galaxy'])) {
+    if (isset($_POST['old_name']) && isset($_POST['new_name']) && isset($_POST['size']) && isset($_POST['descr']) && isset($_POST['old_galaxy'])&& isset($_POST['new_galaxy'])  && isset($_POST['public'])) {
         $old_name = ($_POST['old_name']);
         $new_name = ($_POST['new_name']);
         $descr = ($_POST['descr']);
         $old_galaxy = ($_POST['old_galaxy']);
         $new_galaxy = ($_POST['new_galaxy']);
         $size = intval($_POST['size']);
+        
+        $public = intval($_POST['public']);
 
         $old_galaxy_id = treatGalaxyName($handler, $old_galaxy, $user_id);
         $new_galaxy_id = treatGalaxyName($handler, $new_galaxy, $user_id);
 
         try {
            
-            $query = $handler->prepare("UPDATE etoile SET nom=:new_name, descr=:descr, taille=:size, id_galaxie=:new_galaxy_id WHERE nom=:old_name AND id_galaxie=:old_galaxy_id");
+            $query = $handler->prepare("UPDATE etoile SET nom=:new_name, descr=:descr, taille=:size, public=:public, id_galaxie=:new_galaxy_id WHERE nom=:old_name AND id_galaxie=:old_galaxy_id");
             $query->bindParam(':new_name', $new_name);
             $query->bindParam(':old_name', $old_name);
             $query->bindParam(':descr', $descr);
             $query->bindParam(':size', $size);
             $query->bindParam(':old_galaxy_id', $old_galaxy_id);
             $query->bindParam(':new_galaxy_id', $new_galaxy_id);
+            $query->bindParam(':public',$public);
             $query->execute();
 
         } catch (PDOException $e) {
@@ -174,8 +189,7 @@ function getGalaxies($handler, $user_id)
                 $galaxies[] =$row['galaxie_nom'];
             }
         }
-        $galaxieJSON = json_encode($galaxies);
-        echo $galaxieJSON;
+        return $galaxies;
     } catch (PDOException $e) {
         echo 'Echec Requête : ' . $e->getMessage();
     }
@@ -215,7 +229,7 @@ function galaxyNameToId($handler, $galaxy_name, $user_id)
 
 function  treatGalaxyName($handler, $galaxy_name, $user_id)
 {
-    if ($galaxy_name == "") {
+     if ($galaxy_name == '') {
         $galaxy_name = "undefined"; //Aucune galaxie sélectionnée, elle ira dans undefined
     }
     $galaxy_name = strtolower($galaxy_name);

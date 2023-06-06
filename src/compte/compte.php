@@ -9,6 +9,8 @@ if (!isset($_SESSION['login'])) {
 <head>
 	<title>Mon Compte CosmicLink</title>
 	<meta charset=”utf-8″>
+	<link rel="stylesheet" href="compte.css">
+	<link rel="stylesheet" href="./../global.css">
 </head>
 
 <body>

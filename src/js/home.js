@@ -43,7 +43,7 @@ function openOption(event){
         opts.item(i).classList.remove("hidden");
     }
 
-    // onclickoutside(closeOption);
+    onclickoutside(closeOption);
 }
 
 menu.onclick = function(event){ openOption(event)};

@@ -1,8 +1,6 @@
 <?php
 if(isset($_GET['visit_id'])) {
-    echo 'in here';
     $visit_id = intval($_GET['visit_id']);
-    echo $visit_id;
 }
 else {
     header('Location: ./home.php');

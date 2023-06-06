@@ -238,6 +238,16 @@ function zoomCoordinates(zoomIn, element, originX, originY){
     element.style.transform = `translate(${translateX}px, ${translateY}px)`;
 }
 
+
+const chatInter = new pageChat();
+const friendsInter = new pageFriends();
+const connectInter = new pageConnect();
+
+const chatButton = document.getElementById("chatButton");
+
+chatButton.addEventListener("click", (event)=>chatInter.openInterface());
+
+
 function distance2Point(p1, p2){
     return Math.sqrt( (p2-p1)*(p2-p1))
 }

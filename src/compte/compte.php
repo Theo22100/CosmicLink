@@ -9,6 +9,8 @@ if (!isset($_SESSION['login'])) {
 <head>
 	<title>Mon Compte CosmicLink</title>
 	<meta charset=”utf-8″>
+	<link rel="stylesheet" href="compte.css">
+	<link rel="stylesheet" href="./../global.css">
 </head>
 
 <body>
@@ -23,34 +25,28 @@ if (!isset($_SESSION['login'])) {
 				echo '<h2 style="color:red;">Erreur mot de passe</h2>';
 			} else if ($_GET["message"] == "mdp") {
 				echo '<h2 style="color:red;">Le mot de passe n\'est pas le même !</h2>';
-			} else if ($_GET["message"] == "mailreussi") {
-				echo '<h2 style="color:green;">Mail changé !</h2>';
 			} else if ($_GET["message"] == "mailechoue") {
 				echo '<h2 style="color:red;">Erreur mail !</h2>';
 			} else if ($_GET["message"] == "mail") {
 				echo '<h2 style="color:red;">Mail déjà existant !</h2>';
 			} else if ($_GET["message"] == "prenomechoue") {
 				echo '<h2 style="color:red;">Erreur avec le prénom saisi !</h2>';
-			} else if ($_GET["message"] == "prenomreussi") {
-				echo '<h2 style="color:green;">Prénom changé !</h2>';
 			} else if ($_GET["message"] == "nomechoue") {
 				echo '<h2 style="color:red;">Erreur avec le nom saisi !</h2>';
-			} else if ($_GET["message"] == "nomreussi") {
-				echo '<h2 style="color:green;">Nom changé !</h2>';
 			} else if ($_GET["message"] == "deletemdp") {
 				echo '<h2 style="color:red;">Suppression Compte : Mot de passe incorrect</h2>';
 			} else if ($_GET["message"] == "photoechoue") {
 				echo '<h2 style="color:red;">Erreur : Changement de Photo non effectué</h2>';
 			} else if ($_GET["message"] == "phototaille") {
 				echo '<h2 style="color:red;">Erreur : Taille de Photo supérieur à 2Mo</h2>';
-			} else if ($_GET["message"] == "photoreussi") {
-				echo '<h2 style="color:green;">Photo changée !</h2>';
+			} else if ($_GET["message"] == "modif") {
+				echo '<h2 style="color:green;">Changements Effectués !</h2>';
 			}
 
 			if ($_SESSION['role'] == "A") {
 				echo '<a href="../admin/index.php">Panel admin</a>';
 			}
-			
+
 			?>
 
 			<!-- Modifier Photo -->
@@ -60,62 +56,36 @@ if (!isset($_SESSION['login'])) {
 				<div class="register-bottom-grid">
 					<h3>Changez votre Photo de Profil (Actuellement :
 						<?php
-						try { //Connexion BDD
-							$servername = "localhost";
-							$username = "root";
-							$password_db = "root";
-							$dbname = "projet";
-
-							$connexion = new PDO("mysql:host=$servername;dbname=$dbname", $username, $password_db);
-							$connexion->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-						} catch (PDOException $e) {
-							echo 'Echec Connexion : ' . $e->getMessage();
-						}
-
-						try { //Requete Image
-							$requete_image = $connexion->prepare("SELECT image FROM membre WHERE id= :id");
-
-							$requete_image->bindParam(':id', $_SESSION['id']);
-
-							$requete_image->execute();
-
-							$lienimage = $requete_image->fetchColumn();
-							echo "<td> " . $nbutil . "</td>";
-						} catch (PDOException $e) {
-							echo 'Echec Calcul Utilisateur : ' . $e->getMessage();
-						}
-						if ($lienimage == NULL) {
+						
+						if ($_SESSION['image'] == NULL) {
 							echo ("<img src='../../img/profile-pic.png' alt='profile picture' width='auto' height='100px' />");
 						} else {
-							echo ("<img src='../../img/profil/".$_SESSION['id']."/" . $lienimage . "' alt='" . $lienimage . "' width='auto' height='100px' />");
+							echo ("<img src='../../img/profil/" . $_SESSION['id'] . "/" . $_SESSION['image'] . "' alt='" . $_SESSION['image'] . "' width='auto' height='100px' />");
 						}
 
 						?>
-						
+
 
 						)
 					</h3>
 				</div>
-				<input type="file" name="image" id="image" accept='image/*'> 
 				
+				<input type="file" name="image" id="image" accept='image/*'>
+
 				<div>
-						(Max 2Mo)
+					(Max 2Mo)
 				</div>
 				<input type="submit" name="modifiephoto" value="Modifier">
 			</form>
 			<div class="clear"> </div>
-			<div>
-				<span>Prénom<label></label></span>
-				<input type="text" name="prenom" id="prenom" required="required" maxlength="30">
-				<input type="submit" name="modifierprenom" value="Modifier">
-			</div>
-			<div class="clear"> </div>
+
+
 		</div>
-		</form>
+
 		<!-- Modifier nom -->
 
 		<div class="clear"> </div>
-		<form method="POST" action="modifieprenom.php">
+		<form method="POST" action="modifall.php">
 			<div class="register-bottom-grid">
 				<h3>Changez votre Prénom (Actuellement :
 					<?php
@@ -127,17 +97,14 @@ if (!isset($_SESSION['login'])) {
 
 				<div>
 					<span>Prénom<label></label></span>
-					<input type="text" name="prenom" id="prenom" required="required" maxlength="30">
-					<input type="submit" name="modifierprenom" value="Modifier">
+					<input type="text" name="prenom" id="prenom" maxlength="30">
 
 				</div>
 				<div class="clear"> </div>
 			</div>
-		</form>
 
-		<div class="clear"> </div>
-		<!-- Modifier nom -->
-		<form method="POST" action="modifienom.php">
+			<div class="clear"> </div>
+			<!-- Modifier nom -->
 			<div>
 				<h3>Changez votre Nom (Actuellement :
 					<?php
@@ -148,15 +115,12 @@ if (!isset($_SESSION['login'])) {
 				</h3>
 				<div>
 					<span>Nom<label></label></span>
-					<input type="text" name="nom" id="nom" required="required" maxlength="30">
-					<input type="submit" name="modifiernom" value="Modifier">
+					<input type="text" name="nom" id="nom"maxlength="30">
 				</div>
 			</div>
-		</form>
 
-		<div class="clear"> </div>
-		<!-- Modifier email -->
-		<form method="POST" action="modifiemail.php">
+			<div class="clear"> </div>
+			<!-- Modifier email -->
 			<div class="register-bottom-grid">
 				<h3>Changez votre Mail (Actuellement :
 					<?php
@@ -168,15 +132,14 @@ if (!isset($_SESSION['login'])) {
 				<div>
 					<span>Mail<label></label></span>
 					<div>
-						<input type="mail" name="mail" id="mail" required="required" maxlength="60">
+						<input type="mail" name="mail" id="mail" maxlength="60">
 					</div>
 					<div>
 
-						<input type="submit" name="modifiermail" value="Modifier">
+						<input type="submit" name="modifierall" value="Modifier">
 
 					</div>
 				</div>
-				<div class="clear"> </div>
 			</div>
 		</form>
 
@@ -257,13 +220,9 @@ if (!isset($_SESSION['login'])) {
 		</div>
 	</div>
 
-	<div class = "back"></div>
-		</body>
-
-
-	<?php
-	$connexion = null;
-	?>
-
+	<div class="back"></div>
 </body>
 
+
+
+</body>

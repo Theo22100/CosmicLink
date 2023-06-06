@@ -3,7 +3,7 @@ session_start();
 if (!isset($_SESSION['login'])) {
     header('Location: ../login-inscription/login.php');
 }
-
+$tailleMax = 2 * 1024 * 1024; // 2 Mo
 var_dump($_FILES); // affiche les informations sur le fichier téléchargé
 
 
@@ -14,13 +14,17 @@ $dbname = "projet";
 
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
-    if ($_FILES['image']['size'] > 2 * 1024 * 1024) {
+    
+    if ($_FILES['image']['size'] >= $tailleMax || $_FILES['image']['error'] !== UPLOAD_ERR_OK) { //Permet de renvoyer si soucis ou taille trop grande
         // Le fichier dépasse la taille maximale autorisée (2 Mo)
         // Gérer l'erreur ou afficher un message à l'utilisateur
         header("Location: compte.php?message=phototaille");
-        exit;
+
+        exit();
 
     } else {
+        //echo "<br> Taille : ".$_FILES['image']['size']."<br>";
+        
         try {
             $connexion = new PDO("mysql:host=$servername;dbname=$dbname", $username, $password_db);
             $connexion->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
@@ -32,14 +36,15 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
         try {
             $image = $_POST["image"];
-            $_SESSION['image'] = $image; //NE PAS OUBLIER POUR LE LOGIN DE RAJOUTER SESSION IMAGE
+            $_SESSION['image'] = $_FILES['image']['name'];
             $stmt = $connexion->prepare("
                                     UPDATE membre 
                                     SET image = :img 
-                                    WHERE id = '$_SESSION[id]';'");
+                                    WHERE id = :id ;");
 
 
             $stmt->bindParam(':img', $_FILES['image']['name']);
+            $stmt->bindParam(':id', $_SESSION['id']);
             $stmt->execute();
 
 

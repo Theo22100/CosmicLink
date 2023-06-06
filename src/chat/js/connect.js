@@ -1,16 +1,17 @@
 const CONNECT = document.getElementById("connect");
 
-const CHATBUTTON = document.getElementById("chat-section");
+// const CHATBUTTON = document.getElementById("chat-section");
 
 function openConnect(event) {
     ajaxGetSuggestions();
     stopContactCall();
     event.stopPropagation();
     closeOption();
-    onclickoutside(closeConnect);
+    // onclickoutside(closeConnect);
     
     CONNECT.style.transform = "translateX(0%)";
     CONNECT.classList.remove("hidden");
+    
 }
 
 function closeConnect() {
@@ -23,11 +24,31 @@ function closeConnect() {
 CHATBUTTON.addEventListener("click", (event) => {
     clearAllSuggestions();
     CONNECT.classList.add("hidden");
+    openChat(event);
+});
+
+CHATBUTTON1.addEventListener("click", (event)=>{
+    clearAllSuggestions();
+    CONNECT.classList.add("hidden");
+    openChat(event);
+});
+
+
+
+FRIENDSBUTTON.addEventListener("click", (event)=>{
+    clearAllSuggestions();
+    CONNECT.classList.add("hidden");
+    openFriends(event);
+});
+
+FRIENDSBUTTON1.addEventListener("click", (event)=>{
+    clearAllSuggestions();
+    CONNECT.classList.add("hidden");
+    openFriends(event);
 });
 
 function addAllSuggestions(suggestions) {
     for (let i = 0; i <suggestions.length; i++) {
-        console.log(suggestions[i]);
         addSuggestions(suggestions[i]);
     } 
 }
@@ -69,7 +90,7 @@ function ajaxGetSuggestions() {
             try {
                
                 const suggestions = JSON.parse(response);
-                console.log(suggestions);
+                //console.log(suggestions);
                 addAllSuggestions(suggestions);
 
             } catch (error) {

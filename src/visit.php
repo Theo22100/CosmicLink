@@ -1,8 +1,6 @@
 <?php
 if(isset($_GET['visit_id'])) {
-    echo 'in here';
     $visit_id = intval($_GET['visit_id']);
-    echo $visit_id;
 }
 else {
     header('Location: ./home.php');
@@ -39,6 +37,15 @@ else {
 
 
     <div id="invisible" class="hidden"> </div>
+
+    <script src="./interfaces/InterfaceClass.js"></script>
+    <script src="./interfaces/AddStarPageOneInterface.js"></script>
+    <script src="./interfaces/AddStarPageSecondInterface.js"></script>
+    <script src="./interfaces/AddStarPageThirdInterface.js"></script>
+
+    <script src="./interfaces/AddGalaxyInterface.js"></script>
+
+    <script src="./interfaces/popUpInfoInterface.js"></script>
 
     <script src="./js/home.js"></script>
     <script src="./js/star.js"></script>

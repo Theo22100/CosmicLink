@@ -1,7 +1,9 @@
 <div class="chat-div" id="chat">
     <div class="chat-top">
         <a class="active">Chat</a>
-        <a id="connect-section">Connect</a>
+        <a id="friends-section">Friends</a>
+        <a id="connect-section1">Connect</a>
+        
     </div>
 
     <div class="list-personnes">

@@ -1,12 +1,10 @@
 class pageConnect extends Interface {
 
-    static page = class pageChat extends Interface {
-
         static page = '' +
-            '<div class="chat-div hidden" id="connect">' +
+            '<div class="chat-div " id="connect">' +
             ' <div class="chat-top">' +
-            '<a id="chat-section1">Chat</a>' +
-            '<a id="friends-section1">Friends</a>' +
+            '<a id="chat-section">Chat</a>' +
+            '<a id="friends-section">Friends</a>' +
             '<a class="active">Connect</a>' +
             '</div>' +
             '' +
@@ -24,36 +22,35 @@ class pageConnect extends Interface {
         #editing;
 
         constructor() {
-            super("chat-div", pageConnect.page, true);
+            super("connect", pageConnect.page, true);
         }
 
         openInterface(editing) {
             super.openInterface();
+
+            
             const CHATBUTTON = document.getElementById("chat-section");
-            CHATBUTTON.addEventListener("click", (event) => this.openChat)
+            CHATBUTTON.addEventListener("click", (event) => this.openChat())
 
-            const CHATBUTTON1 = document.getElementById("chat-section1");
-            CHATBUTTON1.addEventListener("click", (event) => this.openChat)
+         
 
-
+            const FRIENDSBUTTON = document.getElementById("friends-section");
             FRIENDSBUTTON.addEventListener("click", (event) => this.openFriends());
 
-            const FRIENDSBUTTON1 = document.getElementById("friends-section1");
-
-            FRIENDSBUTTON1.addEventListener("click", (event) => this.openFriends());
-
+            
 
         }
 
         openChat() {
-            pageChat.openInterface();
+            this.closeInterface();
+            chatInter.openInterface();
         }
 
         openFriends() {
-            pageFriends.openInterface();
+            this.closeInterface();
+            friendsInter.openInterface();
         }
 
 
     }
 
-}

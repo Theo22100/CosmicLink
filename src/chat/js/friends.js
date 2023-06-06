@@ -5,8 +5,8 @@ const FRIENDS = document.getElementById("friends");
 function openFriends(event) {
     event.stopPropagation();
     closeOption();
-    onclickoutside(closeFriends);
-    addAllFSuggestions();
+    // onclickoutside(closeFriends);
+    // addAllFSuggestions();
     FRIENDS.style.transform = "translateX(0%)";
     FRIENDS.classList.remove("hidden");
 }

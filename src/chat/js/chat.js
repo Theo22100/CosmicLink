@@ -3,7 +3,7 @@ let timeoutContact;
 function openChat(event) {
     event.stopPropagation();
     closeOption();
-    onclickoutside(closeChat);
+    // onclickoutside(closeChat);
     ajaxGetContacts(true);
     CHAT.style.transform = "translateX(0%)";
     //  CONNECT.classList.add("active");

@@ -7,7 +7,7 @@ function openConnect(event) {
     stopContactCall();
     event.stopPropagation();
     closeOption();
-    onclickoutside(closeConnect);
+    // onclickoutside(closeConnect);
     
     CONNECT.style.transform = "translateX(0%)";
     CONNECT.classList.remove("hidden");

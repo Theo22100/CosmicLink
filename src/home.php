@@ -56,7 +56,7 @@ if (!isset($_SESSION['login'])) {
                 <button class="dropUp-Option" onclick="openCreateGalaxy(event)">Galaxy</button>
             </div>
         </div>
-        <button class="options hidden" onclick="openChat(event)">Chat</button>
+        <button class="options hidden" id="chatButton">Chat</button>
         <div class="dropUp options">
             <button class="options hidden">Mon Compte</button>
             <div class="dropUp-content">
@@ -70,11 +70,9 @@ if (!isset($_SESSION['login'])) {
 
     <?php
 
-    include("./chat/chat.php");
+   
     include("./chat/message.php");
-    include("./chat/connect.php");
-    include("./chat/friends.php")
-
+   
         ?>
 
     <div id="invisible" class="hidden"> </div>
@@ -89,16 +87,23 @@ if (!isset($_SESSION['login'])) {
 
     <script src="./interfaces/popUpInfoInterface.js"></script>
 
+
+    <script src="./interfaces/chatInterface.js"></script>
+    <script src="./interfaces/friendsInterface.js"></script>
+    <script src="./interfaces/connectInterface.js"></script>
+    
     <script src="./js/home.js"></script>
     <script src="./js/star.js"></script>
     <script src="./js/StarClass.js"></script>
     <script src="./js/GalaxyClass.js"></script>
 
     <script src="./js/galaxy.js"></script>
-    <script src="./chat/js/chat.js"></script>
-    <script src="./chat/js/friends.js"></script>
     <script src="./chat/js/message.js"></script>
-    <script src="./chat/js/connect.js"></script>
+    <!-- <script src="./chat/js/chat.js"></script>
+    <script src="./chat/js/friends.js"></script>
+    
+    <script src="./chat/js/connect.js"></script> -->
+   
 
 
 

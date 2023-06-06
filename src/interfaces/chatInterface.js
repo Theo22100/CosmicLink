@@ -22,44 +22,34 @@ class pageChat extends Interface {
     #editing;
 
     constructor() {
-        super("chat-div", pageChat.page, true);
+        super("chat", pageChat.page, true);
     }
 
     openInterface(editing) {
         super.openInterface();
-        const CHATBUTTON = document.getElementById("chat-section");
-        CHATBUTTON.addEventListener("click", (event) => this.openChat)
-
-        const CHATBUTTON1 = document.getElementById("chat-section1");
-        CHATBUTTON1.addEventListener("click", (event) => this.openChat)
-
 
 
         const CONNECTBUTTON = document.getElementById("connect-section");
-        CONNECTBUTTON.addEventListener("click", (event) => this.openConnect);
+        CONNECTBUTTON.addEventListener("click", (event) => this.openConnect());
 
-        const CONNECTBUTTON1 = document.getElementById("connect-section1");
-        CONNECTBUTTON1.addEventListener("click", (event) => this.openConnect);
 
         const FRIENDSBUTTON = document.getElementById("friends-section");
 
         FRIENDSBUTTON.addEventListener("click", (event) => this.openFriends());
 
-        const FRIENDSBUTTON1 = document.getElementById("friends-section1");
-
-        FRIENDSBUTTON1.addEventListener("click", (event) => this.openFriends());
     }
-
-    openChat() {
-        pageChat.openInterface();
-    }
+   
 
     openConnect() {
-        pageConnect.openInterface();
+        this.closeInterface();
+
+        connectInter.openInterface();
     }
 
     openFriends() {
-        pageFriends.openInterface();
+        this.closeInterface();
+
+        friendsInter.openInterface();
     }
 }
 

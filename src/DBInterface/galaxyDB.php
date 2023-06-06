@@ -61,7 +61,6 @@ function addGalaxy($handler, $user_id)
 
 function editGalaxy($handler, $user_id)
 {
-    echo "in here";
     if (isset($_POST['old_name']) && isset($_POST['new_name']) && isset($_POST['descr']) && isset($_POST['publicGalaxy'])) {
         $old_name = treatGalaxyName($handler, $_POST['old_name']);
         $new_name = treatGalaxyName($handler, $_POST['new_name']);

@@ -23,7 +23,7 @@ class DBFunctions
                 $amis = array();
                 while ($ami = $requete1->fetch(PDO::FETCH_ASSOC)) {
                     // On ajoute les id des autres utilisateurs dans un tableau
-                    if ($ami['sender' != $user_id]) {
+                    if ($ami['sender'] != $user_id) {
                         $amis[] = $ami['sender'];
                     } else {
                         $amis[] = $ami['receiver'];

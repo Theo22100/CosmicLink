@@ -84,12 +84,22 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
         //Supprimer dans table Ami
         try {
-            $requeteAmi = "DELETE FROM ami WHERE receiver = :id OR sender = :id";
+            $requeteAmi = "DELETE FROM ami WHERE id_membre1 = :id OR id_membre2 = :id";
             $stmtAmi = $connexion->prepare($requeteAmi);
             $stmtAmi->bindParam(':id', $id);
             $stmtAmi->execute();
         } catch (PDOException $e) {
             echo "La suppression Ami a échoué : " . $e->getMessage();
+        }
+
+        //Supprimer dans table Chat
+        try {
+            $requeteChat = "DELETE FROM chat WHERE sender = :id OR receiver = :id";
+            $stmtChat = $connexion->prepare($requeteChat);
+            $stmtChat->bindParam(':id', $id);
+            $stmtChat->execute();
+        } catch (PDOException $e) {
+            echo "La suppression Chat a échoué : " . $e->getMessage();
         }
 
         // Supprimer la ligne dans la table "membre"

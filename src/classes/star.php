@@ -28,7 +28,7 @@ class Star
 
         $this->member_id = $member_id;
 
-        $repertory = '../img/profil' . $this->member_id . '/' . $this->star_id;
+        $repertory = '../img/profil/' . $this->member_id . '/' . $this->star_id;
 
         $this->arrayLink = array();
         if(file_exists($repertory)){
@@ -60,7 +60,8 @@ class Star
                 <?php echo $this->public; ?>,
                 <?php echo $this->star_x; ?>,
                 <?php echo $this->star_y; ?>,
-                <?php echo json_encode($this->arrayLink); ?>
+                <?php echo json_encode($this->arrayLink); ?>,
+                <?php echo $this->star_id;?>
             );
         </script>
 

@@ -15,10 +15,12 @@ catch (PDOException $e){
 if (isset($_POST['action'])) {
     switch ($_POST['action']) {
         case 'add':
-            addStar($handler, $user_id);
+            $result = addStar($handler, $user_id);
+            echo json_encode($result);
             break;
         case 'edit':
-            editStar($handler, $user_id);
+            $result = editStar($handler, $user_id);
+            echo json_encode($result);
             break;
         case 'move':
             moveStar($handler, $user_id);
@@ -48,6 +50,9 @@ else if (isset($_GET['action'])) {
  */
 function addStar($handler, $user_id)
 {
+    $arrayResponse = array();
+    $arrayResponse['status'] = "failed";
+
     if (isset($_POST['x']) && isset($_POST['y']) && isset($_POST['name']) && isset($_POST['size']) && isset($_POST['descr']) && isset($_POST['galaxy_name']) && isset($_POST['public']) && isset($_POST['arrayLink'])) {
         
         $name = ($_POST['name']);
@@ -79,21 +84,26 @@ function addStar($handler, $user_id)
 
             //creating a folder for the star to input images in
             $starID = $handler->lastInsertId();
+            $arrayResponse['starID'] = $starID;
 
-            $directoryPath = '../../img/profil' . $user_id . "/" . $starID;
+            $directoryPath = '../../img/profil/' . $user_id . "/" . $starID;
+            $jsPath = '../img/profil/' . $user_id . "/" . $starID;
             if(!file_exists(($directoryPath))){
                 mkdir($directoryPath, 0777, true);
             }
 
             $i = 0;
+            $dataresult = array();
             foreach($imageLinkArray as $imageLink){
                 if(is_file($imageLink)){
-
+                    $dataresult[] = $imageLink;
                 }
                 else{ //need to recreate the image based on the data
                     list($type, $imageLink) = explode(';', $imageLink);
                     list(, $imageLink)      = explode(',', $imageLink);
                     list(,$type) =explode('/', $type);
+
+                    $dataresult[] = $jsPath . "/" . $i . "." . $type;
 
                     $bindata = base64_decode($imageLink);
 
@@ -104,84 +114,119 @@ function addStar($handler, $user_id)
 
                     fclose($newImg);
                 }
+                $i++;
             }
 
-        } catch (PDOException $e) {
+            $arrayResponse['status'] = "success";
+            $arrayResponse['data'] = $dataresult;
 
-            echo 'Echec Requête Insertion : ' . $e->getMessage();
+            return $arrayResponse;
+
+        } catch (PDOException $e) {
+            $arrayResponse['data'] = $e->getMessage();
+            return $arrayResponse;
         }
     }
+    return $arrayResponse;
 }
 
 function editStar($handler, $user_id){
-    if (isset($_POST['old_name']) && isset($_POST['new_name']) && isset($_POST['size']) && isset($_POST['descr']) && isset($_POST['old_galaxy'])&& isset($_POST['new_galaxy'])  && isset($_POST['public']) && isset($_POST['arrayLink'])) {
-        $old_name = ($_POST['old_name']);
+    $arrayResponse = array();
+    $arrayResponse['status'] = "failed";
+
+    if (isset($_POST['new_name']) && isset($_POST['size']) && isset($_POST['descr']) && isset($_POST['new_galaxy'])  && isset($_POST['public']) && isset($_POST['arrayLink']) && isset($_POST['starID']) ) {
         $new_name = ($_POST['new_name']);
         $descr = ($_POST['descr']);
-        $old_galaxy = ($_POST['old_galaxy']);
+
         $new_galaxy = ($_POST['new_galaxy']);
         $size = intval($_POST['size']);
         
         $public = intval($_POST['public']);
 
-        $old_galaxy_id = treatGalaxyName($handler, $old_galaxy, $user_id);
         $new_galaxy_id = treatGalaxyName($handler, $new_galaxy, $user_id);
 
         
         $imageLinkArray = json_decode(stripslashes($_POST['arrayLink']));
-        $starID = starNameToId($handler, $old_name, $user_id);
+        $starID = intval($_POST['starID']);
 
         try {
            
-            $query = $handler->prepare("UPDATE etoile SET nom=:new_name, descr=:descr, taille=:size, public=:public, id_galaxie=:new_galaxy_id WHERE nom=:old_name AND id_galaxie=:old_galaxy_id");
+            $query = $handler->prepare("UPDATE etoile SET nom=:new_name, descr=:descr, taille=:size, public=:public, id_galaxie=:new_galaxy_id WHERE id_etoile=:id ");
             $query->bindParam(':new_name', $new_name);
-            $query->bindParam(':old_name', $old_name);
             $query->bindParam(':descr', $descr);
             $query->bindParam(':size', $size);
-            $query->bindParam(':old_galaxy_id', $old_galaxy_id);
             $query->bindParam(':new_galaxy_id', $new_galaxy_id);
             $query->bindParam(':public',$public);
+            $query->bindParam(':id', $starID);
             $query->execute();
 
             //creating a folder for the star to input images in
 
-            // $directoryPath = '../../img/profil' . $user_id . "/" . $starID;
-            // if(!file_exists(($directoryPath))){
-            //     mkdir($directoryPath, 0777, true);
-            // }
+            $directoryPath = '../../img/profil/' . $user_id . "/" . $starID;
+            $jsPath = '../img/profil/' . $user_id . "/" . $starID;
 
-            // echo $imageLinkArray;
-            // $i = 0;
-            // foreach($imageLinkArray as $imageLink){
-            //     if(is_file($imageLink)){
-            //         echo "test";
-            //     }
-            //     else{ //need to recreate the image based on the data
-            //         list($type, $imageLink) = explode(';', $imageLink);
-            //         list(, $imageLink)      = explode(',', $imageLink);
-            //         list(,$type) =explode('/', $type);
+            if(!file_exists(($directoryPath))){
+                mkdir($directoryPath, 0777, true);
+            }
+            array_map('unlink', glob("$directoryPath/*.*"));
 
-            //         $bindata = base64_decode($imageLink);
+            foreach(glob("$directoryPath/*.*") as $file){
+                $file2 = substr($file, 3); //remove the first ../
+                foreach ($imageLinkArray as $imageLink) {
+                    if($imageLink == $file2){
+                        unlink($file);
+                    }
+                }
+            }
 
-            //         $newImg = fopen($directoryPath . "/" . $i . "." . $type, "w");
+            $i = 0;
+            $dataresult = array();
+            $debugArray = array();
+            foreach($imageLinkArray as $imageLink){
+                $debugArray[]= file_exists( "../" .$imageLink);
+                if(file_exists("../" . $imageLink)){ 
+                    list(, $fileName) = explode('../../img/profil/' . $user_id . "/" . $starID . "/", "../" . $imageLink);
+                    list($fileName, $type)      = explode('.', $fileName);
                     
-            //         //writing the image data
-            //         fwrite($newImg, $bindata);
+                    $debugArray[] = "type de fichier: " . $type;
+                    
+                    $debugArray[] = "Nom de fichier: " . $fileName;
+                    if($fileName != $i){
+                        rename($imageLink, $directoryPath . "/" . $i . "." . $type);
+                        $dataresult[] = $jsPath . "/" . $i . "." . $type;
+                    }
+                }
+                else{ //need to recreate the image based on the data
+                    list($type, $imageLink) = explode(';', $imageLink);
+                    list(, $imageLink)      = explode(',', $imageLink);
+                    list(,$type) =explode('/', $type);
 
-            //         fclose($newImg);
-            //         $i++;
-            //     }
-            // }
+                    $bindata = base64_decode($imageLink);
+                    
+                    $dataresult[] = $jsPath . "/" . $i . "." . $type;
+                    $newImg = fopen($directoryPath . "/" . $i . "." . $type, "w");
+                    
+                    //writing the image data
+                    fwrite($newImg, $bindata);
 
+                    fclose($newImg);
+                }
+                $i++;
+            }
 
+            $arrayResponse['status'] = "success";
+            $arrayResponse['data'] = $dataresult;
+            $arrayResponse['debug'] = $debugArray;
 
-
+            return $arrayResponse;
 
         } catch (PDOException $e) {
-
-            echo 'Echec Requête Insertion : ' . $e->getMessage();
+            $arrayResponse['data'] = $e->getMessage();
+            return $arrayResponse;
         }
     }
+    $arrayResponse['data'] = "pas assez d'argument donner";
+    return $arrayResponse;
 }
 
 function moveStar($handler, $user_id)
@@ -211,28 +256,29 @@ function moveStar($handler, $user_id)
 function deleteStar($handler, $user_id)
 {
    
-    if (isset($_POST['name']) && isset($_POST['galaxy_name'])) {
-        $name = ($_POST['name']);
-        $galaxy_name = ($_POST['galaxy_name']);
-
-        $size = intval($_POST['size']);
-        $y = intval($_POST['y']);
-        $x = intval($_POST['x']);
-
-        $galaxy_id = treatGalaxyName($handler, $galaxy_name, $user_id);
+    if (isset($_POST['starID'])) {
+        $starID = intval($_POST['starID']);
     }
 
     try {
 
-        $query = $handler->prepare("DELETE FROM etoile WHERE nom=:nom AND id_galaxie=:galaxy_id");
-        $query->bindParam(':nom', $name);
-        $query->bindParam(':galaxy_id', $galaxy_id);
+        $query = $handler->prepare("DELETE FROM etoile WHERE id_etoile=:id");
+        $query->bindParam(':id', $starID);
         $query->execute();
-    } catch (PDOException $e) {
 
+
+        $directoryPath = '../../img/profil/' . $user_id . "/" . $starID;
+        if(file_exists(($directoryPath))){
+
+            array_map('unlink', glob("$directoryPath/*.*"));
+            rmdir($directoryPath);
+        }
+
+    } catch (PDOException $e) {
         echo 'Echec Requête : ' . $e->getMessage();
     }
 }
+
 
 /**
  * Récupère les galaxies qui sont liées à l'utilisateur connecté et les envoie sur le javascript.

@@ -27,7 +27,6 @@ CHATBUTTON.addEventListener("click", (event) => {
 
 function addAllSuggestions(suggestions) {
     for (let i = 0; i <suggestions.length; i++) {
-        console.log(suggestions[i]);
         addSuggestions(suggestions[i]);
     } 
 }
@@ -69,7 +68,7 @@ function ajaxGetSuggestions() {
             try {
                
                 const suggestions = JSON.parse(response);
-                console.log(suggestions);
+                //console.log(suggestions);
                 addAllSuggestions(suggestions);
 
             } catch (error) {

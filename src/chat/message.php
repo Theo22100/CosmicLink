@@ -1,6 +1,6 @@
 <div class="chat-div" id="messages">
 
-    <div class="chat-personne">
+    <div class="chat-personne hidden">
         <header>
             <a id="back">
                 <div></div>

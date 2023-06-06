@@ -6,7 +6,7 @@
 body {
     /* background-image: url("../../img/galaxy-bg.jpg");
     background-size: cover; */
-    background-color: rgb(0, 0, 0);
+   background-color: var(--violet900);
 }
 
 

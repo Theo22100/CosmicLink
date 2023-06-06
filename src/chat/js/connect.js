@@ -3,10 +3,12 @@ const CONNECT = document.getElementById("connect");
 // const CHATBUTTON = document.getElementById("chat-section");
 
 function openConnect(event) {
+    ajaxGetSuggestions();
+    stopContactCall();
     event.stopPropagation();
     closeOption();
     onclickoutside(closeConnect);
-    addAllSuggestions();
+    
     CONNECT.style.transform = "translateX(0%)";
     CONNECT.classList.remove("hidden");
     
@@ -19,7 +21,7 @@ function closeConnect() {
     CHAT.style.transform = "translateX(100%)";
 }
 
-CHATBUTTON.addEventListener("click", (event)=>{
+CHATBUTTON.addEventListener("click", (event) => {
     clearAllSuggestions();
     CONNECT.classList.add("hidden");
     openChat(event);
@@ -45,28 +47,22 @@ FRIENDSBUTTON1.addEventListener("click", (event)=>{
     openFriends(event);
 });
 
-function addAllSuggestions(){
-    addSuggestions("aaa");
-    addSuggestions("ppoqds");
-    addSuggestions("adqs");
-    addSuggestions("qaa");
-    addSuggestions("qaaa");
-    addSuggestions("aaa");
-    addSuggestions("ppoqds");
-    addSuggestions("adqs");
-    addSuggestions("qaa");
-    addSuggestions("qaaa");
+function addAllSuggestions(suggestions) {
+    for (let i = 0; i <suggestions.length; i++) {
+        console.log(suggestions[i]);
+        addSuggestions(suggestions[i]);
+    } 
 }
 
 const SUGG = document.getElementById("suggestions");
 
-function clearAllSuggestions(){
-    while (SUGG.firstChild != null){
+function clearAllSuggestions() {
+    while (SUGG.firstChild != null) {
         SUGG.removeChild(SUGG.firstChild);
     }
 }
 
-function addSuggestions(name){
+function addSuggestions(name) {
 
     const LI = document.createElement("li");
     LI.classList.add("suggestion-content");
@@ -81,4 +77,33 @@ function addSuggestions(name){
     LI.appendChild(NAME);
 
     SUGG.appendChild(LI);
+}
+
+function ajaxGetSuggestions() {
+    $.ajax({
+        url: "DBInterface/chatDB.php",
+        type: "POST",
+        //TODO Trouver moyen de cache
+        data: {
+            action: "getSuggestions"
+        },
+        success: function (response) {
+            try {
+               
+                const suggestions = JSON.parse(response);
+                console.log(suggestions);
+                addAllSuggestions(suggestions);
+
+            } catch (error) {
+                console.log(response);
+            }
+
+
+        },
+        error: function (xhr, status, error) {
+            // Handle errors
+            console.error(error);
+        }
+    });
+
 }

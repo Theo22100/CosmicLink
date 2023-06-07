@@ -1,56 +1,110 @@
 class pageConnect extends Interface {
 
-        static page = '' +
-            '<div class="chat-div " id="connect">' +
-            ' <div class="chat-top">' +
-            '<a id="chat-section">Chat</a>' +
-            '<a id="friends-section">Friends</a>' +
-            '<a class="active">Connect</a>' +
-            '</div>' +
-            '' +
-            '' +
-            '<div class="list-suggestion">' +
-            '<header class="search-friends">' +
-            '<input class="search-personnes" type="text" placeholder="search">' +
-            '</header>' +
-            '<ul id="suggestions">' +
-            '' +
-            '</ul>' +
-            '</div>' +
-            '</div>' + '';
+    static page = '' +
+        '<div class="chat-div " id="connect">' +
+        ' <div class="chat-top">' +
+        '<a id="chat-section">Chat</a>' +
+        '<a id="friends-section">Friends</a>' +
+        '<a class="active">Connect</a>' +
+        '</div>' +
+        '' +
+        '' +
+        '<div class="list-suggestion">' +
+        '<header class="search-friends">' +
+        '<input class="search-personnes" type="text" placeholder="search">' +
+        '</header>' +
+        '<ul id="suggestions">' +
+        '' +
+        '</ul>' +
+        '</div>' +
+        '</div>' + '';
 
-        #editing;
 
-        constructor() {
-            super("connect", pageConnect.page, true);
+    constructor() {
+        super("connect", pageConnect.page, true);
+    }
+
+    openInterface() {
+        super.openInterface();
+
+        pageConnect.ajaxGetSuggestions();
+
+        const CHATBUTTON = document.getElementById("chat-section");
+        CHATBUTTON.addEventListener("click", (event) => this.openChat())
+
+        const FRIENDSBUTTON = document.getElementById("friends-section");
+        FRIENDSBUTTON.addEventListener("click", (event) => this.openFriends());
+    }
+
+    openChat() {
+        this.closeInterface();
+        chatInter.openInterface();
+    }
+
+    openFriends() {
+        this.closeInterface();
+        friendsInter.openInterface();
+    }
+
+
+    static clearAllSuggestions() {
+        const SUGG = document.getElementById("suggestions");
+        while (SUGG.firstChild != null) {
+            SUGG.removeChild(SUGG.firstChild);
         }
+    }
 
-        openInterface(editing) {
-            super.openInterface();
+    static addAllSuggestions(suggestions) {
+        for (let i = 0; i <suggestions.length; i++) {
+            pageConnect.addSuggestions(suggestions[i]);
+        } 
+    }
 
-            
-            const CHATBUTTON = document.getElementById("chat-section");
-            CHATBUTTON.addEventListener("click", (event) => this.openChat())
+    static addSuggestions(name) {
 
-         
+        const LI = document.createElement("li");
+        LI.classList.add("suggestion-content");
+        const PP = document.createElement("img");
+        PP.src = "../img/profile-pic.png";
+        PP.classList.add("suggestion-pp");
+        LI.appendChild(PP);
 
-            const FRIENDSBUTTON = document.getElementById("friends-section");
-            FRIENDSBUTTON.addEventListener("click", (event) => this.openFriends());
+        const NAME = document.createElement("p");
+        NAME.textContent = name;
+        NAME.classList.add("suggestion-name");
+        LI.appendChild(NAME);
 
-            
+        const SUGG = document.getElementById("suggestions");
+        SUGG.appendChild(LI);
+    }
 
-        }
 
-        openChat() {
-            this.closeInterface();
-            chatInter.openInterface();
-        }
+    static ajaxGetSuggestions() {
+        $.ajax({
+            url: "DBInterface/chatDB.php",
+            type: "POST",
+            //TODO Trouver moyen de cache
+            data: {
+                action: "getSuggestions"
+            },
+            success: function (response) {
+                try {
 
-        openFriends() {
-            this.closeInterface();
-            friendsInter.openInterface();
-        }
+                    const suggestions = JSON.parse(response);
+                    pageConnect.addAllSuggestions(suggestions);
 
+                } catch (error) {
+                    console.log(response);
+                }
+
+
+            },
+            error: function (xhr, status, error) {
+                // Handle errors
+                console.error(error);
+            }
+        });
 
     }
+}
 

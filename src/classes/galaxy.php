@@ -48,20 +48,16 @@ class Galaxy
         } catch (PDOException $e) {
             echo 'Echec requête : ' .  $e->getMessage();
         }
-
-        $i = 0;
         while ($row = $sql->fetch(PDO::FETCH_ASSOC)) {
 
             if ($row['public'] || !$viewOnly) {
                 $s = new Star($this->member_id, $row['id_etoile'], $row['nom'], $this->galaxy_name, $row['descr'], $row['taille'], $row['cox'], $row['coy'], $row['public']);
 
-                $this->stars[$i] = $s;
+                $this->stars[] = $s;
                 $s->displayStar();
-                $i = $i + 1;
             }
         }
 
-        print_r($stars);
     }
 
     function displayGalaxy()

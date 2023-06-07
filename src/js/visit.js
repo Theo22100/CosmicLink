@@ -1,13 +1,3 @@
-window.oncontextmenu = (e) => {
-    e.preventDefault();
-}
-
-//GLOBAL CONSTANTS
-function getRandomInt(max) {
-    return Math.floor(Math.random() * max);
-}
-
-
 
 const INVISIBLE = document.getElementById("invisible");
 
@@ -26,7 +16,7 @@ function onclickoutside(func) {
 
 const menu = document.getElementById("menu");
 function openOption(event) {
-    menu.style.width = "30%";
+    menu.style.width = "10%";
     menu.style.borderRadius = "50px";
     menu.style.paddingLeft = "50px";
     menu.style.paddingRight = "50px";
@@ -37,7 +27,7 @@ function openOption(event) {
     menu.style.zIndex = 999;
     const opts = menu.getElementsByClassName("options");
 
-    for (let i = 0; i < opts.length - 1; i++) {
+    for (let i = 0; i < opts.length; i++) {
         opts.item(i).classList.remove("hidden");
     }
 
@@ -64,25 +54,3 @@ function closeOption() {
     menu.style.zIndex = 0;
 
 }
-
-const chatInter = new pageChat();
-const friendsInter = new pageFriends();
-const connectInter = new pageConnect();
-const messInter = new pageMessage();
-
-const firstPageInterface =  new firstPageAddStar();
-const secondPageInterface =  new secondPageAddStar();
-const thirdPageInterface =  new thirdPageAddStar();
-
-const popUpPage = new popUpInfo();
-
-const galaxyPageInterface =  new pageAddGalaxy();
-
-
-const chatButton = document.getElementById("chatButton");
-
-chatButton.addEventListener("click", (event) => {
-    event.stopImmediatePropagation();
-    closeOption();
-    chatInter.openInterface()
-});

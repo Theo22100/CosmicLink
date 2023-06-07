@@ -1,9 +1,6 @@
 // GUI
 const doneMenuButton = document.getElementById("done");
 
-const firstPageInterface =  new firstPageAddStar();
-const secondPageInterface =  new secondPageAddStar();
-const thirdPageInterface =  new thirdPageAddStar();
 
 let newStar;
 function openCreateStarInterface() { //ouvre la fenetre d'edit/ajout d'étoile

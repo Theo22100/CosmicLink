@@ -1,43 +1,59 @@
-body {
-    height: 100%;
-    width: 100%;
+*{
+    font-family: Georgia,serif;
+}
+
+/* html{
+    background-image:radial-gradient(var(--violet200), var(--violet800)) ;
+width: 100%;
+} */
+
+body{
     background-color: var(--violet900);
-    color:  var(--grey200);
-    font-family: 'Arial', sans-serif;
-    text-align: center;
-    margin: 0%;
-  }
-
-  h1 {
-    color :  var(--red500);
-    font-size: 48px;
-    margin-bottom: 20px;
-    text-decoration: underline;
-  }
-
-  p {
-    font-size: 18px;
-    margin-bottom: 30px;
-  }
-
-  a {
-    color: var(--blue500);
-    text-decoration: none;
-  }
-
-  a:hover {
-    text-decoration: underline;
-  }
-
-  .div500 {
-
+}
+.main{
     left: 50%;
     top: 50%;
-    transform: translate(-50%, -50%);
+    transform: translate(-50%,-50%);
     position: absolute;
-  }
+    text-align: center;
+    width: 100%;
+    height: 100%;
+    margin:0px;
+    color : aliceblue;
+    /* background-color: rgb(0, 0, 0); */
+} 
 
-  .back {
+img{
+    border-radius: 25px;
+    
+    background-color: aliceblue;
+}
+
+
+h3{
+
+    text-decoration: underline;
+}
+input{
+    border-radius: 5px;
+    border:none;
+    background-color: var(--grey200);
+
+}
+
+#nom,#prenom,#mail,#password,#ami,#confirm_password{
+    border: double;
+    border-radius: 5px;
+    background-color: aliceblue;
+    
+    
+}
+span{
+    text-decoration: underline;
+}
+
+
+.back {
     background-size: cover;
     position: fixed;
     top: 50%;
@@ -54,44 +70,16 @@ body {
     animation: zoom 10s alternate infinite;
     /* animation-duration: 3; */
     z-index: -1;
-  }
 
-  @keyframes zoom {
+
+}
+
+@keyframes zoom {
     0% {
-      transform: scale(1);
+        transform: scale(1);
     }
 
     100% {
-      transform: scale(2);
+        transform: scale(2);
     }
-  }
-
-  .astro{
-    width: 100%;
-    height: 100%;
-
-  }
-
-  .astroImg{
-    position: absolute;
-    top:8%;
-    left: 45%;
-    /* transform: translate(50%,50%); */
-    width : 10%;
-    animation-name: lost;
-    animation-duration: 5s;
-    animation-direction: alternate;
-    animation-iteration-count: infinite;
-
-  }
-
-  @keyframes lost {
-    0% {
-      transform: translate(0%,0%);
-    }
-
-    100% {
-      transform: translate(-50%,-50%);
-      rotate: 360deg;
-    }
-  }
+}

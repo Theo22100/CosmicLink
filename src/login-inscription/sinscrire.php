@@ -6,17 +6,16 @@ if (isset($_SESSION['login'])) {
 ?>
 
 <html>
-
-<head>
-	<title>Inscription MySpace</title>
-	<meta charset=”utf-8″>
-	<link rel="stylesheet" href="./style_login.css">
-</head>
-
-<body>
-	<div class="main">
-		<div class="box">
-			<div class="register">
+	<head>
+		<title>Inscription MySpace</title>
+		<meta charset=”utf-8″>
+		<link rel="stylesheet" href="./style_login.css">
+		<link rel="stylesheet" href="./../global.css">
+	</head>
+	<body>
+		<div class="main">
+			<div class = "box">
+				<div class="register">
 
 
 				<?php

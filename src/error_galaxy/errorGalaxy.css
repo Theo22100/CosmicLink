@@ -1,0 +1,44 @@
+body{
+    height: 100%;
+    width: 100%;
+    position: absolute;
+}
+
+.container {
+    background-color: var(--red200);
+    text-align: center;
+    position: absolute;
+    left: 50%;
+    top:50%;
+    transform: translate(-50%,-50%);
+    border-radius: 20px;
+    height: 15%;
+    width: 30%;
+}
+
+h3{
+    color: var(--red800);
+}
+
+.yes{
+    background-color: var(--red400);
+color:white;
+left: -15%;
+position: relative;
+border-radius: 15px;
+box-shadow: none;
+border: none;
+width: 10%;
+height: 20%;
+
+}
+.no{
+    border-radius: 15px;
+    background-color: var(--grey400);
+    color:white;
+    left:15%;
+    position: relative;
+    border: none;
+    width: 10%;
+    height: 20%;
+}

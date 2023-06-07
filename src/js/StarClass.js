@@ -1,5 +1,7 @@
 class Star {
 
+    #id;
+
     #name;
     #description;
     #galaxyLinked;
@@ -22,7 +24,7 @@ class Star {
         this.#publicStar = publicStar;
         this.#element = this.toElement();
 
-        console.log("imgLinkArray: " + imgLinkArray);
+        // console.log("imgLinkArray: " + imgLinkArray);
         this.#imgLinkArray = imgLinkArray;
     }
 
@@ -198,18 +200,22 @@ class Star {
         this.#imgLinkArray = newImgLinkArray;
     }
 
+    setId(newId){
+        this.#id = newId;
+    }
+
+    getId(){
+        return this.#id;
+    }
+
     addImgLinkArray(newLink, id){
         this.#imgLinkArray.splice(parseInt(id), 0, newLink);
     }
 
     removeImgLinkArray(link){
+        const index = this.#imgLinkArray.indexOf(link);
 
-        for(let i = 0; i < this.#imgLinkArray.length; i++){
-
-            if(this.#imgLinkArray == link){
-                delete this.#imgLinkArray[i];
-            }
-        }
+        this.#imgLinkArray.splice(index, 1);
     }
 
 

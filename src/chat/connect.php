@@ -1,6 +1,7 @@
 <div class="chat-div hidden" id="connect">
     <div class="chat-top">
-        <a id="chat-section">Chat</a>
+        <a id="chat-section1">Chat</a>
+        <a id="friends-section1">Friends</a>
         <a class="active">Connect</a>
     </div>
 

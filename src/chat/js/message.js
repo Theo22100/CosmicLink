@@ -3,7 +3,7 @@ let timeout;
 
 function openChatWith(name) {
     stopContactCall();
-    onclickoutside(closeChatWith);
+    // onclickoutside(closeChatWith);
     ajaxGetMessages(name,true);
     MESSAGES.style.transform = "translateX(0%)";
     document.getElementById("messageProfileName").textContent = name;

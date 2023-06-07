@@ -96,8 +96,10 @@ function confirmStarPosition(event) {
 }
 
 
-function addStarWithInfo(starName, galaxy, starDesc, starSize, publicStar, x, y, imgArray) {
+function addStarWithInfo(starName, galaxy, starDesc, starSize, publicStar, x, y, imgArray, starid) {
     const s = new Star(starName, starDesc, galaxy, starSize, publicStar, x, y, imgArray);
+    s.setId(starid);
+    console.log(s.getId());
     s.addElement();
 }
 
@@ -108,9 +110,7 @@ function removeStar(event) {
     closeStarOptionsList();
     INVISIBLE.classList.add("hidden");
 
-    const galaxy = currentStar.getGalaxyLinked();
-    const star_name = currentStar.getName();
-    ajaxRemove(galaxy, star_name);
+    ajaxRemove(currentStar.getId());
 }
 
 /**
@@ -195,14 +195,13 @@ function ajaxMove(Sname, Gname, x, y) {
 
 }
 
-function ajaxRemove(galaxy_name, star_name) {
+function ajaxRemove(star_id) {
     $.ajax({
         url: "DBInterface/starDB.php",
         type: "POST",
         data: {
             action: "delete",
-            name: star_name,
-            galaxy_name: galaxy_name
+            starID: star_id
         },
         success: function (response) {
             // Handle the successful response from the server

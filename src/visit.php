@@ -30,19 +30,21 @@ else {
 
 
 
-    <div id="menu">
+    <div id="menu" style="display: flex; justify-content: center;">
         <button class="options hidden" onclick="location.href='./home.php'">Back to Galaxy</button>
-        <button class="options hidden" id="done">Done</button>
     </div>
 
 
     <div id="invisible" class="hidden"> </div>
 
-    <script src="./js/home.js"></script>
     <script src="./js/star.js"></script>
     <script src="./js/StarClass.js"></script>
     <script src="./js/GalaxyClass.js"></script>
     <script src="./js/galaxy.js"></script>
+
+    
+    <script src="./deplacementEspace.js"></script>
+    <script src="./js/visit.js"></script>
 
     <?php
     require 'connect.php';

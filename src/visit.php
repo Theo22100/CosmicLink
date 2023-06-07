@@ -37,13 +37,15 @@ else {
 
     <div id="invisible" class="hidden"> </div>
 
+
+    <script src="./js/deplacementEspace.js"></script>
+
     <script src="./js/star.js"></script>
     <script src="./js/StarClass.js"></script>
     <script src="./js/GalaxyClass.js"></script>
     <script src="./js/galaxy.js"></script>
 
-    
-    <script src="./deplacementEspace.js"></script>
+
     <script src="./js/visit.js"></script>
 
     <?php
@@ -54,8 +56,8 @@ else {
 
     try {
         //Recherche de l'univers pour ce membre
-        $sql = $handler->prepare("SELECT id_univers, public FROM univers WHERE id_membre=:id_membre");
-        $sql->bindParam(':id_membre', $visit_id);
+        $sql = $handler->prepare("SELECT id_univers, public FROM univers INNER JOIN membre WHERE membre.pseudo=:pseudo AND univers.id_membre=membre.id");
+        $sql->bindParam(':pseudo', $visit_id);
         $sql->execute();
 
        
@@ -76,6 +78,7 @@ else {
         if ($public == 1) {
             $u1 = new Universe($visit_id, $universe_id);            
             $u1->fetchGalaxies(true);
+            echo "test";
         } else {
             echo '<h1>This universe is private</h1>';
         }

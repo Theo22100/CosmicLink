@@ -31,9 +31,8 @@
                     $g = new Galaxy($this->member_id, $row['id_galaxie'],$row['galaxie_nom'],$row['descr'],$row['cox'],$row['coy'], $row['public']);
                     $g->fetchStars($viewOnly);
                     
-                    $this->galaxies[$i] = $g;
+                    $this->galaxies[] = $g;
                     $g->displayGalaxy();
-                    $i = $i + 1;
                 }
             }
         }

@@ -23,7 +23,7 @@ if (isset($_SESSION['login'])) {
 					<div class="login">
 						<h3>Already have your universe ?</h3>
 						<?php
-							if ($_GET["message"]=="echoue"){
+							if (isset($_GET['message']) && $_GET["message"]=="echoue"){
 									echo '<h2 style="color:red;">Votre mail ou mot de passe n\'est pas reconnu !</h2>';
 								}
 						?>
@@ -54,7 +54,4 @@ if (isset($_SESSION['login'])) {
 		<div class= "back"></div>
 	</body>
 
-<?php
-include("inc/bottom.php");
-?>
 </html>

@@ -13,9 +13,9 @@ class pageConnect extends Interface {
         '<header class="search-friends">' +
         '<input class="search-personnes" type="text" placeholder="search">' +
         '</header>' +
-        '<ul id="suggestions">' +
+        '<div id="suggestions">' +
         '' +
-        '</ul>' +
+        '</div>' +
         '</div>' +
         '</div>' + '';
 
@@ -55,27 +55,43 @@ class pageConnect extends Interface {
     }
 
     static addAllSuggestions(suggestions) {
-        for (let i = 0; i <suggestions.length; i++) {
+        for (let i = 0; i < suggestions.length; i++) {
             pageConnect.addSuggestions(suggestions[i]);
-        } 
+        }
     }
 
     static addSuggestions(name) {
 
-        const LI = document.createElement("li");
-        LI.classList.add("suggestion-content");
+        const DIV = document.createElement("div");
+        DIV.classList.add("friend-suggestion");
         const PP = document.createElement("img");
         PP.src = "../img/profile-pic.png";
-        PP.classList.add("suggestion-pp");
-        LI.appendChild(PP);
+        PP.classList.add("profile-pic");
+        DIV.appendChild(PP);
 
         const NAME = document.createElement("p");
         NAME.textContent = name;
-        NAME.classList.add("suggestion-name");
-        LI.appendChild(NAME);
+        NAME.classList.add("profile-name");
+        DIV.appendChild(NAME);
+
+        const DIVBUTTON = document.createElement("div");
+        DIVBUTTON.classList.add("newFriend-button");
+
+        const ADDF = document.createElement("button");
+        ADDF.textContent = "Add Friend";
+        ADDF.classList.add("addFriend");
+        DIVBUTTON.appendChild(ADDF);
+
+        const VISIT = document.createElement("a");
+        VISIT.href = "./visit.php?visit_id=" + name;
+        VISIT.textContent = "Visit";
+        VISIT.classList.add("visit");
+        DIVBUTTON.appendChild(VISIT);
+
+        DIV.appendChild(DIVBUTTON);
 
         const SUGG = document.getElementById("suggestions");
-        SUGG.appendChild(LI);
+        SUGG.appendChild(DIV);
     }
 
 

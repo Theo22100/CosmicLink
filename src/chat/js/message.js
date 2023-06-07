@@ -32,8 +32,6 @@ function addPreviousMessages(msgs) {
             addMessageSendee(msgs[i]['sender'], msgs[i]['content'], msgs[i]['timestamp']);
         }
     }
-
-
 }
 
 

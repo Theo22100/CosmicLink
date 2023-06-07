@@ -15,13 +15,12 @@ class pageFriends extends Interface {
             '' +
             '</ul>' +
             '</div>' + '';
-        #editing;
 
         constructor() {
             super("friends", pageFriends.page, true);
         }
 
-        openInterface(editing) {
+        openInterface() {
             super.openInterface();
            
             const CHATBUTTON = document.getElementById("chat-section");

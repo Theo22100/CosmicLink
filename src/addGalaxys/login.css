@@ -1,0 +1,48 @@
+body {
+    background-color: black;
+}
+
+
+.friend-suggestion {
+    display: flex;
+    flex-direction: column;
+
+    border-bottom: solid 1px var(--violet100);
+    width: fit-content;
+    align-items: center;
+}
+
+.profile-pic {
+    width: 75px;
+    margin: auto;
+}
+
+.profile-name {
+    color: white;
+    font-weight: 600;
+    font-size: 1.2em;
+}
+
+.newFriend-button {
+    display: block;
+    margin-bottom: 10px;
+}
+
+.newFriend-button button {
+    border: none;
+    background-color: var(--violet100);
+    border-radius: 5px;
+    padding: 5px;
+    color: var(--grey700);
+    font-weight: 600;
+}
+
+.friend-suggestion-div {
+    width: 100%;
+    display: grid;
+
+
+    grid-auto-flow: column dense; 
+     grid-template-columns: repeat(auto-fill,  minmax(0px, 1fr));
+    gap: 50px;
+}

@@ -99,7 +99,6 @@ function confirmStarPosition(event) {
 function addStarWithInfo(starName, galaxy, starDesc, starSize, publicStar, x, y, imgArray, starid) {
     const s = new Star(starName, starDesc, galaxy, starSize, publicStar, x, y, imgArray);
     s.setId(starid);
-    console.log(s.getId());
     s.addElement();
 }
 

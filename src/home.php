@@ -70,6 +70,8 @@ if (!isset($_SESSION['login'])) {
 
     <div id="invisible" class="hidden"> </div>
 
+    
+    <script src="./js/deplacementEspace.js"></script>
 
     <script src="./interfaces/InterfaceClass.js"></script>
     <script src="./interfaces/AddStarPageOneInterface.js"></script>
@@ -94,7 +96,6 @@ if (!isset($_SESSION['login'])) {
 
     <script src="./js/galaxy.js"></script>
 
-    <script src="./deplacementEspace.js"></script>
     
 
     <?php

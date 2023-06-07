@@ -117,6 +117,7 @@ class Star {
         });
 
         this.#element.addEventListener('mouseup', (event) => {
+            if(event.button == 2) return;
             const diffX = Math.abs(event.pageX - this.#startX);
             const diffY = Math.abs(event.pageY - this.#startY);
 

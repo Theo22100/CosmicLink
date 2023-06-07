@@ -64,13 +64,13 @@ class Star {
 
     blinkingAnimation() {
         let minOpacity;
-        switch (getRandomInt(5)){
-            case 1: minOpacity= 0.2; break; 
-            case 2: minOpacity= 0.4; break; 
-            case 3: minOpacity= 0.5; break; 
-            case 3: minOpacity= 0.6; break; 
-            case 4: minOpacity= 0.8; break; 
-            default: minOpacity= 0.5; 
+        switch (getRandomInt(5)) {
+            case 1: minOpacity = 0.2; break;
+            case 2: minOpacity = 0.4; break;
+            case 3: minOpacity = 0.5; break;
+            case 3: minOpacity = 0.6; break;
+            case 4: minOpacity = 0.8; break;
+            default: minOpacity = 0.5;
         };
 
         return [
@@ -93,6 +93,10 @@ class Star {
         this.#element.getElementsByClassName("stars")[0].style.animationName = "popUpStar";
     }
 
+
+    #delta = 6;
+    #startX;
+    #startY;
     addElement() {
 
         UNIVERS.appendChild(this.#element);
@@ -106,9 +110,20 @@ class Star {
 
         moveStarElement(this, this.#element); //fait en sorte que l'etoile puisse être déplacé
 
-        this.#element.addEventListener("click", (event) =>{
-            popUpPage.openInterface();
-            popUpPage.loadStarInfo(this);
+
+        this.#element.addEventListener('mousedown', (event) => {
+            this.#startX = event.pageX;
+            this.#startY = event.pageY;
+        });
+
+        this.#element.addEventListener('mouseup', (event) => {
+            const diffX = Math.abs(event.pageX - this.#startX);
+            const diffY = Math.abs(event.pageY - this.#startY);
+
+            if (diffX < this.#delta && diffY < this.#delta) { //click
+                popUpPage.openInterface();
+                popUpPage.loadStarInfo(this);
+            }
         });
 
     }
@@ -192,27 +207,27 @@ class Star {
         this.#element.remove();
     }
 
-    getImgLinkArray(){
+    getImgLinkArray() {
         return this.#imgLinkArray;
     }
 
-    setImgLinkArray(newImgLinkArray){
+    setImgLinkArray(newImgLinkArray) {
         this.#imgLinkArray = newImgLinkArray;
     }
 
-    setId(newId){
+    setId(newId) {
         this.#id = newId;
     }
 
-    getId(){
+    getId() {
         return this.#id;
     }
 
-    addImgLinkArray(newLink, id){
+    addImgLinkArray(newLink, id) {
         this.#imgLinkArray.splice(parseInt(id), 0, newLink);
     }
 
-    removeImgLinkArray(link){
+    removeImgLinkArray(link) {
         const index = this.#imgLinkArray.indexOf(link);
 
         this.#imgLinkArray.splice(index, 1);

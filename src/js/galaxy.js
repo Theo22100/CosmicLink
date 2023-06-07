@@ -1,7 +1,5 @@
 // GUI
 
-const galaxyPageInterface =  new pageAddGalaxy();
-
 let newGalaxy;
 function openCreateGalaxy(event){ //ouvre la fenetre d'edit/ajout d'étoile
     event.stopPropagation();

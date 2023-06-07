@@ -8,8 +8,6 @@ function getRandomInt(max) {
 }
 
 
-const popUpPage = new popUpInfo();
-
 
 const INVISIBLE = document.getElementById("invisible");
 
@@ -66,40 +64,6 @@ function closeOption() {
     menu.style.zIndex = 0;
 
 }
-
-const chatInter = new pageChat();
-const friendsInter = new pageFriends();
-const connectInter = new pageConnect();
-const messInter = new pageMessage();
-
-const chatButton = document.getElementById("chatButton");
-
-chatButton.addEventListener("click", (event) => {
-    event.stopImmediatePropagation();
-    closeOption();
-    chatInter.openInterface()
-});
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 

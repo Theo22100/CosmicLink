@@ -6,7 +6,9 @@ class pageMessage extends Interface {
         '<div class="chat-personne">' +
         '<header>' +
         '<a id="back">' +
-        '<div></div>' +
+        '<div class="chevron">'+
+                    '<img class="fleche" src="../img/chevron-right.png">'+
+                '</div>'+
         '</a>' +
         '<img src="../img/profile-pic.png">' +
         '<div>' +

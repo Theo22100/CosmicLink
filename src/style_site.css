@@ -131,6 +131,11 @@
     z-index: 998;
 }
 
+#chatButton,#userButton{
+    filter: brightness(50%) invert(100%);
+}
+
+
 .hidden{
     display: none;
 }

@@ -2,8 +2,10 @@
     font-family: Georgia,serif;
 }
 #background {
-   height: 1000px; 
+   height: 100vh; 
    background-image: radial-gradient(circle at center,#100a1f, #1d0f30, #11152ee5,#000818e5);
+   
+   margin: 0;
 }
 
 #univers{
@@ -129,6 +131,11 @@
     margin: 0 !important;
     z-index: 998;
 }
+
+#chatButton,#userButton{
+    filter: brightness(50%) invert(100%);
+}
+
 
 .hidden{
     display: none;

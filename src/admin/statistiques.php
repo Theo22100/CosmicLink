@@ -1,7 +1,7 @@
 <?php
 include("inc/top.php");
 session_start();
-if (!isset($_SESSION['login']) && $_SESSION['role'] != "A") {
+if (!isset($_SESSION['login']) || $_SESSION['role'] != "A") {
     header('Location: ../login-inscription/login.php');
 }
 
@@ -61,8 +61,33 @@ if (!isset($_SESSION['login']) && $_SESSION['role'] != "A") {
                     ?>
                 <tr>
                 <tr>
-                    <td>Nombre d'étoiles au total :&nbsp;</td>
-                    <td> Non fait </td>
+                <td>Nombre d'étoiles au total :&nbsp;</td>
+                    <?php
+                    try {
+                        // Requête SQL
+                        $requete = "
+                            SELECT COUNT(*) AS total_etoiles
+                            FROM Etoile et
+                            JOIN galaxie ga ON et.id_galaxie = ga.id_galaxie
+                            JOIN univers un ON ga.id_univers = un.id_univers
+                            JOIN membre mem ON un.id_membre = mem.id
+                        ";
+
+                        // Exécution de la requête
+                        $resultat = $connexion->query($requete);
+
+                        // Récupération du nombre total d'étoiles
+                        $row = $resultat->fetch(PDO::FETCH_ASSOC);
+                        $totalEtoiles = $row['total_etoiles'];
+
+                        // Affichage du résultat
+                        echo "<td> " . $totalEtoiles . "</td>";
+
+                    } catch (PDOException $e) {
+                        // Gestion des erreurs de connexion à la base de données
+                        echo "Erreur de connexion à la base de données : " . $e->getMessage();
+                    }
+                    ?>
                 <tr>
             </table>
         </div>

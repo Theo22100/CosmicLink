@@ -19,31 +19,33 @@ if (!isset($_SESSION['login'])) {
 
 
 			<?php
-			if ($_GET["message"] == "mdpreussie") {
-				echo '<h2 style="color:green;">Mot de passe changé</h2>';
-			} else if ($_GET["message"] == "mdpechoue") {
-				echo '<h2 style="color:red;">Erreur mot de passe</h2>';
-			} else if ($_GET["message"] == "mdp") {
-				echo '<h2 style="color:red;">Le mot de passe n\'est pas le même !</h2>';
-			} else if ($_GET["message"] == "mailechoue") {
-				echo '<h2 style="color:red;">Erreur mail !</h2>';
-			} else if ($_GET["message"] == "mail") {
-				echo '<h2 style="color:red;">Mail déjà existant !</h2>';
-			} else if ($_GET["message"] == "prenomechoue") {
-				echo '<h2 style="color:red;">Erreur avec le prénom saisi !</h2>';
-			} else if ($_GET["message"] == "nomechoue") {
-				echo '<h2 style="color:red;">Erreur avec le nom saisi !</h2>';
-			} else if ($_GET["message"] == "deletemdp") {
-				echo '<h2 style="color:red;">Suppression Compte : Mot de passe incorrect</h2>';
-			} else if ($_GET["message"] == "photoechoue") {
-				echo '<h2 style="color:red;">Erreur : Changement de Photo non effectué</h2>';
-			} else if ($_GET["message"] == "phototaille") {
-				echo '<h2 style="color:red;">Erreur : Taille de Photo supérieur à 2Mo</h2>';
-			} else if ($_GET["message"] == "modif") {
-				echo '<h2 style="color:green;">Changements Effectués !</h2>';
+			if (isset($_GET['message'])) {
+				if ($_GET["message"] == "mdpreussie") {
+					echo '<h2 style="color:green;">Mot de passe changé</h2>';
+				} else if ($_GET["message"] == "mdpechoue") {
+					echo '<h2 style="color:red;">Erreur mot de passe</h2>';
+				} else if ($_GET["message"] == "mdp") {
+					echo '<h2 style="color:red;">Le mot de passe n\'est pas le même !</h2>';
+				} else if ($_GET["message"] == "mailechoue") {
+					echo '<h2 style="color:red;">Erreur mail !</h2>';
+				} else if ($_GET["message"] == "mail") {
+					echo '<h2 style="color:red;">Mail déjà existant !</h2>';
+				} else if ($_GET["message"] == "prenomechoue") {
+					echo '<h2 style="color:red;">Erreur avec le prénom saisi !</h2>';
+				} else if ($_GET["message"] == "nomechoue") {
+					echo '<h2 style="color:red;">Erreur avec le nom saisi !</h2>';
+				} else if ($_GET["message"] == "deletemdp") {
+					echo '<h2 style="color:red;">Suppression Compte : Mot de passe incorrect</h2>';
+				} else if ($_GET["message"] == "photoechoue") {
+					echo '<h2 style="color:red;">Erreur : Changement de Photo non effectué</h2>';
+				} else if ($_GET["message"] == "phototaille") {
+					echo '<h2 style="color:red;">Erreur : Taille de Photo supérieur à 2Mo</h2>';
+				} else if ($_GET["message"] == "modif") {
+					echo '<h2 style="color:green;">Changements Effectués !</h2>';
+				}
 			}
 
-			if ($_SESSION['role'] == "A") {
+			if (isset($_SESSION['role']) && $_SESSION['role'] == "A") {
 				echo '<a href="../admin/index.php">Panel admin</a>';
 			}
 
@@ -56,7 +58,7 @@ if (!isset($_SESSION['login'])) {
 				<div class="register-bottom-grid">
 					<h3>Changez votre Photo de Profil (Actuellement :
 						<?php
-						
+
 						if ($_SESSION['image'] == NULL) {
 							echo ("<img src='../../img/profile-pic.png' alt='profile picture' width='auto' height='100px' />");
 						} else {
@@ -69,7 +71,7 @@ if (!isset($_SESSION['login'])) {
 						)
 					</h3>
 				</div>
-				
+
 				<input type="file" name="image" id="image" accept='image/*'>
 
 				<div>
@@ -115,7 +117,7 @@ if (!isset($_SESSION['login'])) {
 				</h3>
 				<div>
 					<span>Nom<label></label></span>
-					<input type="text" name="nom" id="nom"maxlength="30">
+					<input type="text" name="nom" id="nom" maxlength="30">
 				</div>
 			</div>
 
@@ -155,8 +157,7 @@ if (!isset($_SESSION['login'])) {
 
 				<div>
 					<span>Retapez votre Password</span>
-					<input type="password" name="confirm_password" id="confirm_password" required="required"
-						maxlength="50">
+					<input type="password" name="confirm_password" id="confirm_password" required="required" maxlength="50">
 				</div>
 
 				<div class="register-but">
@@ -168,8 +169,7 @@ if (!isset($_SESSION['login'])) {
 			</div>
 		</form>
 		<!-- Supprime compte -->
-		<form method="POST" action="deleteaccount.php"
-			onsubmit="return confirm('Êtes-vous sûr de vouloir supprimer votre compte ? Cette action est irréversible.')">
+		<form method="POST" action="deleteaccount.php" onsubmit="return confirm('Êtes-vous sûr de vouloir supprimer votre compte ? Cette action est irréversible.')">
 			<div class="register-bottom-grid">
 				<h3>Supprimer votre compte</h3>
 				<div>
@@ -184,22 +184,24 @@ if (!isset($_SESSION['login'])) {
 		</form>
 		<!-- Ajouter ami -->
 		<?php
-		if ($_GET["message"] == "idintroubable") {
-			echo '<h3 style="color:red;">Pseudo Introuvable</h2>';
-		} else if ($_GET["message"] == "erreurami") {
-			echo '<h3 style="color:red;">Erreur : Impossible de l\'ajouter en ami, veuillez réessayer !</h2>';
-		} else if ($_GET["message"] == "ajoutami") {
-			echo '<h3 style="color:green;">Demande envoyé avec succès</h2>';
-		} else if ($_GET["message"] == "bdd") {
-			echo '<h3 style="color:red;">Erreur : Impossibilité de se connecter à la BDD</h2>';
-		} else if ($_GET["message"] == "idutil") {
-			echo '<h3 style="color:red;">Erreur : Soucis utilisateur</h2>';
-		} else if ($_GET["message"] == "ami") {
-			echo '<h3 style="color:red;">Erreur : Vous ne pouvez pas vous ajouter en ami.</h2>';
-		} else if ($_GET["message"] == "amideja") {
-			echo '<h3 style="color:red;">Vous êtes déjà ami avec cette personne.</h2>';
-		} else if ($_GET["message"] == "amiattente") {
-			echo '<h3 style="color:red;">Vous avez déjà envoyé une demande à cette personne, veuillez attendre que la personnne accepte.</h2>';
+		if (isset($_GET['message'])) {
+			if ($_GET["message"] == "idintroubable") {
+				echo '<h3 style="color:red;">Pseudo Introuvable</h2>';
+			} else if ($_GET["message"] == "erreurami") {
+				echo '<h3 style="color:red;">Erreur : Impossible de l\'ajouter en ami, veuillez réessayer !</h2>';
+			} else if ($_GET["message"] == "ajoutami") {
+				echo '<h3 style="color:green;">Demande envoyé avec succès</h2>';
+			} else if ($_GET["message"] == "bdd") {
+				echo '<h3 style="color:red;">Erreur : Impossibilité de se connecter à la BDD</h2>';
+			} else if ($_GET["message"] == "idutil") {
+				echo '<h3 style="color:red;">Erreur : Soucis utilisateur</h2>';
+			} else if ($_GET["message"] == "ami") {
+				echo '<h3 style="color:red;">Erreur : Vous ne pouvez pas vous ajouter en ami.</h2>';
+			} else if ($_GET["message"] == "amideja") {
+				echo '<h3 style="color:red;">Vous êtes déjà ami avec cette personne.</h2>';
+			} else if ($_GET["message"] == "amiattente") {
+				echo '<h3 style="color:red;">Vous avez déjà envoyé une demande à cette personne, veuillez attendre que la personnne accepte.</h2>';
+			}
 		}
 		?>
 		<div class="register-bottom-grid">

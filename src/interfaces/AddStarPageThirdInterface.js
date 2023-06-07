@@ -26,7 +26,7 @@ class thirdPageAddStar extends Interface {
         '                </div>' +
         '' +
         '                <footer class="pictureOption">' +
-        '                    <button id="file-remove" onclick="removeCurrent()">remove</button>' +
+        '                    <button id="file-remove" onclick="thirdPageAddStar.removeCurrent()">remove</button>' +
         '                    <input id="file-picture" type="file" name="file-picture[]"' +
         '                     onchange="thirdPageAddStar.handleImageUpload(this)"></input>' +
         '                    <label class="upload" for="file-picture">' +
@@ -129,11 +129,14 @@ class thirdPageAddStar extends Interface {
         if (this.#editing == false) {
             newStar.addElementAnimation();
             newStar.addElement();
-            console.log("submit new imageArray: " + newStar.getImgLinkArray());
-            thirdPageAddStar.ajaxAdd(newStar.getName(), newStar.getGalaxyLinked(), newStar.getDescription(), newStar.getSize(), newStar.getX(), newStar.getY(), newStar.getPublicStar(), newStar.getImgLinkArray());
+            // console.log("submit new imageArray: " + newStar.getImgLinkArray());
+            thirdPageAddStar.ajaxAdd(newStar.getName(), newStar.getGalaxyLinked(), newStar.getDescription(), newStar.getSize(), newStar.getX(), newStar.getY(), newStar.getPublicStar(), newStar.getImgLinkArray(), newStar);
+            
+            
+        
         }
         else {
-            thirdPageAddStar.ajaxEdit(currentStar.getName(), newStar.getName(), currentStar.getGalaxyLinked(), newStar.getGalaxyLinked(), newStar.getDescription(), newStar.getSize(), newStar.getPublicStar(), newStar.getImgLinkArray());
+            thirdPageAddStar.ajaxEdit(newStar.getName(), newStar.getGalaxyLinked(), newStar.getDescription(), newStar.getSize(), newStar.getPublicStar(), newStar.getImgLinkArray(), newStar, currentStar.getId());
 
             currentStar.setName(newStar.getName());
             currentStar.setGalaxyLinked(newStar.getGalaxyLinked());
@@ -163,7 +166,6 @@ class thirdPageAddStar extends Interface {
 
             reader.onload = function (e) {
                 thirdPageAddStar.addImage(e.target.result, currentID);
-                // console.log("lien de l'image: " + e.target.result);
                 newStar.addImgLinkArray(e.target.result, currentID);
             }
             reader.readAsDataURL(input.files[0]);
@@ -196,7 +198,7 @@ class thirdPageAddStar extends Interface {
         thirdPageAddStar.updateMovingButton();
     }
 
-    removeCurrent() {
+    static removeCurrent() {
 
         const carouselContent = document.getElementById("carousel-content");
         if (carouselContent.childElementCount == 0) return;
@@ -285,24 +287,34 @@ class thirdPageAddStar extends Interface {
     }
 
     // AJAX
-    static ajaxEdit(oldName, newName, oldGalaxy, newGalaxy, starDesc, starSize, publicStar, linkArray) {
+    static ajaxEdit(newName, newGalaxy, starDesc, starSize, publicStar, linkArray, newStar, starId) {
         const tets= JSON.stringify(linkArray);
         $.ajax({
             url: "DBInterface/starDB.php",
             type: "POST",
             data: {
                 action: 'edit',
-                old_name: oldName,
                 new_name: newName,
-                old_galaxy: oldGalaxy,
-                new_galaxy: newGalaxy,
-                descr: starDesc,
                 size: starSize,
+                descr: starDesc,
+                new_galaxy: newGalaxy,
                 public: publicStar,
-                arrayLink: tets
+                arrayLink: tets,
+                starID: starId
             },
             success: function (response) {
                 console.log(response);
+                const responDict = JSON.parse(response);
+                console.log("responDict: " + responDict);
+                console.log("debug: "+ responDict['debug']);
+                if(  responDict["status"] == "success"){
+                    const newArray = responDict["data"];
+                    newStar.setImgLinkArray(newArray);
+                }
+
+                if( responDict["status"] == "failed"){
+                    console.log(responDict["data"]);
+                }
             },
             error: function (xhr, status, error) {
                 console.error(error);
@@ -310,9 +322,8 @@ class thirdPageAddStar extends Interface {
         });
     }
 
-    static ajaxAdd(Sname, Gname, Sdesc, Ssize, x, y, publicStar, linkArray) {
+    static ajaxAdd(Sname, Gname, Sdesc, Ssize, x, y, publicStar, linkArray, newStar) {
         const tets= JSON.stringify(linkArray);
-
         $.ajax({
             url: "DBInterface/starDB.php",
             type: "POST",
@@ -328,7 +339,14 @@ class thirdPageAddStar extends Interface {
                 arrayLink: tets
             },
             success: function (response) {
-                console.log(response);
+                const responDict = JSON.parse(response);
+                if(  responDict["status"] == "success"){
+                    const newArray = responDict["data"];
+                    const starID = responDict["starID"];
+                    console.log("starID: " + starID);
+                    newStar.setId(starID);
+                    newStar.setImgLinkArray(newArray);
+                }
             },
             error: function (xhr, status, error) {
                 console.error(error);

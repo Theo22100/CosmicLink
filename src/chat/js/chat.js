@@ -49,14 +49,12 @@ FRIENDSBUTTON1.addEventListener("click",(event)=>{
 
 
 function addAllContactMessage(contacts){
-  
     for (let i = 0; i <contacts.length; i++) {
         const contactName = contacts[i][0];
         const lastMsg = contacts[i][1];
         const numberUnread = contacts[i][2];
         addContactMessage(contactName,lastMsg);
     } 
-
 }
 
 function clearAllContactMessages(){
@@ -90,7 +88,6 @@ function addContactMessage(name, previousMessage){
     PREVIOUSCHATS.appendChild(li);
 
     li.addEventListener("click", (event) => openChatWith(name));
-
 }
 
 function ajaxGetContacts(first) {

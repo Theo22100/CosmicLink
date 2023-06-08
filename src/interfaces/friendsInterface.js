@@ -62,6 +62,7 @@ class pageFriends extends Interface {
     }
 
     openRequest(){
+        pageFriends.ajaxGetRequests();
         const FRLIST = document.getElementById("list");
         FRLIST.classList.remove("switch-active");
         const FRREQ = document.getElementById("request");
@@ -156,6 +157,35 @@ class pageFriends extends Interface {
             //TODO Trouver moyen de cache
             data: {
                 action: "getFriends"
+            },
+            success: function (response) {
+                try {
+
+                    const friends = JSON.parse(response);
+                    pageFriends.addAllFriends(friends);
+
+                } catch (error) {
+                    console.log(response);
+                    console.error(error);
+                }
+
+
+            },
+            error: function (xhr, status, error) {
+                // Handle errors
+                console.error(error);
+            }
+        });
+
+    }
+
+    static ajaxGetRequests() {
+        $.ajax({
+            url: "DBInterface/friendsDB.php",
+            type: "GET",
+            //TODO Trouver moyen de cache
+            data: {
+                action: "getRequests"
             },
             success: function (response) {
                 try {

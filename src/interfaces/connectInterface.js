@@ -10,8 +10,12 @@ class pageConnect extends Interface {
         '' +
         '' +
         '<div class="list-suggestion">' +
+        '<div class="switch-list">' +
+        '                <button id="list" class="switch-active">Suggestions</button>' +
+        '                <button id="request">All Users</button>' +
+        '            </div>' +
         '<header class="search-friends">' +
-        '<input class="search-personnes" type="text" placeholder="search">' +
+        '<input id="search-personnes" class="search-personnes" type="text" placeholder="search">' +
         '</header>' +
         '<div id="suggestions">' +
         '' +
@@ -34,6 +38,38 @@ class pageConnect extends Interface {
 
         const FRIENDSBUTTON = document.getElementById("friends-section");
         FRIENDSBUTTON.addEventListener("click", (event) => this.openFriends());
+
+
+        const FRLIST = document.getElementById("list");
+        FRLIST.addEventListener("click", (event) => {
+            if (FRLIST.classList.contains("switch-active")) return;
+            this.openSuggestion();
+        });
+        const FRREQ = document.getElementById("request");
+        FRREQ.addEventListener("click", (event) => {
+            if (FRREQ.classList.contains("switch-active")) return;
+            this.openAllUsers();
+        });
+
+        
+        const SEARCH = document.getElementById("search-personnes");
+        SEARCH.addEventListener("input", (event) => this.search(event));
+    }
+
+    search(event) {
+        const SEARCH = document.getElementById("search-personnes");
+        const searchValue = SEARCH.value;
+
+        const FLIST = document.getElementById("suggestions");
+        for (let i = 0, len = FLIST.childElementCount; i < len; ++i) {
+            const nameD = FLIST.children[i].getElementsByClassName("profile-name");
+            if (nameD[0].textContent.toLowerCase().startsWith(searchValue.toLowerCase())) {
+                FLIST.children[i].style.display = "flex";
+            }
+            else {
+                FLIST.children[i].style.display = "none";
+            }
+        }
     }
 
     openChat() {
@@ -55,11 +91,11 @@ class pageConnect extends Interface {
     }
 
     static addAllSuggestions(suggestions) {
-       console.log(suggestions);
+        console.log(suggestions);
         for (const username in suggestions) {
             const starnames = suggestions[username]['starnames']; //array, potentially empty
             const starcount = suggestions[username]['count']; //number of stars, >= 1
-            console.log(starnames+ ' '+ starcount);
+            console.log(starnames + ' ' + starcount);
             pageConnect.addSuggestions(username);
         }
     }
@@ -100,8 +136,40 @@ class pageConnect extends Interface {
     }
 
 
-    static addFriend(name){
+    static addFriend(name) {
         //TODO C'est ICI LEONIE!
+    }
+
+
+    openSuggestion(){
+        const FRLIST = document.getElementById("list");
+        FRLIST.classList.add("switch-active");
+        const FRREQ = document.getElementById("request");
+        FRREQ.classList.remove("switch-active");
+
+        this.removeFriendsView();
+        pageConnect.ajaxGetSuggestions();
+    }
+
+    openAllUsers(){
+        const FRLIST = document.getElementById("list");
+        FRLIST.classList.remove("switch-active");
+        const FRREQ = document.getElementById("request");
+        FRREQ.classList.add("switch-active");
+
+        this.removeFriendsView();
+        pageConnect.ajaxGetAllUsers();
+    }
+
+    removeFriendsView() {
+        const FLIST = document.getElementById("suggestions");
+        while (FLIST.firstChild != null) {
+            FLIST.firstChild.remove();
+        }
+    }
+
+    static ajaxGetAllUsers(){
+        //TODO LEONIE
     }
 
     static ajaxGetSuggestions() {

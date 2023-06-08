@@ -112,7 +112,10 @@ function zoomInOut(translateX, translateY, zoomIn, oldZoom) {
         child.getElementsByClassName("stars")[0].style.transform = `scale(${zoom})`;
         zoomCoordinates(zoomIn, child, translateX, translateY);
 
-        if (zoom > 0.7) child.style.visibility = "visible";
+        if (zoom > 0.65) {
+            child.style.opacity = 1 - ((1 - zoom) / 0.3);
+            child.style.visibility = "visible";
+        }
         else child.style.visibility = "hidden";
 
         console.log("zoom: " + zoom);
@@ -128,20 +131,12 @@ function zoomInOut(translateX, translateY, zoomIn, oldZoom) {
 
 
         // 0.7 full 1 faded
-        // 0.7 -> 1
-        // 0.85 -> 0.5
-        // 1 -> 0
         if (zoom < 1) {
-            // child.getElementsByClassName("galaxy")[0].style.opacity = 1 - (zoom - 0.7);
-            child.style.visibility = "visible";
-            // child.style.transition= "3s opacity";
-
-            
+            child.style.opacity = (1 - zoom) / 0.3;
+            child.style.visibility = "visible";            
         }
         else {
-            // child.getElementsByClassName("galaxy")[0].style.opacity = 0;
             child.style.visibility = "hidden";
-            // child.style.transition= "3s opacity";
         }
 
     }

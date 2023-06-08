@@ -67,9 +67,6 @@ class pageChat extends Interface {
     }
 
     search(event){
-        // console.log(event.data);
-        // console.log(event);
-
         const SEARCH = document.getElementById("search-personnes");
         const searchValue= SEARCH.value;
 
@@ -82,10 +79,7 @@ class pageChat extends Interface {
             else{
                 PREVIOUSCHATS.children[i].style.display = "none";
             }
-
         }
-
-
     }
 
     static addAllContactMessage(contacts) {
@@ -158,8 +152,10 @@ class pageChat extends Interface {
     static updateContactMessage(name, previousMessage, numberUnread){
         const PREVIOUSCHATS = document.getElementById("previous-chats");
         for(let i=0, len = PREVIOUSCHATS.childElementCount ; i < len; ++i){
+            let find= false;
             const nameD = PREVIOUSCHATS.children[i].getElementsByClassName("nom");
             if(nameD[0].textContent === name){
+                find= true;
                 const numberUnreadD = PREVIOUSCHATS.children[i].getElementsByClassName("unread-number");
                 if(numberUnread > 0 ){
                     if(numberUnreadD.length == 0){
@@ -183,10 +179,13 @@ class pageChat extends Interface {
                 
                 const previousMessageD = PREVIOUSCHATS.children[i].getElementsByClassName("oldMsg");
                 previousMessageD[0].textContent = previousMessage;
-
-
             }
         }
+        
+        if(!find){
+            this.addContactMessage(name,previousMessage,numberUnread);
+        }
+
     }
 
 

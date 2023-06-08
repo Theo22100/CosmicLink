@@ -1,26 +1,26 @@
 class pageFriends extends Interface {
 
-    static page = '' + 
-    '<div class="chat-div" id="friends">' + 
-    '        <div class="chat-top">' + 
-    '            <a id="chat-section">Chat</a>' + 
-    '            <a class="active">Friends</a>' + 
-    '            <a id="connect-section">Connect</a>' + 
-    '        </div>' + 
-    '    ' + 
-    '        <div class="list-friends">' + 
-    '            <div class="switch-list">' + 
-    '                <button id="list" class="switch-active">List</button>' + 
-    '                <button id="request">Requests</button>' + 
-    '            </div>' + 
-    '            <header class="search-friends" id="search-friends">' + 
-    '                <input class="search-personnes" type="text" placeholder="Search Contact">' + 
-    '            </header>' + 
-    '            ' + 
-    '            <div id="friendList"></div>' + 
-    '        </div>' + 
-    '    </div>' + 
-    '';
+    static page = '' +
+        '<div class="chat-div" id="friends">' +
+        '        <div class="chat-top">' +
+        '            <a id="chat-section">Chat</a>' +
+        '            <a class="active">Friends</a>' +
+        '            <a id="connect-section">Connect</a>' +
+        '        </div>' +
+        '    ' +
+        '        <div class="list-friends">' +
+        '            <div class="switch-list">' +
+        '                <button id="list" class="switch-active">List</button>' +
+        '                <button id="request">Requests</button>' +
+        '            </div>' +
+        '            <header class="search-friends" id="search-friends">' +
+        '                <input id="search-personnes" class="search-personnes" type="text" placeholder="Search Contact">' +
+        '            </header>' +
+        '            ' +
+        '            <div id="friendList"></div>' +
+        '        </div>' +
+        '    </div>' +
+        '';
 
     constructor() {
         super("friends", pageFriends.page, true);
@@ -35,23 +35,29 @@ class pageFriends extends Interface {
         const CONNECTBUTTON = document.getElementById("connect-section");
         CONNECTBUTTON.addEventListener("click", (event) => this.openConnect());
 
-        
+
         this.openList();
 
-        
+
         const FRLIST = document.getElementById("list");
         FRLIST.addEventListener("click", (event) => {
-            if(FRLIST.classList.contains("switch-active")) return;
+            if (FRLIST.classList.contains("switch-active")) return;
             this.openList();
         });
         const FRREQ = document.getElementById("request");
         FRREQ.addEventListener("click", (event) => {
-            if(FRREQ.classList.contains("switch-active")) return;
+            if (FRREQ.classList.contains("switch-active")) return;
             this.openRequest();
         });
+
+
+        const SEARCH = document.getElementById("search-personnes");
+        SEARCH.addEventListener("input", (event) => this.search(event));
     }
 
-    openList(){
+    
+
+    openList() {
         const FRLIST = document.getElementById("list");
         FRLIST.classList.add("switch-active");
         const FRREQ = document.getElementById("request");
@@ -61,7 +67,7 @@ class pageFriends extends Interface {
         pageFriends.ajaxGetFriends();
     }
 
-    openRequest(){
+    openRequest() {
         const FRLIST = document.getElementById("list");
         FRLIST.classList.remove("switch-active");
         const FRREQ = document.getElementById("request");
@@ -71,18 +77,18 @@ class pageFriends extends Interface {
         //TODO TRUC LEONIE DE AJAXGETFRIENDSREQUEST
     }
 
-    removeFriendsView(){
+    removeFriendsView() {
         const FLIST = document.getElementById("friendList");
-        while(FLIST.firstChild != null){
+        while (FLIST.firstChild != null) {
             FLIST.firstChild.remove();
         }
     }
 
 
     static addAllFriends(friends) {
-        for (let i = 0; i <friends.length; i++) {
+        for (let i = 0; i < friends.length; i++) {
             pageFriends.addFriends(friends[i]);
-        } 
+        }
     }
 
     static addFriends(name) {
@@ -112,10 +118,10 @@ class pageFriends extends Interface {
         const VISITFRIEND = document.createElement("button");
         VISITFRIEND.classList.add("visitFriend");
         VISITFRIEND.textContent = "Visit";
-        VISITFRIEND.addEventListener("click", (event)=> {
-            window.location.href= "./visit.php?visit_id=" + name;
+        VISITFRIEND.addEventListener("click", (event) => {
+            window.location.href = "./visit.php?visit_id=" + name;
         });
-            
+
         BUTTONDIV.appendChild(VISITFRIEND);
 
         const REMOVEFRIEND = document.createElement("button");
@@ -132,9 +138,9 @@ class pageFriends extends Interface {
 
 
     static addAllFriendsRequests(friends) {
-        for (let i = 0; i <friends.length; i++) {
+        for (let i = 0; i < friends.length; i++) {
             pageFriends.addFriendsRequests(friends[i]);
-        } 
+        }
     }
 
     static addFriendsRequests(name) {
@@ -158,10 +164,10 @@ class pageFriends extends Interface {
         const VISITFRIEND = document.createElement("button");
         VISITFRIEND.classList.add("visitFriend");
         VISITFRIEND.textContent = "Visit";
-        VISITFRIEND.addEventListener("click", (event)=> {
-            window.location.href= "./visit.php?visit_id=" + name;
+        VISITFRIEND.addEventListener("click", (event) => {
+            window.location.href = "./visit.php?visit_id=" + name;
         });
-            
+
         BUTTONDIV.appendChild(VISITFRIEND);
 
         const ADDFRIEND = document.createElement("button");
@@ -176,15 +182,15 @@ class pageFriends extends Interface {
         FLIST.appendChild(DIV);
     }
 
-    static addFriend(name){
-
-    }
-    
-    static removeFriend(name){
+    static addFriend(name) {
 
     }
 
-    static sendNewMessage(name){
+    static removeFriend(name) {
+
+    }
+
+    static sendNewMessage(name) {
         friendsInter.closeInterface();
         messInter.openInterface();
         messInter.load(name);

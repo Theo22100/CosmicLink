@@ -67,9 +67,6 @@ class pageChat extends Interface {
     }
 
     search(event){
-        // console.log(event.data);
-        // console.log(event);
-
         const SEARCH = document.getElementById("search-personnes");
         const searchValue= SEARCH.value;
 
@@ -82,10 +79,7 @@ class pageChat extends Interface {
             else{
                 PREVIOUSCHATS.children[i].style.display = "none";
             }
-
         }
-
-
     }
 
     static addAllContactMessage(contacts) {

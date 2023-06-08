@@ -115,7 +115,8 @@
 .friend-ProfilePic{
     height: 50px;
     width: auto;
-    margin-left:15px
+    margin-left:15px;
+    border-radius: 100%;
 }
 
 .friend-ProfileName{
@@ -127,9 +128,14 @@
 
 
 .friendActionButton{
+    position: absolute;
     display: flex;
-    align-items: center;
-    margin-left: 230px;
+    align-self: center;
+    right: 0px;
+    margin-right: 10px;
+    height: 30px;
+    margin-left: auto;
+    margin-right: 50px;
 }
 
 .friendProfile button, .friendProfile a {

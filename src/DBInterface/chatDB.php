@@ -35,11 +35,65 @@ if (isset($_SESSION['id'])) {
     }
 }
 
-function getSuggestions($handler, $user_id){
-    $all_users = getAllUsers($handler,$user_id);
-    $friends = DBFunctions::getFriends($handler,$user_id);
-    $result = array_values(array_diff($all_users,$friends));
-    return $result;
+function getSuggestions($handler, $user_id)
+{   
+    /*
+   
+    //Selecting all starnames and member ids of members different than connected user as well as public status
+    $query1 = "SELECT etoile.nom, etoile.public as starpublic, univers.id_membre, univers.public as universepublic, galaxie.public as galaxypublic, membre.pseudo 
+    FROM etoile INNER JOIN (galaxie INNER JOIN (univers INNER JOIN membre))
+    WHERE galaxie.id_univers = univers.id_univers AND galaxie.id_galaxie = etoile.id_galaxie AND univers.id_membre = membre.id
+    AND univers.id_membre != :user_id";
+
+    //Selecting all starnames of current user
+    $query2 = "SELECT etoile.nom, univers.id_membre 
+    FROM etoile INNER JOIN (galaxie INNER JOIN univers) 
+    WHERE galaxie.id_univers = univers.id_univers AND galaxie.id_galaxie = etoile.id_galaxie 
+    AND univers.id_membre = :user_id";
+
+    //Counting how many stars are in common with every other user
+    $countquery = "SELECT e1.id_membre, COUNT(*)
+     FROM ($query1) as e1 INNER JOIN ($query2) as e2 
+     WHERE e1.nom = e2.nom GROUP BY e1.id_membre; ";
+
+    //names of stars in common with other users
+    $fullquery =  "SELECT e1.id_membre, e1.pseudo, e1.nom, e1.starpublic,e1.universepublic, e1.galaxypublic
+    FROM ($query1) as e1 INNER JOIN ($query2) as e2 
+    WHERE e1.nom = e2.nom; ";
+    */
+
+    $fullquery = "SELECT id_membre_2, pseudo_2, nom_etoile, public_etoile_2, public_univers_2, public_galaxie_2
+    FROM commonstars
+    WHERE id_membre_1 = :user_id ";
+
+    $sql = $handler->prepare($fullquery);
+    $sql->bindParam(':user_id', $user_id);
+    $sql->execute();
+
+
+    $commonStars = []; 
+    
+    while ($row = $sql->fetch(PDO::FETCH_ASSOC)) {
+        $currentSugg = $row['pseudo_2'];
+        if(!array_key_exists($currentSugg,$commonStars)){
+            $commonStars[$currentSugg] = ['starnames' => [], 'count' => 0];
+        }
+        if ($row['public_univers_2'] == 1 && $row['public_galaxie_2'] == 1 && $row['public_etoile_2'] == 1) {
+            $commonStars[$currentSugg]['starnames'][] = $row['nom'];
+        }
+        $commonStars[$currentSugg]['count']++;
+    }
+
+
+
+    $friends = DBFunctions::getFriends($handler, $user_id);
+
+
+    foreach ($friends as $friend) {
+        if (array_key_exists($friend, $commonStars)) unset($commonStars[$friend]);
+    }
+
+    return $commonStars;
 }
 
 function getAllUsers($handler, $user_id)
@@ -50,7 +104,7 @@ function getAllUsers($handler, $user_id)
 
     $contacts = array();
     while ($row = $q->fetch(PDO::FETCH_ASSOC)) {
-        $contacts[] =$row['pseudo'];
+        $contacts[] = $row['pseudo'];
     }
     return $contacts;
 }

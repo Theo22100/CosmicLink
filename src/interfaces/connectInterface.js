@@ -55,8 +55,12 @@ class pageConnect extends Interface {
     }
 
     static addAllSuggestions(suggestions) {
-        for (let i = 0; i < suggestions.length; i++) {
-            pageConnect.addSuggestions(suggestions[i]);
+       console.log(suggestions);
+        for (const username in suggestions) {
+            const starnames = suggestions[username]['starnames']; //array, potentially empty
+            const starcount = suggestions[username]['count']; //number of stars, >= 1
+            console.log(starnames+ ' '+ starcount);
+            pageConnect.addSuggestions(username);
         }
     }
 
@@ -107,6 +111,8 @@ class pageConnect extends Interface {
                 try {
 
                     const suggestions = JSON.parse(response);
+                    //format : suggestions =  {<user1> : { "starnames" : {<possibly empty>} , "count" : <number> } , <user2> { "starnames" : {<possibly empty>} , "count" : <number> } }
+                    //console.log(suggestions);
                     pageConnect.addAllSuggestions(suggestions);
 
                 } catch (error) {

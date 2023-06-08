@@ -55,7 +55,21 @@ class pageFriends extends Interface {
         SEARCH.addEventListener("input", (event) => this.search(event));
     }
 
-    
+    search(event) {
+        const SEARCH = document.getElementById("search-personnes");
+        const searchValue = SEARCH.value;
+
+        const FLIST = document.getElementById("friendList");
+        for (let i = 0, len = FLIST.childElementCount; i < len; ++i) {
+            const nameD = FLIST.children[i].getElementsByClassName("friend-ProfileName");
+            if (nameD[0].textContent.toLowerCase().startsWith(searchValue.toLowerCase())) {
+                FLIST.children[i].style.display = "flex";
+            }
+            else {
+                FLIST.children[i].style.display = "none";
+            }
+        }
+    }
 
     openList() {
         const FRLIST = document.getElementById("list");
@@ -67,14 +81,14 @@ class pageFriends extends Interface {
         pageFriends.ajaxGetFriends();
     }
 
-    openRequest() {
+    openRequest(){
+        pageFriends.ajaxGetRequests();
         const FRLIST = document.getElementById("list");
         FRLIST.classList.remove("switch-active");
         const FRREQ = document.getElementById("request");
         FRREQ.classList.add("switch-active");
 
         this.removeFriendsView();
-        //TODO TRUC LEONIE DE AJAXGETFRIENDSREQUEST
     }
 
     removeFriendsView() {
@@ -182,8 +196,12 @@ class pageFriends extends Interface {
         FLIST.appendChild(DIV);
     }
 
-    static addFriend(name) {
-
+    static addFriend(name){
+        pageFriends.ajaxAcceptFriend(name);
+    }
+    
+    static removeFriend(name){
+        pageFriends.ajaxRemoveFriend(name);
     }
 
     static removeFriend(name) {
@@ -210,6 +228,52 @@ class pageFriends extends Interface {
 
     }
 
+    static ajaxAcceptFriend(friendName) {
+        $.ajax({
+            url: "DBInterface/friendsDB.php",
+            type: "POST",
+            //TODO Trouver moyen de cache
+            data: {
+                action: "acceptFriend",
+                friend_user: friendName
+            },
+            success: function (response) {
+
+            },
+            error: function (xhr, status, error) {
+                // Handle errors
+                console.error(error);
+            }
+        });
+    }
+
+    static ajaxRemoveFriend(friendName) {
+        $.ajax({
+            url: "DBInterface/friendsDB.php",
+            type: "POST",
+            //TODO Trouver moyen de cache
+            data: {
+                action: "removeFriend",
+                friend_user: friendName
+            },
+            success: function (response) {
+                try {
+
+                } catch (error) {
+                    console.log(response);
+                    console.error(error);
+                }
+
+
+            },
+            error: function (xhr, status, error) {
+                // Handle errors
+                console.error(error);
+            }
+        });
+
+    }
+
     static ajaxGetFriends() {
         $.ajax({
             url: "DBInterface/friendsDB.php",
@@ -222,7 +286,38 @@ class pageFriends extends Interface {
                 try {
 
                     const friends = JSON.parse(response);
+                    console.log(friends);
                     pageFriends.addAllFriends(friends);
+
+                } catch (error) {
+                    console.log(response);
+                    console.error(error);
+                }
+
+
+            },
+            error: function (xhr, status, error) {
+                // Handle errors
+                console.error(error);
+            }
+        });
+
+    }
+
+    static ajaxGetRequests() {
+        $.ajax({
+            url: "DBInterface/friendsDB.php",
+            type: "GET",
+            //TODO Trouver moyen de cache
+            data: {
+                action: "getRequests"
+            },
+            success: function (response) {
+                try {
+
+                    console.log(response);
+                    const friends = JSON.parse(response);
+                    pageFriends.addAllFriendsRequests(friends);
 
                 } catch (error) {
                     console.log(response);

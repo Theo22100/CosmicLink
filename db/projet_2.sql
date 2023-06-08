@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Hôte : localhost:3306
--- Généré le : jeu. 08 juin 2023 à 13:02
+-- Généré le : jeu. 08 juin 2023 à 14:23
 -- Version du serveur : 5.7.24
 -- Version de PHP : 8.0.1
 
@@ -273,7 +273,7 @@ INSERT INTO `univers` (`id_univers`, `id_membre`, `public`) VALUES
 --
 DROP TABLE IF EXISTS `commonstars`;
 
-CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `commonstars`  AS SELECT `s1`.`pseudo` AS `pseudo_1`, `s1`.`id_membre` AS `id_membre_1`, `s1`.`id_univers` AS `id_univers_1`, `s1`.`public_univers` AS `public_univers_1`, `s1`.`id_galaxie` AS `id_galaxie_1`, `s1`.`public_galaxie` AS `public_galaxie_1`, `s1`.`id_etoile` AS `id_etoile1`, `s1`.`public_etoile` AS `public_etoile1`, `s1`.`nom_etoile` AS `nom_etoile`, `s2`.`id_etoile` AS `id_etoile_2`, `s2`.`public_etoile` AS `public_etoile_2`, `s2`.`public_galaxie` AS `public_galaxie_2`, `s2`.`id_galaxie` AS `id_galaxie_2`, `s2`.`public_univers` AS `public_univers_2`, `s2`.`id_univers` AS `id_univers_2`, `s2`.`id_membre` AS `id_membre_2`, `s1`.`pseudo` AS `pseudo_2` FROM (`startomember` `s1` join `startomember` `s2`) WHERE ((`s1`.`nom_etoile` = `s2`.`nom_etoile`) AND (`s1`.`id_membre` <> `s2`.`id_membre`))  ;
+CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `commonstars`  AS SELECT `s1`.`pseudo` AS `pseudo_1`, `s1`.`id_membre` AS `id_membre_1`, `s1`.`id_univers` AS `id_univers_1`, `s1`.`public_univers` AS `public_univers_1`, `s1`.`id_galaxie` AS `id_galaxie_1`, `s1`.`public_galaxie` AS `public_galaxie_1`, `s1`.`id_etoile` AS `id_etoile1`, `s1`.`public_etoile` AS `public_etoile1`, `s1`.`nom_etoile` AS `nom_etoile`, `s2`.`id_etoile` AS `id_etoile_2`, `s2`.`public_etoile` AS `public_etoile_2`, `s2`.`public_galaxie` AS `public_galaxie_2`, `s2`.`id_galaxie` AS `id_galaxie_2`, `s2`.`public_univers` AS `public_univers_2`, `s2`.`id_univers` AS `id_univers_2`, `s2`.`id_membre` AS `id_membre_2`, `s2`.`pseudo` AS `pseudo_2` FROM (`startomember` `s1` join `startomember` `s2`) WHERE ((`s1`.`nom_etoile` = `s2`.`nom_etoile`) AND (`s1`.`id_membre` <> `s2`.`id_membre`))  ;
 
 -- --------------------------------------------------------
 

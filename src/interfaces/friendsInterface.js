@@ -69,6 +69,7 @@ class pageFriends extends Interface {
         FRREQ.classList.add("switch-active");
 
         this.removeFriendsView();
+        //TODO TRUC LEONIE DE AJAXGETFRIENDSREQUEST
     }
 
     removeFriendsView(){
@@ -101,7 +102,7 @@ class pageFriends extends Interface {
 
 
         const BUTTONDIV = document.createElement("div");
-        BUTTONDIV.classList.add("friend-ProfileName");
+        BUTTONDIV.classList.add("friendActionButton");
 
         const SENDMESSAGE = document.createElement("button");
         SENDMESSAGE.classList.add("sendMessage");
@@ -109,10 +110,13 @@ class pageFriends extends Interface {
         SENDMESSAGE.addEventListener("click", (event) => pageFriends.sendNewMessage(name));
         BUTTONDIV.appendChild(SENDMESSAGE);
 
-        const VISITFRIEND = document.createElement("a");
+        const VISITFRIEND = document.createElement("button");
         VISITFRIEND.classList.add("visitFriend");
         VISITFRIEND.textContent = "Visit";
-        VISITFRIEND.href = "./visit.php?visit_id=" + name;
+        VISITFRIEND.addEventListener("click", (event)=> {
+            window.location.href= "./visit.php?visit_id=" + name;
+        });
+            
         BUTTONDIV.appendChild(VISITFRIEND);
 
         const REMOVEFRIEND = document.createElement("button");
@@ -128,6 +132,55 @@ class pageFriends extends Interface {
     }
 
 
+    static addAllFriendsRequests(friends) {
+        for (let i = 0; i <friends.length; i++) {
+            pageFriends.addFriendsRequests(friends[i]);
+        } 
+    }
+
+    static addFriendsRequests(name) {
+
+        const DIV = document.createElement("div");
+        DIV.classList.add("friendProfile");
+        const PP = document.createElement("img");
+        PP.src = "../img/profile-pic.png";
+        PP.classList.add("friend-ProfilePic");
+        DIV.appendChild(PP);
+
+        const NAME = document.createElement("p");
+        NAME.textContent = name;
+        NAME.classList.add("friend-ProfileName");
+        DIV.appendChild(NAME);
+
+
+        const BUTTONDIV = document.createElement("div");
+        BUTTONDIV.classList.add("friendActionButton");
+
+        const VISITFRIEND = document.createElement("button");
+        VISITFRIEND.classList.add("visitFriend");
+        VISITFRIEND.textContent = "Visit";
+        VISITFRIEND.addEventListener("click", (event)=> {
+            window.location.href= "./visit.php?visit_id=" + name;
+        });
+            
+        BUTTONDIV.appendChild(VISITFRIEND);
+
+        const ADDFRIEND = document.createElement("button");
+        ADDFRIEND.classList.add("addFriend");
+        ADDFRIEND.textContent = "Add Friend";
+        ADDFRIEND.addEventListener("click", (event) => pageFriends.addFriend(name));
+        BUTTONDIV.appendChild(ADDFRIEND);
+
+        DIV.appendChild(BUTTONDIV);
+
+        const FLIST = document.getElementById("friendList");
+        FLIST.appendChild(DIV);
+    }
+
+    static addFriend(name){
+
+    }
+    
     static removeFriend(name){
 
     }

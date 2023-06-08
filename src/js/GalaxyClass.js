@@ -53,6 +53,9 @@ class Galaxy {
         this.#element.getElementsByClassName("galaxy")[0].style.animationName = "popUpStar";
     }
 
+    #delta = 6;
+    #startX;
+    #startY;
     addElement() {
 
         UNIVERS.appendChild(this.#element);
@@ -66,9 +69,21 @@ class Galaxy {
 
         moveGalaxyElement(this, this.#element); //fait en sorte que l'etoile puisse être déplacé
 
-        this.#element.addEventListener("click", (event) =>{
-            popUpPage.openInterface();
-            popUpPage.loadGalaxyInfo(this);
+
+        this.#element.addEventListener('mousedown', (event) => {
+            this.#startX = event.pageX;
+            this.#startY = event.pageY;
+        });
+
+        this.#element.addEventListener('mouseup', (event) => {
+            if(event.button == 2) return;
+            const diffX = Math.abs(event.pageX - this.#startX);
+            const diffY = Math.abs(event.pageY - this.#startY);
+
+            if (diffX < this.#delta && diffY < this.#delta) { //click
+                popUpPage.openInterface();
+                popUpPage.loadGalaxyInfo(this);
+            }
         });
     }
 

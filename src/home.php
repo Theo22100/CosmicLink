@@ -56,9 +56,10 @@ if (!isset($_SESSION['login'])) {
                 <button class="dropUp-Option" onclick="openCreateGalaxy(event)">Galaxy</button>
             </div>
         </div>
-        <button class="options hidden" id="chatButton">Chat</button>
+       
+        <button class="options hidden" id="chatButton"><img  src="../img/chat.png" class="options hidden"></button>
         <div class="dropUp options">
-            <button class="options hidden">Mon Compte</button>
+            <button class="options hidden" id="userButton"><img  src="../img/compte.png" class="options hidden"></button>
             <div class="dropUp-content">
                 <button class="dropUp-Option" onclick="location.href='./compte/compte.php'">Settings</button>
                 <button class="dropUp-Option" onclick="location.href='./compte/deconnexion.php'">Logout</button>
@@ -69,6 +70,8 @@ if (!isset($_SESSION['login'])) {
 
     <div id="invisible" class="hidden"> </div>
 
+    
+    <script src="./js/deplacementEspace.js"></script>
 
     <script src="./interfaces/InterfaceClass.js"></script>
     <script src="./interfaces/AddStarPageOneInterface.js"></script>
@@ -86,13 +89,13 @@ if (!isset($_SESSION['login'])) {
     <script src="./interfaces/messageInterface.js"></script>
     
     <script src="./js/home.js"></script>
-    <script src="./js/homeinit.js"></script>
     
     <script src="./js/star.js"></script>
     <script src="./js/StarClass.js"></script>
     <script src="./js/GalaxyClass.js"></script>
 
     <script src="./js/galaxy.js"></script>
+
     
 
     <?php

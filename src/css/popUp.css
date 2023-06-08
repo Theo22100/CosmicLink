@@ -1,3 +1,7 @@
+*{
+    font-family: Luminari, fantasy;
+}
+
 #popUpInfo {
     position: absolute;
     left: 50%;

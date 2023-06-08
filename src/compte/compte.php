@@ -4,6 +4,7 @@ if (!isset($_SESSION['login'])) {
 	header('Location: ../login-inscription/login.php');
 }
 ?>
+<!DOCTYPE html>
 <html>
 
 <head>
@@ -56,7 +57,7 @@ if (!isset($_SESSION['login'])) {
 			<div class="clear"> </div>
 			<form method="POST" action="modifiephoto.php" enctype="multipart/form-data">
 				<div class="register-bottom-grid">
-					<h3>Changez votre Photo de Profil (Actuellement :
+					<h3>Change you profile picture (Currently :
 						<?php
 
 						if ($_SESSION['image'] == NULL) {
@@ -77,7 +78,7 @@ if (!isset($_SESSION['login'])) {
 				<div>
 					(Max 2Mo)
 				</div>
-				<input type="submit" name="modifiephoto" value="Modifier">
+				<input type="submit" name="modifiephoto" id="modifButton" value="Change">
 			</form>
 			<div class="clear"> </div>
 
@@ -89,7 +90,7 @@ if (!isset($_SESSION['login'])) {
 		<div class="clear"> </div>
 		<form method="POST" action="modifall.php">
 			<div class="register-bottom-grid">
-				<h3>Changez votre Prénom (Actuellement :
+				<h3>Change your First Name (Currently :
 					<?php
 					echo $_SESSION['prenom'];
 
@@ -98,8 +99,8 @@ if (!isset($_SESSION['login'])) {
 				</h3>
 
 				<div>
-					<span>Prénom<label></label></span>
-					<input type="text" name="prenom" id="prenom" maxlength="30">
+					<!-- <span>Prénom<label></label></span> -->
+					<input type="text" name="prenom" id="prenom" maxlength="30" placeholder="First Name">
 
 				</div>
 				<div class="clear"> </div>
@@ -108,7 +109,7 @@ if (!isset($_SESSION['login'])) {
 			<div class="clear"> </div>
 			<!-- Modifier nom -->
 			<div>
-				<h3>Changez votre Nom (Actuellement :
+				<h3>Change your Last Name (Currently :
 					<?php
 					echo $_SESSION['nom'];
 
@@ -116,15 +117,15 @@ if (!isset($_SESSION['login'])) {
 					)
 				</h3>
 				<div>
-					<span>Nom<label></label></span>
-					<input type="text" name="nom" id="nom" maxlength="30">
+					<!-- <span>Nom<label></label></span> -->
+					<input type="text" name="nom" id="nom" maxlength="30" placeholder="Last Name">
 				</div>
 			</div>
 
 			<div class="clear"> </div>
 			<!-- Modifier email -->
 			<div class="register-bottom-grid">
-				<h3>Changez votre Mail (Actuellement :
+				<h3>Change your Mail (Currently :
 					<?php
 					echo $_SESSION['mail'];
 
@@ -132,13 +133,13 @@ if (!isset($_SESSION['login'])) {
 					)
 				</h3>
 				<div>
-					<span>Mail<label></label></span>
+					<!-- <span>Mail<label></label></span> -->
 					<div>
-						<input type="mail" name="mail" id="mail" maxlength="60">
+						<input type="mail" name="mail" id="mail" maxlength="60" placeholder="Mail">
 					</div>
 					<div>
 
-						<input type="submit" name="modifierall" value="Modifier">
+						<input type="submit" name="modifierall" id="modifButton" value="Change">
 
 					</div>
 				</div>
@@ -149,19 +150,19 @@ if (!isset($_SESSION['login'])) {
 		<!-- Modifier mdp -->
 		<form method="POST" action="modifiemdp.php">
 			<div class="register-bottom-grid">
-				<h3>Changez votre Password</h3>
+				<h3>Change your Password</h3>
 				<div>
-					<span>Password</span>
-					<input type="password" name="password" id="password" required="required" maxlength="50">
+					<!-- <span>Password</span> -->
+					<input type="password" name="password" id="password" required="required" maxlength="50" placeholder="Password">
 				</div>
 
 				<div>
-					<span>Retapez votre Password</span>
-					<input type="password" name="confirm_password" id="confirm_password" required="required" maxlength="50">
+					<!-- <span>Retapez votre Password</span> -->
+					<input type="password" name="confirm_password" id="confirm_password" required="required" maxlength="50" placeholder="Confirm Password">
 				</div>
 
 				<div class="register-but">
-					<input type="submit" name="envoyermdp" value="Modifier">
+					<input type="submit" name="envoyermdp" id="modifButton" value="Change">
 
 
 				</div>
@@ -171,13 +172,13 @@ if (!isset($_SESSION['login'])) {
 		<!-- Supprime compte -->
 		<form method="POST" action="deleteaccount.php" onsubmit="return confirm('Êtes-vous sûr de vouloir supprimer votre compte ? Cette action est irréversible.')">
 			<div class="register-bottom-grid">
-				<h3>Supprimer votre compte</h3>
+				<h3>Delete your Account</h3>
 				<div>
-					<span>Mot de Passe actuel</span>
-					<input type="password" name="password" id="password" required="required" maxlength="50">
+					<!-- <span>Mot de Passe actuel</span> -->
+					<input type="password" name="password" id="password" required="required" maxlength="50" placeholder="Type your Password">
 				</div>
 				<div class="register-but">
-					<input type="submit" name="envoyermdp" value="Supprimer votre Compte">
+					<input type="submit" name="envoyermdp" id="modifButton" value="Delete">
 				</div>
 
 			</div>
@@ -206,20 +207,27 @@ if (!isset($_SESSION['login'])) {
 		?>
 		<div class="register-bottom-grid">
 			<form method="POST" action="ajouterami.php">
-				<h3>Ajouter Ami</h3>
+				<h3>Add Friend</h3>
 				<div>
-					<span>Saississez le pseudo :</span>
+					<span>Enter pseudo :</span>
 					<div>
-						<input type="text" name="ami" id="ami" required="required" maxlength="60">
+						<input type="text" name="ami" id="ami" required="required" maxlength="60" placeholder="Pseudo">
 					</div>
 
 					<div>
-						<input type="submit" name="ajouterami" value="Ajouter">
+						<input type="submit" name="ajouterami"  id="modifButton" value="Add">
 
 					</div>
 				</div>
 			</form>
 		</div>
+
+		<div class="return" >
+
+			<a href="./../home.php">Back to galaxy</a>
+		</div>
+
+
 	</div>
 
 	<div class="back"></div>

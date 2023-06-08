@@ -6,6 +6,9 @@
 	--accent: #5a3859;
 	--text: #000000;
 	--bg: #ececf2;
+	
+	font-family: Luminari, fantasy;
+	
 }
 
 .chat-personne{
@@ -63,7 +66,7 @@
 	position: relative;
 }
 
-#back div{
+/* #back div{
 	position:absolute;
 	top:50%;
 	-ms-transform: translateY(-50%);
@@ -74,10 +77,20 @@
 	border-bottom: 4px solid #d1d5db;
     border-left: 4px solid #d1d5db;
     transform: translateX(25%) translateY(-50%) rotate(45deg);
+} */
+
+.fleche{
+	position: absolute;
+	transform:  rotate(180deg);
 }
 
+.fleche:hover{
+	filter: brightness(50%) invert(100%);
+}
+
+
 #back:hover div {
-  border-color: black;
+  border-color: rgb(255, 255, 255);
 }
 
 

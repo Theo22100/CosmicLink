@@ -1,5 +1,5 @@
 *{
-    font-family: Georgia,serif;
+    font-family: Luminari, fantasy;
 }
 #background {
    height: 100vh; 
@@ -130,6 +130,11 @@
     margin: 0 !important;
     z-index: 998;
 }
+
+#chatButton,#userButton{
+    filter: brightness(50%) invert(100%);
+}
+
 
 .hidden{
     display: none;

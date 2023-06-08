@@ -1,6 +1,6 @@
 <?php
 if(isset($_GET['visit_id'])) {
-    $visit_id = intval($_GET['visit_id']);
+    $visit_id = $_GET['visit_id'];
 }
 else {
     header('Location: ./home.php');
@@ -18,6 +18,8 @@ else {
     <link rel="icon" type="image/x-icon" href="../img/favicon.ico">
     <link rel="stylesheet" href="menu.css">
     <link rel="stylesheet" href="style_site.css">
+    <link rel="stylesheet" href="global.css">
+    <link rel="stylesheet" href="./css/popUp.css">
 
 </head>
 
@@ -40,13 +42,18 @@ else {
 
     <script src="./js/deplacementEspace.js"></script>
 
+    <script src="./interfaces/InterfaceClass.js"></script>
+    <script src="./interfaces/popUpInfoInterface.js"></script>
+
+    
+    <script src="./js/visit.js"></script>
+
     <script src="./js/star.js"></script>
     <script src="./js/StarClass.js"></script>
     <script src="./js/GalaxyClass.js"></script>
     <script src="./js/galaxy.js"></script>
 
 
-    <script src="./js/visit.js"></script>
 
     <?php
     require 'connect.php';
@@ -56,7 +63,7 @@ else {
 
     try {
         //Recherche de l'univers pour ce membre
-        $sql = $handler->prepare("SELECT id_univers, public FROM univers INNER JOIN membre WHERE membre.pseudo=:pseudo AND univers.id_membre=membre.id");
+        $sql = $handler->prepare("SELECT univers.id_univers, univers.public FROM univers INNER JOIN membre WHERE membre.pseudo=:pseudo AND univers.id_membre=membre.id");
         $sql->bindParam(':pseudo', $visit_id);
         $sql->execute();
 
@@ -67,20 +74,18 @@ else {
     try {
         if ($sql->rowCount() == 0) {
             throw new Exception("Universe doesn't exist");
-            
-            
         } else {
             $row = $sql->fetch(PDO::FETCH_ASSOC);
             $universe_id = $row['id_univers'];
             $public = $row['public'];
         }
-    
+
+
         if ($public == 1) {
             $u1 = new Universe($visit_id, $universe_id);            
             $u1->fetchGalaxies(true);
-            echo "test";
         } else {
-            echo '<h1>This universe is private</h1>';
+            echo '<h1 style="color:white;>This universe is private</h1>';
         }
     }
     catch (Exception $e){

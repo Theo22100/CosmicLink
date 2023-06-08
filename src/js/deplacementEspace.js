@@ -1,3 +1,12 @@
+window.oncontextmenu = (e) => {
+    e.preventDefault();
+}
+
+//GLOBAL CONSTANTS
+function getRandomInt(max) {
+    return Math.floor(Math.random() * max);
+}
+
 
 //DEPLACEMENT DANS L'ESPACE !
 
@@ -167,4 +176,8 @@ function zoomCoordinates(zoomIn, element, originX, originY) {
 
     //reactualise la taille de l'étoile
     element.style.transform = `translate(${translateX}px, ${translateY}px)`;
+}
+
+function distance2Point(p1, p2){
+    return Math.sqrt( (p2-p1)*(p2-p1))
 }

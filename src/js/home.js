@@ -1,14 +1,3 @@
-window.oncontextmenu = (e) => {
-    e.preventDefault();
-}
-
-//GLOBAL CONSTANTS
-function getRandomInt(max) {
-    return Math.floor(Math.random() * max);
-}
-
-
-
 const INVISIBLE = document.getElementById("invisible");
 
 function onclickoutside(func) {

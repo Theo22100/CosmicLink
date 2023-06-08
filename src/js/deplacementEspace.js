@@ -111,6 +111,11 @@ function zoomInOut(translateX, translateY, zoomIn, oldZoom) {
         //augmente / diminue la taille de l'étoile
         child.getElementsByClassName("stars")[0].style.transform = `scale(${zoom})`;
         zoomCoordinates(zoomIn, child, translateX, translateY);
+
+        if (zoom > 0.7) child.style.visibility = "visible";
+        else child.style.visibility = "hidden";
+
+        console.log("zoom: " + zoom);
     }
 
     const galaxyList = UNIVERS.getElementsByClassName("galaxyDiv");
@@ -120,6 +125,25 @@ function zoomInOut(translateX, translateY, zoomIn, oldZoom) {
         //augmente / diminue la taille de la galaxy
         child.getElementsByClassName("galaxy")[0].style.transform = `scale(${zoom})`;
         zoomCoordinates(zoomIn, child, translateX, translateY);
+
+
+        // 0.7 full 1 faded
+        // 0.7 -> 1
+        // 0.85 -> 0.5
+        // 1 -> 0
+        if (zoom < 1) {
+            // child.getElementsByClassName("galaxy")[0].style.opacity = 1 - (zoom - 0.7);
+            child.style.visibility = "visible";
+            // child.style.transition= "3s opacity";
+
+            
+        }
+        else {
+            // child.getElementsByClassName("galaxy")[0].style.opacity = 0;
+            child.style.visibility = "hidden";
+            // child.style.transition= "3s opacity";
+        }
+
     }
 }
 
@@ -178,6 +202,6 @@ function zoomCoordinates(zoomIn, element, originX, originY) {
     element.style.transform = `translate(${translateX}px, ${translateY}px)`;
 }
 
-function distance2Point(p1, p2){
-    return Math.sqrt( (p2-p1)*(p2-p1))
+function distance2Point(p1, p2) {
+    return Math.sqrt((p2 - p1) * (p2 - p1))
 }

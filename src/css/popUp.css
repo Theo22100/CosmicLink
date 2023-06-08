@@ -1,4 +1,4 @@
-*{
+* {
     font-family: Luminari, fantasy;
 }
 
@@ -81,14 +81,14 @@
     position: absolute;
     top: 50%;
     left: 0%;
-    transform: translate(50%,-50%) rotate(180deg);
+    transform: translate(50%, -50%) rotate(180deg);
 }
 
 #navigation-next {
     position: absolute;
     top: 50%;
     left: 100%;
-    transform: translate(-150%,-50%);
+    transform: translate(-150%, -50%);
 }
 
 .memory-caroussel button img {
@@ -109,9 +109,11 @@
 
 .image-caroussel img[data-status="active"] {
     display: block;
-    max-width: 100%;
     margin-left: auto;
     margin-right: auto;
+    object-fit: cover;
+    height: 100%;
+    width: 100%;
 }
 
 .image-caroussel img[data-status="inactive"] {

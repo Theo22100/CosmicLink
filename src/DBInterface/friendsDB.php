@@ -122,7 +122,7 @@ function getWaiting($handler, $user_id)
             $pseudo_amis = array();
             while ($amiNom = $requete2->fetch(PDO::FETCH_ASSOC)) {
               
-                $pseudo_amis[] = $amiNom;
+                $pseudo_amis[] = $amiNom['pseudo'];
             }
 
             return $pseudo_amis;

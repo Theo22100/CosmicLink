@@ -69,7 +69,6 @@ class pageFriends extends Interface {
         FRREQ.classList.add("switch-active");
 
         this.removeFriendsView();
-        //TODO TRUC LEONIE DE AJAXGETFRIENDSREQUEST
     }
 
     removeFriendsView(){
@@ -243,8 +242,9 @@ class pageFriends extends Interface {
             success: function (response) {
                 try {
 
+                    console.log(response);
                     const friends = JSON.parse(response);
-                    pageFriends.addAllFriends(friends);
+                    pageFriends.addAllFriendsRequests(friends);
 
                 } catch (error) {
                     console.log(response);

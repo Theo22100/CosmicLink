@@ -1,20 +1,26 @@
 class pageFriends extends Interface {
 
-    static page = '' + '<div class="chat-div " id="friends">' +
-        '<div class="chat-top">' +
-        '<a id="chat-section">Chat</a>' +
-        '<a class="active">Friends</a>' +
-        '<a id="connect-section">Connect</a>' +
-        '</div>' +
-        '' +
-        ' <div class="list-friends">' +
-        '<header class="search-friends">' +
-        '<input class="search-personnes" type="text" placeholder="search">' +
-        '</header>' +
-        '<ul id="suggestionsF">' +
-        '' +
-        '</ul>' +
-        '</div>' + '';
+    static page = '' + 
+    '<div class="chat-div" id="friends">' + 
+    '        <div class="chat-top">' + 
+    '            <a id="chat-section">Chat</a>' + 
+    '            <a class="active">Friends</a>' + 
+    '            <a id="connect-section">Connect</a>' + 
+    '        </div>' + 
+    '    ' + 
+    '        <div class="list-friends">' + 
+    '            <div class="switch-list">' + 
+    '                <button id="list" class="switch-active">List</button>' + 
+    '                <button id="request">Requests</button>' + 
+    '            </div>' + 
+    '            <header class="search-friends" id="search-friends">' + 
+    '                <input class="search-personnes" type="text" placeholder="Search Contact">' + 
+    '            </header>' + 
+    '            ' + 
+    '            <div id="friendList"></div>' + 
+    '        </div>' + 
+    '    </div>' + 
+    '';
 
     constructor() {
         super("friends", pageFriends.page, true);
@@ -23,20 +29,54 @@ class pageFriends extends Interface {
     openInterface() {
         super.openInterface();
 
-        pageFriends.ajaxGetFriends();
         const CHATBUTTON = document.getElementById("chat-section");
         CHATBUTTON.addEventListener("click", (event) => this.openChat())
-
-
-
-
 
         const CONNECTBUTTON = document.getElementById("connect-section");
         CONNECTBUTTON.addEventListener("click", (event) => this.openConnect());
 
+        
+        this.openList();
 
-
+        
+        const FRLIST = document.getElementById("list");
+        FRLIST.addEventListener("click", (event) => {
+            if(FRLIST.classList.contains("switch-active")) return;
+            this.openList();
+        });
+        const FRREQ = document.getElementById("request");
+        FRREQ.addEventListener("click", (event) => {
+            if(FRREQ.classList.contains("switch-active")) return;
+            this.openRequest();
+        });
     }
+
+    openList(){
+        const FRLIST = document.getElementById("list");
+        FRLIST.classList.add("switch-active");
+        const FRREQ = document.getElementById("request");
+        FRREQ.classList.remove("switch-active");
+
+        this.removeFriendsView();
+        pageFriends.ajaxGetFriends();
+    }
+
+    openRequest(){
+        const FRLIST = document.getElementById("list");
+        FRLIST.classList.remove("switch-active");
+        const FRREQ = document.getElementById("request");
+        FRREQ.classList.add("switch-active");
+
+        this.removeFriendsView();
+    }
+
+    removeFriendsView(){
+        const FLIST = document.getElementById("friendList");
+        while(FLIST.firstChild != null){
+            FLIST.firstChild.remove();
+        }
+    }
+
 
     static addAllFriends(friends) {
         for (let i = 0; i <friends.length; i++) {
@@ -46,20 +86,53 @@ class pageFriends extends Interface {
 
     static addFriends(name) {
 
-        const LI = document.createElement("li");
-        LI.classList.add("friends-content");
+        const DIV = document.createElement("div");
+        DIV.classList.add("friendProfile");
         const PP = document.createElement("img");
         PP.src = "../img/profile-pic.png";
-        PP.classList.add("friends-pp");
-        LI.appendChild(PP);
+        PP.classList.add("friend-ProfilePic");
+        DIV.appendChild(PP);
 
         const NAME = document.createElement("p");
         NAME.textContent = name;
-        NAME.classList.add("friends-name");
-        LI.appendChild(NAME);
+        NAME.classList.add("friend-ProfileName");
+        DIV.appendChild(NAME);
 
-        const SUGG = document.getElementById("suggestionsF");
-        SUGG.appendChild(LI);
+
+        const BUTTONDIV = document.createElement("div");
+        BUTTONDIV.classList.add("friend-ProfileName");
+
+        const SENDMESSAGE = document.createElement("button");
+        SENDMESSAGE.classList.add("sendMessage");
+        SENDMESSAGE.textContent = "Message";
+        SENDMESSAGE.addEventListener("click", (event) => pageFriends.sendNewMessage(name));
+        BUTTONDIV.appendChild(SENDMESSAGE);
+
+        const VISITFRIEND = document.createElement("a");
+        VISITFRIEND.classList.add("visitFriend");
+        VISITFRIEND.textContent = "Visit";
+        VISITFRIEND.href = "./visit.php?visit_id=" + name;
+        BUTTONDIV.appendChild(VISITFRIEND);
+
+        const REMOVEFRIEND = document.createElement("button");
+        REMOVEFRIEND.classList.add("removeFriend");
+        REMOVEFRIEND.textContent = "Remove Friend";
+        REMOVEFRIEND.addEventListener("click", (event) => pageFriends.removeFriend(name));
+        BUTTONDIV.appendChild(REMOVEFRIEND);
+
+        DIV.appendChild(BUTTONDIV);
+
+        const FLIST = document.getElementById("friendList");
+        FLIST.appendChild(DIV);
+    }
+
+
+    static removeFriend(name){
+
+    }
+
+    static sendNewMessage(name){
+
     }
 
     openChat() {

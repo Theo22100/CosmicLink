@@ -67,7 +67,24 @@ class pageChat extends Interface {
     }
 
     search(event){
-        console.log(event.value);
+        // console.log(event.data);
+        // console.log(event);
+
+        const SEARCH = document.getElementById("search-personnes");
+        const searchValue= SEARCH.value;
+
+        const PREVIOUSCHATS = document.getElementById("previous-chats");
+        for(let i=0, len = PREVIOUSCHATS.childElementCount ; i < len; ++i){
+            const nameD = PREVIOUSCHATS.children[i].getElementsByClassName("nom");
+            if(nameD[0].textContent.toLowerCase().startsWith(searchValue.toLowerCase())){
+                PREVIOUSCHATS.children[i].style.display = "flex";
+            }
+            else{
+                PREVIOUSCHATS.children[i].style.display = "none";
+            }
+
+        }
+
 
     }
 

@@ -73,5 +73,6 @@ const chatButton = document.getElementById("chatButton");
 chatButton.addEventListener("click", (event) => {
     event.stopImmediatePropagation();
     closeOption();
+    INVISIBLE.classList.add("hidden");
     chatInter.openInterface()
 });

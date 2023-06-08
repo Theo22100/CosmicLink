@@ -10,7 +10,7 @@ class pageChat extends Interface {
         '' +
         '   <div class="list-personnes">' +
         '     <header>' +
-        '        <input class="search-personnes" type="text" placeholder="search">' +
+        '        <input id="search-personnes" class="search-personnes" type="text" placeholder="search">' +
         '   </header>' +
         '' +
         '       <ul id="previous-chats">' +
@@ -36,6 +36,9 @@ class pageChat extends Interface {
 
         FRIENDSBUTTON.addEventListener("click", (event) => this.openFriends());
 
+        const SEARCH = document.getElementById("search-personnes");
+
+        SEARCH.addEventListener("input",(event)=> this.search(event));
 
         pageChat.ajaxGetContacts(true);
     }
@@ -57,6 +60,15 @@ class pageChat extends Interface {
         this.closeInterface();
 
         friendsInter.openInterface();
+    }
+
+    getSearchValue(){
+
+    }
+
+    search(event){
+        console.log(event.value);
+
     }
 
     static addAllContactMessage(contacts) {
@@ -117,6 +129,49 @@ class pageChat extends Interface {
         });
     }
 
+    static updateAllContactMessage(contacts){
+        for (let i = 0; i < contacts.length; i++) {
+            const contactName = contacts[i][0];
+            const lastMsg = contacts[i][1];
+            const numberUnread = contacts[i][2];
+            pageChat.updateContactMessage(contactName, lastMsg, numberUnread);
+        }
+    }
+
+    static updateContactMessage(name, previousMessage, numberUnread){
+        const PREVIOUSCHATS = document.getElementById("previous-chats");
+        for(let i=0, len = PREVIOUSCHATS.childElementCount ; i < len; ++i){
+            const nameD = PREVIOUSCHATS.children[i].getElementsByClassName("nom");
+            if(nameD[0].textContent === name){
+                const numberUnreadD = PREVIOUSCHATS.children[i].getElementsByClassName("unread-number");
+                if(numberUnread > 0 ){
+                    if(numberUnreadD.length == 0){
+                        const unreadDiv = document.createElement("div");
+                        unreadDiv.classList.add("unread-div");
+                        const unread = document.createElement("p");
+                        unread.classList.add("unread-number");
+                        unread.textContent = numberUnread;
+                        unreadDiv.appendChild(unread);
+                        PREVIOUSCHATS.children[i].appendChild(unreadDiv);
+                    }
+                    else{
+                        numberUnreadD[0].textContent = numberUnread;
+                    }
+                }
+                else{
+                    if (numberUnreadD.length >0){
+                        numberUnreadD.remove();
+                    }
+                }
+                
+                const previousMessageD = PREVIOUSCHATS.children[i].getElementsByClassName("oldMsg");
+                previousMessageD[0].textContent = previousMessage;
+
+
+            }
+        }
+    }
+
 
 
     static ajaxGetContacts(first) {
@@ -131,8 +186,10 @@ class pageChat extends Interface {
 
                 const contacts = JSON.parse(response);
                 if ((contacts[1] != 0) || first) {
-                    if (!first) { pageChat.clearAllContactMessages(); }
-                    pageChat.addAllContactMessage(contacts);
+                    if (!first) { 
+                        pageChat.updateAllContactMessage(contacts); 
+                    }
+                    else pageChat.addAllContactMessage(contacts);
                 }
 
             },

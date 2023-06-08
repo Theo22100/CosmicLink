@@ -185,7 +185,9 @@ class pageFriends extends Interface {
     }
 
     static sendNewMessage(name){
-
+        friendsInter.closeInterface();
+        messInter.openInterface();
+        messInter.load(name);
     }
 
     openChat() {

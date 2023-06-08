@@ -6,15 +6,16 @@
 
 .list-friends{
     
-    padding: 30px 0px 0px 20px;
-    display: inline-block;
+    padding: 30px 0px 0px 0px;
     vertical-align: top;
     background-color: #3b3e49;
 
     /* width: 100%; */
-    height: 100%;
+    height: calc(100% - 90px);
     display: flex;
     flex-direction: column;
+    flex: 1 1 auto;
+    min-height: 0;
 }
 
 #suggestionsF{
@@ -60,4 +61,93 @@
     margin: 0px;
     margin-top: 20px;
 	color:#fff;
+}
+
+#friendList{
+    display: flex;
+    flex: 1 1 auto;
+    flex-direction: column;
+    gap: 10px;
+    margin-top: 20px;
+
+    max-height: 100%;
+    overflow-y: scroll;
+    overflow-x: hidden;
+}
+
+#search-friends{
+    margin-left: 20px;
+}
+
+.switch-list{
+    flex: 0 1 auto;
+    margin-bottom: 20px;
+    display: flex;
+    justify-content: space-around;
+}
+
+.switch-list #list, .switch-list #request{
+    border:none;
+    background-color: transparent;
+    color: var(--grey100);
+    font-weight:600;
+    font-size: 0.9em;
+}
+
+.switch-list #list:hover, .switch-list #request:hover{
+    color: var(--violet100);
+}
+
+.search-friends{
+    flex: 0 1 auto;
+}
+
+.friendProfile{
+    border-bottom: 1px solid var(--grey100);
+    display: flex;
+    width: 100%;
+    padding:10px;
+    padding-bottom: 20px;
+}
+
+.friend-ProfilePic{
+    height: 50px;
+    width: auto;
+    margin-left:15px
+}
+
+.friend-ProfileName{
+    color:white;
+    margin-left:20px;
+    font-weight: 600;
+    font-size: 0.8em;
+}
+
+
+.friendActionButton{
+    display: flex;
+    align-items: center;
+    margin-left: 230px;
+}
+
+.friendProfile button, .friendProfile a {
+    border:none;
+    border-radius: 20px;
+    padding-left: 5px;
+    padding-right: 5px;
+    font-size: 0.7em;
+    font-weight: 600;
+    background-color: var(--grey100);
+    height: 80%;
+    margin-left: 20px;
+    vertical-align: middle;
+    min-width: 100px;
+    text-decoration: none;
+}
+.friendProfile button:hover, .friendProfile a:hover {
+    background-color: var(--violet100);
+}
+
+.switch-active{
+    color: var(--violet100) !important;
 }

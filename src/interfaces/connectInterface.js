@@ -80,6 +80,7 @@ class pageConnect extends Interface {
         const ADDF = document.createElement("button");
         ADDF.textContent = "Add Friend";
         ADDF.classList.add("addFriend");
+        ADDF.addEventListener("click", (event) => pageConnect.addFriend(name));
         DIVBUTTON.appendChild(ADDF);
 
         const VISIT = document.createElement("a");
@@ -94,6 +95,10 @@ class pageConnect extends Interface {
         SUGG.appendChild(DIV);
     }
 
+
+    static addFriend(name){
+        //TODO C'est ICI LEONIE!
+    }
 
     static ajaxGetSuggestions() {
         $.ajax({

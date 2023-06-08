@@ -10,6 +10,10 @@ if (isset($_SESSION['id'])) {
             case 'acceptFriend':
                 acceptFriend($handler, $user_id);
                 break;
+            
+            case 'removeFriend':
+                deleteFriend($handler,$user_id);
+                break;
 
             default:
                 echo "default";

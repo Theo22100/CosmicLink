@@ -181,7 +181,7 @@ class pageFriends extends Interface {
     }
     
     static removeFriend(name){
-
+        pageFriends.ajaxRemoveFriend(name);
     }
 
     static sendNewMessage(name){
@@ -212,8 +212,26 @@ class pageFriends extends Interface {
                 friend_user: friendName
             },
             success: function (response) {
+
+            },
+            error: function (xhr, status, error) {
+                // Handle errors
+                console.error(error);
+            }
+        });
+    }
+
+    static ajaxRemoveFriend(friendName) {
+        $.ajax({
+            url: "DBInterface/friendsDB.php",
+            type: "POST",
+            //TODO Trouver moyen de cache
+            data: {
+                action: "removeFriend",
+                friend_user: friendName
+            },
+            success: function (response) {
                 try {
-                    pageFriends.ajaxGetRequests();
 
                 } catch (error) {
                     console.log(response);
@@ -229,6 +247,7 @@ class pageFriends extends Interface {
         });
 
     }
+
     static ajaxGetFriends() {
         $.ajax({
             url: "DBInterface/friendsDB.php",

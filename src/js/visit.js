@@ -54,3 +54,5 @@ function closeOption() {
     menu.style.zIndex = 0;
 
 }
+
+const popUpPage = new popUpInfo();

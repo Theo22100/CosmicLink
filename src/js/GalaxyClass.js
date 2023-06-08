@@ -81,10 +81,14 @@ class Galaxy {
             const diffY = Math.abs(event.pageY - this.#startY);
 
             if (diffX < this.#delta && diffY < this.#delta) { //click
+                if( this.#description.length == 0) return;
                 popUpPage.openInterface();
                 popUpPage.loadGalaxyInfo(this);
             }
         });
+
+        if(zoom < 0.7) this.#element.style.visibility = "visible";
+        else this.#element.style.visibility = "hidden";
     }
 
     getName() {

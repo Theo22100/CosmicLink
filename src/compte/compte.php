@@ -4,10 +4,11 @@ if (!isset($_SESSION['login'])) {
 	header('Location: ../login-inscription/login.php');
 }
 ?>
+<!DOCTYPE html>
 <html>
 
 <head>
-	<title>Mon Compte CosmicLink</title>
+	<title>My Account CosmicLink</title>
 	<meta charset=”utf-8″>
 	<link rel="stylesheet" href="compte.css">
 	<link rel="stylesheet" href="./../global.css">
@@ -72,7 +73,7 @@ if (!isset($_SESSION['login'])) {
 					</h3>
 				</div>
 
-				<input type="file" name="image" id="image" accept='image/*'>
+				<input type="file" name="image" id="image" accept='image/*' >
 
 				<div>
 					(Max 2Mo)
@@ -177,7 +178,7 @@ if (!isset($_SESSION['login'])) {
 					<input type="password" name="password" id="password" required="required" maxlength="50" placeholder="Type your Password">
 				</div>
 				<div class="register-but">
-					<input type="submit" name="envoyermdp" id="modifButton" value="Delete your Account">
+					<input type="submit" name="envoyermdp" id="modifButton" value="Delete">
 				</div>
 
 			</div>

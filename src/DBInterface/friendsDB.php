@@ -59,16 +59,16 @@ function getFriends($handler, $user_id)
             }
         }
 
-
+        $ids_amis = implode(',', array_unique($amis));
         $requete2 = $handler->prepare(
             "SELECT id, pseudo
         FROM membre
-        WHERE id IN (:amis);"
+        WHERE id IN ($ids_amis);" //TODO ? bind ?
         );
 
         // Concatène les id des amis pour les utiliser dans la requête suivante
-        $ids_amis = implode(',', array_unique($amis));
-        $requete1->bindParam(':amis', $ids_amis);
+        
+        //$requete1->bindParam(':amis', $ids_amis);
         $requete2->execute();
 
         $pseudo_amis = array();
@@ -102,7 +102,7 @@ function getWaiting($handler, $user_id)
         $requete1->bindParam(':id', $user_id);
         $requete1->execute();
 
-        
+
 
         if ($requete1->rowCount() > 0) {
             $amis = array();
@@ -121,7 +121,7 @@ function getWaiting($handler, $user_id)
 
             $pseudo_amis = array();
             while ($amiNom = $requete2->fetch(PDO::FETCH_ASSOC)) {
-              
+
                 $pseudo_amis[] = $amiNom['pseudo'];
             }
 

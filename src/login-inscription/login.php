@@ -36,7 +36,7 @@ if (isset($_SESSION['login'])) {
 								<span>Password<label>*</label></span>
 								<input type="password" name="password" id="password" required="required"  maxlength="50" placeholder="Password"> 
 							</div>
-							<input type="submit" value="Login">
+							<input id = "login" type="submit" value="Login">
 							<a class="forgot" href="#">Forgot your password?</a>
 							
 						</form>

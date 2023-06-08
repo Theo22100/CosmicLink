@@ -7,7 +7,7 @@ if (isset($_SESSION['login'])) {
 
 <html>
 	<head>
-		<title>Inscription MySpace</title>
+		<title>Registration CosmicLink</title>
 		<meta charset=”utf-8″>
 		<link rel="stylesheet" href="./style_login.css">
 		<link rel="stylesheet" href="./../global.css">
@@ -41,26 +41,26 @@ if (isset($_SESSION['login'])) {
 
 				<form method="POST" action="sinscrire2.php">
 					<div class="register-top-grid">
-						<h3>Vos informations</h3>
+						<h3>Your informations</h3>
 
 						<div>
-							<span>Pseudonyme<label>*</label></span>
+							<span>Pseudo<label>*</label></span>
 							<input type="text" name="pseudo" id="pseudo" required="required" maxlength="30" placeholder="Pseudo">
 						</div>
 
 						<div>
-							<span>Prénom<label>*</label></span>
+							<span>First Name<label>*</label></span>
 							<input type="text" name="prenom" id="prenom" required="required" maxlength="30" placeholder="First Name">
 						</div>
 
 
 						<div>
-							<span>Nom<label>*</label></span>
+							<span>Last Name<label>*</label></span>
 							<input type="text" name="nom" id="nom" required="required" maxlength="30" placeholder="Name">
 						</div>
 
 						<div>
-							<span>Date de Naissance<label>*</label></span>
+							<span>Birthday<label>*</label></span>
 							<input type="date" name="datenaissance" id="datenaissance" required="required" max="<?php echo date('Y-m-d'); ?>">
 						</div>
 
@@ -76,19 +76,19 @@ if (isset($_SESSION['login'])) {
 					</div>
 
 					<div class="register-bottom-grid">
-						<h3>Pour vous authentifier</h3>
+						<h3>To log in</h3>
 						<div>
-							<span>Mot de Passe<label>*</label></span>
+							<span>Password<label>*</label></span>
 							<input type="password" name="password" id="password" placeholder="eR8!z6$" required="required" maxlength="50">
 						</div>
 
 						<div>
-							<span>Retapez votre Mot de Passe<label>*</label></span>
+							<span>Confirm Password<label>*</label></span>
 							<input type="password" name="confirm_password" id="confirm_password" placeholder="eR8!z6$" required="required" maxlength="50">
 						</div>
 
 						<div class="register-but">
-							<input type="submit" name="envoyer" value="M'inscrire">
+							<input id="register" type="submit" name="envoyer" value="M'inscrire">
 
 						</div>
 

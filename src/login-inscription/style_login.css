@@ -1,6 +1,7 @@
 *{
-    font-family: Georgia,serif;
+    font-family: Luminari, fantasy;
 }
+
 
 
 body {
@@ -51,8 +52,17 @@ body {
     color: black;
 }
 
-input {
+#login,input {
     border-radius: 15px;
+    border: none;
+    margin:0.5%;
+}
+#login:hover, #register:hover {
+    background-color: var(--grey300);
+}
+
+.forgot:hover, .acount-btn:hover{
+    color: var(--blue400);
 }
 
 @keyframes zoom {

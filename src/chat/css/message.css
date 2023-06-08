@@ -25,7 +25,7 @@
 	height:110px;
 	padding:30px 20px 30px 40px;
     box-sizing: border-box;
-    background-color: #3b3e49;
+    background-color: var(--grey600);
     display: flex;
 }
 .chat-personne header > *{
@@ -82,10 +82,11 @@
 .fleche{
 	position: absolute;
 	transform:  rotate(180deg);
+	background-color: var(--blue400);
 }
 
 .fleche:hover{
-	filter: brightness(50%) invert(100%);
+	background-color: var(--blue600);
 }
 
 
@@ -95,7 +96,7 @@
 
 
 #chat-history{
-	background-color:#5e616a;
+	background-color: var(--grey400);
 	padding-left:0;
 	margin:0;
     padding-left: 15px;
@@ -139,14 +140,14 @@ ul { padding: 0; }
 
 .msg.them {
 	float: left;
-	background-color: #E91E63;
-	color: #fff;
+	background-color: var(--violet500);
+color: whitesmoke;
 	border-bottom-left-radius: 0.125rem;
 }
 .msg.me {
 	float: right;
-	background-color: #ECEFF1;
-	color: #607D8B;
+	background-color: white;
+color: var(--grey500);
 	border-bottom-right-radius: 0.125rem;
 }
 
@@ -176,12 +177,12 @@ ul { padding: 0; }
 
 
 .sendMessages{
-	background-color: #7e818a;
+	background-color: var(--grey600);
 	padding:10px;
 }
 
 .sendMessages input[type="text"]{
-	border-radius: 3px;
+	border-radius: 10px;
 	padding:10px;
 	width:70%;
 	border: none;
@@ -191,14 +192,14 @@ ul { padding: 0; }
 	margin-left: 10px;
 	border: none;
 	padding:10px;
-	background: rgb(0, 196, 65);
-	color: #fff;
+	background: var(--violet500);
+color: whitesmoke;
   	font-weight: bold;
   	cursor: pointer;
-	border-radius: 3px;
+	border-radius: 20px;
 }
 
 .sendMessages input[type="submit"]:hover{
-	background: rgb(0, 180, 50);
-
+	background: var(--blue700);
+	filter: brightness (50%);
 }

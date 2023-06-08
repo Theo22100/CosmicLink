@@ -24,7 +24,7 @@ if (isset($_SESSION['login'])) {
 						<h3>Already have your universe ?</h3>
 						<?php
 							if (isset($_GET['message']) && $_GET["message"]=="echoue"){
-									echo '<h2 style="color:red;">Votre mail ou mot de passe n\'est pas reconnu !</h2>';
+									echo '<h2 style="color: var(--red700);filter: brightness(200%);">Your mail or your password is incorrect !</h2>';
 								}
 						?>
 						<form method="POST" action="login1.php">

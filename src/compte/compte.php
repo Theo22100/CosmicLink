@@ -8,7 +8,7 @@ if (!isset($_SESSION['login'])) {
 <html>
 
 <head>
-	<title>Mon Compte CosmicLink</title>
+	<title>My Account CosmicLink</title>
 	<meta charset=”utf-8″>
 	<link rel="stylesheet" href="compte.css">
 	<link rel="stylesheet" href="./../global.css">
@@ -73,7 +73,7 @@ if (!isset($_SESSION['login'])) {
 					</h3>
 				</div>
 
-				<input type="file" name="image" id="image" accept='image/*'>
+				<input type="file" name="image" id="image" accept='image/*' >
 
 				<div>
 					(Max 2Mo)

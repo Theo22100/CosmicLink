@@ -4,7 +4,7 @@ class DBFunctions
 
     static function getFriends($handler, $user_id)
     {
-        
+
         try {
             $requete1 = $handler->prepare(
                 "SELECT sender, receiver
@@ -22,6 +22,7 @@ class DBFunctions
             if ($requete1->rowCount() != 0) {
                 $amis = array();
                 while ($ami = $requete1->fetch(PDO::FETCH_ASSOC)) {
+
                     // On ajoute les id des autres utilisateurs dans un tableau
                     if ($ami['sender'] != $user_id) {
                         $amis[] = $ami['sender'];
@@ -29,23 +30,23 @@ class DBFunctions
                         $amis[] = $ami['receiver'];
                     }
                 }
+
                 // Concatène les id des amis pour les utiliser dans la requête suivante
                 $ids_amis = implode(',', array_unique($amis));
+                
 
                 $requete2 = $handler->prepare(
                     "SELECT id, pseudo
                     FROM membre
-                    WHERE id IN (:amis)"
+                    WHERE id IN ($ids_amis)" //TODO ? faire avec un bind ?
                 );
-                $requete2->bindParam(':amis', $ids_amis);
+
+                // $requete2->bindParam(':amis', $ids_amis);
                 $requete2->execute();
 
                 while ($amiNom = $requete2->fetch(PDO::FETCH_ASSOC)) {
-
                     $pseudo_amis[] = $amiNom['pseudo'];
                 }
-               
-                
             }
             return $pseudo_amis;
         } catch (PDOException $e) {

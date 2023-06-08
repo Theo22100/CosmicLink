@@ -62,13 +62,13 @@ class pageFriends extends Interface {
     }
 
     openRequest(){
+        pageFriends.ajaxGetRequests();
         const FRLIST = document.getElementById("list");
         FRLIST.classList.remove("switch-active");
         const FRREQ = document.getElementById("request");
         FRREQ.classList.add("switch-active");
 
         this.removeFriendsView();
-        //TODO TRUC LEONIE DE AJAXGETFRIENDSREQUEST
     }
 
     removeFriendsView(){
@@ -177,11 +177,11 @@ class pageFriends extends Interface {
     }
 
     static addFriend(name){
-
+        pageFriends.ajaxAcceptFriend(name);
     }
     
     static removeFriend(name){
-
+        pageFriends.ajaxRemoveFriend(name);
     }
 
     static sendNewMessage(name){
@@ -204,6 +204,52 @@ class pageFriends extends Interface {
 
     }
 
+    static ajaxAcceptFriend(friendName) {
+        $.ajax({
+            url: "DBInterface/friendsDB.php",
+            type: "POST",
+            //TODO Trouver moyen de cache
+            data: {
+                action: "acceptFriend",
+                friend_user: friendName
+            },
+            success: function (response) {
+
+            },
+            error: function (xhr, status, error) {
+                // Handle errors
+                console.error(error);
+            }
+        });
+    }
+
+    static ajaxRemoveFriend(friendName) {
+        $.ajax({
+            url: "DBInterface/friendsDB.php",
+            type: "POST",
+            //TODO Trouver moyen de cache
+            data: {
+                action: "removeFriend",
+                friend_user: friendName
+            },
+            success: function (response) {
+                try {
+
+                } catch (error) {
+                    console.log(response);
+                    console.error(error);
+                }
+
+
+            },
+            error: function (xhr, status, error) {
+                // Handle errors
+                console.error(error);
+            }
+        });
+
+    }
+
     static ajaxGetFriends() {
         $.ajax({
             url: "DBInterface/friendsDB.php",
@@ -216,7 +262,38 @@ class pageFriends extends Interface {
                 try {
 
                     const friends = JSON.parse(response);
+                    console.log(friends);
                     pageFriends.addAllFriends(friends);
+
+                } catch (error) {
+                    console.log(response);
+                    console.error(error);
+                }
+
+
+            },
+            error: function (xhr, status, error) {
+                // Handle errors
+                console.error(error);
+            }
+        });
+
+    }
+
+    static ajaxGetRequests() {
+        $.ajax({
+            url: "DBInterface/friendsDB.php",
+            type: "GET",
+            //TODO Trouver moyen de cache
+            data: {
+                action: "getRequests"
+            },
+            success: function (response) {
+                try {
+
+                    console.log(response);
+                    const friends = JSON.parse(response);
+                    pageFriends.addAllFriendsRequests(friends);
 
                 } catch (error) {
                     console.log(response);

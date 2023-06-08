@@ -10,6 +10,10 @@ if (isset($_SESSION['id'])) {
             case 'acceptFriend':
                 acceptFriend($handler, $user_id);
                 break;
+            
+            case 'removeFriend':
+                deleteFriend($handler,$user_id);
+                break;
 
             default:
                 echo "default";
@@ -18,12 +22,12 @@ if (isset($_SESSION['id'])) {
     } else if (isset($_GET['action'])) {
         switch ($_GET['action']) {
             case 'getFriends':
-                //$result = getFriends($handler, $user_id);
-                $result = DBFunctions::getFriends($handler,$user_id);
+
+                $result = DBFunctions::getFriends($handler, $user_id);
                 echo json_encode($result);
                 break;
 
-            case 'getWaiting':
+            case 'getRequests':
                 $result = getWaiting($handler, $user_id);
                 echo json_encode($result);
                 break;
@@ -52,23 +56,23 @@ function getFriends($handler, $user_id)
         $amis = array();
         while ($ami = $requete1->fetch(PDO::FETCH_ASSOC)) {
             // On ajoute les id des autres utilisateurs dans un tableau
-            if ($ami['sender' != $user_id]) {
+            if ($ami['sender'] != $user_id) {
                 $amis[] = $ami['sender'];
             } else {
                 $amis[] = $ami['receiver'];
             }
         }
 
-
+        $ids_amis = implode(',', array_unique($amis));
         $requete2 = $handler->prepare(
             "SELECT id, pseudo
         FROM membre
-        WHERE id IN (:amis);"
+        WHERE id IN ($ids_amis);" //TODO ? bind ?
         );
 
         // Concatène les id des amis pour les utiliser dans la requête suivante
-        $ids_amis = implode(',', array_unique($amis));
-        $requete1->bindParam(':amis', $ids_amis);
+        
+        //$requete1->bindParam(':amis', $ids_amis);
         $requete2->execute();
 
         $pseudo_amis = array();
@@ -102,36 +106,34 @@ function getWaiting($handler, $user_id)
         $requete1->bindParam(':id', $user_id);
         $requete1->execute();
 
-        $amis = array();
-        while ($ami = $requete1->fetch(PDO::FETCH_ASSOC)) {
-            $amis[] = $ami['sender'];
+
+
+        if ($requete1->rowCount() > 0) {
+            $amis = array();
+            while ($ami = $requete1->fetch(PDO::FETCH_ASSOC)) {
+                $amis[] = $ami['sender'];
+            }
+
+            $requete2 = $handler->prepare(
+                "SELECT id, pseudo FROM membre WHERE id IN (:amis)"
+            );
+
+            // Concatène les id des amis pour les utiliser dans la requête suivante
+            $ids_amis = implode(',', array_unique($amis));
+            $requete2->bindParam(':amis', $ids_amis);
+            $requete2->execute();
+
+            $pseudo_amis = array();
+            while ($amiNom = $requete2->fetch(PDO::FETCH_ASSOC)) {
+
+                $pseudo_amis[] = $amiNom['pseudo'];
+            }
+
+            return $pseudo_amis;
         }
-
-        $requete2 = $handler->prepare(
-            "SELECT id, pseudo
-        FROM membre
-        WHERE id IN (:amis);"
-        );
-
-        // Concatène les id des amis pour les utiliser dans la requête suivante
-        $ids_amis = implode(',', array_unique($amis));
-        $requete1->bindParam(':amis', $ids_amis);
-        $requete2->execute();
-
-        $pseudo_amis = array();
-        while ($amiNom = $requete2->fetch(PDO::FETCH_ASSOC)) {
-            /*
-        if ($amiNom['id'] != $user_id) {
-            // Affiche les pseudos des amis, en excluant celui de l'utilisateur actuel
-            echo $amiNom['pseudo'] . "               <a href='ami_supprimer.php?id=".$amiNom['id']."> SUPPRIMER </a>" ;
-        }
-        */
-            $pseudo_amis[] = $amiNom;
-        }
-
-        return $pseudo_amis;
+        return [];
     } catch (PDOException $e) {
-        echo 'Échec lors de la récupération de la liste des amis : ' . $e->getMessage();
+        echo 'Échec lors de la récupération de la liste des amis en attente : ' . $e->getMessage();
     }
 }
 

@@ -82,15 +82,6 @@ class pageChat extends Interface {
         }
     }
 
-    static addAllContactMessage(contacts) {
-        for (let i = 0; i < contacts.length; i++) {
-            const contactName = contacts[i][0];
-            const lastMsg = contacts[i][1];
-            const numberUnread = contacts[i][2];
-            pageChat.addContactMessage(contactName, lastMsg, numberUnread);
-        }
-    }
-
     static clearAllContactMessages() {
         const PREVIOUSCHATS = document.getElementById("previous-chats");
         while (PREVIOUSCHATS.firstChild != null) {
@@ -98,12 +89,24 @@ class pageChat extends Interface {
         }
     }
 
-    static addContactMessage(name, previousMessage, numberUnread) {
+    static addAllContactMessage(contacts) {
+        for (let i = 0; i < contacts.length; i++) {
+            const contactName = contacts[i][0];
+            const lastMsg = contacts[i][1];
+            const numberUnread = contacts[i][2];
+
+            const profilePicSrc = contacts[i][3];
+
+            pageChat.addContactMessage(contactName, lastMsg, numberUnread, profilePicSrc);
+        }
+    }
+
+    static addContactMessage(name, previousMessage, numberUnread, profilePicSrc) {
         //TODO faire le numberUnread
         const li = document.createElement("li");
         const img = document.createElement("img");
         img.classList.add("profilePic");
-        img.src = "../img/profile-pic.png";
+        img.src = profilePicSrc;
         li.appendChild(img);
         const div = document.createElement("div");
         li.appendChild(div);
@@ -145,11 +148,13 @@ class pageChat extends Interface {
             const contactName = contacts[i][0];
             const lastMsg = contacts[i][1];
             const numberUnread = contacts[i][2];
-            pageChat.updateContactMessage(contactName, lastMsg, numberUnread);
+            const profilePicSrc = contacts[i][3];
+            pageChat.updateContactMessage(contactName, lastMsg, numberUnread, profilePicSrc);
         }
     }
 
-    static updateContactMessage(name, previousMessage, numberUnread){
+
+    static updateContactMessage(name, previousMessage, numberUnread, profilePicSrc){
         const PREVIOUSCHATS = document.getElementById("previous-chats");
         for(let i=0, len = PREVIOUSCHATS.childElementCount ; i < len; ++i){
             let find= false;
@@ -183,7 +188,7 @@ class pageChat extends Interface {
         }
         
         if(!find){
-            this.addContactMessage(name,previousMessage,numberUnread);
+            this.addContactMessage(name,previousMessage,numberUnread, profilePicSrc);
         }
 
     }
@@ -202,10 +207,12 @@ class pageChat extends Interface {
 
                 const contacts = JSON.parse(response);
                 if ((contacts[1] != 0) || first) {
-                    if (!first) { 
-                        pageChat.updateAllContactMessage(contacts); 
+                    if (first){
+                        pageChat.addAllContactMessage(contacts); 
                     }
-                    else pageChat.addAllContactMessage(contacts);
+                    else {
+                        pageChat.updateAllContactMessage(contacts);
+                    }
                 }
 
             },
@@ -228,6 +235,7 @@ class pageChat extends Interface {
     static stopContactCall() {
         clearTimeout(pageChat.timeoutContact);
     }
+
 }
 
 

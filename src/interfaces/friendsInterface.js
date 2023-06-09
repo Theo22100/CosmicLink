@@ -81,7 +81,7 @@ class pageFriends extends Interface {
         pageFriends.ajaxGetFriends();
     }
 
-    openRequest(){
+    openRequest() {
         pageFriends.ajaxGetRequests();
         const FRLIST = document.getElementById("list");
         FRLIST.classList.remove("switch-active");
@@ -100,8 +100,9 @@ class pageFriends extends Interface {
 
 
     static addAllFriends(friends) {
-        for (const id in friends){
-            const username = friends[id];
+        for (const id in friends) {
+            const username = friends[id]['pseudo'];
+            const img = friends[id]['img'];
             pageFriends.addFriends(username);
         }
     }
@@ -153,8 +154,11 @@ class pageFriends extends Interface {
 
 
     static addAllFriendsRequests(friends) {
-        for (let i = 0; i < friends.length; i++) {
-            pageFriends.addFriendsRequests(friends[i]);
+
+        for (const id in friends) {
+            const username = friends[id]['pseudo'];
+            const img = friends[id]['img'];
+            pageFriends.addFriendsRequests(username);
         }
     }
 
@@ -197,11 +201,11 @@ class pageFriends extends Interface {
         FLIST.appendChild(DIV);
     }
 
-    static addFriend(name){
+    static addFriend(name) {
         pageFriends.ajaxAcceptFriend(name);
     }
-    
-    static removeFriend(name){
+
+    static removeFriend(name) {
         pageFriends.ajaxRemoveFriend(name);
     }
 
@@ -331,6 +335,6 @@ class pageFriends extends Interface {
 
     }
 
-    
+
 }
 

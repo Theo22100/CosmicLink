@@ -82,7 +82,7 @@ function getSuggestions($handler, $user_id)
         $currentId = $row['id_membre_2'];
         $currentSugg = $row['pseudo_2'];
         if (!array_key_exists($currentId, $commonStars)) {
-            $commonStars[$currentId] = ['pseudo' => $currentSugg,'starnames' => [], 'count' => 0];
+            $commonStars[$currentId] = ['pseudo' => $currentSugg,'starnames' => [], 'count' => 0, 'img' => DBFunctions::getProfilePicFromUserId($currentId)];
         }
         if ($row['public_univers_2'] == 1 && $row['public_galaxie_2'] == 1 && $row['public_etoile_2'] == 1) {
             $commonStars[$currentId]['starnames'][] = $row['nom_etoile'];
@@ -96,7 +96,7 @@ function getSuggestions($handler, $user_id)
 
 
     foreach ($friends as $friend) {
-        if (array_key_exists($friend, $commonStars)) unset($commonStars[$friend]);
+        if (array_key_exists($friend['pseudo'], $commonStars)) unset($commonStars[$friend['pseudo']]);
     }
 
     return $commonStars;
@@ -110,7 +110,7 @@ function getAllUsers($handler, $user_id)
 
     $contacts = array();
     while ($row = $q->fetch(PDO::FETCH_ASSOC)) {
-        $contacts[$row['id']] = ['pseudo'=> $row['pseudo'], 'starnames' => [],'count'=> 0];
+        $contacts[$row['id']] = ['pseudo'=> $row['pseudo'], 'starnames' => [],'count'=> 0 ,'img' =>  DBFunctions::getProfilePicFromUserId($row['id'])];
     }
 
     $fullquery = "SELECT id_membre_2, pseudo_2, nom_etoile, public_etoile_2, public_univers_2, public_galaxie_2

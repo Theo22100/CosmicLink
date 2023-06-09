@@ -74,7 +74,7 @@ function getWaiting($handler, $user_id)
             $pseudo_amis = array();
             while ($amiNom = $requete2->fetch(PDO::FETCH_ASSOC)) {
 
-                $pseudo_amis[] = $amiNom['pseudo'];
+                $pseudo_amis[$amiNom['id']] = ['pseudo' => $amiNom['pseudo'], 'img' => DBFunctions::getProfilePicFromUserId($amiNom['id'])];
             }
 
             return $pseudo_amis;

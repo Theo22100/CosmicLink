@@ -131,12 +131,16 @@ function getContacts($handler, $user_id)
         $result = getLastMsg($handler, $user_id, $other_id);
         $lastMsg = $result[0];
         $nbUnread = $result[1];
-        $lastMessages[] = array(idToUsername($handler, $other_id), $lastMsg, $nbUnread);
+        $profilePicSrc = DBFunctions::getProfilePicFromUserId($other_id);
+
+        $lastMessages[] = array(idToUsername($handler, $other_id), $lastMsg, $nbUnread, $profilePicSrc);
     }
 
 
     return $lastMessages;
 }
+
+
 
 function sendMsg($handler, $user_id)
 {

@@ -2,6 +2,9 @@
 class DBFunctions
 {
 
+    /**
+     * @return : Une liste d'amis sous la forme : [ id_ami => ['pseudo' => pseudo_ami , 'img' => lien_image], id_ami2 => ['pseudo' => pseudo_ami2 , 'img' => lien_image2] ;
+     */
     static function getFriends($handler, $user_id)
     {
 

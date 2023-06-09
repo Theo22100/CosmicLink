@@ -138,7 +138,7 @@ class pageConnect extends Interface {
 
 
     static addFriend(name) {
-        //TODO C'est ICI LEONIE!
+        pageConnect.ajaxAddFriend(name);
     }
 
 
@@ -198,6 +198,26 @@ class pageConnect extends Interface {
             }
         });
 
+    }
+
+    static ajaxAddFriend(name){
+        $.ajax({
+            url: "DBInterface/friendsDB.php",
+            type: "POST",
+            //TODO Trouver moyen de cache
+            data: {
+                action: "addFriend",
+                friend: name
+            },
+            success: function (response) {
+                console.log(response);
+               
+            },
+            error: function (xhr, status, error) {
+                // Handle errors
+                console.error(error);
+            }
+        });
     }
 
 

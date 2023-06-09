@@ -38,7 +38,7 @@ class pageChat extends Interface {
 
         const SEARCH = document.getElementById("search-personnes");
 
-        SEARCH.addEventListener("input",(event)=> this.search(event));
+        SEARCH.addEventListener("input", (event) => this.search(event));
 
         pageChat.ajaxGetContacts(true);
     }
@@ -62,21 +62,21 @@ class pageChat extends Interface {
         friendsInter.openInterface();
     }
 
-    getSearchValue(){
+    getSearchValue() {
 
     }
 
-    search(event){
+    search(event) {
         const SEARCH = document.getElementById("search-personnes");
-        const searchValue= SEARCH.value;
+        const searchValue = SEARCH.value;
 
         const PREVIOUSCHATS = document.getElementById("previous-chats");
-        for(let i=0, len = PREVIOUSCHATS.childElementCount ; i < len; ++i){
+        for (let i = 0, len = PREVIOUSCHATS.childElementCount; i < len; ++i) {
             const nameD = PREVIOUSCHATS.children[i].getElementsByClassName("nom");
-            if(nameD[0].textContent.toLowerCase().startsWith(searchValue.toLowerCase())){
+            if (nameD[0].textContent.toLowerCase().startsWith(searchValue.toLowerCase())) {
                 PREVIOUSCHATS.children[i].style.display = "flex";
             }
-            else{
+            else {
                 PREVIOUSCHATS.children[i].style.display = "none";
             }
         }
@@ -90,11 +90,12 @@ class pageChat extends Interface {
     }
 
     static addAllContactMessage(contacts) {
-        for (const id in contacts){
+        for (const id in contacts) {
             const contactName = contacts[id]['pseudo'];
             const lastMsg = contacts[id]['lastMsg'];
             const numberUnread = contacts[id]['unread'];
             const profilePicSrc = contacts[id]['img'];
+            const friendStatus = contacts[id]['friend'];
 
             pageChat.addContactMessage(contactName, lastMsg, numberUnread, profilePicSrc);
         }
@@ -120,7 +121,7 @@ class pageChat extends Interface {
         oldMsg.textContent = previousMessage;
         div.appendChild(oldMsg);
 
-        if(numberUnread !=0){
+        if (numberUnread != 0) {
             const unreadDiv = document.createElement("div");
             unreadDiv.classList.add("unread-div");
             const unread = document.createElement("p");
@@ -141,28 +142,29 @@ class pageChat extends Interface {
         });
     }
 
-    static updateAllContactMessage(contacts){
-        for (const id in contacts){
+    static updateAllContactMessage(contacts) {
+        for (const id in contacts) {
             const contactName = contacts[id]['pseudo'];
             const lastMsg = contacts[id]['lastMsg'];
             const numberUnread = contacts[id]['unread'];
-            const profilePicSrc = contacts[id]['img'];
+            const profilePicSrc = contacts[id]['img'];            
+            const friendStatus = contacts[id]['friend'];
             pageChat.updateContactMessage(contactName, lastMsg, numberUnread, profilePicSrc);
         }
-        
+
     }
 
 
-    static updateContactMessage(name, previousMessage, numberUnread, profilePicSrc){
+    static updateContactMessage(name, previousMessage, numberUnread, profilePicSrc) {
         const PREVIOUSCHATS = document.getElementById("previous-chats");
-        for(let i=0, len = PREVIOUSCHATS.childElementCount ; i < len; ++i){
-            let find= false;
+        for (let i = 0, len = PREVIOUSCHATS.childElementCount; i < len; ++i) {
+            let find = false;
             const nameD = PREVIOUSCHATS.children[i].getElementsByClassName("nom");
-            if(nameD[0].textContent === name){
-                find= true;
+            if (nameD[0].textContent === name) {
+                find = true;
                 const numberUnreadD = PREVIOUSCHATS.children[i].getElementsByClassName("unread-number");
-                if(numberUnread > 0 ){
-                    if(numberUnreadD.length == 0){
+                if (numberUnread > 0) {
+                    if (numberUnreadD.length == 0) {
                         const unreadDiv = document.createElement("div");
                         unreadDiv.classList.add("unread-div");
                         const unread = document.createElement("p");
@@ -171,23 +173,23 @@ class pageChat extends Interface {
                         unreadDiv.appendChild(unread);
                         PREVIOUSCHATS.children[i].appendChild(unreadDiv);
                     }
-                    else{
+                    else {
                         numberUnreadD[0].textContent = numberUnread;
                     }
                 }
-                else{
-                    if (numberUnreadD.length >0){
+                else {
+                    if (numberUnreadD.length > 0) {
                         numberUnreadD.remove();
                     }
                 }
-                
+
                 const previousMessageD = PREVIOUSCHATS.children[i].getElementsByClassName("oldMsg");
                 previousMessageD[0].textContent = previousMessage;
             }
         }
-        
-        if(!find){
-            this.addContactMessage(name,previousMessage,numberUnread, profilePicSrc);
+
+        if (!find) {
+            this.addContactMessage(name, previousMessage, numberUnread, profilePicSrc);
         }
 
     }
@@ -204,15 +206,22 @@ class pageChat extends Interface {
             },
             success: function (response) {
 
-                const contacts = JSON.parse(response);
-                console.log(contacts);
-                if ((contacts[1] != 0) || first) {
-                    if (first){
-                        pageChat.addAllContactMessage(contacts); 
+                try {
+                    const contacts = JSON.parse(response);
+                    console.log(contacts);
+                    if ((contacts[1] != 0) || first) {
+                        if (first) {
+                            pageChat.addAllContactMessage(contacts);
+                        }
+                        else {
+                            pageChat.updateAllContactMessage(contacts);
+                        }
                     }
-                    else {
-                        pageChat.updateAllContactMessage(contacts);
-                    }
+                }
+                catch (error) {
+
+                    console.log(response);
+                    console.error(error);
                 }
 
             },

@@ -6,12 +6,49 @@
     background-image:radial-gradient(var(--violet200), var(--violet800)) ;
 width: 100%;
 } */
+.Info{
+    background-color: rgba(129,129,129,0.5);
+    position: absolute;
+    left:10%;
+    transform: translate(-10%);
+    border-radius: 30px;
+    top: 30%;
+}
 
-a{
+.photo{
+    background-color: rgba(129,129,129,0.5);
+    position: absolute;
+    left:50%;
+    transform: translate(-50%);
+    border-radius: 30px;
+}
+
+.Password{
+background-color: rgba(129,129,129,0.5);
+    position: absolute;
+    left: 90%;
+    transform: translate(-90%);
+    border-radius: 30px;
+    top:30%;
+}
+
+.Delete{
+    background-color: rgba(129,129,129,0.5);
+    position: absolute;
+    bottom: 10%;
+    left:50%;
+    transform: translate(-50%);
+    border-radius: 30px;
+}
+
+.home{
     text-decoration: underline;
    
     color: aliceblue;
-    font-size: x-large
+    font-size: x-large;
+    bottom:5%;
+    position:absolute;
+    transform: translate(-50%);
 }
 a:hover{
     color: var(--blue400);
@@ -49,13 +86,13 @@ input{
     border-radius: 5px;
     border:none;
     background-color: white;
-    width: 10%;
+    /* width: 10%; */
     height: 20px;
 
 }
 
 #modifButton{
-    width:5%;
+    width:100px;
 }
 
 
@@ -67,7 +104,7 @@ input{
 }
 
 #nom,#prenom,#mail,#password,#ami,#confirm_password{
-    width: 15%;
+    width: 200px;
     padding: 10px;
     margin: 5px;
     border: 1px solid #ccc;

@@ -55,7 +55,7 @@ if (!isset($_SESSION['login'])) {
 			<!-- Modifier Photo -->
 
 			<div class="clear"> </div>
-			<form method="POST" action="modifiephoto.php" enctype="multipart/form-data">
+			<form class="photo" method="POST" action="modifiephoto.php" enctype="multipart/form-data">
 				<div class="register-bottom-grid">
 					<h3>Change you profile picture (Currently :
 						<?php
@@ -88,7 +88,7 @@ if (!isset($_SESSION['login'])) {
 		<!-- Modifier nom -->
 
 		<div class="clear"> </div>
-		<form method="POST" action="modifall.php">
+		<form class ="Info" method="POST" action="modifall.php">
 			<div class="register-bottom-grid">
 				<h3>Change your First Name (Currently :
 					<?php
@@ -148,7 +148,7 @@ if (!isset($_SESSION['login'])) {
 
 		<div class="clear"> </div>
 		<!-- Modifier mdp -->
-		<form method="POST" action="modifiemdp.php">
+		<form class="Password" method="POST" action="modifiemdp.php">
 			<div class="register-bottom-grid">
 				<h3>Change your Password</h3>
 				<div>
@@ -170,7 +170,7 @@ if (!isset($_SESSION['login'])) {
 			</div>
 		</form>
 		<!-- Supprime compte -->
-		<form method="POST" action="deleteaccount.php" onsubmit="return confirm('Êtes-vous sûr de vouloir supprimer votre compte ? Cette action est irréversible.')">
+		<form class="Delete" method="POST" action="deleteaccount.php" onsubmit="return confirm('Êtes-vous sûr de vouloir supprimer votre compte ? Cette action est irréversible.')">
 			<div class="register-bottom-grid">
 				<h3>Delete your Account</h3>
 				<div>
@@ -205,7 +205,7 @@ if (!isset($_SESSION['login'])) {
 			}
 		}
 		?>
-		<div class="register-bottom-grid">
+		<!-- <div class="register-bottom-grid">
 			<form method="POST" action="ajouterami.php">
 				<h3>Add Friend</h3>
 				<div>
@@ -220,11 +220,11 @@ if (!isset($_SESSION['login'])) {
 					</div>
 				</div>
 			</form>
-		</div>
+		</div> -->
 
 		<div class="return" >
 
-			<a href="./../home.php">Back to galaxy</a>
+			<a class="home" href="./../home.php">Back to galaxy</a>
 		</div>
 
 

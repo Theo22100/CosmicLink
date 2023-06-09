@@ -23,11 +23,11 @@ if (!isset($_SESSION['login'])) {
     <link rel="stylesheet" href="./chat/css/connect.css">
     <link rel="stylesheet" href="./chat/css/friends.css">
 
-    <link rel="stylesheet" href="menu.css">
-    <link rel="stylesheet" href="style_site.css">
+    <link rel="stylesheet" href="./css/menu.css">
+    <link rel="stylesheet" href="./css/style_site.css">
 
 
-    <link rel="stylesheet" href="global.css">
+    <link rel="stylesheet" href="./css/global.css">
     <link rel="stylesheet" href="./css/addStar.css">
     <link rel="stylesheet" href="./css/popUp.css">
 

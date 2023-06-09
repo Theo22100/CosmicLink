@@ -11,7 +11,7 @@ if (!isset($_SESSION['login'])) {
 	<title>My Account CosmicLink</title>
 	<meta charset=”utf-8″>
 	<link rel="stylesheet" href="compte.css">
-	<link rel="stylesheet" href="./../global.css">
+	<link rel="stylesheet" href="./../css/global.css">
 </head>
 
 <body>

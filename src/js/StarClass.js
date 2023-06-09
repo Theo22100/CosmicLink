@@ -101,11 +101,14 @@ class Star {
 
         UNIVERS.appendChild(this.#element);
         //listener doivent être mis après le placement de l'élément
-        this.#element.addEventListener('contextmenu', (event) => {
-            event.preventDefault();
-            currentStar = this;
-            openStarOptionsList(event.clientX, event.clientY);
-        });
+        if(window.location.href.endsWith("home.php")){
+            this.#element.addEventListener('contextmenu', (event) => {
+                event.preventDefault();
+                currentStar = this;
+                contextMenuPage.openStarOptionsList(event.clientX, event.clientY);
+            });
+        }
+        
 
 
         moveStarElement(this, this.#element); //fait en sorte que l'etoile puisse être déplacé

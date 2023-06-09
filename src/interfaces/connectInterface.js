@@ -91,11 +91,10 @@ class pageConnect extends Interface {
     }
 
     static addAllSuggestions(suggestions) {
-        console.log(suggestions);
-        for (const username in suggestions) {
-            const starnames = suggestions[username]['starnames']; //array, potentially empty
-            const starcount = suggestions[username]['count']; //number of stars, >= 1
-            console.log(starnames + ' ' + starcount);
+        for (const id in suggestions) {
+            const username = suggestions[id]['pseudo']; //string
+            const starnames = suggestions[id]['starnames']; //array, potentially empty
+            const starcount = suggestions[id]['count']; //number of stars, >= 1
             pageConnect.addSuggestions(username);
         }
     }
@@ -168,9 +167,37 @@ class pageConnect extends Interface {
         }
     }
 
-    static ajaxGetAllUsers(){
-        //TODO LEONIE
+    static ajaxGetAllUsers() {
+        $.ajax({
+            url: "DBInterface/chatDB.php",
+            type: "POST",
+            //TODO Trouver moyen de cache
+            data: {
+                action: "getAllUsers"
+            },
+            success: function (response) {
+                try {
+
+                    
+                    const allUsers = JSON.parse(response);
+                    console.log(allUsers);
+                    pageConnect.addAllSuggestions(allUsers);
+
+                } catch (error) {
+                    console.log(response);
+                    console.error(error);
+                }
+
+
+            },
+            error: function (xhr, status, error) {
+                // Handle errors
+                console.error(error);
+            }
+        });
+
     }
+
 
     static ajaxGetSuggestions() {
         $.ajax({
@@ -184,8 +211,8 @@ class pageConnect extends Interface {
                 try {
 
                     const suggestions = JSON.parse(response);
-                    //format : suggestions =  {<user1> : { "starnames" : {<possibly empty>} , "count" : <number> } , <user2> { "starnames" : {<possibly empty>} , "count" : <number> } }
-                    //console.log(suggestions);
+                    //format : {<iduser> : { "pseudo" : <username>, "starnames" : {<possibly empty>} , "count" : <number> } ,<iduser2> : { "pseudo" : <username2> , "starnames" : {<possibly empty>} , "count" : <number> } }
+                    console.log(suggestions);
                     pageConnect.addAllSuggestions(suggestions);
 
                 } catch (error) {

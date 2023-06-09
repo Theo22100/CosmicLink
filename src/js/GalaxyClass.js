@@ -30,7 +30,7 @@ class Galaxy {
         newGalaxy.src = "../img/galaxy.png";
         newGalaxy.style.transform = `scale(${zoom})`;
 
-        newGalaxy.style.width = 200+ "px";
+        newGalaxy.style.width = 200 + "px";
         newGalaxy.style.height = "auto";
 
         galaxyDiv.appendChild(newGalaxy);
@@ -49,7 +49,7 @@ class Galaxy {
         return galaxyDiv;
     }
 
-    addElementAnimation(){
+    addElementAnimation() {
         this.#element.getElementsByClassName("galaxy")[0].style.animationName = "popUpStar";
     }
 
@@ -60,12 +60,13 @@ class Galaxy {
 
         UNIVERS.appendChild(this.#element);
         //listener doivent être mis après le placement de l'élément
-        this.#element.addEventListener('contextmenu', (event) => {
-            event.preventDefault();
-            currentGalaxy = this;
-            openGalaxyOptionsList(event.clientX, event.clientY);
-        });
-
+        if (window.location.href.endsWith("home.php")) {
+            this.#element.addEventListener('contextmenu', (event) => {
+                event.preventDefault();
+                currentGalaxy = this;
+                contextMenuPage.openGalaxyOptionsList(event.clientX, event.clientY);
+            });
+        }
 
         moveGalaxyElement(this, this.#element); //fait en sorte que l'etoile puisse être déplacé
 
@@ -76,18 +77,18 @@ class Galaxy {
         });
 
         this.#element.addEventListener('mouseup', (event) => {
-            if(event.button == 2) return;
+            if (event.button == 2) return;
             const diffX = Math.abs(event.pageX - this.#startX);
             const diffY = Math.abs(event.pageY - this.#startY);
 
             if (diffX < this.#delta && diffY < this.#delta) { //click
-                if( this.#description.length == 0) return;
+                if (this.#description.length == 0) return;
                 popUpPage.openInterface();
                 popUpPage.loadGalaxyInfo(this);
             }
         });
 
-        if(zoom < 0.7) this.#element.style.visibility = "visible";
+        if (zoom < 0.7) this.#element.style.visibility = "visible";
         else this.#element.style.visibility = "hidden";
     }
 
@@ -107,7 +108,7 @@ class Galaxy {
         return this.#y;
     }
 
-    getPublicGalaxy(){
+    getPublicGalaxy() {
         return this.#publicGalaxy;
     }
 
@@ -130,7 +131,7 @@ class Galaxy {
         this.#description = newDescription;
     }
 
-    setPublicGalaxy(publicGalaxy){
+    setPublicGalaxy(publicGalaxy) {
         this.#publicGalaxy = publicGalaxy;
     }
 

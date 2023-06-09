@@ -14,7 +14,12 @@ if (isset($_SESSION['id'])) {
                 break;
 
             case 'getSuggestions':
-                $result = getSuggestions($handler, $user_id); //TODO algo de compatibilité
+                $result = getSuggestions($handler, $user_id); 
+                echo json_encode($result);
+                break;
+
+            case 'getAllUsers':
+                $result = getAllUsers($handler, $user_id); 
                 echo json_encode($result);
                 break;
 
@@ -36,7 +41,7 @@ if (isset($_SESSION['id'])) {
 }
 
 function getSuggestions($handler, $user_id)
-{   
+{
     /*
    
     //Selecting all starnames and member ids of members different than connected user as well as public status
@@ -71,17 +76,18 @@ function getSuggestions($handler, $user_id)
     $sql->execute();
 
 
-    $commonStars = []; 
-    
+    $commonStars = [];
+
     while ($row = $sql->fetch(PDO::FETCH_ASSOC)) {
+        $currentId = $row['id_membre_2'];
         $currentSugg = $row['pseudo_2'];
-        if(!array_key_exists($currentSugg,$commonStars)){
-            $commonStars[$currentSugg] = ['starnames' => [], 'count' => 0];
+        if (!array_key_exists($currentId, $commonStars)) {
+            $commonStars[$currentId] = ['pseudo' => $currentSugg,'starnames' => [], 'count' => 0, 'img' => DBFunctions::getProfilePicFromUserId($currentId)];
         }
         if ($row['public_univers_2'] == 1 && $row['public_galaxie_2'] == 1 && $row['public_etoile_2'] == 1) {
-            $commonStars[$currentSugg]['starnames'][] = $row['nom'];
+            $commonStars[$currentId]['starnames'][] = $row['nom_etoile'];
         }
-        $commonStars[$currentSugg]['count']++;
+        $commonStars[$currentId]['count']++;
     }
 
 
@@ -90,7 +96,7 @@ function getSuggestions($handler, $user_id)
 
 
     foreach ($friends as $friend) {
-        if (array_key_exists($friend, $commonStars)) unset($commonStars[$friend]);
+        if (array_key_exists($friend['pseudo'], $commonStars)) unset($commonStars[$friend['pseudo']]);
     }
 
     return $commonStars;
@@ -98,14 +104,32 @@ function getSuggestions($handler, $user_id)
 
 function getAllUsers($handler, $user_id)
 {
-    $q = $handler->prepare("SELECT pseudo FROM membre WHERE id!=:id");
+    $q = $handler->prepare("SELECT id, pseudo FROM membre WHERE id!=:id");
     $q->bindParam(':id', $user_id);
     $q->execute();
 
     $contacts = array();
     while ($row = $q->fetch(PDO::FETCH_ASSOC)) {
-        $contacts[] = $row['pseudo'];
+        $contacts[$row['id']] = ['pseudo'=> $row['pseudo'], 'starnames' => [],'count'=> 0 ,'img' =>  DBFunctions::getProfilePicFromUserId($row['id'])];
     }
+
+    $fullquery = "SELECT id_membre_2, pseudo_2, nom_etoile, public_etoile_2, public_univers_2, public_galaxie_2
+    FROM commonstars
+    WHERE id_membre_1 = :user_id ";
+
+    $sql = $handler->prepare($fullquery);
+    $sql->bindParam(':user_id', $user_id);
+    $sql->execute();
+
+  while ($row = $sql->fetch(PDO::FETCH_ASSOC)) {
+        $currentId = $row['id_membre_2'];
+        if ($row['public_univers_2'] == 1 && $row['public_galaxie_2'] == 1 && $row['public_etoile_2'] == 1) {
+            $contacts[$currentId]['starnames'][] = $row['nom_etoile'];
+        }
+        $contacts[$currentId]['count']++;
+    }
+    
+
     return $contacts;
 }
 
@@ -126,14 +150,14 @@ function getContacts($handler, $user_id)
     //id de tous les utilisateurs avec qui l'utilisateur courant a échangé des messages
     $contacts = array_unique($contacts);
 
-    $lastMessages = array();
+    $lastMessages = [];
     foreach ($contacts as $other_id) {
         $result = getLastMsg($handler, $user_id, $other_id);
         $lastMsg = $result[0];
         $nbUnread = $result[1];
         $profilePicSrc = DBFunctions::getProfilePicFromUserId($other_id);
 
-        $lastMessages[] = array(idToUsername($handler, $other_id), $lastMsg, $nbUnread, $profilePicSrc);
+        $lastMessages[$other_id] = ['pseudo' => idToUsername($handler, $other_id), 'lastMsg' => $lastMsg, 'unread' => $nbUnread, 'img' => $profilePicSrc];
     }
 
 

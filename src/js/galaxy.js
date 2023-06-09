@@ -15,7 +15,6 @@ function openCreateGalaxy(event){ //ouvre la fenetre d'edit/ajout d'étoile
 
 function openEditGalaxy(event){
     closeOption(); //dans le cas ou done est visible on veut le rendre invisible
-    closeGalaxyOptionsList();
 
     newGalaxy = new Galaxy(currentGalaxy.getName(), currentGalaxy.getDescription(), currentGalaxy.getPublicGalaxy(), currentGalaxy.getX(), currentGalaxy.getY());
 
@@ -26,30 +25,10 @@ function openEditGalaxy(event){
 
 const galaxyOptions = document.getElementById("contextMenu");
 
-//CONTEXT MENU
-function openGalaxyOptionsList(x, y){
-    contextMenu.style.top = y.toString() + "px";
-    contextMenu.style.left = x.toString() + "px";
-    contextMenu.classList.remove("hidden");
-
-    document.getElementById("edit").onclick = function(event){
-        openEditGalaxy(event)};
-    document.getElementById("move").onclick = function(event){
-        moveGalaxy(event)};
-    document.getElementById("link").classList.add("hidden");
-    document.getElementById("remove").onclick = function(event){
-        removeGalaxy(event)};
-
-    onclickoutside(closeGalaxyOptionsList);
-}
-function closeGalaxyOptionsList(){
-    galaxyOptions.classList.add("hidden");
-}
 
 let movableG = false;
 function moveGalaxy(event){
     INVISIBLE.classList.add("hidden"); 
-    closeGalaxyOptionsList();
     doneMenuButton.classList.remove("hidden");
 
     menu.style.width = "auto";
@@ -81,7 +60,6 @@ let currentGalaxy;
 
 function removeGalaxy(){
     currentGalaxy.removeElement();
-    closeGalaxyOptionsList();
     INVISIBLE.classList.add("hidden"); 
     ajaxGRemove(currentGalaxy.getName());
 }

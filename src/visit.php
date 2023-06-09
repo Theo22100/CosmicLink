@@ -40,9 +40,11 @@ else {
     <div id="invisible" class="hidden"> </div>
 
 
+    <script src="./interfaces/InterfaceClass.js"></script>
+    <script src="./interfaces/errorGalaxyInterface.js"></script>
+    <script src="./interfaces/contextMenuInterface.js"></script>
     <script src="./js/deplacementEspace.js"></script>
 
-    <script src="./interfaces/InterfaceClass.js"></script>
     <script src="./interfaces/popUpInfoInterface.js"></script>
 
     

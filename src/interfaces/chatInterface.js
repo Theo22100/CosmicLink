@@ -90,19 +90,17 @@ class pageChat extends Interface {
     }
 
     static addAllContactMessage(contacts) {
-        for (let i = 0; i < contacts.length; i++) {
-            const contactName = contacts[i][0];
-            const lastMsg = contacts[i][1];
-            const numberUnread = contacts[i][2];
-
-            const profilePicSrc = contacts[i][3];
+        for (const id in contacts){
+            const contactName = contacts[id]['pseudo'];
+            const lastMsg = contacts[id]['lastMsg'];
+            const numberUnread = contacts[id]['unread'];
+            const profilePicSrc = contacts[id]['img'];
 
             pageChat.addContactMessage(contactName, lastMsg, numberUnread, profilePicSrc);
         }
     }
 
     static addContactMessage(name, previousMessage, numberUnread, profilePicSrc) {
-        //TODO faire le numberUnread
         const li = document.createElement("li");
         const img = document.createElement("img");
         img.classList.add("profilePic");
@@ -144,13 +142,14 @@ class pageChat extends Interface {
     }
 
     static updateAllContactMessage(contacts){
-        for (let i = 0; i < contacts.length; i++) {
-            const contactName = contacts[i][0];
-            const lastMsg = contacts[i][1];
-            const numberUnread = contacts[i][2];
-            const profilePicSrc = contacts[i][3];
+        for (const id in contacts){
+            const contactName = contacts[id]['pseudo'];
+            const lastMsg = contacts[id]['lastMsg'];
+            const numberUnread = contacts[id]['unread'];
+            const profilePicSrc = contacts[id]['img'];
             pageChat.updateContactMessage(contactName, lastMsg, numberUnread, profilePicSrc);
         }
+        
     }
 
 
@@ -206,6 +205,7 @@ class pageChat extends Interface {
             success: function (response) {
 
                 const contacts = JSON.parse(response);
+                console.log(contacts);
                 if ((contacts[1] != 0) || first) {
                     if (first){
                         pageChat.addAllContactMessage(contacts); 

@@ -39,58 +39,6 @@ if (isset($_SESSION['id'])) {
 }
 
 
-function getFriends($handler, $user_id)
-{
-
-    try {
-        $requete1 = $handler->prepare(
-            "SELECT sender, receiver
-        FROM ami
-        WHERE (sender = :id OR receiver = :id)
-        AND statut = 'A';"
-        );
-
-        $requete1->bindParam(':id', $user_id);
-        $requete1->execute();
-
-        $amis = array();
-        while ($ami = $requete1->fetch(PDO::FETCH_ASSOC)) {
-            // On ajoute les id des autres utilisateurs dans un tableau
-            if ($ami['sender'] != $user_id) {
-                $amis[] = $ami['sender'];
-            } else {
-                $amis[] = $ami['receiver'];
-            }
-        }
-
-        $ids_amis = implode(',', array_unique($amis));
-        $requete2 = $handler->prepare(
-            "SELECT id, pseudo
-        FROM membre
-        WHERE id IN ($ids_amis);" //TODO ? bind ?
-        );
-
-        // Concatène les id des amis pour les utiliser dans la requête suivante
-        
-        //$requete1->bindParam(':amis', $ids_amis);
-        $requete2->execute();
-
-        $pseudo_amis = array();
-        while ($amiNom = $requete2->fetch(PDO::FETCH_ASSOC)) {
-            /*
-        if ($amiNom['id'] != $user_id) {
-            // Affiche les pseudos des amis, en excluant celui de l'utilisateur actuel
-            echo $amiNom['pseudo'] . "               <a href='ami_supprimer.php?id=".$amiNom['id']."> SUPPRIMER </a>" ;
-        }
-        */
-            $pseudo_amis[] = $amiNom;
-        }
-
-        return $pseudo_amis;
-    } catch (PDOException $e) {
-        echo 'Échec lors de la récupération de la liste des amis : ' . $e->getMessage();
-    }
-}
 
 function getWaiting($handler, $user_id)
 {
@@ -126,7 +74,7 @@ function getWaiting($handler, $user_id)
             $pseudo_amis = array();
             while ($amiNom = $requete2->fetch(PDO::FETCH_ASSOC)) {
 
-                $pseudo_amis[] = $amiNom['pseudo'];
+                $pseudo_amis[$amiNom['id']] = ['pseudo' => $amiNom['pseudo'], 'img' => DBFunctions::getProfilePicFromUserId($amiNom['id'])];
             }
 
             return $pseudo_amis;

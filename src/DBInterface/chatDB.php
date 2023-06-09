@@ -150,14 +150,14 @@ function getContacts($handler, $user_id)
     //id de tous les utilisateurs avec qui l'utilisateur courant a échangé des messages
     $contacts = array_unique($contacts);
 
-    $lastMessages = array();
+    $lastMessages = [];
     foreach ($contacts as $other_id) {
         $result = getLastMsg($handler, $user_id, $other_id);
         $lastMsg = $result[0];
         $nbUnread = $result[1];
         $profilePicSrc = DBFunctions::getProfilePicFromUserId($other_id);
 
-        $lastMessages[] = array(idToUsername($handler, $other_id), $lastMsg, $nbUnread, $profilePicSrc);
+        $lastMessages[$other_id] = ['pseudo' => idToUsername($handler, $other_id), 'lastMsg' => $lastMsg, 'unread' => $nbUnread, 'img' => $profilePicSrc];
     }
 
 

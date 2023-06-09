@@ -10,7 +10,7 @@ if (isset($_SESSION['login'])) {
 		<title>Registration CosmicLink</title>
 		<meta charset=”utf-8″>
 		<link rel="stylesheet" href="./style_login.css">
-		<link rel="stylesheet" href="./../global.css">
+		<link rel="stylesheet" href="./../css/global.css">
 	</head>
 	<body>
 		<div class="main">

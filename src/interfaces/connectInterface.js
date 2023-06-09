@@ -91,11 +91,9 @@ class pageConnect extends Interface {
     }
 
     static addAllSuggestions(suggestions) {
-        console.log(suggestions);
         for (const username in suggestions) {
             const starnames = suggestions[username]['starnames']; //array, potentially empty
             const starcount = suggestions[username]['count']; //number of stars, >= 1
-            console.log(starnames + ' ' + starcount);
             pageConnect.addSuggestions(username);
         }
     }
@@ -168,9 +166,36 @@ class pageConnect extends Interface {
         }
     }
 
-    static ajaxGetAllUsers(){
-        //TODO LEONIE
+    static ajaxGetAllUsers() {
+        $.ajax({
+            url: "DBInterface/chatDB.php",
+            type: "POST",
+            //TODO Trouver moyen de cache
+            data: {
+                action: "getAllUsers"
+            },
+            success: function (response) {
+                try {
+
+                    console.log(response);
+                    const allUsers = JSON.parse(response);
+                    pageConnect.addAllSuggestions(allUsers);
+
+                } catch (error) {
+                    console.log(response);
+                    console.error(error);
+                }
+
+
+            },
+            error: function (xhr, status, error) {
+                // Handle errors
+                console.error(error);
+            }
+        });
+
     }
+
 
     static ajaxGetSuggestions() {
         $.ajax({

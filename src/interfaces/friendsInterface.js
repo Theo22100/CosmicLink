@@ -204,10 +204,6 @@ class pageFriends extends Interface {
         pageFriends.ajaxRemoveFriend(name);
     }
 
-    static removeFriend(name) {
-
-    }
-
     static sendNewMessage(name) {
         friendsInter.closeInterface();
         messInter.openInterface();
@@ -333,5 +329,7 @@ class pageFriends extends Interface {
         });
 
     }
+
+    
 }
 

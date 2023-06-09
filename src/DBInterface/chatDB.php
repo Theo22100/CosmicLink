@@ -95,8 +95,8 @@ function getSuggestions($handler, $user_id)
     $friends = DBFunctions::getFriends($handler, $user_id);
 
 
-    foreach ($friends as $friend) {
-        if (array_key_exists($friend['pseudo'], $commonStars)) unset($commonStars[$friend['pseudo']]);
+    foreach ($friends as $friend_id => $friend_info) {;
+        if (array_key_exists($friend_id, $commonStars)) unset($commonStars[$friend_id]);
     }
 
     return $commonStars;

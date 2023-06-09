@@ -112,6 +112,7 @@ margin-right: 0;;
     padding: 10px 0;
     display: flex;
     flex-direction: row;
+    margin-right: 20px;
 }
 
 .list-personnes li:hover{

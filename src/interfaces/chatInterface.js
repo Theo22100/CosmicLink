@@ -97,11 +97,11 @@ class pageChat extends Interface {
             const profilePicSrc = contacts[id]['img'];
             const friendStatus = contacts[id]['friend'];
 
-            pageChat.addContactMessage(contactName, lastMsg, numberUnread, profilePicSrc);
+            pageChat.addContactMessage(contactName, lastMsg, numberUnread, profilePicSrc, friendStatus);
         }
     }
 
-    static addContactMessage(name, previousMessage, numberUnread, profilePicSrc) {
+    static addContactMessage(name, previousMessage, numberUnread, profilePicSrc, friendStatus) {
         const li = document.createElement("li");
         const img = document.createElement("img");
         img.classList.add("profilePic");
@@ -138,7 +138,7 @@ class pageChat extends Interface {
         li.addEventListener("click", (event) => {
             chatInter.closeInterface();
             messInter.openInterface();
-            messInter.load(name);
+            messInter.load(name, friendStatus, profilePicSrc);
         });
     }
 
@@ -149,13 +149,13 @@ class pageChat extends Interface {
             const numberUnread = contacts[id]['unread'];
             const profilePicSrc = contacts[id]['img'];            
             const friendStatus = contacts[id]['friend'];
-            pageChat.updateContactMessage(contactName, lastMsg, numberUnread, profilePicSrc);
+            pageChat.updateContactMessage(contactName, lastMsg, numberUnread, profilePicSrc, friendStatus);
         }
 
     }
 
 
-    static updateContactMessage(name, previousMessage, numberUnread, profilePicSrc) {
+    static updateContactMessage(name, previousMessage, numberUnread, profilePicSrc, friendStatus) {
         const PREVIOUSCHATS = document.getElementById("previous-chats");
         for (let i = 0, len = PREVIOUSCHATS.childElementCount; i < len; ++i) {
             let find = false;
@@ -182,6 +182,8 @@ class pageChat extends Interface {
                         numberUnreadD.remove();
                     }
                 }
+
+                
 
                 const previousMessageD = PREVIOUSCHATS.children[i].getElementsByClassName("oldMsg");
                 previousMessageD[0].textContent = previousMessage;

@@ -16,9 +16,9 @@ else {
     <title>CosmicLink</title>
 
     <link rel="icon" type="image/x-icon" href="../img/favicon.ico">
-    <link rel="stylesheet" href="menu.css">
-    <link rel="stylesheet" href="style_site.css">
-    <link rel="stylesheet" href="global.css">
+    <link rel="stylesheet" href="./css/menu.css">
+    <link rel="stylesheet" href="./css/style_site.css">
+    <link rel="stylesheet" href="./css/global.css">
     <link rel="stylesheet" href="./css/popUp.css">
 
 </head>

@@ -224,7 +224,8 @@ class pageConnect extends Interface {
                 console.error(error);
             }
         });
-
     }
+
+
 }
 

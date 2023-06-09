@@ -33,7 +33,7 @@ class DBFunctions
 
                 // Concatène les id des amis pour les utiliser dans la requête suivante
                 $ids_amis = implode(',', array_unique($amis));
-                
+
 
                 $requete2 = $handler->prepare(
                     "SELECT id, pseudo
@@ -45,7 +45,7 @@ class DBFunctions
                 $requete2->execute();
 
                 while ($amiNom = $requete2->fetch(PDO::FETCH_ASSOC)) {
-                    $pseudo_amis[] = $amiNom['pseudo'];
+                    $pseudo_amis[] = [$amiNom['id'], $amiNom['pseudo']];
                 }
             }
             return $pseudo_amis;
@@ -53,4 +53,20 @@ class DBFunctions
             echo 'Échec lors de la récupération de la liste des amis : ' . $e->getMessage();
         }
     }
+
+
+    static function getProfilePicFromUserId($userID)
+    {
+        $directoryPath = '../../img/profil/' . $userID;
+        if (file_exists($directoryPath)) {
+            $exist = glob($directoryPath . "/profile-pic.*");
+
+            if ($exist) {
+                return substr($exist[0], 3);
+                ;
+            }
+        }
+        return '../img/profile-pic.png';
+    }
+
 } //class end

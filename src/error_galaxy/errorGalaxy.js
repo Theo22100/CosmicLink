@@ -1,4 +1,4 @@
-class errorPgae extends Interface{
+class errorPage extends Interface{
 static error = '' + 
 '' + 
 '        <div class="container">' + 
@@ -10,6 +10,11 @@ static error = '' +
 '        </div>' + 
 '' + 
 '';
+
+
+constuctor(){
+    super("errorGalaxy",errorPage.page, true);
+}
 
 
 

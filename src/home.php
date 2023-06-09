@@ -15,8 +15,6 @@ if (!isset($_SESSION['login'])) {
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
 
     <link rel="icon" type="image/x-icon" href="../img/favicon.ico">
-    <link rel="stylesheet" href="style_site.css">
-
 
     <link rel="stylesheet" href="./chat/css/chat.css">
     <link rel="stylesheet" href="./chat/css/message.css">
@@ -31,17 +29,12 @@ if (!isset($_SESSION['login'])) {
     <link rel="stylesheet" href="./css/addStar.css">
     <link rel="stylesheet" href="./css/popUp.css">
 
+    <link rel="stylesheet" href="./error_galaxy/errorGalaxy.css">
+
 </head>
 
 
 <body id="background">
-
-    <div id="contextMenu" class="hidden">
-        <div class="option" id="edit"> Edit</div>
-        <div class="option" id="move"> Move</div>
-        <div class="option" id="link"> Link</div>
-        <div class="option" id="remove"> remove</div>
-    </div>
 
     <div id="univers">
         <div id="origin"></div>
@@ -71,9 +64,11 @@ if (!isset($_SESSION['login'])) {
     <div id="invisible" class="hidden"> </div>
 
     
+    <script src="./interfaces/InterfaceClass.js"></script>
+    <script src="./interfaces/errorGalaxyInterface.js"></script>
+    <script src="./interfaces/contextMenuInterface.js"></script>
     <script src="./js/deplacementEspace.js"></script>
 
-    <script src="./interfaces/InterfaceClass.js"></script>
     <script src="./interfaces/AddStarPageOneInterface.js"></script>
     <script src="./interfaces/AddStarPageSecondInterface.js"></script>
     <script src="./interfaces/AddStarPageThirdInterface.js"></script>
@@ -81,6 +76,8 @@ if (!isset($_SESSION['login'])) {
     <script src="./interfaces/AddGalaxyInterface.js"></script>
 
     <script src="./interfaces/popUpInfoInterface.js"></script>
+
+    
 
 
     <script src="./interfaces/chatInterface.js"></script>

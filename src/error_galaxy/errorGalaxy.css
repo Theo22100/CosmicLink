@@ -1,9 +1,3 @@
-body{
-    height: 100%;
-    width: 100%;
-    position: absolute;
-}
-
 .container {
     background-color: var(--red200);
     text-align: center;
@@ -12,8 +6,8 @@ body{
     top:50%;
     transform: translate(-50%,-50%);
     border-radius: 20px;
-    height: 15%;
     width: 30%;
+    padding-bottom: 15px;
 }
 
 h3{

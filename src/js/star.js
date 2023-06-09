@@ -33,46 +33,19 @@ function openCreateStar(event) { //ouvre la fenetre d'edit/ajout d'étoile
 
 function openEditStar(event) {
     closeOption(); //dans le cas ou done est visible on veut le rendre invisible
-    closeStarOptionsList();
     openEditStarInterface();
     INVISIBLE.classList.add("hidden");
 
 }
 
 
-//CONTEXT MENU
-const contextMenu = document.getElementById("contextMenu");
-function openStarOptionsList(x, y) {
-    contextMenu.style.top = y.toString() + "px";
-    contextMenu.style.left = x.toString() + "px";
-    contextMenu.classList.remove("hidden");
 
-    document.getElementById("edit").onclick = function (event) {
-        openEditStar(event)
-    };
-    document.getElementById("move").onclick = function (event) {
-        moveStar(event)
-    };
-    document.getElementById("link").classList.remove("hidden");
-    // document.getElementById("link").onclick = function(event){
-    // editStar(event)}; TODO
-    document.getElementById("remove").onclick = function (event) {
-        removeStar(event)
-    };
-
-    onclickoutside(closeStarOptionsList);
-}
-function closeStarOptionsList() {
-    contextMenu.classList.add("hidden");
-    INVISIBLE.classList.add("hidden");
-}
 
 
 //action du bouton move dans le contextMenu
 let movable = false;
 function moveStar(event) {
     INVISIBLE.classList.add("hidden");
-    closeStarOptionsList(); // ferme le menu contextuelle
     doneMenuButton.classList.remove("hidden");
 
     menu.style.width = "auto";
@@ -103,7 +76,6 @@ function addStarWithInfo(starName, galaxy, starDesc, starSize, publicStar, x, y,
 let currentStar;
 function removeStar(event) {
     currentStar.removeElement();
-    closeStarOptionsList();
     INVISIBLE.classList.add("hidden");
 
     ajaxRemove(currentStar.getId());

@@ -15,7 +15,7 @@ if (!isset($_SESSION['login'])) {
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
 
     <link rel="icon" type="image/x-icon" href="../img/favicon.ico">
-    <link rel="stylesheet" href="style_site.css">
+   
 
 
     <link rel="stylesheet" href="./chat/css/chat.css">

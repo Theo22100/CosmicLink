@@ -79,14 +79,15 @@ function getSuggestions($handler, $user_id)
     $commonStars = [];
 
     while ($row = $sql->fetch(PDO::FETCH_ASSOC)) {
+        $currentId = $row['id_membre_2'];
         $currentSugg = $row['pseudo_2'];
-        if (!array_key_exists($currentSugg, $commonStars)) {
-            $commonStars[$currentSugg] = ['starnames' => [], 'count' => 0];
+        if (!array_key_exists($currentId, $commonStars)) {
+            $commonStars[$currentId] = ['pseudo' => $currentSugg,'starnames' => [], 'count' => 0];
         }
         if ($row['public_univers_2'] == 1 && $row['public_galaxie_2'] == 1 && $row['public_etoile_2'] == 1) {
-            $commonStars[$currentSugg]['starnames'][] = $row['nom_etoile'];
+            $commonStars[$currentId]['starnames'][] = $row['nom_etoile'];
         }
-        $commonStars[$currentSugg]['count']++;
+        $commonStars[$currentId]['count']++;
     }
 
 

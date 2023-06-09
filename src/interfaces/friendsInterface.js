@@ -100,8 +100,9 @@ class pageFriends extends Interface {
 
 
     static addAllFriends(friends) {
-        for (let i = 0; i < friends.length; i++) {
-            pageFriends.addFriends(friends[i]);
+        for (const id in friends){
+            const username = friends[id];
+            pageFriends.addFriends(username);
         }
     }
 

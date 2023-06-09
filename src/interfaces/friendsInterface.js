@@ -103,16 +103,16 @@ class pageFriends extends Interface {
         for (const id in friends) {
             const username = friends[id]['pseudo'];
             const img = friends[id]['img'];
-            pageFriends.addFriends(username);
+            pageFriends.addFriends(username, img);
         }
     }
 
-    static addFriends(name) {
+    static addFriends(name, img) {
 
         const DIV = document.createElement("div");
         DIV.classList.add("friendProfile");
         const PP = document.createElement("img");
-        PP.src = "../img/profile-pic.png";
+        PP.src = img;
         PP.classList.add("friend-ProfilePic");
         DIV.appendChild(PP);
 
@@ -143,7 +143,10 @@ class pageFriends extends Interface {
         const REMOVEFRIEND = document.createElement("button");
         REMOVEFRIEND.classList.add("removeFriend");
         REMOVEFRIEND.textContent = "Remove Friend";
-        REMOVEFRIEND.addEventListener("click", (event) => pageFriends.removeFriend(name));
+        REMOVEFRIEND.addEventListener("click", (event) => {
+            DIV.remove();
+            pageFriends.removeFriend(name)
+        });
         BUTTONDIV.appendChild(REMOVEFRIEND);
 
         DIV.appendChild(BUTTONDIV);
@@ -158,16 +161,16 @@ class pageFriends extends Interface {
         for (const id in friends) {
             const username = friends[id]['pseudo'];
             const img = friends[id]['img'];
-            pageFriends.addFriendsRequests(username);
+            pageFriends.addFriendsRequests(username, img);
         }
     }
 
-    static addFriendsRequests(name) {
+    static addFriendsRequests(name, img) {
 
         const DIV = document.createElement("div");
         DIV.classList.add("friendProfile");
         const PP = document.createElement("img");
-        PP.src = "../img/profile-pic.png";
+        PP.src = img;
         PP.classList.add("friend-ProfilePic");
         DIV.appendChild(PP);
 
@@ -192,7 +195,10 @@ class pageFriends extends Interface {
         const ADDFRIEND = document.createElement("button");
         ADDFRIEND.classList.add("addFriend");
         ADDFRIEND.textContent = "Add Friend";
-        ADDFRIEND.addEventListener("click", (event) => pageFriends.addFriend(name));
+        ADDFRIEND.addEventListener("click", (event) => {
+            DIV.remove();
+            pageFriends.addFriend(name)
+        });
         BUTTONDIV.appendChild(ADDFRIEND);
 
         DIV.appendChild(BUTTONDIV);

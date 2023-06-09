@@ -1,4 +1,5 @@
 <?php
+require '../DBInterface/dbFunctions.php';
 session_start();
 if (!isset($_SESSION['login'])) {
 	header('Location: ../login-inscription/login.php');
@@ -59,12 +60,8 @@ if (!isset($_SESSION['login'])) {
 				<div class="register-bottom-grid">
 					<h3>Change you profile picture (Currently :
 						<?php
-
-						if ($_SESSION['image'] == NULL) {
-							echo ("<img src='../../img/profile-pic.png' alt='profile picture' width='auto' height='100px' />");
-						} else {
-							echo ("<img src='../../img/profil/" . $_SESSION['id'] . "/" . $_SESSION['image'] . "' alt='" . $_SESSION['image'] . "' width='auto' height='100px' />");
-						}
+							$link = DBFunctions::getProfilePicFromUserId($_SESSION['id']);
+							echo ("<img src='../" . $link . "' alt='profile picture' width='auto' height='100px' />");
 
 						?>
 

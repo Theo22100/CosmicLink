@@ -2,7 +2,7 @@ class thirdPageAddStar extends Interface {
     static page = '' +
         '<div class="ui" id="starui3">' +
         '        <header>' +
-        '            <p>Add Star</p>' +
+        '            <p class="editTitle3">Add Star</p>' +
         '            <p>Add some photos to spice up those memories</p>' +
         '' +
         '            <button type="button" class="btn-close">' +
@@ -59,6 +59,12 @@ class thirdPageAddStar extends Interface {
 
     openInterface() {
         super.openInterface();
+
+
+       
+
+        const TITLE = document.getElementsByClassName("ui")[0].getElementsByClassName("editTitle3")[0];
+        if(this.#editing)TITLE.textContent="Edit Star";
 
         const PREVIOUS = document.getElementsByClassName("nextPrevious")[0].getElementsByClassName("previous")[0];
         PREVIOUS.addEventListener("click", (event) => this.goToSecondPage());

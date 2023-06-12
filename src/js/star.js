@@ -9,16 +9,22 @@ function openCreateStarInterface() { //ouvre la fenetre d'edit/ajout d'étoile
     newStar = new Star("", "", "", 3, false, x, y, []);
 
 
+    firstPageInterface.setEdit(false);
     firstPageInterface.openInterface(false);
     firstPageInterface.clear();
+    
+    secondPageInterface.setEditing(false);
     thirdPageInterface.setEditing(false);
 }
 
-function openEditStarInterface(){
+function openEditStarInterface(){ //ouverture du menu d'édition des étoiles
     newStar = new Star(currentStar.getName(), currentStar.getDescription(), currentStar.getGalaxyLinked(), currentStar.getSize(), currentStar.getPublicStar(), currentStar.getX(), currentStar.getY(), currentStar.getImgLinkArray());
-
+   
+    firstPageInterface.setEdit(true);
     firstPageInterface.openInterface(true);
     firstPageInterface.loadChanges(newStar);
+    
+    secondPageInterface.setEditing(true);
     thirdPageInterface.setEditing(true);
 }
 

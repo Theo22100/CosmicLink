@@ -51,7 +51,7 @@ class pageConnect extends Interface {
             this.openAllUsers();
         });
 
-        
+
         const SEARCH = document.getElementById("search-personnes");
         SEARCH.addEventListener("input", (event) => this.search(event));
     }
@@ -97,11 +97,11 @@ class pageConnect extends Interface {
             const starcount = suggestions[id]['count']; //number of stars, >= 1
 
             const profilePicSrc = suggestions[id]['img'];
-            pageConnect.addSuggestions(username, profilePicSrc);
+            pageConnect.addSuggestions(username, profilePicSrc, starnames, starcount);
         }
     }
 
-    static addSuggestions(name, profilePicSrc) {
+    static addSuggestions(name, profilePicSrc, starnames, starcount) {
 
         const DIV = document.createElement("div");
         DIV.classList.add("friend-suggestion");
@@ -114,6 +114,21 @@ class pageConnect extends Interface {
         NAME.textContent = name;
         NAME.classList.add("profile-name");
         DIV.appendChild(NAME);
+
+
+        const COMMON = document.createElement("p");
+        COMMON.textContent = (starcount==0 ? "No": starcount) + (starcount > 1 ? " stars" : " star") + " in common";
+        COMMON.classList.add("star-common");
+        if (starnames.length > 0) {
+            COMMON.classList.add("star-common-list");
+            COMMON.addEventListener("click", (event) => {
+                STARINCOMMONPAGE.openInterface(starnames);
+                connectInter.interfaceElement.style.zIndex = 0;
+                
+            });
+        }
+        DIV.appendChild(COMMON);
+
 
         const DIVBUTTON = document.createElement("div");
         DIVBUTTON.classList.add("newFriend-button");
@@ -142,7 +157,7 @@ class pageConnect extends Interface {
     }
 
 
-    openSuggestion(){
+    openSuggestion() {
         const FRLIST = document.getElementById("list");
         FRLIST.classList.add("switch-active");
         const FRREQ = document.getElementById("request");
@@ -152,7 +167,7 @@ class pageConnect extends Interface {
         pageConnect.ajaxGetSuggestions();
     }
 
-    openAllUsers(){
+    openAllUsers() {
         const FRLIST = document.getElementById("list");
         FRLIST.classList.remove("switch-active");
         const FRREQ = document.getElementById("request");
@@ -180,7 +195,7 @@ class pageConnect extends Interface {
             success: function (response) {
                 try {
 
-                    
+
                     const allUsers = JSON.parse(response);
                     console.log(allUsers);
                     pageConnect.addAllSuggestions(allUsers);
@@ -200,7 +215,7 @@ class pageConnect extends Interface {
 
     }
 
-    static ajaxAddFriend(name){
+    static ajaxAddFriend(name) {
         $.ajax({
             url: "DBInterface/friendsDB.php",
             type: "POST",
@@ -211,7 +226,7 @@ class pageConnect extends Interface {
             },
             success: function (response) {
                 console.log(response);
-               
+
             },
             error: function (xhr, status, error) {
                 // Handle errors

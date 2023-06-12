@@ -132,3 +132,6 @@ class popUpInfo extends Interface {
         currentImg.setAttribute("data-status", "inactive");
     }
 }
+
+
+const popUpPage = new popUpInfo();

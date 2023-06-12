@@ -59,3 +59,4 @@ class contextMenuI extends Interface {
         });
     }
 }
+const contextMenuPage = new contextMenuI();

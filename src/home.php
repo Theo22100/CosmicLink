@@ -17,20 +17,19 @@ if (!isset($_SESSION['login'])) {
     <link rel="icon" type="image/x-icon" href="../img/favicon.ico">
 
     <link rel="stylesheet" href="./css/global.css">
-    <link rel="stylesheet" href="./chat/css/chat.css">
-    <link rel="stylesheet" href="./chat/css/message.css">
-    <link rel="stylesheet" href="./chat/css/connect.css">
-    <link rel="stylesheet" href="./chat/css/friends.css">
+    <link rel="stylesheet" href="./css/chat/chat.css">
+    <link rel="stylesheet" href="./css/chat/message.css">
+    <link rel="stylesheet" href="./css/chat/connect.css">
+    <link rel="stylesheet" href="./css/chat/friends.css">
 
     <link rel="stylesheet" href="./css/menu.css">
     <link rel="stylesheet" href="./css/style_site.css">
 
 
-    
     <link rel="stylesheet" href="./css/addStar.css">
     <link rel="stylesheet" href="./css/popUp.css">
 
-    <link rel="stylesheet" href="./error_galaxy/errorGalaxy.css">
+    <link rel="stylesheet" href="./css/errorGalaxy/errorGalaxy.css">
 
     <link rel="stylesheet" href ="./css/errorInterface.css">
     <link rel="stylesheet" href ="./css/starInCommon.css">
@@ -68,10 +67,11 @@ if (!isset($_SESSION['login'])) {
     <div id="invisible" class="hidden"> </div>
 
     
+    <script src="./js/deplacementEspace.js"></script>
+    
     <script src="./interfaces/InterfaceClass.js"></script>
     <script src="./interfaces/errorGalaxyInterface.js"></script>
     <script src="./interfaces/contextMenuInterface.js"></script>
-    <script src="./js/deplacementEspace.js"></script>
 
     <script src="./interfaces/AddStarPageOneInterface.js"></script>
     <script src="./interfaces/AddStarPageSecondInterface.js"></script>

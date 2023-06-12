@@ -32,3 +32,4 @@ class errorPage extends Interface {
 
 
 }
+const errorPageI = new errorPage();

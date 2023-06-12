@@ -1,6 +1,3 @@
-const errorPageI = new errorPage();
-const contextMenuPage = new contextMenuI();
-
 window.oncontextmenu = (e) => {
     e.preventDefault();
 }

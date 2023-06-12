@@ -63,7 +63,6 @@ const firstPageInterface =  new firstPageAddStar();
 const secondPageInterface =  new secondPageAddStar();
 const thirdPageInterface =  new thirdPageAddStar();
 
-const popUpPage = new popUpInfo();
 
 const galaxyPageInterface =  new pageAddGalaxy();
 

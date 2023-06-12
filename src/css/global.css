@@ -1,3 +1,7 @@
+*{
+    font-family: Luminari, fantasy;
+}
+
 :root {
     --violet100: #bbabdc;
     --violet200: #A48FD2;

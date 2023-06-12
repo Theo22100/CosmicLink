@@ -16,6 +16,7 @@ if (!isset($_SESSION['login'])) {
 
     <link rel="icon" type="image/x-icon" href="../img/favicon.ico">
 
+    <link rel="stylesheet" href="./css/global.css">
     <link rel="stylesheet" href="./chat/css/chat.css">
     <link rel="stylesheet" href="./chat/css/message.css">
     <link rel="stylesheet" href="./chat/css/connect.css">
@@ -25,7 +26,7 @@ if (!isset($_SESSION['login'])) {
     <link rel="stylesheet" href="./css/style_site.css">
 
 
-    <link rel="stylesheet" href="./css/global.css">
+    
     <link rel="stylesheet" href="./css/addStar.css">
     <link rel="stylesheet" href="./css/popUp.css">
 

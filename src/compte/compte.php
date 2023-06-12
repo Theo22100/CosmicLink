@@ -53,7 +53,7 @@ if (!isset($_SESSION['login'])) {
 			?>
 
 			<!-- Modifier Photo -->
-
+			<div class="box">
 			<div class="clear"> </div>
 			<form class="photo" method="POST" action="modifiephoto.php" enctype="multipart/form-data">
 				<div class="register-bottom-grid">
@@ -73,7 +73,7 @@ if (!isset($_SESSION['login'])) {
 					</h3>
 				</div>
 
-				<input type="file" name="image" id="image" accept='image/*' >
+				<input type="file" name="image" id="image" accept='image/*'>
 
 				<div>
 					(Max 2Mo)
@@ -86,143 +86,113 @@ if (!isset($_SESSION['login'])) {
 		</div>
 
 		<!-- Modifier nom -->
+		
+			<div class="clear"> </div>
+			<form class="Info" method="POST" action="modifall.php">
+				<div class="register-bottom-grid">
+					<h3>Change your First Name (Currently :
+						<?php
+						echo $_SESSION['prenom'];
 
-		<div class="clear"> </div>
-		<form class ="Info" method="POST" action="modifall.php">
-			<div class="register-bottom-grid">
-				<h3>Change your First Name (Currently :
-					<?php
-					echo $_SESSION['prenom'];
+						?>
+						)
+					</h3>
 
-					?>
-					)
-				</h3>
+					<div>
+						<!-- <span>Prénom<label></label></span> -->
+						<input type="text" name="prenom" id="prenom" maxlength="30" placeholder="First Name">
 
-				<div>
-					<!-- <span>Prénom<label></label></span> -->
-					<input type="text" name="prenom" id="prenom" maxlength="30" placeholder="First Name">
-
+					</div>
+					<div class="clear"> </div>
 				</div>
+
 				<div class="clear"> </div>
-			</div>
-
-			<div class="clear"> </div>
-			<!-- Modifier nom -->
-			<div>
-				<h3>Change your Last Name (Currently :
-					<?php
-					echo $_SESSION['nom'];
-
-					?>
-					)
-				</h3>
+				<!-- Modifier nom -->
 				<div>
-					<!-- <span>Nom<label></label></span> -->
-					<input type="text" name="nom" id="nom" maxlength="30" placeholder="Last Name">
-				</div>
-			</div>
+					<h3>Change your Last Name (Currently :
+						<?php
+						echo $_SESSION['nom'];
 
-			<div class="clear"> </div>
-			<!-- Modifier email -->
-			<div class="register-bottom-grid">
-				<h3>Change your Mail (Currently :
-					<?php
-					echo $_SESSION['mail'];
-
-					?>
-					)
-				</h3>
-				<div>
-					<!-- <span>Mail<label></label></span> -->
+						?>
+						)
+					</h3>
 					<div>
-						<input type="mail" name="mail" id="mail" maxlength="60" placeholder="Mail">
-					</div>
-					<div>
-
-						<input type="submit" name="modifierall" id="modifButton" value="Change">
-
+						<!-- <span>Nom<label></label></span> -->
+						<input type="text" name="nom" id="nom" maxlength="30" placeholder="Last Name">
 					</div>
 				</div>
-			</div>
-		</form>
 
-		<div class="clear"> </div>
-		<!-- Modifier mdp -->
-		<form class="Password" method="POST" action="modifiemdp.php">
-			<div class="register-bottom-grid">
-				<h3>Change your Password</h3>
-				<div>
-					<!-- <span>Password</span> -->
-					<input type="password" name="password" id="password" required="required" maxlength="50" placeholder="Password">
-				</div>
+				<div class="clear"> </div>
+				<!-- Modifier email -->
+				<div class="register-bottom-grid">
+					<h3>Change your Mail (Currently :
+						<?php
+						echo $_SESSION['mail'];
 
-				<div>
-					<!-- <span>Retapez votre Password</span> -->
-					<input type="password" name="confirm_password" id="confirm_password" required="required" maxlength="50" placeholder="Confirm Password">
-				</div>
-
-				<div class="register-but">
-					<input type="submit" name="envoyermdp" id="modifButton" value="Change">
-
-
-				</div>
-
-			</div>
-		</form>
-		<!-- Supprime compte -->
-		<form class="Delete" method="POST" action="deleteaccount.php" onsubmit="return confirm('Êtes-vous sûr de vouloir supprimer votre compte ? Cette action est irréversible.')">
-			<div class="register-bottom-grid">
-				<h3>Delete your Account</h3>
-				<div>
-					<!-- <span>Mot de Passe actuel</span> -->
-					<input type="password" name="password" id="password" required="required" maxlength="50" placeholder="Type your Password">
-				</div>
-				<div class="register-but">
-					<input type="submit" name="envoyermdp" id="modifButton" value="Delete">
-				</div>
-
-			</div>
-		</form>
-		<!-- Ajouter ami -->
-		<?php
-		if (isset($_GET['message'])) {
-			if ($_GET["message"] == "idintroubable") {
-				echo '<h3 style="color:red;">Pseudo Introuvable</h2>';
-			} else if ($_GET["message"] == "erreurami") {
-				echo '<h3 style="color:red;">Erreur : Impossible de l\'ajouter en ami, veuillez réessayer !</h2>';
-			} else if ($_GET["message"] == "ajoutami") {
-				echo '<h3 style="color:green;">Demande envoyé avec succès</h2>';
-			} else if ($_GET["message"] == "bdd") {
-				echo '<h3 style="color:red;">Erreur : Impossibilité de se connecter à la BDD</h2>';
-			} else if ($_GET["message"] == "idutil") {
-				echo '<h3 style="color:red;">Erreur : Soucis utilisateur</h2>';
-			} else if ($_GET["message"] == "ami") {
-				echo '<h3 style="color:red;">Erreur : Vous ne pouvez pas vous ajouter en ami.</h2>';
-			} else if ($_GET["message"] == "amideja") {
-				echo '<h3 style="color:red;">Vous êtes déjà ami avec cette personne.</h2>';
-			} else if ($_GET["message"] == "amiattente") {
-				echo '<h3 style="color:red;">Vous avez déjà envoyé une demande à cette personne, veuillez attendre que la personnne accepte.</h2>';
-			}
-		}
-		?>
-		<!-- <div class="register-bottom-grid">
-			<form method="POST" action="ajouterami.php">
-				<h3>Add Friend</h3>
-				<div>
-					<span>Enter pseudo :</span>
+						?>
+						)
+					</h3>
 					<div>
-						<input type="text" name="ami" id="ami" required="required" maxlength="60" placeholder="Pseudo">
-					</div>
+						<!-- <span>Mail<label></label></span> -->
+						<div>
+							<input type="mail" name="mail" id="mail" maxlength="60" placeholder="Mail">
+						</div>
+						<div>
 
-					<div>
-						<input type="submit" name="ajouterami"  id="modifButton" value="Add">
+							<input type="submit" name="modifierall" id="modifButton" value="Change">
 
+						</div>
 					</div>
 				</div>
 			</form>
-		</div> -->
 
-		<div class="return" >
+			<div class="clear"> </div>
+			<!-- Modifier mdp -->
+			<form class="Password" method="POST" action="modifiemdp.php">
+				<div class="register-bottom-grid">
+					<h3>Change your Password</h3>
+					<div>
+						<!-- <span>Password</span> -->
+						<input type="password" name="password" id="password" required="required" maxlength="50"
+							placeholder="Password">
+					</div>
+
+					<div>
+						<!-- <span>Retapez votre Password</span> -->
+						<input type="password" name="confirm_password" id="confirm_password" required="required"
+							maxlength="50" placeholder="Confirm Password">
+					</div>
+
+					<div class="register-but">
+						<input type="submit" name="envoyermdp" id="modifButton" value="Change">
+
+
+					</div>
+
+				</div>
+			</form>
+			<!-- Supprime compte -->
+			<form class="Delete" method="POST" action="deleteaccount.php"
+				onsubmit="return confirm('Êtes-vous sûr de vouloir supprimer votre compte ? Cette action est irréversible.')">
+				<div class="register-bottom-grid">
+					<h3>Delete your Account</h3>
+					<div>
+						<!-- <span>Mot de Passe actuel</span> -->
+						<input type="password" name="password" id="password" required="required" maxlength="50"
+							placeholder="Type your Password">
+					</div>
+					<div class="register-but">
+						<input type="submit" name="envoyermdp" id="modifButton" value="Delete">
+					</div>
+
+				</div>
+			</form>
+		</div>
+		<!-- Ajouter ami -->
+
+
+
+		<div class="return">
 
 			<a class="home" href="./../home.php">Back to galaxy</a>
 		</div>

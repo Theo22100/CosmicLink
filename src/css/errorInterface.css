@@ -1,0 +1,42 @@
+#errorAll {
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    text-align: center;
+    border-radius: 20px;
+    width: 30%;
+    padding-bottom: 15px;
+
+    background-color: var(--red200);
+
+    padding-left: 10px;
+    padding-right: 10px;
+}
+
+
+#errorAll h3 {
+    color: var(--red800);
+    font-size: 1.1em;
+}
+
+#errorAll p {
+    white-space: pre-line;
+    max-width: 100%;
+    word-wrap: break-word;
+}
+
+#errorAll .ok{
+    width: 30%;
+    min-width: fit-content;
+    padding-left: 10px;
+    padding-right: 10px;
+    border-radius: 20px;
+
+    background-color: var(--red300);
+    border: none;
+}
+
+#errorAll .ok:hover{
+    background-color: var(--red400);
+}

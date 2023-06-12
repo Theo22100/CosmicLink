@@ -25,15 +25,17 @@ if (isset($_SESSION['login'])) {
 						echo '<p> You\'ll be redirected to the login page in 5 seconds. Or <a href="./login.php">click here </a> to be redirected immediately. </h2>';
 						header('Refresh: 5; ./login.php');
 					} else if ($_GET["message"] == "echoue") {
-						echo '<h2 style="color:red;">Inscription non valide</h2>';
+						echo '<h2 style="color:red;">Sign up non valid</h2>';
 					} else if ($_GET["message"] == "mdp") {
-						echo '<h2 style="color:red;">Le mot de passe n\'est pas le même !</h2>';
+						echo '<h2 style="color:red;">Password is different !</h2>';
 					} else if ($_GET["message"] == "champ") {
-						echo '<h2 style="color:red;">Veuillez remplir tous les champs !</h2>';
+						echo '<h2 style="color:red;">Please enter all fields !</h2>';
 					} else if ($_GET["message"] == "pseudo") {
-						echo '<h2 style="color:red;">Pseudonyme déjà pris !</h2>';
+						echo '<h2 style="color:red;">NickName already taken !</h2>';
 					} else if ($_GET["message"] == "mail") {
-						echo '<h2 style="color:red;">Vous avez un compte associé à cet email !</h2>';
+						echo '<h2 style="color:red;">This email is already used !</h2>';
+					} else if ($_GET["message"] == "mailinvalide"){
+						echo '<h2 style="color:red;>Email not valid!</h2>';
 					}
 				}
 				?>
@@ -66,7 +68,7 @@ if (isset($_SESSION['login'])) {
 
 						<div>
 							<span>Email<label>*</label></span>
-							<input type="mail" name="mail" id="mail" required="required" maxlength="60" placeholder="Mail">
+							<input type="mail" name="mail" id="mail" required="required" maxlength="60" placeholder="Mail" pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$">
 						</div>
 
 

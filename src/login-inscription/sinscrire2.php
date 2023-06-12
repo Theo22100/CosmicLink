@@ -100,6 +100,12 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                     $datenaissance = $_POST["datenaissance"];
                     $dateinscription = date('Y-m-d');
                     $mail = $_POST["mail"];
+                    $email = filter_var($mail, FILTER_SANITIZE_EMAIL); //takes away impossible char
+
+                    // Validate e-mail
+                    if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
+                        header("Location: sinscrire.php?message=mailinvalide");
+                    } 
                     $login = "0";
 
                     $password = password_hash($_POST["password"], PASSWORD_DEFAULT);
@@ -131,19 +137,19 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
                     //Recupère l'id membre et créer aussi le répertoire pour les photos 
 
-                     // Créer un répertoire pour l'utilisateur
-                     $directoryPath = '../../img/profil/' . $membre; // Spécifiez le chemin complet où vous souhaitez créer le répertoire
- 
-                     if (!file_exists($directoryPath)) {
-                         // Vérifier si le répertoire n'existe pas déjà
-                         mkdir($directoryPath, 0777, true);
-                     }
+                    // Créer un répertoire pour l'utilisateur
+                    $directoryPath = '../../img/profil/' . $membre; // Spécifiez le chemin complet où vous souhaitez créer le répertoire
+
+                    if (!file_exists($directoryPath)) {
+                        // Vérifier si le répertoire n'existe pas déjà
+                        mkdir($directoryPath, 0777, true);
+                    }
 
 
 
 
 
-                     //fait la requete id_univers
+                    //fait la requete id_univers
                     $requete3->execute();
 
 
@@ -153,7 +159,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
 
                     $cox = $coy = 0;
-                    $public = 1; 
+                    $public = 1;
                     $nomgalaxie = "undefined";
                     $descr = "";
                     $univers = $connexion2->lastInsertId();
@@ -166,12 +172,12 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                     $requete4->bindParam(':descr', $descr);
                     $requete4->bindParam(':cox', $cox);
                     $requete4->bindParam(':coy', $coy);
-                    $requete4->bindParam(':public', $public);                    
+                    $requete4->bindParam(':public', $public);
                     $requete4->bindParam(':id_univers', $univers);
                     $requete4->execute();
 
 
-                   
+
 
 
 

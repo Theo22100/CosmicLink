@@ -269,7 +269,9 @@ function userToId($handler, $username)
         $q = $handler->prepare("SELECT id FROM membre WHERE pseudo=:username");
         $q->bindParam(':username', $username);
         $q->execute();
-        $user_id = $q->fetch(PDO::FETCH_ASSOC)['id'];
+        $row= $q->fetch(PDO::FETCH_ASSOC);
+        //print_r($row);
+        $user_id = $row['id'];
     } catch (PDOException $e) {
         'Echec :  ' . $e->getMessage();
     }

@@ -106,7 +106,7 @@ https://cdn.jsdelivr.net/npm/chart.js@4.3.0/dist/chart.umd.min.js
 
   <canvas id="graph"  width="500px" height="auto"></canvas>
   <script>
-    // Exemple de données de la requête SQL (tableau d'objets JSON)
+    // Données de la requête SQL (tableau d'objets JSON)
       <?php
     try {
         $requetegraph = "SELECT id, dateInscription FROM membre ORDER BY dateInscription";

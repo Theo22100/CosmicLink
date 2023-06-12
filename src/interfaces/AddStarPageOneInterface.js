@@ -3,7 +3,7 @@ class firstPageAddStar extends Interface {
     static page = '' +
         '<div class="ui" id="starui">' +
         '        <header>' +
-        '            <p>Add Star</p>' +
+        '            <p class="editTitle">Add Star</p>' +
         '            <p>main information</p>' +
         '' +
         '            <input type="checkbox" id="publicStar">' +
@@ -46,6 +46,7 @@ class firstPageAddStar extends Interface {
         '    </div>' +
         '';
 
+    #edit;
 
     constructor() {
         super("starui", firstPageAddStar.page, true);
@@ -54,6 +55,10 @@ class firstPageAddStar extends Interface {
     openInterface(editing) {
         super.openInterface();
         this.ajaxGetGalaxies(editing);
+       
+
+        const TITLE = document.getElementsByClassName("ui")[0].getElementsByClassName("editTitle")[0];
+        if(this.#edit){TITLE.textContent="Edit Star";}
 
         const NEXT = document.getElementsByClassName("nextPrevious")[0].getElementsByClassName("next")[0];
         NEXT.addEventListener("click", (event) => this.goToSecondPage());
@@ -79,6 +84,10 @@ class firstPageAddStar extends Interface {
         const PREVIEW = document.getElementById("preview");
         const value = parseInt(document.getElementById("starSize").value);
         Star.changeSize(PREVIEW, value);
+    }
+
+    setEdit(edit) {
+        this.#edit = edit;
     }
 
     getPublic() {

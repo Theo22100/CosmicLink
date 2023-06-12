@@ -2,7 +2,7 @@ class secondPageAddStar extends Interface {
     static page = '' +
         '<div class="ui" id="starui2">' +
         '        <header>' +
-        '            <p>Add Star</p>' +
+        '            <p class="editTitle2">Add Star</p>' +
         '            <p>Add some details to your star</p>' +
         '' +
         '            <button type="button" class="btn-close">' +
@@ -31,12 +31,20 @@ class secondPageAddStar extends Interface {
         '    </div>' +
         '';
 
+
+        #editing;
+
     constructor() {
         super("starui2", secondPageAddStar.page, true);
     }
 
     openInterface() {
         super.openInterface();
+
+       
+
+        const TITLE = document.getElementsByClassName("ui")[0].getElementsByClassName("editTitle2")[0];
+        if(this.#editing)TITLE.textContent="Edit Star";
 
         const PREVIOUS = document.getElementsByClassName("nextPrevious")[0].getElementsByClassName("previous")[0];
         PREVIOUS.addEventListener("click", (event) => this.goToFirstPage());
@@ -57,6 +65,9 @@ class secondPageAddStar extends Interface {
         this.setDescription("");
     }
 
+    setEditing(editing) {
+        this.#editing = editing;
+    }
     getDescription() {
         return document.getElementById("starDesc").value;
     }

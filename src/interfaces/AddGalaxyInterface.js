@@ -2,7 +2,7 @@ class pageAddGalaxy extends Interface{
     static page = '' + 
     '<div class="ui hidden" id="galaxyui">' + 
     '        <header>' + 
-    '            <p>Add Galxy</p>' + 
+    '            <p class="addTitle">Add Galaxy</p>' + 
     '            <p>main information</p>' + 
     '' + 
     '            <input type="checkbox" id="publicGalaxy">' +
@@ -43,12 +43,16 @@ class pageAddGalaxy extends Interface{
         this.#editing = editing;
 
         const SUBMIT = document.getElementsByClassName("nextPrevious")[0].getElementsByClassName("next")[0];
-        if (this.#editing) SUBMIT.textContent = "Edit Galaxy";
+        const NAME = document.getElementsByClassName("ui hidden")[0].getElementsByClassName("addTitle")[0];
+        if (this.#editing){
+             SUBMIT.textContent = "Edit Galaxy";
+             NAME.textContent = "Edit Galaxy";
+        }
         SUBMIT.addEventListener("click", (event) => this.submit());
 
         this.interfaceElement.getElementsByClassName("btn-close")[0].addEventListener("click", (event)=> this.closeInterface());
     }
-
+    
     setName(newName){
         document.getElementById("galaxyName").value = newName;
     }

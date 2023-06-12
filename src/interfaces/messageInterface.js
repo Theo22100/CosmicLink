@@ -10,10 +10,9 @@ class pageMessage extends Interface {
                     '<img class="fleche" src="../img/chevron-right.png">'+
                 '</div>'+
         '</a>' +
-        '<img src="../img/profile-pic.png">' +
+        '<img id="profilePicFriend">' +
         '<div>' +
         '<p class="nom" id="messageProfileName"></p>' +
-        '<p class="status orange">Online</p>' +
         '</div>' +
         '</header>' +
         '' +
@@ -58,9 +57,18 @@ class pageMessage extends Interface {
         document.getElementById("messageProfileName").textContent = name;
     }
 
-    load(name){
+    load(name, friendStatus, profilePic){
         this.setName(name);
         pageMessage.ajaxGetMessages(name,true);
+
+        if(friendStatus==0){ //not friends anymore
+            const sendButton = document.getElementById("sendMessage");
+            sendButton.disabled  = true;
+            
+            const messageInput = document.getElementById("textMessage");
+            messageInput.readOnly  = true;
+        }
+        document.getElementById("profilePicFriend").src = profilePic;
     }
 
     closeInterface() {
@@ -81,6 +89,7 @@ class pageMessage extends Interface {
             pageMessage.addMessageSender("me", messageInput.value, day + "/" + month);
             messageInput.value = "";
         }
+        CHATHISTORY.scrollTop = CHATHISTORY.scrollHeight;
     }
 
 
@@ -96,6 +105,9 @@ class pageMessage extends Interface {
                 pageMessage.addMessageSendee(msgs[i]['sender'], msgs[i]['content'], msgs[i]['timestamp']);
             }
         }
+
+        const CHATHISTORY = document.getElementById("chat-history");
+        CHATHISTORY.scrollTop = CHATHISTORY.scrollHeight;
     }
 
     static clearPreviousMessages() {
@@ -165,6 +177,7 @@ class pageMessage extends Interface {
             },
             cache: true,
             success: function (response) {
+                console.log(response);
                 const msgs = JSON.parse(response);
                 //console.log(msgs);
                 if ((msgs[1] != 0) || first) {

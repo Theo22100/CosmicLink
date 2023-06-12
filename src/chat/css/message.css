@@ -186,6 +186,19 @@ color: var(--grey500);
 	padding:10px;
 	width:70%;
 	border: none;
+	background-color: var(--grey100);
+}
+
+.sendMessages input[type="text"]:read-only{
+	background-color: var(--grey300) !important;
+}
+
+.sendMessages input[type="text"]:read-only:focus{
+	outline: none;
+}
+
+.sendMessages input[type="text"]:read-only:hover{
+	cursor: default;
 }
 
 .sendMessages input[type="submit"]{
@@ -202,4 +215,13 @@ color: whitesmoke;
 .sendMessages input[type="submit"]:hover{
 	background: var(--blue700);
 	filter: brightness (50%);
+}
+
+.sendMessages input[type="submit"]:disabled{
+	background: var(--grey400) !important;
+}
+
+.sendMessages input[type="submit"]:disabled:hover{
+	background: var(--grey400) !important;
+	cursor: default;
 }

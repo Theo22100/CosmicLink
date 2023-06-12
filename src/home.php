@@ -31,6 +31,8 @@ if (!isset($_SESSION['login'])) {
 
     <link rel="stylesheet" href="./error_galaxy/errorGalaxy.css">
 
+    <link rel="stylesheet" href ="./css/errorInterface.css">
+
 </head>
 
 
@@ -78,6 +80,7 @@ if (!isset($_SESSION['login'])) {
     <script src="./interfaces/popUpInfoInterface.js"></script>
 
     
+    <script src="./interfaces/ErrorInterfaces.js"></script>
 
 
     <script src="./interfaces/chatInterface.js"></script>

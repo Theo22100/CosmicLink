@@ -10,11 +10,11 @@
     padding-bottom: 15px;
 }
 
-h3{
+.container h3{
     color: var(--red800);
 }
 
-.yes{
+.container .yes{
     background-color: var(--red400);
 color:white;
 left: -15%;
@@ -26,7 +26,8 @@ width: 10%;
 height: 20%;
 
 }
-.no{
+
+.container .no{
     border-radius: 15px;
     background-color: var(--grey400);
     color:white;

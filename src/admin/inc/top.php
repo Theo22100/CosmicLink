@@ -32,10 +32,10 @@ session_start();
                 <li class="nav-item dropdown">
                     <a class="nav-link dropdown-toggle" id="navbarDropdown" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false"><i class="fas fa-user fa-fw"></i></a>
                     <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
-                        <li><a class="dropdown-item" href="moncompte.php">Mon compte</a></li>
+                        <li><a class="dropdown-item" href="moncompte.php">My Account</a></li>
 
                         <li><hr class="dropdown-divider" /></li>
-                        <li><a class="dropdown-item" href="../compte/deconnexion.php">Se déconnecter</a></li>
+                        <li><a class="dropdown-item" href="../compte/deconnexion.php">Log out</a></li>
                     </ul>
                 </li>
             </ul>
@@ -55,32 +55,32 @@ session_start();
                                 <div class="sb-nav-link-icon"><i class="fas fa-tachometer-alt"></i></div>
                                 Dashboard
                             </a>
-
                             
                             
                             
-                            <div class="sb-sidenav-menu-heading">Comptes</div>
+                            
+                            <div class="sb-sidenav-menu-heading">Accounts</div>
 
                             <a class="nav-link" href="list_user.php">
                                 <div class="sb-nav-link-icon"><i class="fas fa-users"></i></div>
-                                Utilisateurs
+                                Users
                             </a>
                            
                             <a class="nav-link" href="list_admins.php">
                                 <div class="sb-nav-link-icon"><i class="fas fa-user-secret"></i></div>
                                 Admins
                             </a>
-                            <div class="sb-sidenav-menu-heading">Statistiques</div>
+                            <div class="sb-sidenav-menu-heading">Statistics</div>
                             <a class="nav-link" href="statistiques.php">
                                 <div class="sb-nav-link-icon"><i class="fas fa-newspaper"></i></div>
-                                Statistiques
+                                Statistics
                             </a>
                             
 
                         </div>
                     </div>
                     <div class="sb-sidenav-footer">
-                        <div class="small">Connecté :</div>
+                        <div class="small">Logged in :</div>
                         <?php
 
                             echo ($_SESSION['prenom']." ".$_SESSION['nom']);

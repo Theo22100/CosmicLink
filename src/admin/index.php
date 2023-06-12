@@ -56,14 +56,14 @@ $dbname = "projet";
                             <!--  Fin requete admin -->
                         </div>
                         <div class="card-footer d-flex align-items-center justify-content-between">
-                            <a class="small text-white stretched-link" href="list_admins.php">En savoir plus</a>
+                            <a class="small text-white stretched-link" href="list_admins.php">Read more</a>
                             <div class="small text-white"><i class="fas fa-angle-right"></i></div>
                         </div>
                     </div>
                 </div>
                 <div class="col-xl-3 col-md-6">
                     <div class="card bg-primary text-white mb-4">
-                        <div class="card-body">Utilisateurs :
+                        <div class="card-body">Users :
 
                             <!-- Requete pour avoir le nombre de Utilisateurs-->
                             <?php
@@ -84,7 +84,7 @@ $dbname = "projet";
                             <!--  Fin requete Utilisateurs-->
                         </div>
                         <div class="card-footer d-flex align-items-center justify-content-between">
-                            <a class="small text-white stretched-link" href="list_user.php">En savoir plus</a>
+                            <a class="small text-white stretched-link" href="list_user.php">Read more</a>
                             <div class="small text-white"><i class="fas fa-angle-right"></i></div>
                         </div>
                     </div>

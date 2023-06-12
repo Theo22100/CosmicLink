@@ -95,16 +95,18 @@ class pageConnect extends Interface {
             const username = suggestions[id]['pseudo']; //string
             const starnames = suggestions[id]['starnames']; //array, potentially empty
             const starcount = suggestions[id]['count']; //number of stars, >= 1
-            pageConnect.addSuggestions(username);
+
+            const profilePicSrc = suggestions[id]['img'];
+            pageConnect.addSuggestions(username, profilePicSrc);
         }
     }
 
-    static addSuggestions(name) {
+    static addSuggestions(name, profilePicSrc) {
 
         const DIV = document.createElement("div");
         DIV.classList.add("friend-suggestion");
         const PP = document.createElement("img");
-        PP.src = "../img/profile-pic.png";
+        PP.src = profilePicSrc;
         PP.classList.add("profile-pic");
         DIV.appendChild(PP);
 
@@ -136,7 +138,7 @@ class pageConnect extends Interface {
 
 
     static addFriend(name) {
-        //TODO C'est ICI LEONIE!
+        pageConnect.ajaxAddFriend(name);
     }
 
 
@@ -196,6 +198,26 @@ class pageConnect extends Interface {
             }
         });
 
+    }
+
+    static ajaxAddFriend(name){
+        $.ajax({
+            url: "DBInterface/friendsDB.php",
+            type: "POST",
+            //TODO Trouver moyen de cache
+            data: {
+                action: "addFriend",
+                friend: name
+            },
+            success: function (response) {
+                console.log(response);
+               
+            },
+            error: function (xhr, status, error) {
+                // Handle errors
+                console.error(error);
+            }
+        });
     }
 
 

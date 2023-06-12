@@ -12,17 +12,17 @@ if (!isset($_SESSION['login']) || $_SESSION['role'] != "A") {
 <!--  debut contenu -->
 <main>
     <div class="container-fluid px-4">
-        <h1 class="mt-4">Liste Utilisateurs</h1>
+        <h1 class="mt-4">Users List</h1>
         <ol class="breadcrumb mb-4">
             <li class="breadcrumb-item"><a href="index.php">Dashboard</a></li>
-            <li class="breadcrumb-item active">Utilisateurs</li>
+            <li class="breadcrumb-item active">Users</li>
         </ol>
         <div class="card mb-4">
         </div>
         <div class="card mb-4">
             <div class="card-header">
                 <i class="fas fa-table me-1"></i>
-                Database Utilisateurs
+                Users Database
             </div>
             <div class="card-body">
 
@@ -30,11 +30,11 @@ if (!isset($_SESSION['login']) || $_SESSION['role'] != "A") {
                 <?php
                 if (isset($_GET['message'])) {
                     if ($_GET["message"] == "supechoue") {
-                        echo '<p style="color:red;">La suppression n\'a pas pu être effectué !</p>';
+                        echo '<p style="color:red;">Error : The deletion could not be carried out!</p>';
                     } else if ($_GET["message"] == "supreussie") {
-                        echo '<p style="color:green;">La supression a été effectué !</p>';
+                        echo '<p style="color:green;">The deletion has been made!</p>';
                     } else if ($_GET["message"] == "supadmin") {
-                        echo '<p style="color:red;">Erreur : Vous ne pouvez pas vous supprimer !</p>';
+                        echo '<p style="color:red;">Error: You cannot delete yourself!</p>';
                     }
                 }
 
@@ -57,22 +57,22 @@ if (!isset($_SESSION['login']) || $_SESSION['role'] != "A") {
                                                         <b>ID</b>
                                                     </td>
                                                     <td>
-                                                        <b>Prénom</b>
+                                                        <b>FirstName</b>
                                                     </td>
                                                     <td>
-                                                        <b>Nom</b>
+                                                        <b>Name</b>
                                                     </td>
                                                     <td>
                                                         <b>Mail</b>
                                                     </td>
                                                     <td>
-                                                        <b>Rôle</b>
+                                                        <b>Role</b>
                                                     </td>
                                                     <td>
-                                                        <b>Modifier</b>
+                                                        <b>Modify</b>
                                                     </td>
                                                     <td>
-                                                        <b>Supprimer</b>
+                                                        <b>Delete</b>
                                                     </td>
                                                 </tr>";
                     echo "</thead>";

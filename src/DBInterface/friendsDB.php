@@ -10,9 +10,11 @@ if (isset($_SESSION['id'])) {
             case 'acceptFriend':
                 acceptFriend($handler, $user_id);
                 break;
-            
+            case 'addFriend':
+                echo json_encode(sendRequest($handler, $user_id));
+                break;
             case 'removeFriend':
-                deleteFriend($handler,$user_id);
+                deleteFriend($handler, $user_id);
                 break;
 
             default:
@@ -38,6 +40,70 @@ if (isset($_SESSION['id'])) {
     }
 }
 
+function sendRequest($handler, $user_id) {
+    if(isset($_POST['friend'])){
+
+        $other_id = userToId($handler,$_POST['friend']);
+
+        try {
+
+        
+        $sql = $handler->prepare("SELECT id_amitie, sender, receiver FROM ami WHERE (sender = :user_id AND receiver = :other_id) OR (sender = :other_id AND receiver = :user_id)");
+        $sql->bindParam(':user_id',$user_id);
+        $sql->bindParam(':other_id',$other_id);
+        $sql->execute();
+
+        }
+        catch (PDOException $e){
+            echo 'Echec Recherche : ' . $e->getMessage();
+            return ['status' => 'SQL error'];
+        }
+
+        if($sql->rowCount() == 0) {
+            try {
+                $sql2 = $handler->prepare("INSERT INTO ami (sender,receiver) VALUES (:user_id,:other_id)");
+                $sql2->bindParam(':user_id',$user_id);
+                $sql2->bindParam(':other_id',$other_id);
+                $sql2->execute();
+    
+                return ['status' => 'OK'];
+            }
+
+            catch (PDOException $e){
+                echo 'Echec Insertion: ' . $e->getMessage();
+                return ['status' => 'SQLError'];
+            }
+            
+        }
+
+        else if ($sql->rowCount() == 1) {
+            $result = $sql->fetch(PDO::FETCH_ASSOC);
+            $request_id = $result['id_amitie'];
+            if ($result['sender'] == $user_id) { //l'utilisateur a déjà envoyé une requête, on ne fait rien
+                return ['status' => 'alreadyRequest'];
+            }
+            else { // l'autre utilisateur a envoyé une requête, on accèpte la demande d'ami
+                try{
+                    $sql3 = $handler->prepare("UPDATE ami SET statut = 'A' WHERE id_amitie = :id");
+                    $sql3->bindParam(':id',$request_id);
+                    $sql3->execute();
+    
+                    return ['status' => 'OK'];
+
+                }
+                catch(PDOException $e){
+                    echo 'Echec Modif : ' . $e->getMessage();
+                    return ['status' => 'SQLError'];
+                }
+            }
+            
+
+        }
+        return ['status' => 'error'];
+    }
+   
+
+}
 
 
 function getWaiting($handler, $user_id)

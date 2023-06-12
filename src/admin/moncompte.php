@@ -31,7 +31,7 @@ if (!isset($_SESSION['login']) || $_SESSION['role'] != "A") {
                             </td>
                         </tr>
                         <tr>
-                            <td align="right"><b>FirstName : </b></td>
+                            <td align="right"><b>Firstname : </b></td>
                             <td>
                                 <?php
 

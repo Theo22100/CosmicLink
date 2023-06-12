@@ -56,7 +56,7 @@ $dbname = "projet";
                             <!--  Fin requete admin -->
                         </div>
                         <div class="card-footer d-flex align-items-center justify-content-between">
-                            <a class="small text-white stretched-link" href="list_admins.php">En savoir plus</a>
+                            <a class="small text-white stretched-link" href="list_admins.php">Read more</a>
                             <div class="small text-white"><i class="fas fa-angle-right"></i></div>
                         </div>
                     </div>
@@ -84,7 +84,7 @@ $dbname = "projet";
                             <!--  Fin requete Utilisateurs-->
                         </div>
                         <div class="card-footer d-flex align-items-center justify-content-between">
-                            <a class="small text-white stretched-link" href="list_user.php">En savoir plus</a>
+                            <a class="small text-white stretched-link" href="list_user.php">Read more</a>
                             <div class="small text-white"><i class="fas fa-angle-right"></i></div>
                         </div>
                     </div>

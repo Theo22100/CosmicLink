@@ -159,7 +159,7 @@
     width: calc(100% - 24px);
 }
 
-#starName {
+#starName, #galaxyName {
     background-color: transparent;
     /* text-decoration: none; */
     border: 2px solid var(--grey300);
@@ -173,7 +173,7 @@
     margin-bottom: 15px;
 }
 
-#starName:focus {
+#starName:focus, #galaxyName:focus {
     outline: none;
 }
 

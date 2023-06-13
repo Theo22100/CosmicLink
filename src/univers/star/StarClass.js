@@ -132,7 +132,10 @@ class Star {
         });
 
 
-        if(zoom > 0.7) this.#element.style.visibility = "visible";
+        if (zoom > 0.65) {
+            this.#element.style.opacity = 1 - ((1 - zoom) / 0.3);
+            this.#element.style.visibility = "visible";
+        }
         else this.#element.style.visibility = "hidden";
 
     }

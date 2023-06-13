@@ -186,7 +186,7 @@ class pageConnect extends Interface {
 
     static ajaxGetAllUsers() {
         $.ajax({
-            url: "DBInterface/chatDB.php",
+            url: "./chat/chatDB.php",
             type: "POST",
             //TODO Trouver moyen de cache
             data: {
@@ -197,7 +197,6 @@ class pageConnect extends Interface {
 
 
                     const allUsers = JSON.parse(response);
-                    console.log(allUsers);
                     pageConnect.addAllSuggestions(allUsers);
 
                 } catch (error) {
@@ -217,7 +216,7 @@ class pageConnect extends Interface {
 
     static ajaxAddFriend(name) {
         $.ajax({
-            url: "DBInterface/friendsDB.php",
+            url: "./chat/friendsDB.php",
             type: "POST",
             //TODO Trouver moyen de cache
             data: {
@@ -225,7 +224,6 @@ class pageConnect extends Interface {
                 friend: name
             },
             success: function (response) {
-                console.log(response);
 
             },
             error: function (xhr, status, error) {
@@ -238,7 +236,7 @@ class pageConnect extends Interface {
 
     static ajaxGetSuggestions() {
         $.ajax({
-            url: "DBInterface/chatDB.php",
+            url: "./chat/chatDB.php",
             type: "POST",
             //TODO Trouver moyen de cache
             data: {
@@ -249,7 +247,7 @@ class pageConnect extends Interface {
 
                     const suggestions = JSON.parse(response);
                     //format : {<iduser> : { "pseudo" : <username>, "starnames" : {<possibly empty>} , "count" : <number> } ,<iduser2> : { "pseudo" : <username2> , "starnames" : {<possibly empty>} , "count" : <number> } }
-                    console.log(suggestions);
+                    
                     pageConnect.addAllSuggestions(suggestions);
 
                 } catch (error) {

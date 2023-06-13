@@ -128,7 +128,7 @@ class pageFriends extends Interface {
         const SENDMESSAGE = document.createElement("button");
         SENDMESSAGE.classList.add("sendMessage");
         SENDMESSAGE.textContent = "Message";
-        SENDMESSAGE.addEventListener("click", (event) => pageFriends.sendNewMessage(name));
+        SENDMESSAGE.addEventListener("click", (event) => pageFriends.sendNewMessage(name, img));
         BUTTONDIV.appendChild(SENDMESSAGE);
 
         const VISITFRIEND = document.createElement("button");
@@ -215,10 +215,10 @@ class pageFriends extends Interface {
         pageFriends.ajaxRemoveFriend(name);
     }
 
-    static sendNewMessage(name) {
+    static sendNewMessage(name, profilePic) {
         friendsInter.closeInterface();
         messInter.openInterface();
-        messInter.load(name);
+        messInter.load(name, 1, profilePic);
     }
 
     openChat() {
@@ -237,7 +237,7 @@ class pageFriends extends Interface {
 
     static ajaxAcceptFriend(friendName) {
         $.ajax({
-            url: "DBInterface/friendsDB.php",
+            url: "./chat/friendsDB.php",
             type: "POST",
             //TODO Trouver moyen de cache
             data: {
@@ -256,7 +256,7 @@ class pageFriends extends Interface {
 
     static ajaxRemoveFriend(friendName) {
         $.ajax({
-            url: "DBInterface/friendsDB.php",
+            url: "./chat/friendsDB.php",
             type: "POST",
             //TODO Trouver moyen de cache
             data: {
@@ -283,7 +283,7 @@ class pageFriends extends Interface {
 
     static ajaxGetFriends() {
         $.ajax({
-            url: "DBInterface/friendsDB.php",
+            url: "./chat/friendsDB.php",
             type: "GET",
             //TODO Trouver moyen de cache
             data: {
@@ -293,7 +293,6 @@ class pageFriends extends Interface {
                 try {
 
                     const friends = JSON.parse(response);
-                    console.log(friends);
                     pageFriends.addAllFriends(friends);
 
                 } catch (error) {
@@ -313,7 +312,7 @@ class pageFriends extends Interface {
 
     static ajaxGetRequests() {
         $.ajax({
-            url: "DBInterface/friendsDB.php",
+            url: "./chat/friendsDB.php",
             type: "GET",
             //TODO Trouver moyen de cache
             data: {
@@ -322,7 +321,6 @@ class pageFriends extends Interface {
             success: function (response) {
                 try {
 
-                    console.log(response);
                     const friends = JSON.parse(response);
                     pageFriends.addAllFriendsRequests(friends);
 

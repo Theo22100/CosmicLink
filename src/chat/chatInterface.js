@@ -200,7 +200,7 @@ class pageChat extends Interface {
 
     static ajaxGetContacts(first) {
         $.ajax({
-            url: "DBInterface/chatDB.php",
+            url: "./chat/chatDB.php",
             type: "POST",
             //TODO Trouver moyen de cache
             data: {
@@ -210,7 +210,6 @@ class pageChat extends Interface {
 
                 try {
                     const contacts = JSON.parse(response);
-                    console.log(contacts);
                     if ((contacts[1] != 0) || first) {
                         if (first) {
                             pageChat.addAllContactMessage(contacts);

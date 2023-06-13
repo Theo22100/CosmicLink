@@ -89,6 +89,7 @@ class pageMessage extends Interface {
             pageMessage.addMessageSender("me", messageInput.value, day + "/" + month);
             messageInput.value = "";
         }
+        const CHATHISTORY = document.getElementById("chat-history");
         CHATHISTORY.scrollTop = CHATHISTORY.scrollHeight;
     }
 
@@ -168,7 +169,7 @@ class pageMessage extends Interface {
 
     static ajaxGetMessages(username, first) {
         $.ajax({
-            url: "DBInterface/chatDB.php",
+            url: "./chat/chatDB.php",
             type: "POST",
             //TODO Trouver moyen de cache
             data: {
@@ -177,9 +178,7 @@ class pageMessage extends Interface {
             },
             cache: true,
             success: function (response) {
-                console.log(response);
                 const msgs = JSON.parse(response);
-                //console.log(msgs);
                 if ((msgs[1] != 0) || first) {
                     if (!first) { pageMessage.clearPreviousMessages(); }
                     pageMessage.addPreviousMessages(msgs[0]);
@@ -210,7 +209,7 @@ class pageMessage extends Interface {
 
     static ajaxSendMsg(name, msgTxt) {
         $.ajax({
-            url: "DBInterface/chatDB.php",
+            url: "./chat/chatDB.php",
             type: "POST",
             data: {
                 action: 'sendMsg',

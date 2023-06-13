@@ -2,7 +2,7 @@
 session_start();
 if (isset($_SESSION['id'])) {
     $user_id = $_SESSION['id'];
-    require '../connect.php';
+    require '../../connect.php';
 
     if (isset($_POST['action'])) {
         switch ($_POST['action']) {

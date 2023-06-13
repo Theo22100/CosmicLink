@@ -1,6 +1,6 @@
 class pageAddGalaxy extends Interface{
     static page = '' + 
-    '<div class="ui hidden" id="galaxyui">' + 
+    '<div class="ui" id="galaxyui">' + 
     '        <header>' + 
     '            <p class="addTitle">Add Galaxy</p>' + 
     '            <p>main information</p>' + 
@@ -43,7 +43,7 @@ class pageAddGalaxy extends Interface{
         this.#editing = editing;
 
         const SUBMIT = document.getElementsByClassName("nextPrevious")[0].getElementsByClassName("next")[0];
-        const NAME = document.getElementsByClassName("ui hidden")[0].getElementsByClassName("addTitle")[0];
+        const NAME = document.getElementsByClassName("ui")[0].getElementsByClassName("addTitle")[0];
         if (this.#editing){
              SUBMIT.textContent = "Edit Galaxy";
              NAME.textContent = "Edit Galaxy";
@@ -107,7 +107,7 @@ class pageAddGalaxy extends Interface{
     static ajaxGAdd(Gname, Gdesc, x, y, GpublicGalaxy) {
 
         $.ajax({
-            url: "DBInterface/galaxyDB.php",
+            url: "./univers/galaxy/galaxyDB.php",
             type: "POST",
             data: {
                 action: 'add',
@@ -128,7 +128,7 @@ class pageAddGalaxy extends Interface{
 
     static ajaxGEdit(oldName, newName, galaxyDesc, GpublicGalaxy){
         $.ajax({
-            url: "DBInterface/galaxyDB.php",
+            url: "./univers/galaxy/galaxyDB.php",
             type: "POST",
             data: {
                 action: 'edit',

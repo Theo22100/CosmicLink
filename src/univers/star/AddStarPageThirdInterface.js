@@ -296,7 +296,7 @@ class thirdPageAddStar extends Interface {
     static ajaxEdit(newName, newGalaxy, starDesc, starSize, publicStar, linkArray, newStar, starId) {
         const tets= JSON.stringify(linkArray);
         $.ajax({
-            url: "DBInterface/starDB.php",
+            url: "./univers/star/starDB.php",
             type: "POST",
             data: {
                 action: 'edit',
@@ -331,7 +331,7 @@ class thirdPageAddStar extends Interface {
     static ajaxAdd(Sname, Gname, Sdesc, Ssize, x, y, publicStar, linkArray, newStar) {
         const tets= JSON.stringify(linkArray);
         $.ajax({
-            url: "DBInterface/starDB.php",
+            url: "./univers/star/starDB.php",
             type: "POST",
             data: {
                 action: 'add',

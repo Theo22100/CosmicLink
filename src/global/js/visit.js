@@ -55,4 +55,3 @@ function closeOption() {
 
 }
 
-const popUpPage = new popUpInfo();

@@ -5,7 +5,7 @@ if (isset($_SESSION['id'])) {
     $user_id = $_SESSION['id'];
 }
 try {
-    require '../connect.php';
+    require '../../connect.php';
 }   
 catch (PDOException $e){
     echo 'Echec : ' . $e->getMessage();

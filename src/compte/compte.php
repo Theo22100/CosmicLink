@@ -1,5 +1,5 @@
 <?php
-require '../DBInterface/dbFunctions.php';
+require '../chat/dbFunctions.php';
 session_start();
 if (!isset($_SESSION['login'])) {
 	header('Location: ../login-inscription/login.php');
@@ -12,7 +12,7 @@ if (!isset($_SESSION['login'])) {
 	<title>My Account CosmicLink</title>
 	<meta charset=”utf-8″>
 	<link rel="stylesheet" href="compte.css">
-	<link rel="stylesheet" href="./../css/global.css">
+	<link rel="stylesheet" href="./../global/css/global.css">
 </head>
 
 <body>

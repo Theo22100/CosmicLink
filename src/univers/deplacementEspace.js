@@ -117,8 +117,6 @@ function zoomInOut(translateX, translateY, zoomIn, oldZoom) {
             child.style.visibility = "visible";
         }
         else child.style.visibility = "hidden";
-
-        console.log("zoom: " + zoom);
     }
 
     const galaxyList = UNIVERS.getElementsByClassName("galaxyDiv");

@@ -170,7 +170,7 @@ class firstPageAddStar extends Interface {
     ajaxGetGalaxies(starDefined) {
         $.ajax({
            
-            url: "DBInterface/starDB.php",
+            url: "./univers/star/starDB.php",
             type: "GET",
             //TODO Trouver moyen de cache
             data: {

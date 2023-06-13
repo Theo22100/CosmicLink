@@ -7,9 +7,11 @@ Si l'utilisateur le souhaite, il peut se connecter à d'autres personnes qui par
 
 
 ## Fonctionnalités actuelles :
+
 - Ajouter des étoiles, éditer leurs informations, les déplacer, zoomer/dézoomer (v0, principalement pour visualisation)
 
 ## Fonctionnalités futures :
+
 - ajouter une galaxie
 - lier les étoiles à une galaxie
 - créer des constellations (liens) entre étoiles
@@ -23,18 +25,21 @@ Si l'utilisateur le souhaite, il peut se connecter à d'autres personnes qui par
 ## Licence :
 
 ## Technologies utilisées :
+
 - PhP pour le back-end
 - MySQL pour la base de données
 - HTML, CSS, JavaScript pour le front-end
 - MAMP pour créer un serveur local
 
 ## Participants :
+
 - BAZIN Yann
 - COOPER Jules
 - GUERIN Théo
 - MAIER Léonie
 
 ## Contexte du projet : 
+
 (étude de l'existant, de l’état de l’art, de la concurrence, etc.)
 Actuellement, réseaux sociaux ne permettent réellement de trouver des personnes similaires, seulement des personnes ayant UN intérêt commun. De nombreux réseaux se servent également d'algorithmes basés sur l'activité et autres informations (pas donnés directement par l'utilisateur) pour "forcer" certains contenus plus que d'autres. 
 Sur notre site, les liens entre utilisateurs seront créés seulement à partir des données entrées par l'utilisateurs et définies comme publiques, lui donnant donc un contrôle complet. 

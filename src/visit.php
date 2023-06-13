@@ -16,10 +16,10 @@ else {
     <title>CosmicLink</title>
 
     <link rel="icon" type="image/x-icon" href="../img/favicon.ico">
-    <link rel="stylesheet" href="./css/menu.css">
-    <link rel="stylesheet" href="./css/style_site.css">
-    <link rel="stylesheet" href="./css/global.css">
-    <link rel="stylesheet" href="./css/popUp.css">
+    <link rel="stylesheet" href="./global/css/menu.css">
+    <link rel="stylesheet" href="./global/css/style_site.css">
+    <link rel="stylesheet" href="./global//css/global.css">
+    <link rel="stylesheet" href="./univers/css/popUp.css">
 
 </head>
 
@@ -40,26 +40,26 @@ else {
     <div id="invisible" class="hidden"> </div>
 
 
-    <script src="./interfaces/InterfaceClass.js"></script>
-    <script src="./interfaces/errorGalaxyInterface.js"></script>
-    <script src="./interfaces/contextMenuInterface.js"></script>
-    <script src="./js/deplacementEspace.js"></script>
+    <script src="./global/js/InterfaceClass.js"></script>
+    <script src="./univers/galaxy/errorGalaxyInterface.js"></script>
+    <script src="./univers/contextMenuInterface.js"></script>
+    <script src="./univers/deplacementEspace.js"></script>
 
-    <script src="./interfaces/popUpInfoInterface.js"></script>
+    <script src="./univers/popUpInfoInterface.js"></script>
 
     
-    <script src="./js/visit.js"></script>
+    <script src="./global/js/visit.js"></script>
 
-    <script src="./js/star.js"></script>
-    <script src="./js/StarClass.js"></script>
-    <script src="./js/GalaxyClass.js"></script>
-    <script src="./js/galaxy.js"></script>
+    <script src="./univers/star/star.js"></script>
+    <script src="./univers/star/StarClass.js"></script>
+    <script src="./univers/galaxy/GalaxyClass.js"></script>
+    <script src="./univers/galaxy/galaxy.js"></script>
 
 
 
     <?php
     require 'connect.php';
-    require './classes/universe.php';
+    require './univers/classes/universe.php';
     $universe_id;
     $public = 0;
 

@@ -16,24 +16,22 @@ if (!isset($_SESSION['login'])) {
 
     <link rel="icon" type="image/x-icon" href="../img/favicon.ico">
 
-    <link rel="stylesheet" href="./css/global.css">
+    <link rel="stylesheet" href="./global/css/global.css">
     <link rel="stylesheet" href="./chat/css/chat.css">
     <link rel="stylesheet" href="./chat/css/message.css">
     <link rel="stylesheet" href="./chat/css/connect.css">
     <link rel="stylesheet" href="./chat/css/friends.css">
+    <link rel="stylesheet" href ="./chat/css/starInCommon.css">
 
-    <link rel="stylesheet" href="./css/menu.css">
-    <link rel="stylesheet" href="./css/style_site.css">
+    <link rel="stylesheet" href="./global/css/menu.css">
+    <link rel="stylesheet" href="./global/css/style_site.css">
 
 
-    
-    <link rel="stylesheet" href="./css/addStar.css">
-    <link rel="stylesheet" href="./css/popUp.css">
+    <link rel="stylesheet" href="./univers/star/css/addStar.css">
+    <link rel="stylesheet" href="./univers/css/popUp.css">
 
-    <link rel="stylesheet" href="./error_galaxy/errorGalaxy.css">
+    <link rel="stylesheet" href="./univers/galaxy/css/errorGalaxy.css">
 
-    <link rel="stylesheet" href ="./css/errorInterface.css">
-    <link rel="stylesheet" href ="./css/starInCommon.css">
 
 </head>
 
@@ -68,41 +66,40 @@ if (!isset($_SESSION['login'])) {
     <div id="invisible" class="hidden"> </div>
 
     
-    <script src="./interfaces/InterfaceClass.js"></script>
-    <script src="./interfaces/errorGalaxyInterface.js"></script>
-    <script src="./interfaces/contextMenuInterface.js"></script>
-    <script src="./js/deplacementEspace.js"></script>
-
-    <script src="./interfaces/AddStarPageOneInterface.js"></script>
-    <script src="./interfaces/AddStarPageSecondInterface.js"></script>
-    <script src="./interfaces/AddStarPageThirdInterface.js"></script>
-
-    <script src="./interfaces/AddGalaxyInterface.js"></script>
-
-    <script src="./interfaces/popUpInfoInterface.js"></script>
-
-    <script src="./interfaces/ErrorInterfaces.js"></script>
-    <script src="./interfaces/starInCommonInterface.js"></script>
-
-
-    <script src="./interfaces/chatInterface.js"></script>
-    <script src="./interfaces/friendsInterface.js"></script>
-    <script src="./interfaces/connectInterface.js"></script>
-    <script src="./interfaces/messageInterface.js"></script>
+    <script src="./univers/deplacementEspace.js"></script>
     
-    <script src="./js/home.js"></script>
-    
-    <script src="./js/star.js"></script>
-    <script src="./js/StarClass.js"></script>
-    <script src="./js/GalaxyClass.js"></script>
+    <script src="./global/js/InterfaceClass.js"></script>
+    <script src="./univers/galaxy/errorGalaxyInterface.js"></script>
+    <script src="./univers/contextMenuInterface.js"></script>
 
-    <script src="./js/galaxy.js"></script>
+    <script src="./univers/star/AddStarPageOneInterface.js"></script>
+    <script src="./univers/star/AddStarPageSecondInterface.js"></script>
+    <script src="./univers/star/AddStarPageThirdInterface.js"></script>
+
+    <script src="./univers/galaxy/AddGalaxyInterface.js"></script>
+
+    <script src="./univers/popUpInfoInterface.js"></script>
+
+
+    <script src="./chat/starInCommonInterface.js"></script>
+    <script src="./chat/chatInterface.js"></script>
+    <script src="./chat/friendsInterface.js"></script>
+    <script src="./chat/connectInterface.js"></script>
+    <script src="./chat/messageInterface.js"></script>
+    
+    <script src="./global/js/home.js"></script>
+    
+    <script src="./univers/star/star.js"></script>
+    <script src="./univers/star/StarClass.js"></script>
+
+    <script src="./univers/galaxy/GalaxyClass.js"></script>
+    <script src="./univers/galaxy/galaxy.js"></script>
 
     
 
     <?php
     require 'connect.php';
-    require './classes/universe.php';
+    require './univers/classes/universe.php';
     $user_id = $_SESSION['id'];
     $universe_id;
 

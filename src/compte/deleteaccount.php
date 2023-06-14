@@ -30,43 +30,34 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $result = $requete0->fetch(PDO::FETCH_ASSOC);
     } catch (PDOException $e) {
         echo "La suppression a échoué : " . $e->getMessage();
+        echo "<br>";
     }
 
     if ($result && password_verify($password, $result['password'])) {
-         // Supprimer les références dans la table "galaxie"
-        try {
-            // Récupérer id_galaxie
-            $requeteIdGalaxie = "SELECT id_galaxie FROM galaxie WHERE id_univers IN (SELECT id_univers FROM univers WHERE id = :id)";
-            $stmtIdGalaxie = $connexion->prepare($requeteIdGalaxie);
-            $stmtIdGalaxie->bindParam(':id', $id);
-            $stmtIdGalaxie->execute();
-
-            $row = $stmtIdGalaxie->fetch(PDO::FETCH_ASSOC);
-            $id_galaxie = $row['id_galaxie'];
-        } catch (PDOException $e) {
-            echo "Recuperation Id galaxie échoué : " . $e->getMessage();
-        }
-
-
-        //Supprimer dans table Etoiles
-        try {
-            $requeteEtoile = "DELETE FROM etoile WHERE id_galaxie = :idgalaxie";
-            $stmtEtoile = $connexion->prepare($requeteEtoile);
-            $stmtEtoile->bindParam(':idgalaxie', $id_galaxie);
-            $stmtEtoile->execute();
-        } catch (PDOException $e) {
-            echo "Suppression Etoiles a échoué : " . $e->getMessage();
-        }
-
-         // Supprimer les références dans la table "galaxie"
          try {
-            // Récupérer id_univers
-            $requeteGalaxie = "DELETE FROM galaxie WHERE id_univers IN (SELECT id_univers FROM univers WHERE id = :id)";
-            $stmtGalaxie = $connexion->prepare($requeteGalaxie);
-            $stmtGalaxie->bindParam(':id', $id);
-            $stmtGalaxie->execute();
+            // Supprimer les étoiles associées aux galaxies de l'univers
+            $requeteEtoiles = "DELETE etoile FROM etoile 
+                       INNER JOIN galaxie ON etoile.id_galaxie = galaxie.id_galaxie 
+                       WHERE galaxie.id_univers IN (SELECT id_univers FROM univers WHERE id_membre = :id)";
+            $stmtEtoiles = $connexion->prepare($requeteEtoiles);
+            $stmtEtoiles->bindParam(':id', $id);
+            $stmtEtoiles->execute();
         } catch (PDOException $e) {
-            echo "La suppression Galaxie a échoué : " . $e->getMessage();
+            echo "La suppression des étoiles a échoué : " . $e->getMessage();
+            echo "<br>";
+        }
+
+        // Supprimer les références dans la table "galaxie"
+        try {
+            // Supprimer les galaxies de l'univers
+            $requeteGalaxies = "DELETE FROM galaxie 
+                                WHERE id_univers IN (SELECT id_univers FROM univers WHERE id_membre = :id)";
+            $stmtGalaxies = $connexion->prepare($requeteGalaxies);
+            $stmtGalaxies->bindParam(':id', $id);
+            $stmtGalaxies->execute();
+        } catch (PDOException $e) {
+            echo "La suppression des galaxies a échoué : " . $e->getMessage();
+            echo "<br>";
         }
 
 
@@ -74,13 +65,14 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
         // Supprimer les lignes dans la table "univers"
         try {
-            $requeteUnivers = "DELETE FROM univers WHERE id = :id";
+            $requeteUnivers = "DELETE FROM univers WHERE id_membre = :id";
             $stmtUnivers = $connexion->prepare($requeteUnivers);
             $stmtUnivers->bindParam(':id', $id);
             $stmtUnivers->execute();
         } catch (PDOException $e) {
             echo "La suppression Univers a échoué : " . $e->getMessage();
-        }
+            echo "<br>";
+        } 
 
         //Supprimer dans table Ami
         try {
@@ -90,6 +82,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             $stmtAmi->execute();
         } catch (PDOException $e) {
             echo "La suppression Ami a échoué : " . $e->getMessage();
+            echo "<br>";
         }
 
         //Supprimer dans table Chat
@@ -100,6 +93,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             $stmtChat->execute();
         } catch (PDOException $e) {
             echo "La suppression Chat a échoué : " . $e->getMessage();
+            echo "<br>";
         }
 
         // Supprimer la ligne dans la table "membre"
@@ -110,6 +104,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             $stmtMembre->execute();
         } catch (PDOException $e) {
             echo "La suppression Membre a échoué : " . $e->getMessage();
+            echo "<br>";
         }
 
 

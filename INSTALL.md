@@ -17,11 +17,8 @@ Pour ce faire il suffit cliquer sur l'option tools du menu de la page, puis phpM
 ## Exécution des suites de tests :
 
 Nous avons créé un petit jeu de test d'interaction humain-machine avec l'extension selenium.
-Pour éxécuter ce jeu de test vous devez installé l'extension selenium sur votre navigateur, une fois cela fait il faut éxécuter l'extension. Ensuite ouvrer le fichier "CosmicLinkTest" puis cliquer sur la fléche "Running all test". 
+Pour éxécuter ce jeu de test vous devez installé l'extension selenium sur votre navigateur, une fois cela fait il faut éxécuter l'extension. Ensuite ouvrer le fichier     "CosmicLinkTest.side" puis cliquer sur la flèche "Running all test". 
 Par moment les test s'arreteront sur l'ouverture de menu en cercle du site, pour faire continuer les sites passer votre souris sur l'icône de crayon ou sur l'icône d'utilisateur symbolisé par un petit personnage, et normalement les tests reprendront. 
-
------Pour le moment le jeu de test pour s'éxécuter une seule fois, pour pouvoir l'éxécuter à nouveau il vous faut supprimer l'étoile et la galaxie qui ont été crééent, et de plus supprimer dans la base de données directement , les derniers messages dans la table chat, la derniere galaxie dans la table galaxies, le dernier univers dans la table univers, le dernier ami dans la table ami et enfin le dernier utilisateur nommé "DragonFly" dans la table membre.
-Nous avons conscient que ce n'est pas l'idéal mais c'est la seule méthode que nous avons trouvé pour mettre en place ces tests.-----
 
 Pour relancer le jeu de test connectez-vous avec les identifiants suivants :
         - mail: bruno.pichard@gmail.com

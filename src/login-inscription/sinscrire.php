@@ -90,7 +90,7 @@ if (isset($_SESSION['login'])) {
 						</div>
 
 						<div class="register-but">
-							<input id="register" type="submit" name="envoyer" value="M'inscrire">
+							<input id="register" type="submit" name="envoyer" value="Sign up">
 
 						</div>
 

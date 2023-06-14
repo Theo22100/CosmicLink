@@ -84,7 +84,7 @@ if (!isset($_SESSION['login']) && $_SESSION['role'] != "A") {
                         } elseif ($row['role'] == 'A') {
                             echo "Admin";
                         } else {
-                            echo "Error";
+                            echo "ERROR";
                         }
                         echo "</td>";
 

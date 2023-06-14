@@ -59,7 +59,7 @@
                                                 <td>
                                                     <b>Role</b>
                                                 </td>
-                                                <td>
+                                                <td style='text-align: center;'>
                                                     <b>Delete Admin</b>
                                                 </td>
                                             </tr>";

@@ -67,10 +67,10 @@ if (!isset($_SESSION['login']) || $_SESSION['role'] != "A") {
                                                     <td>
                                                         <b>Role</b>
                                                     </td>
-                                                    <td>
+                                                    <td style='text-align: center;'>
                                                         <b>Modify</b>
                                                     </td>
-                                                    <td>
+                                                    <td style='text-align: center;'>
                                                         <b>Delete</b>
                                                     </td>
                                                 </tr>";

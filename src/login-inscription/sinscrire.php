@@ -108,13 +108,13 @@ if (isset($_SESSION['login'])) {
 
 								// Vérifier si le mot de passe est sécurisé
 								if (!/^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[^a-zA-Z0-9]).{8,}$/.test(password)) {
-									alert("Le mot de passe doit contenir au moins 8 caractères, dont au moins un chiffre, une lettre minuscule, une lettre majuscule et un caractère spécial.");
+									alert("The password must contain at least 8 characters, including at least one number, one lowercase letter, one uppercase letter and one special character.");
 									return false;
 								}
 
 								// Vérifier si les deux mots de passe correspondent
 								if (password !== confirm_password) {
-									alert("Les mots de passe ne correspondent pas.");
+									alert("The passwords don't match.");
 									return false;
 								}
 

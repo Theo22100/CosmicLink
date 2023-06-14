@@ -21,7 +21,7 @@ if (isset($_SESSION['login'])) {
 				<?php
 				if (isset($_GET['message'])) {
 					if ($_GET["message"] == "reussie") {
-						echo '<h2 style="color:green;">Inscription réussie</h2>';
+						echo '<h2 style="color:green;">Successful registration</h2>';
 						echo '<p> You\'ll be redirected to the login page in 5 seconds. Or <a href="./login.php">click here </a> to be redirected immediately. </h2>';
 						header('Refresh: 5; ./login.php');
 					} else if ($_GET["message"] == "echoue") {

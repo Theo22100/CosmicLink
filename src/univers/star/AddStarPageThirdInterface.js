@@ -3,7 +3,7 @@ class thirdPageAddStar extends Interface {
         '<div class="ui" id="starui3">' +
         '        <header>' +
         '            <p class="editTitle3">Add Star</p>' +
-        '            <p>Add some photos to spice up those memories</p>' +
+        '            <p>Add some photos to your star</p>' +
         '' +
         '            <button type="button" class="btn-close">' +
         '                <span class="icon-cross"></span>' +

@@ -1,3 +1,6 @@
 src/test.php
 src/classes/database.php
 src/classes/user.php
+db/membertostar.sql
+db/projet_backup.sql
+src/compte/compte copy.css

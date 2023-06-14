@@ -1,5 +1,3 @@
-
-
 <?php
 session_start();
 if (!isset($_SESSION['login'])) {
@@ -9,8 +7,14 @@ if (!isset($_SESSION['login'])) {
 $prenom = $_POST["prenom"];
 $nom = $_POST["nom"];
 $mail = $_POST["mail"];
+$email = filter_var($mail, FILTER_SANITIZE_EMAIL); //takes away impossible char
+// Validate e-mail
+if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
+    header('Location: compte.php?message=mailechoue');
+}
+
 $id_modif = $_SESSION['id'];
-$error_message="";
+$error_message = "";
 
 
 $servername = "localhost";
@@ -19,9 +23,9 @@ $password_db = "root";
 $dbname = "projet";
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
-////////////////////////////////////////////////////////////////////
-//                   CONNEXION A LA BDD                     ////////
-////////////////////////////////////////////////////////////////////
+    ////////////////////////////////////////////////////////////////////
+    //                   CONNEXION A LA BDD                     ////////
+    ////////////////////////////////////////////////////////////////////
     try { //Mise en place de plusieurs connexion pour pouvoir faire le changement sinon cela skip certains changements
         $conn0 = new PDO("mysql:host=$servername;dbname=$dbname", $username, $password_db); //NOM
         $conn0->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
@@ -34,9 +38,9 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         header("Location: compte.php?message=modifechec");
         exit();
     }
-////////////////////////////////////////////////////////////////////
-//                              NOM                         ////////
-////////////////////////////////////////////////////////////////////
+    ////////////////////////////////////////////////////////////////////
+    //                              NOM                         ////////
+    ////////////////////////////////////////////////////////////////////
     if (!empty($nom)) {
         try {
             $requetenom = $conn0->prepare("
@@ -44,7 +48,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                                             SET nom = '$nom' 
                                             WHERE id = '$id_modif';'");
             $requetenom->execute();
-            $_SESSION['nom']=$nom;
+            $_SESSION['nom'] = $nom;
         } catch (PDOException $e) {
             echo 'Modification Echec Nom: ' . $e->getMessage();
             header("Location: compte.php?message=nomechoue");
@@ -62,7 +66,7 @@ if (!empty($prenom)) {
                                         SET prenom = '$prenom' 
                                         WHERE id = '$id_modif';'");
         $requeteprenom->execute();
-        $_SESSION['prenom']=$prenom;
+        $_SESSION['prenom'] = $prenom;
     } catch (PDOException $e) {
         echo 'Modification Echec Prenom: ' . $e->getMessage();
         header("Location: compte.php?message=prenomechoue");
@@ -72,6 +76,8 @@ if (!empty($prenom)) {
 //                               MAIL                       ////////
 ////////////////////////////////////////////////////////////////////
 if (!empty($mail)) {
+
+
     try { //Vérification du mail si non disponible dans la BDD
         $requetecomptemail = "SELECT COUNT(mail) FROM membre WHERE mail =:mail GROUP BY mail";
 
@@ -96,7 +102,7 @@ if (!empty($mail)) {
                                     WHERE id = '$id_modif';'");
             $requetemail->execute();
 
-            $_SESSION['mail']=$mail;
+            $_SESSION['mail'] = $mail;
         } catch (PDOException $e) { //Modification Echec
             echo 'Modification Echec: ' . $e->getMessage();
             header("Location: compte.php?message=mailechoue");

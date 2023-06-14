@@ -1,24 +1,23 @@
 <?php
-    include("inc/top.php");
-    session_start();
-    if (!isset($_SESSION['login']) || $_SESSION['role'] != "A") {
-        header('Location: ../login-inscription/login.php');
-    }
-    
+include("inc/top.php");
+if (!isset($_SESSION['login']) && $_SESSION['role'] != "A") {
+    header('Location: ../login-inscription/login.php');
+}
+
 ?>
 <main>
     <div class="container-fluid px-4">
-        <h1 class="mt-4">Liste des Utilisateurs</h1>
+        <h1 class="mt-4">Users List</h1>
         <ol class="breadcrumb mb-4">
             <li class="breadcrumb-item"><a href="index.php">Dashboard</a></li>
-            <li class="breadcrumb-item active"><a href="list_user.php">Utilisateurs</a></li>
-            <li class="breadcrumb-item active">Modifier</li>
+            <li class="breadcrumb-item active"><a href="list_user.php">Users</a></li>
+            <li class="breadcrumb-item active">Modify</li>
         </ol>
 
         <div class="card mb-4">
             <div class="card-header">
                 <i class="fas fa-table me-1"></i>
-                Utilisateurs / Modification
+                Users / Modify
             </div>
             <div class="card-body">
 
@@ -27,16 +26,15 @@
 
                 if (isset($_GET['message'])) {
                     if ($_GET["message"] == "modifreussie") {
-                        echo '<p style="color:green;">La Modification a été effectué !</p>';
+                        echo '<p style="color:green;">The change has been made!</p>';
                     } else if ($_GET["message"] == "modifechoue") {
-                        echo '<p style="color:red;">La Modification n\'a pas été effectué !</p>';
+                        echo '<p style="color:red;">Modification has not been carried out!</p>';
                     } else if ($_GET["message"] == "modifmailexist") {
-                        echo '<p style="color:red;">Erreur : Mail déjà existant dans la Database !</p>';
+                        echo '<p style="color:red;">Error: Mail already in the Database!</p>';
                     } else if ($_GET["message"] == "modifadmin") {
-                        echo '<p style="color:red;">Erreur : Vous ne pouvez pas éditer votre propre rôle Admin !</p>';
+                        echo '<p style="color:red;">Error: You cannot edit your own Admin role!</p>';
                     }
                 }
-
                 //modifadmin
                 $serveur = "localhost";
                 $login = "root";
@@ -55,16 +53,19 @@
                     echo "<thead>";
                     echo "  <tr>
                                                 <td>
-                                                    <b>Prénom</b>
+                                                    <b>Firstname</b>
                                                 </td>
+                                                <td width ='30px'> </td>
                                                 <td>
-                                                    <b>Nom</b>
+                                                    <b>Name</b>
                                                 </td>
+                                                <td width ='30px'> </td>
                                                 <td>
                                                     <b>Mail</b>
                                                 </td>
+                                                <td width ='30px'> </td>
                                                 <td>
-                                                    <b>Rôle</b>
+                                                    <b>Role</b>
                                                 </td>
                                             </tr>";
                     echo "</thead>";
@@ -72,15 +73,18 @@
 
                     foreach ($conn->query($stmt) as $row) {
                         echo "<td>" . $row['prenom'] . "</td>";
+                        echo "<td width ='30px'> </td>";
                         echo "<td>" . $row['nom'] . "</td>";
+                        echo "<td width ='30px'> </td>";
                         echo "<td>" . $row['mail'] . "</td>";
+                        echo "<td width ='30px'> </td>";
                         echo "<td>";
                         if ($row['role'] == 'U') {
-                            echo "Utilisateur";
+                            echo "User";
                         } elseif ($row['role'] == 'A') {
                             echo "Admin";
                         } else {
-                            echo "Erreur";
+                            echo "ERROR";
                         }
                         echo "</td>";
 
@@ -93,21 +97,33 @@
             <form method='POST' action='user_modifiertotal.php?num=$idmodif'>
                 <input type='text' name='prenom' id='prenom'><br>
         </td>
+        
+        <td width ='30px'> </td>
+
         <td> 
-            <input type='text' name='nom' id='nom'><br>
+                <input type='text' name='nom' id='nom'><br>
         </td>
+        
+        <td width ='30px'> </td>
+ 
         <td> 
             <input type='email' name='mail' id='mail'><br>
         </td>
+
+        <td width ='30px'> </td>
+
         <td> 
             <select id='role' name='role'>
-                <option value='' selected>Choisir</option>
+                <option value='' selected>Choose</option>
                 <option value='A'>Admin</option>
-                <option value='U'>Utilisateur</option>
+                <option value='U'>User</option>
             </select>
         </td>
-        <td> 
-            <input type='submit' name='changer' value='Changer'> 
+
+        <td <td width ='30px'> </td>
+
+        <td > 
+            <input type='submit' name='changer' value='Change'> 
             </form>
         </td>
     </tr>";

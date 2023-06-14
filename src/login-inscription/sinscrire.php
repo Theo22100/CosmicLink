@@ -21,7 +21,7 @@ if (isset($_SESSION['login'])) {
 				<?php
 				if (isset($_GET['message'])) {
 					if ($_GET["message"] == "reussie") {
-						echo '<h2 style="color:green;">Inscription réussie</h2>';
+						echo '<h2 style="color:green;">Successful registration</h2>';
 						echo '<p> You\'ll be redirected to the login page in 5 seconds. Or <a href="./login.php">click here </a> to be redirected immediately. </h2>';
 						header('Refresh: 5; ./login.php');
 					} else if ($_GET["message"] == "echoue") {
@@ -41,7 +41,7 @@ if (isset($_SESSION['login'])) {
 				?>
 
 
-				<form method="POST" action="sinscrire2.php">
+				<form method="POST" action="sinscrire2.php" onsubmit="return verifierMotDePasse()">
 					<div class="register-top-grid">
 						<h3>Your informations</h3>
 
@@ -81,16 +81,16 @@ if (isset($_SESSION['login'])) {
 						<h3>To log in</h3>
 						<div>
 							<span>Password<label>*</label></span>
-							<input type="password" name="password" id="password" placeholder="eR8!z6$" required="required" maxlength="50">
+							<input type="password" name="password" id="password" placeholder="eR8!z6$a" required="required" maxlength="50">
 						</div>
 
 						<div>
 							<span>Confirm Password<label>*</label></span>
-							<input type="password" name="confirm_password" id="confirm_password" placeholder="eR8!z6$" required="required" maxlength="50">
+							<input type="password" name="confirm_password" id="confirm_password" placeholder="eR8!z6$a" required="required" maxlength="50">
 						</div>
 
 						<div class="register-but">
-							<input id="register" type="submit" name="envoyer" value="M'inscrire">
+							<input id="register" type="submit" name="envoyer" value="Sign up">
 
 						</div>
 
@@ -98,6 +98,30 @@ if (isset($_SESSION['login'])) {
 
 			</div>
 			</form>
+
+			<!-- JS pour faire un MDP sécurisé et que ça soit le même -->
+
+			<script>
+							function verifierMotDePasse() {
+								var password = document.getElementById("password").value;
+								var confirm_password = document.getElementById("confirm_password").value;
+
+								// Vérifier si le mot de passe est sécurisé
+								if (!/^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[^a-zA-Z0-9]).{8,}$/.test(password)) {
+									alert("The password must contain at least 8 characters, including at least one number, one lowercase letter, one uppercase letter and one special character.");
+									return false;
+								}
+
+								// Vérifier si les deux mots de passe correspondent
+								if (password !== confirm_password) {
+									alert("The passwords don't match.");
+									return false;
+								}
+
+								// Validation réussie, soumission du formulaire
+								return true;
+							}
+			</script>
 
 			<div class="clear"> </div>
 			<div class="register">

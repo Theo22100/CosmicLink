@@ -11,8 +11,9 @@ session_start();
         <meta name="description" content="" />
         <meta name="author" content="" />
         <title>CosmicLink Admin</title>
-        <link href="https://cdn.jsdelivr.net/npm/simple-datatables@latest/dist/style.css" rel="stylesheet" />
+        <link href="https://cdn.jsdelivr.net/npm/simple-datatables@latest/dist/css/style.css" rel="stylesheet" /> <!-- DataTables pour list user et admin -->
         <link href="css/styles.css" rel="stylesheet" />
+        <link rel="icon" type="image/x-icon" href="../../img/favicon.ico"> <!-- Icone -->
         <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/js/all.min.js" crossorigin="anonymous"></script>
     </head>
     <body class="sb-nav-fixed">
@@ -33,7 +34,8 @@ session_start();
                     <a class="nav-link dropdown-toggle" id="navbarDropdown" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false"><i class="fas fa-user fa-fw"></i></a>
                     <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
                         <li><a class="dropdown-item" href="moncompte.php">My Account</a></li>
-
+                        <li><hr class="dropdown-divider" /></li>
+                        <li><a class="dropdown-item" href="../home.php">Home CosmicLink</a></li>
                         <li><hr class="dropdown-divider" /></li>
                         <li><a class="dropdown-item" href="../compte/deconnexion.php">Log out</a></li>
                     </ul>

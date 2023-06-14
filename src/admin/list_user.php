@@ -1,6 +1,5 @@
 <?php
 include("inc/top.php");
-session_start();
 if (!isset($_SESSION['login']) || $_SESSION['role'] != "A") {
     header('Location: ../login-inscription/login.php');
 }
@@ -50,7 +49,7 @@ if (!isset($_SESSION['login']) || $_SESSION['role'] != "A") {
                     $requete1 =  "SELECT id,prenom,nom,password,mail,role FROM membre";
 
 
-                    echo "<table id='datatablesSimple'>";
+                    echo "<table class='table' id='simple'>";
                     echo "<thead>";
                     echo "  <tr>
                                                     <td>
@@ -68,10 +67,10 @@ if (!isset($_SESSION['login']) || $_SESSION['role'] != "A") {
                                                     <td>
                                                         <b>Role</b>
                                                     </td>
-                                                    <td>
+                                                    <td style='text-align: center;'>
                                                         <b>Modify</b>
                                                     </td>
-                                                    <td>
+                                                    <td style='text-align: center;'>
                                                         <b>Delete</b>
                                                     </td>
                                                 </tr>";

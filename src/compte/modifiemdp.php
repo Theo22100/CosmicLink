@@ -14,7 +14,6 @@ $password_db = "root";
 $dbname = "projet";
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
-    if ($_POST["password"]==$_POST["confirm_password"]){
         try {
             $conn = new PDO("mysql:host=$servername;dbname=$dbname", $username, $password_db);
             $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
@@ -40,8 +39,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             header("Location: compte.php?message=mdpechoue");
         }
         header("Location: compte.php?message=mdpreussie");
-    }else{
-        header("Location: compte.php?message=mdp");
     }
    
 

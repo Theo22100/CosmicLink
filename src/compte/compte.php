@@ -32,7 +32,6 @@ if (!isset($_SESSION['login'])) {
 					echo '<h2 style="color:red;">Password Error</h2>';
 				} else if ($_GET["message"] == "mdp") {
 					echo '<h2 style="color:red;">The passwords typed don\'t match !</h2>';
-
 				} else if ($_GET["message"] == "mailechoue") {
 					echo '<h2 style="color:red;">E-mail error !</h2>';
 				} else if ($_GET["message"] == "mail") {
@@ -103,11 +102,7 @@ if (!isset($_SESSION['login'])) {
 						</div>
 					</div>
 
-			<div class="clear"> </div>
-			<!-- Modifier mdp -->
-			<form class="Password" method="POST" action="modifiemdp.php onsubmit="return verifierMotDePasse()">
-				<div class="register-bottom-grid">
-					<h3>Change your Password</h3>
+					<!-- Modifier nom -->
 					<div>
 						<h3>Change your Last Name (Currently :
 							<?php
@@ -181,39 +176,6 @@ if (!isset($_SESSION['login'])) {
 							<input type="submit" name="envoyermdp" id="modifButton" value="Delete">
 						</div>
 
-				</div>
-			</form>
-			<!-- Ajout JS pour Mot de pass Sécurisé + Même MDP -->
-			<script>
-							function verifierMotDePasse() {
-								var password = document.getElementById("password").value;
-								var confirm_password = document.getElementById("confirm_password").value;
-
-								// Vérifier si le mot de passe est sécurisé
-								if (!/^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[^a-zA-Z0-9]).{8,}$/.test(password)) {
-									alert("The password must contain at least 8 characters, including at least one number, one lowercase letter, one uppercase letter and one special character.");
-									return false;
-								}
-
-								// Vérifier si les deux mots de passe correspondent
-								if (password !== confirm_password) {
-									alert("The passwords don't match.");
-									return false;
-								}
-
-								// Validation réussie, soumission du formulaire
-								return true;
-							}
-			</script>
-			<!-- Supprime compte -->
-			<form class="Delete" method="POST" action="deleteaccount.php"
-				onsubmit="return confirm('Êtes-vous sûr de vouloir supprimer votre compte ? Cette action est irréversible.')">
-				<div class="register-bottom-grid">
-					<h3>Delete your Account</h3>
-					<div>
-						<!-- <span>Mot de Passe actuel</span> -->
-						<input type="password" name="password" id="password" required="required" maxlength="50"
-							placeholder="Type your Password">
 					</div>
 				</form>
 			</div>

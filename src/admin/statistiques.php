@@ -67,7 +67,7 @@ https://cdn.jsdelivr.net/npm/chart.js@4.3.0/dist/chart.umd.min.js
           ?>
         <tr>
         <tr>
-          <td>NTotal number of stars :&nbsp;</td>
+          <td>Total number of stars :&nbsp;</td>
           <?php
           try {
             // Requête SQL

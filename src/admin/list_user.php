@@ -49,7 +49,7 @@ if (!isset($_SESSION['login']) || $_SESSION['role'] != "A") {
                     $requete1 =  "SELECT id,prenom,nom,password,mail,role FROM membre";
 
 
-                    echo "<table id='datatablesSimple'>";
+                    echo "<table class='table' id='simple'>";
                     echo "<thead>";
                     echo "  <tr>
                                                     <td>

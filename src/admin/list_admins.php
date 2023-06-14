@@ -41,7 +41,7 @@
                     $requete1 =  "SELECT id,nom,prenom,mail,role FROM membre WHERE role = 'A'";
 
 
-                    echo "<table id='datatablesSimple'>";
+                    echo "<table table class='table' id='simple'>";
                     echo "<thead>";
                     echo "  <tr>
                                                 <td>
@@ -57,7 +57,7 @@
                                                     <b>Mail</b>
                                                 </td>
                                                 <td>
-                                                    <b>Rple</b>
+                                                    <b>Role</b>
                                                 </td>
                                                 <td>
                                                     <b>Delete Admin</b>
@@ -71,7 +71,15 @@
                         echo "<td>" . $row['nom'] . "</td>";
                         echo "<td>" . $row['prenom'] . "</td>";
                         echo "<td>" . $row['mail'] . "</td>";
-                        echo "<td>" . $row['role'] . "</td>";
+                        echo "<td>";
+                        if ($row['role'] == 'U') {
+                            echo "ERROR : User";
+                        } elseif ($row['role'] == 'A') {
+                            echo "Admin";
+                        } else {
+                            echo "ERROR";
+                        }
+                        echo "</td>";
                         echo '<td style="text-align:center"><a href="admin_supprimer.php?num=' . $row['id'] . '"><img src="images/croix.png" alt="Efface"/></a></td></tr>';
                     }
                     echo "</tbody>";

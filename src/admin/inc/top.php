@@ -11,8 +11,9 @@ session_start();
         <meta name="description" content="" />
         <meta name="author" content="" />
         <title>CosmicLink Admin</title>
-        <link href="https://cdn.jsdelivr.net/npm/simple-datatables@latest/dist/css/style.css" rel="stylesheet" />
+        <link href="https://cdn.jsdelivr.net/npm/simple-datatables@latest/dist/css/style.css" rel="stylesheet" /> <!-- DataTables pour list user et admin -->
         <link href="css/styles.css" rel="stylesheet" />
+        <link rel="icon" type="image/x-icon" href="../../img/favicon.ico"> <!-- Icone -->
         <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/js/all.min.js" crossorigin="anonymous"></script>
     </head>
     <body class="sb-nav-fixed">

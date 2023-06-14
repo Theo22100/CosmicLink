@@ -34,7 +34,8 @@ session_start();
                     <a class="nav-link dropdown-toggle" id="navbarDropdown" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false"><i class="fas fa-user fa-fw"></i></a>
                     <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
                         <li><a class="dropdown-item" href="moncompte.php">My Account</a></li>
-
+                        <li><hr class="dropdown-divider" /></li>
+                        <li><a class="dropdown-item" href="../home.php">Home CosmicLink</a></li>
                         <li><hr class="dropdown-divider" /></li>
                         <li><a class="dropdown-item" href="../compte/deconnexion.php">Log out</a></li>
                     </ul>

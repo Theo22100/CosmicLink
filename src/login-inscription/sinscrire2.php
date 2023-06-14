@@ -79,7 +79,6 @@ try {
 ////////////////////////////////////////////////////////////////////
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
-    if ($_POST["password"] == $_POST["confirm_password"]) {
 
         if ($compteMail != 0) { #mail présent
             header("Location: sinscrire.php?message=mail");
@@ -189,9 +188,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                 header("Location: sinscrire.php?message=reussie");
             }
         }
-    } else {
-        header("Location: sinscrire.php?message=mdp");
-    }
 }
 
 

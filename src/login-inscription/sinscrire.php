@@ -41,7 +41,7 @@ if (isset($_SESSION['login'])) {
 				?>
 
 
-				<form method="POST" action="sinscrire2.php">
+				<form method="POST" action="sinscrire2.php" onsubmit="return verifierMotDePasse()">
 					<div class="register-top-grid">
 						<h3>Your informations</h3>
 
@@ -81,12 +81,12 @@ if (isset($_SESSION['login'])) {
 						<h3>To log in</h3>
 						<div>
 							<span>Password<label>*</label></span>
-							<input type="password" name="password" id="password" placeholder="eR8!z6$" required="required" maxlength="50">
+							<input type="password" name="password" id="password" placeholder="eR8!z6$a" required="required" maxlength="50">
 						</div>
 
 						<div>
 							<span>Confirm Password<label>*</label></span>
-							<input type="password" name="confirm_password" id="confirm_password" placeholder="eR8!z6$" required="required" maxlength="50">
+							<input type="password" name="confirm_password" id="confirm_password" placeholder="eR8!z6$a" required="required" maxlength="50">
 						</div>
 
 						<div class="register-but">
@@ -98,6 +98,30 @@ if (isset($_SESSION['login'])) {
 
 			</div>
 			</form>
+
+			<!-- JS pour faire un MDP sécurisé et que ça soit le même -->
+
+			<script>
+							function verifierMotDePasse() {
+								var password = document.getElementById("password").value;
+								var confirm_password = document.getElementById("confirm_password").value;
+
+								// Vérifier si le mot de passe est sécurisé
+								if (!/^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[^a-zA-Z0-9]).{8,}$/.test(password)) {
+									alert("Le mot de passe doit contenir au moins 8 caractères, dont au moins un chiffre, une lettre minuscule, une lettre majuscule et un caractère spécial.");
+									return false;
+								}
+
+								// Vérifier si les deux mots de passe correspondent
+								if (password !== confirm_password) {
+									alert("Les mots de passe ne correspondent pas.");
+									return false;
+								}
+
+								// Validation réussie, soumission du formulaire
+								return true;
+							}
+			</script>
 
 			<div class="clear"> </div>
 			<div class="register">

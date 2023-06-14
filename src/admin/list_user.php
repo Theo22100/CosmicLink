@@ -1,6 +1,5 @@
 <?php
 include("inc/top.php");
-session_start();
 if (!isset($_SESSION['login']) || $_SESSION['role'] != "A") {
     header('Location: ../login-inscription/login.php');
 }

@@ -26,8 +26,6 @@ if (!isset($_SESSION['login'])) {
 					echo '<h2 style="color:green;">Mot de passe changé</h2>';
 				} else if ($_GET["message"] == "mdpechoue") {
 					echo '<h2 style="color:red;">Erreur mot de passe</h2>';
-				} else if ($_GET["message"] == "mdp") {
-					echo '<h2 style="color:red;">Le mot de passe n\'est pas le même !</h2>';
 				} else if ($_GET["message"] == "mailechoue") {
 					echo '<h2 style="color:red;">Erreur mail !</h2>';
 				} else if ($_GET["message"] == "mail") {
@@ -145,7 +143,7 @@ if (!isset($_SESSION['login'])) {
 
 			<div class="clear"> </div>
 			<!-- Modifier mdp -->
-			<form class="Password" method="POST" action="modifiemdp.php">
+			<form class="Password" method="POST" action="modifiemdp.php onsubmit="return verifierMotDePasse()">
 				<div class="register-bottom-grid">
 					<h3>Change your Password</h3>
 					<div>
@@ -168,6 +166,28 @@ if (!isset($_SESSION['login'])) {
 
 				</div>
 			</form>
+			<!-- Ajout JS pour Mot de pass Sécurisé + Même MDP -->
+			<script>
+							function verifierMotDePasse() {
+								var password = document.getElementById("password").value;
+								var confirm_password = document.getElementById("confirm_password").value;
+
+								// Vérifier si le mot de passe est sécurisé
+								if (!/^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[^a-zA-Z0-9]).{8,}$/.test(password)) {
+									alert("The password must contain at least 8 characters, including at least one number, one lowercase letter, one uppercase letter and one special character.");
+									return false;
+								}
+
+								// Vérifier si les deux mots de passe correspondent
+								if (password !== confirm_password) {
+									alert("The passwords don't match.");
+									return false;
+								}
+
+								// Validation réussie, soumission du formulaire
+								return true;
+							}
+			</script>
 			<!-- Supprime compte -->
 			<form class="Delete" method="POST" action="deleteaccount.php"
 				onsubmit="return confirm('Êtes-vous sûr de vouloir supprimer votre compte ? Cette action est irréversible.')">

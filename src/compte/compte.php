@@ -144,6 +144,10 @@ if (!isset($_SESSION['login'])) {
 						<h3>Change your Password</h3>
 						<div>
 							<!-- <span>Password</span> -->
+							<input type="password" name="oldpassword" id="oldpassword" required="required" maxlength="50" placeholder="Password actual">
+						</div>
+						<div>
+							<!-- <span>Password</span> -->
 							<input type="password" name="password" id="password" required="required" maxlength="50" placeholder="Password">
 						</div>
 

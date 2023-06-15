@@ -54,7 +54,8 @@ Aucune
 Le projet vient d'une volonté de permettre aux utilisateurs d'avoir un endroit où regrouper l'ensemble des éléments qui les définissent. Les réseaux sociaux actuels ne permettent pas facilement de trouver des personnes ayant de nombreux points communs. 
 De nombreux réseaux se servent également d'algorithmes basés sur l'activité et autres informations (pas donnés directement par l'utilisateur) pour "forcer" certains contenus plus que d'autres. 
 Sur notre site, les liens entre utilisateurs sont créés seulement par rapport aux noms d'étoiles en commun.
-Le site a également une visée esthétique, qui permet aux utilisateurs de se voir comme un "univers".
+Le site a également une visée esthétique, qui permet aux utilisateurs de se représenter comme un "univers".
 
 
 ## Screencast : 
+La vidéo démontrant les principales fonctionnalités du site sont à retrouver sur [ce lien](https://gitlab.istic.univ-rennes1.fr/jcooper/cosmiclink/-/blob/newMain/screencast.mp4) (ou dans la racine du projet, sous le nom de screencast.mp4)

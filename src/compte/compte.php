@@ -148,12 +148,12 @@ if (!isset($_SESSION['login'])) {
 						</div>
 						<div>
 							<!-- <span>Password</span> -->
-							<input type="password" name="password" id="password" required="required" maxlength="50" placeholder="Password">
+							<input type="password" name="password" id="password" required="required" maxlength="50" placeholder="New Password">
 						</div>
 
 						<div>
 							<!-- <span>Retapez votre Password</span> -->
-							<input type="password" name="confirm_password" id="confirm_password" required="required" maxlength="50" placeholder="Confirm Password">
+							<input type="password" name="confirm_password" id="confirm_password" required="required" maxlength="50" placeholder="Confirm New Password">
 						</div>
 
 						<div class="register-but">

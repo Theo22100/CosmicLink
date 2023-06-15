@@ -19,14 +19,21 @@ $dbname = "projet";
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     //Connexion BDD
-    $conn = new PDO("mysql:host=$servername;dbname=$dbname", $username, $password_db);
-    $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+    try{
+        $conn = new PDO("mysql:host=$servername;dbname=$dbname", $username, $password_db);
+        $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+    }catch (PDOException $e) {
+        echo 'Echec Connexion BDD : ' . $e->getMessage();
+    }
 
     // Voir si le MDP donné est le même que celui inscrit dans oldpassword
-    $sql = $conn->prepare("SELECT password FROM membre WHERE id = :id");
-    $sql->execute(array(':id' => $id));
-    $result = $sql->fetch(PDO::FETCH_ASSOC);
-
+    try{
+        $sql = $conn->prepare("SELECT password FROM membre WHERE id = :id");
+        $sql->execute(array(':id' => $id));
+        $result = $sql->fetch(PDO::FETCH_ASSOC);
+    }catch (PDOException $e) {
+            echo 'Echec Récupération Password : ' . $e->getMessage();
+    }
 
     if (password_verify($oldpassword, $result['password'])) {
 

@@ -86,7 +86,7 @@ function addStar($handler, $user_id)
             $starID = $handler->lastInsertId();
             $arrayResponse['starID'] = $starID;
 
-            $directoryPath = '../../img/profil/' . $user_id . "/" . $starID;
+            $directoryPath = '../../../img/profil/' . $user_id . "/" . $starID;
             $jsPath = '../img/profil/' . $user_id . "/" . $starID;
             if(!file_exists(($directoryPath))){
                 mkdir($directoryPath, 0777, true);
@@ -162,7 +162,7 @@ function editStar($handler, $user_id){
 
             //creating a folder for the star to input images in
 
-            $directoryPath = '../../img/profil/' . $user_id . "/" . $starID;
+            $directoryPath = '../../../img/profil/' . $user_id . "/" . $starID;
             $jsPath = '../img/profil/' . $user_id . "/" . $starID;
 
             if(!file_exists(($directoryPath))){

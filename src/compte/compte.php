@@ -49,9 +49,7 @@ if (!isset($_SESSION['login'])) {
 				}
 			}
 
-			if (isset($_SESSION['role']) && $_SESSION['role'] == "A") {
-				echo '<a href="../admin/index.php">Panel admin</a>';
-			}
+
 
 			?>
 		</div>
@@ -146,12 +144,16 @@ if (!isset($_SESSION['login'])) {
 						<h3>Change your Password</h3>
 						<div>
 							<!-- <span>Password</span> -->
-							<input type="password" name="password" id="password" required="required" maxlength="50" placeholder="Password">
+							<input type="password" name="oldpassword" id="oldpassword" required="required" maxlength="50" placeholder="Actual Password">
+						</div>
+						<div>
+							<!-- <span>Password</span> -->
+							<input type="password" name="password" id="password" required="required" maxlength="50" placeholder="New Password">
 						</div>
 
 						<div>
 							<!-- <span>Retapez votre Password</span> -->
-							<input type="password" name="confirm_password" id="confirm_password" required="required" maxlength="50" placeholder="Confirm Password">
+							<input type="password" name="confirm_password" id="confirm_password" required="required" maxlength="50" placeholder="Confirm New Password">
 						</div>
 
 						<div class="register-but">
@@ -164,27 +166,27 @@ if (!isset($_SESSION['login'])) {
 				</form>
 				<!-- JS pour faire un MDP sécurisé et que ça soit le même -->
 
-			<script>
-							function verifierMotDePasse() {
-								var password = document.getElementById("password").value;
-								var confirm_password = document.getElementById("confirm_password").value;
+				<script>
+					function verifierMotDePasse() {
+						var password = document.getElementById("password").value;
+						var confirm_password = document.getElementById("confirm_password").value;
 
-								// Vérifier si le mot de passe est sécurisé
-								if (!/^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[^a-zA-Z0-9]).{8,}$/.test(password)) {
-									alert("The password must contain at least 8 characters, including at least one number, one lowercase letter, one uppercase letter and one special character.");
-									return false;
-								}
+						// Vérifier si le mot de passe est sécurisé
+						if (!/^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[^a-zA-Z0-9]).{8,}$/.test(password)) {
+							alert("The password must contain at least 8 characters, including at least one number, one lowercase letter, one uppercase letter and one special character.");
+							return false;
+						}
 
-								// Vérifier si les deux mots de passe correspondent
-								if (password !== confirm_password) {
-									alert("The passwords don't match.");
-									return false;
-								}
+						// Vérifier si les deux mots de passe correspondent
+						if (password !== confirm_password) {
+							alert("The passwords don't match.");
+							return false;
+						}
 
-								// Validation réussie, soumission du formulaire
-								return true;
-							}
-			</script>
+						// Validation réussie, soumission du formulaire
+						return true;
+					}
+				</script>
 
 
 				<!-- Supprime compte -->
@@ -207,10 +209,22 @@ if (!isset($_SESSION['login'])) {
 
 		<hr class="rounded">
 		<div class="return">
+			<?php
+			if (isset($_SESSION['role']) && $_SESSION['role'] == "A") {
+			?>
+				<button onclick="location.href='../admin/index.php'" type="button">
+					Admin Panel</button>
+
+
+			<?php
+			}
+			?>
 			<button onclick="location.href='../home.php'" type="button">
 				Back to universe</button>
 
+
 		</div>
+
 
 
 	</div>

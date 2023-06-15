@@ -2,10 +2,10 @@
 -- version 5.1.2
 -- https://www.phpmyadmin.net/
 --
--- Hôte : localhost:3306
--- Généré le : jeu. 08 juin 2023 à 14:23
--- Version du serveur : 5.7.24
--- Version de PHP : 8.0.1
+-- Host: localhost:3306
+-- Generation Time: Jun 15, 2023 at 09:00 AM
+-- Server version: 5.7.24
+-- PHP Version: 8.0.1
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -18,13 +18,13 @@ SET time_zone = "+00:00";
 /*!40101 SET NAMES utf8mb4 */;
 
 --
--- Base de données : `projet`
+-- Database: `projet`
 --
 
 -- --------------------------------------------------------
 
 --
--- Structure de la table `ami`
+-- Table structure for table `ami`
 --
 
 CREATE TABLE `ami` (
@@ -35,17 +35,18 @@ CREATE TABLE `ami` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
--- Déchargement des données de la table `ami`
+-- Dumping data for table `ami`
 --
 
 INSERT INTO `ami` (`id_amitie`, `sender`, `receiver`, `statut`) VALUES
-(1, 74, 89, 'A'),
-(2, 74, 83, 'A');
+(1, 3, 2, 'A'),
+(2, 1, 2, 'A'),
+(3, 1, 4, 'E');
 
 -- --------------------------------------------------------
 
 --
--- Structure de la table `chat`
+-- Table structure for table `chat`
 --
 
 CREATE TABLE `chat` (
@@ -58,24 +59,22 @@ CREATE TABLE `chat` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
--- Déchargement des données de la table `chat`
+-- Dumping data for table `chat`
 --
 
 INSERT INTO `chat` (`id_chat`, `sender`, `receiver`, `content`, `status`, `timesent`) VALUES
-(1, 89, 74, 'Hey admin ! Got a problem!', 1, '2023-06-01 13:36:47'),
-(2, 74, 83, 'Hey test account ! How are you ?', 1, '2023-06-01 13:37:29'),
-(3, 74, 89, 'Hey b ! What\'s your problem ?', 1, '2023-06-01 13:38:08'),
-(4, 74, 83, '1', 1, '2023-06-01 15:56:14'),
-(5, 74, 83, '1', 1, '2023-06-01 15:56:29'),
-(6, 74, 83, 'how are  you', 1, '2023-06-01 15:57:08'),
-(7, 74, 89, 'Yo', 1, '2023-06-01 17:50:02'),
-(8, 74, 83, 'You don\'t wanna talk ?', 1, '2023-06-01 17:54:03');
+(1, 1, 2, 'Hi billy ! I feel like we have a lot in common!', 1, '2023-06-14 15:48:39'),
+(2, 1, 2, 'For example, I adore amphibia too ! Did you watch all of it already?', 1, '2023-06-14 15:51:03'),
+(3, 2, 1, 'Hi ! I\'m almost done with the whole show, what about you ?', 0, '2023-06-14 15:52:14'),
+(4, 2, 1, 'Have you seen season 3 ?', 0, '2023-06-14 15:54:40'),
+(5, 2, 1, 'it\'s getting quite crazy', 0, '2023-06-14 15:56:00'),
+(6, 2, 3, 'hi ! So you like pool ?', 0, '2023-06-14 16:12:39');
 
 -- --------------------------------------------------------
 
 --
--- Doublure de structure pour la vue `commonstars`
--- (Voir ci-dessous la vue réelle)
+-- Stand-in structure for view `commonstars`
+-- (See below for the actual view)
 --
 CREATE TABLE `commonstars` (
 `pseudo_1` varchar(30)
@@ -100,7 +99,7 @@ CREATE TABLE `commonstars` (
 -- --------------------------------------------------------
 
 --
--- Structure de la table `etoile`
+-- Table structure for table `etoile`
 --
 
 CREATE TABLE `etoile` (
@@ -115,56 +114,40 @@ CREATE TABLE `etoile` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
--- Déchargement des données de la table `etoile`
+-- Dumping data for table `etoile`
 --
 
 INSERT INTO `etoile` (`id_etoile`, `nom`, `descr`, `cox`, `coy`, `taille`, `public`, `id_galaxie`) VALUES
-(10, 'test2', 'test', 399, 146, 1, 0, 2),
-(13, 'test3', 'test', 403, 239, 1, 0, 2),
-(23, 'friends', '', 247, 180, 3, 0, 2),
-(26, 'yo', '', 331, 187, 1, 0, 2),
-(28, 'frends', '', 711, 82, 3, 0, 2),
-(33, 'test', 'test', 657, 223, 1, 0, 2),
-(54, 'fxfbgfdg', '', 1226, 162, 3, 0, 2),
-(77, 'yoooooooooo', '', 607, 67, 3, 0, 2),
-(102, 'yolo', '', 490, 119, 3, 0, 2),
-(200, 'qfsvsdfsd', '', 756, 562, 3, 0, 2),
-(397, 'bjr', '', 315, 620, 3, 0, 2),
-(414, 'trolololololololo', '', 378, 96, 3, 0, 2),
-(416, 'testbind', 'testbind', 702, 160, 3, 0, 2),
-(417, 'fbgfgfg', 'fbgfgfg', 906, 169, 3, 0, 2),
-(418, 'hghfhf', 'hghfhf', -174, 333, 3, 0, 2),
-(419, 'eferfre', 'eferfre', 389, 106, 3, 0, 2),
-(420, 'gdsgdrg', 'gdsgdrg', 870, 109, 3, 0, 2),
-(421, 'fzefzf', '', -35, 402, 3, 0, 2),
-(422, 'trolo', '', 1157, 227, 3, 0, 1),
-(427, 'fsefezfer', '', 150, 245, 3, 0, 1),
-(428, 'tfhgjy', '', 1400, 170, 3, 0, 1),
-(429, 'recherchegalax', '', 1135, 363, 3, 0, 1),
-(430, 't', '', 119, 370, 3, 0, 55),
-(432, 'qsfsedfes', '', 812, 376, 3, 0, 1),
-(437, 'Hey', 'fef', 744, 164, 3, 0, 55),
-(438, 'sgdr', '', 696, 323, 3, 0, 55),
-(439, 'blo', '', 24, 360, 3, 0, 55),
-(440, 'blegh', '', 261, 326, 3, 0, 55),
-(451, 'b', '', 600, 205, 3, 1, 58),
-(452, 'bbb', '', 1214, 464, 3, 0, 60),
-(453, 'blblb', '', 795, 406, 3, 0, 61),
-(454, 'dogs', 'all of them are good bois', 622, 415, 2, 1, 2),
-(455, 'dogs', 'fluffy', 61, 355, 1, 0, 56),
-(456, 'honey', 'it\'s sweet. and bees made it', 293, 764, 3, 0, 63),
-(457, 'honey', '', 514, 144, 3, 0, 1),
-(458, 'nutella', '', 1270, 293, 3, 0, 58),
-(459, 'nutella', '', 85, 354, 3, 0, 63),
-(460, 'cats', '', 976, 261, 3, 0, 58),
-(461, 'cats', '', 135, 607, 3, 0, 56),
-(462, 'cha', '', 38, 566, 5, 0, 60),
-(463, 'dferf', '', 1106, 261, 3, 0, 64);
+(1, 'Théo', 'We both love Miraculous Ladybug !', 1058, 235, 2, 0, 2),
+(2, 'Jules', 'We both love art, cartoons and pets!', 946, 192, 4, 1, 2),
+(3, 'Yann', 'Dad of the group ! ', 1083, 252, 4, 1, 2),
+(4, 'Gravity Falls', 'It\'s just beautiful animation with a lot of humor and hidden stuff ! ', 453, 169, 5, 1, 3),
+(5, 'Amphibia', 'I JUST LOVE EVERYTHING', 559, 143, 4, 1, 3),
+(6, 'Lucifer', 'The actor is kind of cute...', 376, 213, 2, 0, 3),
+(7, 'crochet', 'It\'s kind of a grandma thing but it\'s really relaxing!', 510, 217, 3, 0, 4),
+(8, 'drawing', 'Drawing and painting is my favorite thing ever to do. Been doing it for over 10 years.', 506, 267, 5, 1, 4),
+(9, 'amphibia', '', 1076, 396, 5, 1, 6),
+(10, 'bluey', 'It\'s not just for children. They have deep themes that even adults can enjoy.', 1060, 300, 3, 0, 6),
+(11, 'Betty', 'Cutest niece you could wish for !', 533, 371, 5, 0, 5),
+(12, 'chocolate raisins', 'they helped save my sanity.\nwhy do some taste like soap though..?', 1002, 165, 4, 1, 8),
+(13, 'drawing', '', 592, 165, 4, 1, 5),
+(14, 'running', '', 381, 224, 3, 1, 5),
+(15, 'travel', 'love discovering new cultures and meeting people', 254, 220, 5, 1, 9),
+(16, 'pool', 'the game not the water thing', 453, 273, 3, 1, 9),
+(17, 'pool', 'I like to play with my friends', 450, 260, 5, 1, 11),
+(18, 'supernatural', 'Sam is the best Winchester. Change my mind.', 1195, 210, 3, 0, 12),
+(19, 'Lucifer', 'Grr Chloe', 1000, 132, 3, 0, 12),
+(20, 'miraculous ladybug', 'miraculous ! porte-bonheur !', 586, 294, 3, 1, 14),
+(21, 'League of Legends', '', 128, 424, 5, 0, 15),
+(22, 'minecraft', 'Played a lot with Jules at this point', 354, 487, 2, 1, 15),
+(23, 'minecraft', 'With Theo at some point', 555, 229, 1, 1, 9),
+(24, 'miraculous ladybug', 'Still shook that (spoiler!) Adrien and Felix are sentimonsters...', 491, 74, 4, 0, 3),
+(29, 'friends', 'with the sisters', 147, 159, 4, 1, 3);
 
 -- --------------------------------------------------------
 
 --
--- Structure de la table `galaxie`
+-- Table structure for table `galaxie`
 --
 
 CREATE TABLE `galaxie` (
@@ -178,27 +161,31 @@ CREATE TABLE `galaxie` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
--- Déchargement des données de la table `galaxie`
+-- Dumping data for table `galaxie`
 --
 
 INSERT INTO `galaxie` (`id_galaxie`, `galaxie_nom`, `descr`, `cox`, `coy`, `public`, `id_univers`) VALUES
-(1, 'testgalaxie', '', 287, 153, 0, 1),
-(2, 'test2', '', 1002, 153, 0, 1),
-(55, 'undefined', '', 0, 0, 1, 1),
-(56, 'undefined', '', 0, 0, 1, 4),
-(57, 'test', '', 4, 4, 1, 4),
-(58, 'undefined', '', 0, 0, 1, 7),
-(59, 't', '', 268, 343, 1, 7),
-(60, 'famille', '', 199, 54, 0, 7),
-(61, 'blbu', '', 852, 133, 0, 7),
-(62, 'amis', '', 1205, 356, 0, 1),
-(63, 'food', 'Just love eating okay', 202, 559, 0, 4),
-(64, 'undefined', '', 0, 0, 1, 8);
+(1, 'undefined', '', 0, 0, 1, 1),
+(2, 'friends', 'People who make my life more fun !', 1096, 8, 0, 1),
+(3, 'shows', 'Shows I really love! ', 296, 32, 1, 1),
+(4, 'hobbies', 'All things that bring me joy', 549, 150, 1, 1),
+(5, 'undefined', '', 0, 0, 1, 2),
+(6, 'cartoons', 'I just love them okay', 976, 277, 1, 2),
+(7, 'family', '', 477, 399, 0, 2),
+(8, 'food', '', 1012, 175, 1, 2),
+(9, 'hobbies', '', 420, 116, 1, 2),
+(10, 'undefined', '', 0, 0, 1, 3),
+(11, 'activities', '', 885, 154, 1, 3),
+(12, 'series', '', 1020, 91, 1, 3),
+(13, 'undefined', '', 0, 0, 1, 4),
+(14, 'cartoons', '', 436, 70, 1, 4),
+(15, 'games', 'on Pc mostly, sometimes switch\n', -35, 370, 1, 4),
+(18, 'undefined', '', 0, 0, 1, 6);
 
 -- --------------------------------------------------------
 
 --
--- Structure de la table `membre`
+-- Table structure for table `membre`
 --
 
 CREATE TABLE `membre` (
@@ -216,20 +203,21 @@ CREATE TABLE `membre` (
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
--- Déchargement des données de la table `membre`
+-- Dumping data for table `membre`
 --
 
 INSERT INTO `membre` (`id`, `pseudo`, `prenom`, `nom`, `datenaissance`, `dateinscription`, `password`, `mail`, `image`, `role`, `login`) VALUES
-(74, 'admin', 'admin', 'admin', '2006-06-06', '2023-05-15', '$2y$10$97Al5ULlPLtgxiJZR4cqX.O7NKe/DaB5ltzusowu6AovrspIbFiwq', 'admin@admin', NULL, 'A', 0),
-(83, 'test', 'test', 'test', '2001-01-01', '2023-05-19', '$2y$10$oKZFJhIB4AfLTWpf6EukYuzrtB5BzsqV8G7Pm8f/KzsxQaMN4fwYu', 'test@test', 'IMG_20230124_110131.jpg', 'U', 0),
-(89, 'b', 'b', 'b', '0001-01-01', '2023-05-30', '$2y$10$8CqVkX9UZesfAZ3TSAME2.YD6w4Y4H8y60lABCjkPtnEDnEYwrQ5S', 'b', NULL, 'U', 0),
-(90, 'test2', 'test2', 'test2', '0001-01-01', '2023-06-08', '$2y$10$/K.hh3OV03vDX5HiwrLacex6ASY.n5Ee.PY1WKPFvsgJrCvYRraY.', 'test2', NULL, 'U', 0);
+(1, 'lmaier', 'Leonie', 'Maier', '1999-10-30', '2023-06-14', '$2y$10$/6sIVpRCgL3dwe1j.tjm2eJv/IcbCpr.miWQb8j12J.9OE1v/RwXi', 'leonie.maier@etudiant.univ-rennes1.fr', NULL, 'U', 0),
+(2, 'billy', 'Jules', 'C', '2001-11-14', '2023-06-14', '$2y$10$my.rYnhIVpCY.6fZWr/.I./1n9UT8SNG9m50NBlxRBflkeOxPH8EO', 'jules.cooper@etudiant.univ-rennes1.fr', NULL, 'U', 0),
+(3, 'ybazin', 'Yann', 'Bazin', '2002-01-18', '2023-06-14', '$2y$10$OTzeyTGC/aBDUORIa7/Q3Od48OtKmbimOlrXKqcovdocZaFL/0lpO', 'yann.bazin@etudiant.univ-rennes1.fr', NULL, 'U', 0),
+(4, 'tguerin', 'Theo', 'G', '2001-02-09', '2023-06-14', '$2y$10$44jMNNv5RReJ.McRwUkkU.2jSpisVSFg0qqELb0IdYVNoA20aKHfe', 'theo.guerin@etudiant.univ-rennes1.fr', NULL, 'U', 0),
+(6, 'admin', 'Admin', 'Istrator', '2001-01-01', '2023-06-14', '$2y$10$Kmu0erig16DJlX6KG3FJNOUVgkdYlVBw/376ZHLDASDmoSpuIgqOi', 'admin@cosmiclink.com', NULL, 'A', 0);
 
 -- --------------------------------------------------------
 
 --
--- Doublure de structure pour la vue `startomember`
--- (Voir ci-dessous la vue réelle)
+-- Stand-in structure for view `startomember`
+-- (See below for the actual view)
 --
 CREATE TABLE `startomember` (
 `id_etoile` int(11)
@@ -247,7 +235,7 @@ CREATE TABLE `startomember` (
 -- --------------------------------------------------------
 
 --
--- Structure de la table `univers`
+-- Table structure for table `univers`
 --
 
 CREATE TABLE `univers` (
@@ -257,19 +245,20 @@ CREATE TABLE `univers` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
--- Déchargement des données de la table `univers`
+-- Dumping data for table `univers`
 --
 
 INSERT INTO `univers` (`id_univers`, `id_membre`, `public`) VALUES
-(1, 83, 0),
-(4, 74, 1),
-(7, 89, 1),
-(8, 90, 0);
+(1, 1, 1),
+(2, 2, 1),
+(3, 3, 1),
+(4, 4, 1),
+(6, 6, 1);
 
 -- --------------------------------------------------------
 
 --
--- Structure de la vue `commonstars`
+-- Structure for view `commonstars`
 --
 DROP TABLE IF EXISTS `commonstars`;
 
@@ -278,18 +267,18 @@ CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW 
 -- --------------------------------------------------------
 
 --
--- Structure de la vue `startomember`
+-- Structure for view `startomember`
 --
 DROP TABLE IF EXISTS `startomember`;
 
 CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `startomember`  AS SELECT `etoile`.`id_etoile` AS `id_etoile`, `etoile`.`nom` AS `nom_etoile`, `etoile`.`public` AS `public_etoile`, `etoile`.`id_galaxie` AS `id_galaxie`, `galaxie`.`galaxie_nom` AS `galaxie_nom`, `galaxie`.`public` AS `public_galaxie`, `galaxie`.`id_univers` AS `id_univers`, `univers`.`public` AS `public_univers`, `univers`.`id_membre` AS `id_membre`, `membre`.`pseudo` AS `pseudo` FROM (`etoile` join (`galaxie` join (`univers` join `membre`))) WHERE ((`etoile`.`id_galaxie` = `galaxie`.`id_galaxie`) AND (`galaxie`.`id_univers` = `univers`.`id_univers`) AND (`univers`.`id_membre` = `membre`.`id`))  ;
 
 --
--- Index pour les tables déchargées
+-- Indexes for dumped tables
 --
 
 --
--- Index pour la table `ami`
+-- Indexes for table `ami`
 --
 ALTER TABLE `ami`
   ADD PRIMARY KEY (`id_amitie`),
@@ -298,7 +287,7 @@ ALTER TABLE `ami`
   ADD KEY `receiver` (`receiver`);
 
 --
--- Index pour la table `chat`
+-- Indexes for table `chat`
 --
 ALTER TABLE `chat`
   ADD PRIMARY KEY (`id_chat`),
@@ -306,14 +295,14 @@ ALTER TABLE `chat`
   ADD KEY `receiver` (`receiver`);
 
 --
--- Index pour la table `etoile`
+-- Indexes for table `etoile`
 --
 ALTER TABLE `etoile`
   ADD PRIMARY KEY (`id_etoile`),
   ADD KEY `id_galaxie` (`id_galaxie`);
 
 --
--- Index pour la table `galaxie`
+-- Indexes for table `galaxie`
 --
 ALTER TABLE `galaxie`
   ADD PRIMARY KEY (`id_galaxie`),
@@ -321,91 +310,91 @@ ALTER TABLE `galaxie`
   ADD KEY `univers_galaxie` (`id_univers`);
 
 --
--- Index pour la table `membre`
+-- Indexes for table `membre`
 --
 ALTER TABLE `membre`
   ADD PRIMARY KEY (`id`),
   ADD UNIQUE KEY `pseudo` (`pseudo`);
 
 --
--- Index pour la table `univers`
+-- Indexes for table `univers`
 --
 ALTER TABLE `univers`
   ADD PRIMARY KEY (`id_univers`),
   ADD UNIQUE KEY `univers_membre` (`id_membre`);
 
 --
--- AUTO_INCREMENT pour les tables déchargées
+-- AUTO_INCREMENT for dumped tables
 --
 
 --
--- AUTO_INCREMENT pour la table `ami`
+-- AUTO_INCREMENT for table `ami`
 --
 ALTER TABLE `ami`
-  MODIFY `id_amitie` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id_amitie` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
--- AUTO_INCREMENT pour la table `chat`
+-- AUTO_INCREMENT for table `chat`
 --
 ALTER TABLE `chat`
-  MODIFY `id_chat` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
+  MODIFY `id_chat` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 
 --
--- AUTO_INCREMENT pour la table `etoile`
+-- AUTO_INCREMENT for table `etoile`
 --
 ALTER TABLE `etoile`
-  MODIFY `id_etoile` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=464;
+  MODIFY `id_etoile` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=33;
 
 --
--- AUTO_INCREMENT pour la table `galaxie`
+-- AUTO_INCREMENT for table `galaxie`
 --
 ALTER TABLE `galaxie`
-  MODIFY `id_galaxie` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=65;
+  MODIFY `id_galaxie` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=22;
 
 --
--- AUTO_INCREMENT pour la table `membre`
+-- AUTO_INCREMENT for table `membre`
 --
 ALTER TABLE `membre`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=91;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
 
 --
--- AUTO_INCREMENT pour la table `univers`
+-- AUTO_INCREMENT for table `univers`
 --
 ALTER TABLE `univers`
-  MODIFY `id_univers` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
+  MODIFY `id_univers` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
 
 --
--- Contraintes pour les tables déchargées
+-- Constraints for dumped tables
 --
 
 --
--- Contraintes pour la table `ami`
+-- Constraints for table `ami`
 --
 ALTER TABLE `ami`
   ADD CONSTRAINT `ami_ibfk_1` FOREIGN KEY (`sender`) REFERENCES `membre` (`id`),
   ADD CONSTRAINT `ami_ibfk_2` FOREIGN KEY (`receiver`) REFERENCES `membre` (`id`);
 
 --
--- Contraintes pour la table `chat`
+-- Constraints for table `chat`
 --
 ALTER TABLE `chat`
   ADD CONSTRAINT `receiver_id` FOREIGN KEY (`receiver`) REFERENCES `membre` (`id`),
   ADD CONSTRAINT `sender_id` FOREIGN KEY (`sender`) REFERENCES `membre` (`id`);
 
 --
--- Contraintes pour la table `etoile`
+-- Constraints for table `etoile`
 --
 ALTER TABLE `etoile`
   ADD CONSTRAINT `galaxie` FOREIGN KEY (`id_galaxie`) REFERENCES `galaxie` (`id_galaxie`);
 
 --
--- Contraintes pour la table `galaxie`
+-- Constraints for table `galaxie`
 --
 ALTER TABLE `galaxie`
   ADD CONSTRAINT `galaxie_ibfk_1` FOREIGN KEY (`id_univers`) REFERENCES `univers` (`id_univers`);
 
 --
--- Contraintes pour la table `univers`
+-- Constraints for table `univers`
 --
 ALTER TABLE `univers`
   ADD CONSTRAINT `univers_ibfk_1` FOREIGN KEY (`id_membre`) REFERENCES `membre` (`id`);

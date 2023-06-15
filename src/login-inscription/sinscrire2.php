@@ -127,11 +127,12 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                     //ID pour la réutiliser
                     $membre = $connexion->lastInsertId();
 
-
+                    $public = 1;
                     // Insérer l'ID de univers dans une autre table "univers" avec la clé étrangère du membre
-                    $requete3 = $connexion2->prepare("INSERT INTO univers (id_membre) VALUES (:id)");
+                    $requete3 = $connexion2->prepare("INSERT INTO univers (id_membre,public) VALUES (:id,:public)");
                     //Bind
                     $requete3->bindParam(':id', $membre);
+                    $requete3->bindParam(':public', $public);
 
 
                     //Recupère l'id membre et créer aussi le répertoire pour les photos 

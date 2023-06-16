@@ -28,6 +28,7 @@ Si l'utilisateur le souhaite, il peut se connecter à d'autres personnes qui par
 
 ### Pour les utilisateurs
 - créer des constellations (liens) entre étoiles
+- pouvoir bloquer des utilisateurs
 
 
 ### Pour les admins
